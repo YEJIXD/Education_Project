@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD MAPPER 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="org.zerock.mapper.UserMapper">
+		<select id="getTime" resultType="String">
+			SELECT NOW()
+		</select>
+		<insert id="insertUser">
+			INSERT INTO USER(USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_ADDR, USER_PHONE, USER_ROLE, USER_ENABLE, USER_REGDATE, USER_UPD_DATE)
+			VALUES(#{user_id}, #{user_pw}, #{user_name}, #{user_email},#{user_addr}, #{user_phone},#{user_role},#{user_enable} ,#{user_regdate}, #{user_upd_date})
+		</insert>
+	</mapper>

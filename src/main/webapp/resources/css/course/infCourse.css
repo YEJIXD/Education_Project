@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+/*greeting, teacher, goal CSS*/
+h3{ 
+	padding-left:5%; 
+	font-weight:bold;
+}
+
+li{ list-style : none;}
+
+#top{
+	margin-top:50px;
+	padding:20px;
+}
+
+#top>img{
+	width:200px;
+	height:200px;
+}
+
+li>img{
+	display:block;
+	width:280px;
+	height:280px;
+	padding:10%;
+}
+	
+#goalDes{
+	text-align:center;
+	padding-left:0;
+	font-size:13pt;
+	font-family:'Jeju Gothic', sans-serif;
+	text-align:center;
+}
+
+#goalDes>img{
+	width:200px;
+	height:200px;
+}
+	
+th{ padding:20%; }
+	
+table{
+	width:55%;
+	height:100px;
+	border-spacing:10px;
+	border-collapse:seperate;
+	table-layout: fixed;
+	text-align:left;
+}
+	
+#content{
+	height:530px;
+	padding:80px;
+	padding-left:60px;
+	padding-bottom:5%;
+	margin:0px 160px 0px 160px;
+}
+	
+#middle{
+	margin:50px 0% 50px 8%;
+	padding-top:3%;
+	padding-left:20%;
+}
+
+#greeting{ padding-bottom:5%; }
+
+#intro{ width:80%; }
+
+td>img{
+	width:110px;
+	height:110px;
+}
+
+#goal{
+	width:100%;
+}
+	
+
+	
+

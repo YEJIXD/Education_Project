@@ -1,0 +1,142 @@
+@charset "UTF-8";
+
+/*edu_Application 내 page CSS*/
+h3, h4{ padding-left:5%; }
+
+.subBtn{
+	width:160px; 
+	height:40px;
+	line-height:40px;  
+	border:none;
+	border-radius:4%; 
+	margin:15px auto; 
+	background-color:#B0E0E6; 
+	text-align:center; 
+	cursor: pointer; 
+	font-weight:bold;
+}
+	
+.subBtn:hover{ background-color:#E9CFEC; }
+	
+.antBtn{
+	width:160px; 
+	height:40px; 
+	border:none;
+	border-radius:4%; 
+	margin:15px auto; 
+	background-color:#efefef; 
+	text-align:center; 
+	cursor: pointer; 
+	font-weight:bold;
+}
+
+.antBtn:hover{
+	background-color:gray;
+	color:#efefef;
+}
+
+.inpBtn{
+	margin-left : 40%;
+	margin-right :20%;
+}
+
+.Btn{
+	padding-top:1%;
+	padding-bottom:8%;
+}
+
+.myBtn{
+	width:100px; 
+	height:30px;
+	line-height:20px; 
+	border:none;
+	border-radius:4%; 
+	background-color: #B0E0E6; 
+	text-align:center; 
+	cursor: pointer; 
+}
+	
+.mybtn:hover{ background-color:#E9CFEC; }
+	
+.canBtn{
+	width:100px; 
+	height:30px; 
+	line-height:20px; 
+	border:none;
+	border-radius:4%; 
+	margin:15px auto; 
+	background-color:#efefef; 
+	text-align:center; 
+	cursor: pointer; 
+}
+
+.canBtn:hover{
+	background-color:gray;
+	color:#efefef;
+}
+
+.twoBtn{
+	padding:50px 80px 50px 200px;	
+}
+
+table{
+	margin:auto;
+	text-align:center;
+}
+
+th{
+	padding:15px;
+	margin-bottom:5px;
+	border-bottom:1px solid #efefef;
+	font-size:12pt;
+}
+
+td{ 
+	padding:5px;
+	vertical-align:middle;
+}
+	
+li{ list-style:none; }
+	
+.container{
+	padding:3%;
+	height:75%;
+}
+
+.content{
+	width:80%;
+	padding-left:15%;
+}
+
+.user_addr{
+	padding:3px;
+	margin-left:105px;
+}
+
+.user_addr_sub{
+	padding:3px;
+}
+
+p{
+	font-size:11pt;
+	margin-left:9%;
+}
+
+#strong{ color:red; }
+
+#beforTitle{
+	font-weight: bold;
+	font-size:15pt;
+}
+
+#pw { 
+	width : 300px;
+	float:left;
+}
+
+.no, .count, .percent { width : 80px; }
+.title { width : 900px; }
+.date, .status { width : 140px;}
+.term { width : 200px; }
+.Cname{ width : 600px; }
+.review{ width : 100px; }

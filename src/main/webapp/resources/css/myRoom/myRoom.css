@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+li { list-style : none;}
+
+.nav>ul>li {
+	background-position : 0px 0px; 
+	font-size:11pt;
+	font-weight:bold;
+	padding:5%;
+}
+
+.w3-container{
+	text-align:center;
+}
+
+.w3-container>p{
+	font-size:12pt;
+	font-weight:bold;
+}
+
+.w3-bar-item {
+	font-weight:bold;
+	font-size:13pt;
+	padding-left: 13px;
+}
+
+.w3-teal{
+	background-color:#E9CFEC;
+}
