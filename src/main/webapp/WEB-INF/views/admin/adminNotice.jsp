@@ -83,14 +83,14 @@
                                     	<tr>
 			                            	<td class="chkBtn" style="vertical-align:middle;"><input type="checkbox" name="chkBtn" value="${dto.noti_no}"></td>
 			                                <td class="no" style="vertical-align:middle;">1</td>
-			                                <td class="title" style="vertical-align:middle;">title</td>
+			                                <td class="title" style="vertical-align:middle;"><a href="#">title</a></td>
 			                                <td style="vertical-align:middle;">테둥이</td>
 			                                <td class="date" style="vertical-align:middle;">2022-02-15</td>
 			                            </tr>
 			                            <tr>
 			                            	<td class="chkBtn" style="vertical-align:middle;"><input type="checkbox" name="chkBtn" value="${dto.noti_no}"></td>
 			                                <td class="no" style="vertical-align:middle;">1</td>
-			                                <td class="title" style="vertical-align:middle;">title</td>
+			                                <td class="title" style="vertical-align:middle;"><a href="#">title</a></td>
 			                                <td style="vertical-align:middle;">테둥이</td>
 			                                <td class="date" style="vertical-align:middle;">2022-02-15</td>
 			                            </tr>

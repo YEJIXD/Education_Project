@@ -16,20 +16,6 @@ public class CommonController {
 		return "../../index.jsp";
 	}
 	
-	// 회원가입
-	@RequestMapping("/registForm.do")
-	public String registForm() {
-		logger.info("regist Form page");
-		return "/login/registForm.jsp";
-	}
-	
-	// 회원가입_ 사용자 등록
-	@RequestMapping("/regist.do")
-	public String regist() {
-		logger.info("regist page");
-		return "../../index.jsp";
-	}
-	
 	// 교육 소개_ 인사말
 	@RequestMapping("/greeting.do")
 	public String greeting() {

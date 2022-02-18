@@ -11805,6 +11805,10 @@ table{ width:100% }
 	color:#efefef;
 }
 
+a{
+	text-decoration: none;
+	font-weight:bold;
+}
 
 /*nav탭 hover 시, content 변경*/
 .home:hover span{display:none;}

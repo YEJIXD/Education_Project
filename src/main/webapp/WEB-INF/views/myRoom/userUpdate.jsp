@@ -68,12 +68,16 @@
                         </td>
                     </tr>
 							<tr>
-								<th>휴대전화</th>
+								<th>휴대 전화</th>
 								<td>Dongsan123@naver.com</td>
 							</tr>
 							<tr>
 								<th>활성화</th>
 								<td><input type="radio" name="rBtn" value="Y" checked>활성화&nbsp;&nbsp;&nbsp;<input type="radio" name="rBtn" value="N">비활성화</td>
+							</tr>
+							<tr>
+								<th>회원 탈퇴</th>
+								<td style="vertical-align:middle;"><input type="button" class="canBtn" onclick="" value="탈 퇴"></td>
 							</tr>
 						</table>
 				

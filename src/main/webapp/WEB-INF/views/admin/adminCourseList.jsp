@@ -80,7 +80,7 @@
 	                                    	<tr>
 				                            	<td style="vertical-align:middle;"><input type="checkbox" name="chkBtn" value="${dto.q_no}"></td>
 				                                <td style="vertical-align:middle;">1</td>
-				                                <td style="vertical-align:middle;">test</td>
+				                                <td style="vertical-align:middle;"><a href="#">test</a></td>
 				                                <td style="vertical-align:middle;">테둥이</td>
 				                                <td style="vertical-align:middle;">2022-01-15</td>
 				                                <td style="vertical-align:middle;">2022.02.02 ~ 2022.03.04</td>

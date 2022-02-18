@@ -129,7 +129,7 @@ body {
 			<div class="col-sm-1"></div>
 			<div class="col-sm-8">
 				<div class="img-div">
-					<a href="main.do"> <img id="logo" src="resources/images/cube.png"></a>
+					<a href="main.do"> <img id="logo" src="resources/images/cube.png" style="z-index: 1;"></a>
 				</div>
 			</div>
 			<div class="col-sm-3"></div>
@@ -152,7 +152,7 @@ body {
 					
 					<li class="nav-menu"><a class="header-a" href="goApp.do">교육 신청</a>
 						<ul class="sub-menu">
-							<li><a class="header-a" href="courseInsertPage.do">교육 등록</a></li>
+							<li><a class="header-a" href="courseInsert.do">교육 등록</a></li>
 						</ul>
 					</li>
 					
@@ -181,7 +181,7 @@ body {
 				</c:choose>
 				
 				<!-- Login 창 -->
-				<div class="login_wrap1" style="z-index: 1;">
+				<div class="login_wrap1" style="z-index: -1;">
 					<div class="login_wrap">
 						<div class="login">
 							<div class="login_modal_close">
@@ -189,7 +189,7 @@ body {
 							</div>
 							<form action="loginCheck.do" method="post" class="login_form">
 								<div class="logo">
-									<img src="resources/images/pencil.png" width="70" height="70">
+									<img src="resources/images/locker.png" width="70" height="70">
 								</div>
 								<div class="login_id">
 									<span>ID</span><br> <input type="text" name="user_id" id="user_id">

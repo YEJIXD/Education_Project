@@ -37,7 +37,7 @@
 				<br><br>
 				
 				<div class="beforeApp">
-					<h3 id="beforTitle">💜 교육신청 방법</h3><br>
+					<h3 id="beforeTitle">💜 교육신청 방법</h3><br>
 					
 					<p class="stepText">① 상단 메뉴 '교육 신청' 버튼 클릭 → 🚩 안내 사항 숙지 🚩</p>
 					<p class="stepImg"><img src="resources/images/appStep/step1.png"></p><br>
@@ -73,7 +73,7 @@
 				<br><br>
 				
 				<div class="beforeApp">
-					<h3 id="beforTitle">💙 교육 대상 및 안내</h3><br>
+					<h3 id="beforeTitle">💙 교육 대상 및 안내</h3><br>
 					<p><b>교육 대상</b> : 만 18세 이상 만 70세 이하<br></p>
 					<p><b>교육 수료증 발급</b>은 수강률 85% 이상이어야 가능합니다.<br></p>
 					<p>교육 신청은 <b>접수중인 교육만 가능</b>합니다.<br></p>
@@ -82,7 +82,7 @@
 							
 							
 				<div class="beforeApp">
-					<h3 id="beforTitle">💜 교육 전 알아두어야 할 사항</h3><br>
+					<h3 id="beforeTitle">💜 교육 전 알아두어야 할 사항</h3><br>
 					<p>중간에 포기하실 경우, 해당 수업 종료일로부터 1분기 간 다른 교육을 들으실 수 없습니다.<br><br></p>
 				</div>		
 	

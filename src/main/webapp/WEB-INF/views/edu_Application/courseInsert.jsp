@@ -18,7 +18,7 @@
 	</div>
 	
 	<div class="container">
-		<h3>Q n A 등록</h3><br><br>
+		<h3 class="formTitle">Q n A 등록</h3><br><br>
 		<div class="content">
 			<form action="courseInsertRes.do" method="POST" enctype="multipart/form-data">
 				<table class="table insertTable">
@@ -60,7 +60,7 @@
 					<tr>
 						<th>모집 인원</th>
 						<td>
-							<input type="text" name="ent_personnel" required>명
+							<input type="text" name="ent_personnel" size="5" required> 명
 						</td>
 					</tr>
 					<tr>
