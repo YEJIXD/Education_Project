@@ -35,6 +35,7 @@ public class UserController {
 	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
 	public int idCheck(UserDto dto) throws Exception{
 		System.out.println("id_Check");
+		System.out.println(dto);
 		int result = userBiz.idCheck(dto);
 		return result;
 	}

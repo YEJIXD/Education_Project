@@ -20,7 +20,7 @@
 			url:"idCheck.do",
 			type:"post",
 			dataType:"json",
-			data:{"user_id" : $('#id').val()},
+			data:{"user_id" : "user1"},
 			success: function(data){
 				if($("#id").val() != ''){
 					if(data == 1){					
