@@ -23,9 +23,7 @@
 					<ul>담당 강의: <b>생명존중 활동에 대한 의미와 동기부여</b></ul>
 				</td>
 			</tr>
-			<tr>
-				<td height="30"></td>
-			</tr>
+			<tr><td height="60"></td></tr>
 			<tr>
 				<td><img src="resources/images/teacher2.png"></td>
 				<td>
@@ -35,7 +33,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td height="30"></td>
+				<td height="60"></td>
 			</tr>
 			<tr>
 				<td><img src="resources/images/teacher3.png"></td>
@@ -46,7 +44,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td height="30"></td>
+				<td height="60"></td>
 			</tr>
 			<tr>
 				<td><img src="resources/images/teacher4.png"></td>
@@ -57,7 +55,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td height="30"></td>
+				<td height="60"></td>
 			</tr>
 			<tr>
 				<td><img src="resources/images/teacher6.png"></td>

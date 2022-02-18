@@ -1,4 +1,75 @@
 @charset "UTF-8";
+#c_name, #c_division, #c_addr, #c_category, #c_type, #c_time, #c_period, #c_detail, #ent_personnel{
+	width: 840px;
+	height: 40px;
+	padding-left: 10px;
+	font-size: 16px;
+	margin-left: 10%;
+	margin-top:2%;
+}
+
+#uploadFile{
+	width: 840px;
+	height: 40px;
+	padding-left: 10px;
+	font-size: 16px;
+	margin-left: 10%;
+	margin-top:2%;
+	border:none;
+}
+
+#deleteBtn{
+	width: 10px;
+	padding-right: 80px;
+	font-size: 11pt;
+	text-align: center;
+	font-weight: normal;
+	margin-left: 50%;
+}
+
+.product-write__top h2{ display: inline;}
+	
+.product-write__top-txt h2{
+	margin-left: 20px;
+	font-size: 15px;
+}
+
+@font-face {
+	font-family: 'Nanum Gothic', serif; 
+	src: url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css') format('opentype');
+}
+
+@font-face {
+	font-family: 'MaruBuri';
+	font-weight: 400;
+    font-style: normal;
+	src: url('https://cdn.jsdelivr.net/gh/webfontworld/naver/MaruBuri-Regular.woff2') format('woff2');
+}
+		
+textarea{
+	width: 550px;
+	height: 100px;
+	padding-left: 10px;
+	font-size: 16px;
+	margin-left: 10%;
+	margin-top:2%;
+	resize: vertical;
+}
+
+form{
+	width:80%;
+	margin-left: inherit;
+}
+
+img{ margin-left:30%; }
+		
+		
+/*review Insert*/
+.review_insert_wrap{
+	padding: 10px 0 10px 0;
+	width:100%;
+	height:800px;
+}
 
 .container{
 	padding:3%;
@@ -33,11 +104,6 @@ table{
     border-spacing:0 40px;
 }
 
-table tr td a{
-	text-decoration: none;
-	font-size: 13pt;
-}
-
 .divSpan{
     text-decoration: none;
 	font-size: 12px;
@@ -52,9 +118,9 @@ table tr td a{
      
 table tr th{
 	text-align: left;
-	width: 100px;
-	height: 40px;
-	font-size: 13pt;
+	width: 300px;
+	height: 80px;
+	font-size: 12pt;
    	font-weight: bold;
 }
 
@@ -73,35 +139,9 @@ td input[type="button"]{
 	color: rgb(95, 95, 95);
 }
 
-.user_id_chk, .user_addr_chk, .user_email_chk{
-	width: 60px;
-	height: 18px;
-}
-    
-.user_eamil{
-	margin : 5px 0 5px 0;
-}
-    
-.user_email_injeong{
-	width: 20px;
-	margin-top: 5px;
-}
-    
-#user_email_injeong_false{
-	background-color:#ebebe4;
-}
-	 
-#user_email_injeong_true{
-	background-color:white;
-}
-
 .regist_btn{
     text-align: center;
 	margin: 50px 0 0 0;
-}
-
-.user_addr_sub{
-	margin-top: 5px;
 }
 
 .subBtn{
@@ -134,14 +174,4 @@ td input[type="button"]{
 .antBtn:hover{
 	background-color:gray;
 	color:#efefef;
-}
-    
-#id_chk_available, #pw_chk_available, #email_chk_available{
-	display: none;
-    color: blue;
-}
-    
-#id_chk_unavailable, #id_chk_blank, #pw_chk_unavailable, #email_chk_blank, #email_chk_unavailable{
-	display: none;
-    color: red;
 }

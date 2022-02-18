@@ -110,7 +110,7 @@
 							<td>2021.10.02 ~ 2021.12.01</td>
 							<td>100%</td>
 							<td><input type="button" class="myBtn" onclick="location.href='receiveCert.do'" value="발 급"></td>
-							<td><input type="button" class="myBtn" onclick="" value="등 록"></td>
+							<td><input type="button" class="myBtn" onclick="location.href='reviewInsertPage.do'" value="등 록"></td>
 						</tr>
 					</tbody>
 				</table>

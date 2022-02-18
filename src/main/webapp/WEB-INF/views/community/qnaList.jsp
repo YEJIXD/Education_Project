@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/course/appCourse.css">
 <link rel="stylesheet" href="/resources/css/bootstrap/bootstrap.css">
-<title>Notice</title>
+<title>Q n A</title>
 <style type="text/css">
 	.subBtn{ 
 		float:right;
@@ -38,7 +38,7 @@
 				<tbody>
 					<tr>
 						<td>2</td>
-						<td><a href="courseDetail.do">궁금합니다..</a></td>
+						<td><a href="qnaDetail.do">궁금합니다..</a></td>
 						<td style="color:red;">대 기</td>
 						<td>2022.01.12</td>
 						<td>88</td>
@@ -81,7 +81,7 @@
 				</tbody>
 			</table>
 			<div class="Btn">
-				<input type="submit" class="subBtn" value="등 록">
+				<input type="submit" class="subBtn" value="문의하기">
 			</div>
 						
 			<div class="pagination">

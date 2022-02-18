@@ -150,7 +150,11 @@ body {
 						
 					<li class="nav-menu"><a class="header-a" href="goal.do">교육 목표</a></li>
 					
-					<li class="nav-menu"><a class="header-a" href="goApp.do">교육 신청</a></li>
+					<li class="nav-menu"><a class="header-a" href="goApp.do">교육 신청</a>
+						<ul class="sub-menu">
+							<li><a class="header-a" href="courseInsertPage.do">교육 등록</a></li>
+						</ul>
+					</li>
 					
 					<li class="nav-menu"><a class="header-a" href="notice.do">Community</a>
 						<ul class="sub-menu">

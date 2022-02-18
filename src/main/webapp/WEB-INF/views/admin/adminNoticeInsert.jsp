@@ -18,9 +18,9 @@
 	</div>
 	
 	<div class="container">
-		<h3>F A Q 등록</h3><br><br>
+		<h3>공지사항 등록</h3><br><br>
 		<div class="content">
-			<form action="faqInsert.do" method="POST">
+			<form action="adminNoticeInsert.do" method="POST" enctype="multipart/form-data">
 				<table class="table insertTable">
 					<tr>
 						<th>제 목</th>
@@ -35,11 +35,15 @@
 							<textarea class="insertContent" placeholder="내용을 입력하세요" required></textarea>
 						</td>
 					</tr>
+					<tr>
+						<th>파 일</th>
+						<td style="vertical-align:middle;"><input type="file" class="insertFile" value="파일 첨부"></td>
+					</tr>
 				</table>
 				
 				<div class="inpBtn">
 					<input type="submit" class="subBtn" value="등 록">
-					<input type="button" class="antBtn" onclick="location.href='adminFaqList.do'" value="취 소">
+					<input type="button" class="antBtn" onclick="location.href='adminNoticeList.do'" value="취 소">
 				</div>
 				
 			</form>

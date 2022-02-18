@@ -31,29 +31,44 @@
 		<form  action="courseList.do" method="GET">
 			<div class="content">
 				<div class="beforeApp">
-					<h3 id="beforTitle">💙 교육신청 전 확인사항</h3><br>
+					<h3 id="beforeTitle">💙 교육신청 전 확인사항</h3><br>
 					<p>CUBe Academy <b>로그인 후</b>에 교육신청이 가능합니다. <b id="strong"> (회원가입제)</b><br></p>
 				</div>
 				<br><br>
 				
 				<div class="beforeApp">
 					<h3 id="beforTitle">💜 교육신청 방법</h3><br>
-					<p>① 상단 메뉴 '교육 신청' 버튼 클릭 → 전체 교육목록 페이지로 이동<br></p>
-							
-					<p>② 신청할 교육 제목 클릭 → 해당 과정 상세페이지로 이동<br></p>
-						
-					<p>③ 교육종류, 과정정보, 교육비 납부 등 안내사항을 반드시 확인<br>
-						※ 개인정보수집·이용에 동의 시 신청가능하며, ‘*’표시는 필수 기재 정보<br></p>
-						
-					<p>④ 하단의 참가신청 버튼 클릭하여 '참가 신청서' 작성<br>※ 안내 미확인 또는 착오로 인한 불이익은 신청자 본인에게 있음<br></p>	
+					
+					<p class="stepText">① 상단 메뉴 '교육 신청' 버튼 클릭 → 🚩 안내 사항 숙지 🚩</p>
+					<p class="stepImg"><img src="resources/images/appStep/step1.png"></p><br>
+					<hr>
+					
+					<p class="stepText">② 하단의 '교육 보러가기' 클릭 → 교육 강의 목록으로 이동</p>
+					<p class="stepImg"><img src="resources/images/appStep/step2.PNG"></p><br>
+					<hr>	
+					
+					<p class="stepText">③ 원하는 강의 클릭 → 교육 상세보기 목록으로 이동<br><br>※ 접수 상태 확인 후 <b style="color:blue;">"접 수 중"</b>인 강의를 신청해주세요 : )</p>
+					<p class="stepImg"><img src="resources/images/appStep/step3.PNG"></p><br>
+					<p class="stepText">★ 강의 모집인원이 다 차면 접수가 마감될 수 있습니다.<br>
+					<hr>
+					
+					<p class="stepText">④ 교육 상세보기에서 교육 종류, 과정 정보, 교육비 등 안내사항을 반드시 확인<br>※ 안내 미확인 또는 착오로 인한 불이익은 신청자 본인에게 있음<br></p>	
+					<p class="stepText">★ 강의 정보 확인 후, 하단의 신청 버튼 클릭 → 신청 완료<br>
+					<p class="stepImg"><img src="resources/images/appStep/step4.PNG" style="height:600px;"></p><br>
+					<hr>
 									
-					<p>⑤ 작성완료 후 우측 하단에 참가신청 버튼 클릭 시 팝업창이 뜸<br></p>
+					<p class="stepText">⑤ 신청 완료 창이 뜨면서 신청 정보 확인 → 확인 버튼 클릭 시, 내 강의실의 수강내역으로 이동<br></p>
+					<p class="stepImg"><img src="resources/images/appStep/step5.PNG"></p><br>
+					<hr>
 								
-					<p>⑥ '교육담기'클릭 시 신청이 완료됨<br></p>
+					<p class="stepText">⑥ My Class에서 신청 내역 확인<br></p>
+					<p class="stepImg"><img src="resources/images/appStep/step6.PNG"></p><br>
+					<hr>
+					
+					<p class="stepText">* 수강 신청 취소를 원할 시, 수강 취소 아래의 취소 버튼 클릭 <br>→ '수강 신청을 취소하시겠습니까?' 알림창에서 '확인'버튼을 누르면 취소 완료<br><br>※ 안내 미확인 또는 본인 실수로 인한 불이익은 신청자 본인에게 있음<br></p>
+					<p class="stepImg"><img src="resources/images/appStep/step7.PNG"></p><br>
+					<hr>
 									
-					<p>⑦ 신청이 정상적으로 완료되면 하단의 창이 로드됨<br></p>
-								
-					<p>⑧ '내 강의실'로 이동 시, 신청한 교육내역 확인 가능<br></p>
 				</div>
 				<br><br>
 				

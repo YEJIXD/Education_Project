@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/course/appCourse.css">
-<title>Q n A Insert</title>
+<title>Q n A Answer</title>
 <style type="text/css">
 	th{ width:150px; }
 
@@ -18,9 +18,9 @@
 	</div>
 	
 	<div class="container">
-		<h3>F A Q 등록</h3><br><br>
+		<h3>Q n A 답변</h3><br><br>
 		<div class="content">
-			<form action="faqInsert.do" method="POST">
+			<form action="qnaInsert.do" method="POST" enctype="multipart/form-data">
 				<table class="table insertTable">
 					<tr>
 						<th>제 목</th>
@@ -35,11 +35,15 @@
 							<textarea class="insertContent" placeholder="내용을 입력하세요" required></textarea>
 						</td>
 					</tr>
+					<tr>
+						<th>파 일</th>
+						<td style="vertical-align:middle;"><input type="file" class="insertFile" value="파일 첨부"></td>
+					</tr>
 				</table>
 				
 				<div class="inpBtn">
 					<input type="submit" class="subBtn" value="등 록">
-					<input type="button" class="antBtn" onclick="location.href='adminFaqList.do'" value="취 소">
+					<input type="button" class="antBtn" onclick="location.href='qnaList.do'" value="취 소">
 				</div>
 				
 			</form>

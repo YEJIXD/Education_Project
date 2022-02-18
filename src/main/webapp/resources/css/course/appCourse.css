@@ -1,7 +1,11 @@
 @charset "UTF-8";
 
 /*edu_Application 내 page CSS*/
-h3, h4{ padding-left:5%; }
+h3, h4{ 
+	text-align:center;
+	padding:0 0 20px 0;
+	font-weight:bold;
+}
 
 .subBtn{
 	width:160px; 
@@ -124,14 +128,45 @@ p{
 
 #strong{ color:red; }
 
-#beforTitle{
+#beforeTitle{
 	font-weight: bold;
 	font-size:15pt;
+}
+
+#beforeApp{
+	height:100%;
 }
 
 #pw { 
 	width : 300px;
 	float:left;
+}
+
+.stepText{
+	font-weight:bold;
+	font-size:12pt;
+}
+	
+.stepImg>img{
+	width: 800px;
+	height:400px;
+	padding:5px 0 10px 20px;
+}
+
+.insertContent{
+	width:600px;
+	height:6.25em;
+	border:none;
+}
+
+.insertTitle{
+	width: 600px;
+	border:none;
+	resize:none;
+}
+
+.insertFile{
+	margin:1px 300px 1px 0;
 }
 
 .no, .count, .percent { width : 80px; }

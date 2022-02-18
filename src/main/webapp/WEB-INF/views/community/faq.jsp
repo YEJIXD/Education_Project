@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/course/appCourse.css">
 <link rel="stylesheet" href="/resources/css/bootstrap/bootstrap.css">
-<title>course List</title>
+<title>F A Q</title>
 <style type="text/css">
 	.subBtn{ float:right; }
 	
@@ -22,7 +22,6 @@
 		<h3>F A Q</h3><br><br>
 		<form action="courseInsert.do" method="GET">
 			<table class="table table-hover">
-			
 				<thead>
 					<tr>
 						<th class="no">NO</th>

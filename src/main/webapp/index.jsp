@@ -5,8 +5,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="resources/js/index.js" type="text/javascript"></script> <!-- js파일 생성 -->
-<link rel="stylesheet" href="resources/css/common/index.css">
 <title>CUBe Academy</title>
 </head>
 <body>
@@ -14,6 +12,7 @@
 		<%@ include file="WEB-INF/views/common/header.jsp" %>
 	</div>
 	
+	<input type="button" onclick="location.href='adminMain.do'" value="123123123">
 	<table>
 		<tr>
 			<td height="500"> </td>

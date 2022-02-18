@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/login/regist.css">
-<link rel="stylesheet" href="resources/css/course/appCourse.css">
 <link rel="shortcut icon" href="#">
 <title>Regist Form</title>
 </head>
@@ -225,7 +224,7 @@
     <div class="login_regist_wrap">
         <div class="regist_wrap">
             <div class="container">
-                <a>회원가입</a>
+                <a>회 원 가 입</a>
                 <hr>
             </div>
             
@@ -240,15 +239,17 @@
                         <td>
                             <input type="text" class="user_id" name="user_id" id="id" title="n" required="required" placeholder="아이디를 입력하세요." autofocus>
                             <input type="button" class="user_id_chk" value="중복 확인" onclick="idCheck();"><br>
-                            <span id="id_chk_available">사용가능한 아이디입니다.</span>
-                            <span id="id_chk_unavailable">중복된 아이디입니다.</span>
-                            <span id="id_chk_blank">아이디를 입력하세요.</span>
+                            <span class="divSpan" id="id_chk_available">사용가능한 아이디입니다.</span>
+                            <span class="divSpan" id="id_chk_unavailable">중복된 아이디입니다.</span>
+                            <span class="divSpan" id="id_chk_blank">아이디를 입력하세요.</span>
                         </td>
                     </tr>
+                    <tr height="15"></tr>
                     <tr>
                         <th>이름</th>
                         <td><input type="text" class="user_name" name="user_name" id="user_name" required="required" placeholder="이름을 입력하세요." onclick="idChkConfirm();"></td>
                     </tr>
+                    <tr height="15"></tr>
                     <tr>
                         <th>비밀번호</th>
                         <td><input type="password" class="user_pw" name="user_pw" id="pw" title="n" required="required" placeholder="비밀번호를 입력하세요." onclick="idChkConfirm();"></td>
@@ -257,21 +258,23 @@
                         <th>비밀번호 확인</th>
                         <td>
                         	<input type="password" class="user_pw_chk" name="pw_chk" id="pw_chk" required="required" onclick="idChkConfirm();"><br>
-                        	<span id="pw_chk_available">비밀번호가 일치합니다.</span>
-                            <span id="pw_chk_unavailable">비밀번호가 일치하지 않습니다.</span>
+                        	<span class="divSpan" id="pw_chk_available">비밀번호가 일치합니다.</span>
+                            <span class="divSpan" id="pw_chk_unavailable">비밀번호가 일치하지 않습니다.</span>
                         </td>
                     </tr>
+                    <tr height="15"></tr>
                     <tr>
                         <th>이메일</th>
                         <td>
                         	<input type="text" class="user_email" name="user_email" id="user_email" title="n" required="required" placeholder="이메일을 입력하세요." onclick="pwChkConfirm();">
-                        	<input type="button" class="user_email_chk" value="인증번호 발급" onclick="emailCheck();">
+                        	<input type="button" class="user_email_chk" value="인증번호" onclick="emailCheck();">
                         	<input type="text" class="user_email_injeong" name="user_email_injeong" id="user_email_injeong_false" required="required" disabled="disabled"><br>
-                        	<span id="email_chk_blank">이메일을 입력하세요.</span>
-                        	<span id="email_chk_available">인증번호가 일치합니다.</span>
-                            <span id="email_chk_unavailable">인증번호가 일치하지 않습니다.</span>
+                        	<span class="divSpan" id="email_chk_blank">이메일을 입력하세요.</span>
+                        	<span class="divSpan" id="email_chk_available">인증번호가 일치합니다.</span>
+                            <span class="divSpan" id="email_chk_unavailable">인증번호가 일치하지 않습니다.</span>
                         </td>
                     </tr>
+                    <tr height="15"></tr>
                     <tr>
                         <th>주소</th>
                         <td>
@@ -280,6 +283,7 @@
                             <input type="text" class="user_addr_sub" name="user_addr_sub" id="user_addr_sub" required="required" placeholder="상세주소를 입력하세요." onclick="emailChkConfirm();">
                         </td>
                     </tr>
+                    <tr height="15"></tr>
                     <tr>
                         <th>핸드폰 번호</th>
                         <td>
@@ -288,8 +292,8 @@
                     </tr>
                 </table>
                     <div class="regist_btn">
-                        <input type="submit" class="myBtn" id="submit" value="가입하기">
-                        <input type="button" class="canBtn" value="취 소" onclick="location.href='index.do'">
+                        <input type="submit" class="subBtn" id="submit" value="가 입">
+                        <input type="button" class="antBtn" value="취 소" onclick="location.href='index.do'">
                     </div>
             </form>
           </div>
