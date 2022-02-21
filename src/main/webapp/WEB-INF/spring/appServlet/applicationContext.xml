@@ -3,13 +3,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
-		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
@@ -39,12 +39,13 @@
 		<constructor-arg ref="sqlSession"/>
 	</bean>
 	
-	<!-- <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
+	<bean id="mailSender2" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
 	    <property name="host" value="smtp.gmail.com" />
 	    <property name="port" value="587" />
-	 	<property name="username" value="CUBeAcademy@gmail.com"/> 자신의 이메일 아이디
-	 	<property name="password" value="admin123"/> 자신의 비밀번호
-	 	<property name="defaultEncoding" value="utf-8"/>
+	 	<property name="username" value="yoonyj919@gmail.com"/> 
+	 	<property name="password" value="Smgyyj1120!"/>
+	 	<property name="defaultEncoding" value="UTF-8"/>
+	 	
 	    <property name="javaMailProperties">
 		    <props>
 			   <prop key="mail.transport.protocol">smtp</prop>
@@ -53,5 +54,5 @@
 		       <prop key="mail.debug">true</prop>
 		    </props>
 	    </property>
-	</bean> -->
+	</bean>
 </beans>

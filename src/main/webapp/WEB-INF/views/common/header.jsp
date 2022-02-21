@@ -170,8 +170,8 @@ body {
 			<!-- Login area -->
 			<div class="col-sm-3" align="right" style="padding: 20px 6% 0 0;">
 				<c:choose>
-					<c:when test="${user != null}">
-						<span id="user-name">${user.user_name}님 반가워요😃</span>&nbsp;&nbsp;&nbsp;
+					<c:when test="${member != null}">
+						<span id="user-name">${member.user_name}님 반가워요😃</span>&nbsp;&nbsp;&nbsp;
 						<span style="color: gray" id="logout-btn"
 							onclick="location.href='logout.do'">로그아웃</span>
 					</c:when>

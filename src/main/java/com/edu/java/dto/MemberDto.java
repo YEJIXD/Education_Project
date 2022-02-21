@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserDto {
+public class MemberDto {
 	private int user_no;		// 사용자 번호
 	private String user_id;		// 사용자 아이디
 	private String user_pw;		// 사용자 비밀번호
@@ -18,11 +18,11 @@ public class UserDto {
 	private Date user_regdate;	// 회원 가입일
 	private Date user_upd_date;	// 회원 수정일
 	
-	public UserDto() {
+	public MemberDto() {
 		super();
 	}
 	
-	public UserDto(int user_no, String user_id, String user_pw, String user_name, String user_email, String user_addr,
+	public MemberDto(int user_no, String user_id, String user_pw, String user_name, String user_email, String user_addr,
 			String user_phone, String user_role, String user_enable, Date user_regdate, Date user_upd_date) {
 		super();
 		this.user_no = user_no;
@@ -107,7 +107,7 @@ public class UserDto {
 	
 	@Override
 	public String toString() {
-		return "UserDto [user_no=" + user_no +", user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", user_email=" + user_email +", user_addr=" + user_addr 
+		return "MemberDto [user_no=" + user_no +", user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", user_email=" + user_email +", user_addr=" + user_addr 
 				+ ", user_phone=" + user_phone + ", user_role=" + user_role + ", user_enable=" + user_enable+ ", user_regdate=" + user_regdate + ", user_upd_date=" + user_upd_date + "]";
 	}
 	
