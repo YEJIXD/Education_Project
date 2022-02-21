@@ -3,36 +3,58 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="user">
+<mapper namespace="member">
 	 
 	<!-- 로그인 -->
-	<select id="loginCheck" resultType="UserDto" parameterType="UserDto">
-		SELECT * FROM USER
+	<select id="loginCheck" resultType="MemberDto" parameterType="MemberDto">
+		SELECT * FROM MEMBER
 		WHERE USER_ID = #{user_id} AND USER_PW = #{user_pw}
 	</select>
 	
 	<!-- 아이디 중복 체크 -->
-	<select id="idCheck" parameterType="UserDto" resultType="UserDto">
-		SELECT USER_ID as user_no FROM USER
-		WHERE USER_ID = #{user_id}
+	<select id="idCheck" resultType="int">
+		SELECT COUNT(USER_ID) FROM MEMBER
+		WHERE USER_ID=#{user_id}
 	</select>
 	
 	<!-- 회원가입 -->
-	<insert id="userRegist" parameterType="UserDto">
-		INSERT INTO USER
-		VALUES(USER_NO_SEQ.NEXTVAL, #{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_addr} , #{user_phone}, 'U', 'Y', {user_regdate}, #{user_upd_date} )
+	<insert id="memberRegist" parameterType="memberDto" useGeneratedKeys="true" keyProperty="user_no">
+		INSERT INTO MEMBER (
+			USER_NO, 
+			USER_ID, 
+			USER_PW, 
+			USER_NAME, 
+			USER_EMAIL, 
+			USER_ADDR, 
+			USER_PHONE, 
+			USER_ROLE, 
+			USER_ENABLE, 
+			USER_REGDATE, 
+			USER_UPD_DATE)
+		VALUES(
+			#{user_no}, 
+			#{user_id},
+			 #{user_pw}, 
+			 #{user_name}, 
+			 #{user_email}, 
+			 #{user_addr} , 
+			 #{user_phone}, 
+			 'U', 
+			 'Y', 
+			NOW(), 
+			 NULL)
 	</insert>
 	
 	<!-- 회원정보 수정 -->
-	<update id="userUpdate">
-		UPDATE USER SET
-		USER_PW = #{user_pw}, USER_EMAIL = #{user_email}, USER_ADDR = #{user_addr}, USER_ENABLE= #{user_enable}
+	<update id="memberUpdate">
+		UPDATE MEMBER 
+		SET USER_PW = #{user_pw}, USER_EMAIL = #{user_email}, USER_ADDR = #{user_addr}, USER_ENABLE = #{user_enable}, USER_UPD_DATE = SYSDATE
 		WHERE USER_NO = #{user_no}
 	</update>
 	
-	<!-- 회원탈퇴 -->
-	<update id="userDelete">
-		UPDATE USER SET
+	<!-- 회원 비활성화 -->
+	<update id="memberDelete">
+		UPDATE MEMBER SET
 		USER_ENABLE = 'N'
 		WHERE USER_NO = #{user_no}
 	</update>
