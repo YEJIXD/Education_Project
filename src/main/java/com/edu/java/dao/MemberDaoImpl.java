@@ -1,7 +1,6 @@
 package com.edu.java.dao;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -27,10 +26,10 @@ public class MemberDaoImpl implements MemberDao{
 	
 	// id 중복 체크
 	@Override
-	public int idCheck(MemberDto dto) throws Exception{
-		//return sqlSession.selectOne(NAMESPACE+ "idCheck", dto);
-		int result = sqlSession.selectOne(NAMESPACE + "idCheck", dto);
-		return result;
+	public int idCheck(String user_id) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+ "idCheck", user_id);
+		//int result = sqlSession.selectOne(NAMESPACE + "idCheck", dto);
+		//return result;
 	}
 
 	// 회원가입

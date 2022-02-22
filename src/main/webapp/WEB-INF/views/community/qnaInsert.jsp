@@ -18,9 +18,9 @@
 	</div>
 	
 	<div class="container">
-		<h3>Q n A 등록</h3><br><br>
+		<h3 align="center">Q n A 등록</h3><br><br>
 		<div class="content">
-			<form action="qnaAnswer.do" method="POST" enctype="multipart/form-data">
+			<form action="qnaInsertRes.do" method="POST" enctype="multipart/form-data">
 				<table class="table insertTable">
 					<tr>
 						<th>제 목</th>

@@ -9,10 +9,11 @@
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	
 	<properties>
-		<java-version>1.6</java-version>
+		<java-version>1.8</java-version>
 		<org.springframework-version>4.3.18.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
-		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -74,46 +75,44 @@
 		</dependency>	
 		
 		<!-- Logging -->
+		<!-- log4jdbc -->
+		<dependency>
+		    <groupId>org.bgee.log4jdbc-log4j2</groupId>
+		    <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+		    <version>1.16</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>${org.slf4j-version}</version>
+			<version>1.7.29</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
-			<version>${org.slf4j-version}</version>
-			<scope>runtime</scope>
+			<version>1.7.29</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>${org.slf4j-version}</version>
-			<scope>runtime</scope>
+			<version>1.7.29</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.15</version>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.mail</groupId>
-					<artifactId>mail</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.jms</groupId>
-					<artifactId>jms</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jdmk</groupId>
-					<artifactId>jmxtools</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jmx</groupId>
-					<artifactId>jmxri</artifactId>
-				</exclusion>
-			</exclusions>
-			<scope>runtime</scope>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.17.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.17.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.17.1</version>
 		</dependency>
 		
 		<dependency>
@@ -210,6 +209,21 @@
 		    <artifactId>spring-context-support</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
+		
+		<!-- json parser -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
+		
+		<!-- jackson -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		
 	</dependencies>
 	
 	

@@ -13,70 +13,70 @@ public class CommonController {
 	@RequestMapping("/main.do")
 	public String goMain() {
 		logger.info("Main page");
-		return "../../index.jsp";
+		return "../../index";
 	}
 	
 	// 교육 소개_ 인사말
 	@RequestMapping("/greeting.do")
 	public String greeting() {
 		logger.info("greeting page");
-		return "/edu_Introduce/greeting.jsp";
+		return "/edu_Introduce/greeting";
 	}
 	
 	// 교육 소개_ 교수진
 	@RequestMapping("/teacher.do")
 	public String teacher() {
 		logger.info("teacher page");
-		return "/edu_Introduce/teacher.jsp";
+		return "/edu_Introduce/teacher";
 	}
 	
 	// 교육 소개_ 오시는 길
 	@RequestMapping("/wayToCenter.do")
 	public String wayToCenter() {
 		logger.info("wayToCenter page");
-		return "/edu_Introduce/wayToCenter.jsp";
+		return "/edu_Introduce/wayToCenter";
 	}
 	
 	// 교육 목표
 	@RequestMapping("/goal.do")
 	public String goal() {
 		logger.info("goal page");
-		return "/edu_Information/goal.jsp";
+		return "/edu_Information/goal";
 	}
 	
 	// 교육 신청_ 신청 전 확인사항 페이지
 	@RequestMapping("/goApp.do")
 	public String goApp() {
 		logger.info("goApp page");
-		return "/edu_Application/goApp.jsp";
+		return "/edu_Application/goApp";
 	}
 	
 	// 교육 강의 목록
 	@RequestMapping("/courseList.do")
 	public String courseList() {
 		logger.info("course List page");
-		return "/edu_Application/courseList.jsp";
+		return "/edu_Application/courseList";
 	}
 	
 	// 강의 상세 페이지
 	@RequestMapping("/courseDetail.do")
 	public String courseDetail() {
 		logger.info("course Detail page");
-		return "/edu_Application/courseDetail.jsp";
+		return "/edu_Application/courseDetail";
 	}
 	
 	// 강의 신청 확인페이지
 	@RequestMapping("/appForm.do")
 	public String appForm() {
 		logger.info("app Form page");
-		return "/edu_Application/appForm.jsp";
+		return "/edu_Application/appForm";
 	}
 
 	// 교육 등록 페이지
 	@RequestMapping("/courseInsert.do")
 	public String courseInsert() {
 		logger.info("course Insert page");
-		return "/edu_Application/courseInsert.jsp";
+		return "/edu_Application/courseInsert";
 	}
 	
 	// 교육 Insert
@@ -85,23 +85,30 @@ public class CommonController {
 	@RequestMapping("/courseUpdate.do")
 	public String courseUpdate() {
 		logger.info("course Update page");
-		return "/edu_Application/courseUpdate.jsp";
+		return "/edu_Application/courseUpdate";
 	}
 	
 	// 교육 Update
 	
-	// 커뮤니티_ 공지사항
+	// 커뮤니티_ 공지사항 목록
 	@RequestMapping("/notice.do")
 	public String notice() {
 		logger.info("notice page");
-		return "/community/notice.jsp";
+		return "/community/notice";
+	}
+	
+	// 커뮤니티_ 공지사항 상세
+	@RequestMapping("/noticeDetail.do")
+	public String noticeDetail() {
+		logger.info("notice Detail page");
+		return "/community/noticeDetail";
 	}
 	
 	// 커뮤니티_ 공지사항 등록 페이지
 	@RequestMapping("/noticeInsert.do")
 	public String noticeInsert() {
 		logger.info("notice Insert page");
-		return "/community/noticeInsert.jsp";
+		return "/community/noticeInsert";
 	}
 	
 	// 커뮤니티_ 공지사항 Insert
@@ -110,7 +117,7 @@ public class CommonController {
 	@RequestMapping("/noticeUpdate.do")
 	public String noticeUpdate() {
 		logger.info("notice Update page");
-		return "/community/adminNoticeUpdate.jsp";
+		return "/community/adminNoticeUpdate";
 	}
 	
 	// 커뮤니티_ 공지사항 Update
@@ -119,28 +126,28 @@ public class CommonController {
 	@RequestMapping("/faq.do")
 	public String faqList() {
 		logger.info("faq page");
-		return "/community/faq.jsp";
+		return "/community/faq";
 	}
 	
 	// 커뮤니티_ Qna List
 	@RequestMapping("/qnaList.do")
 	public String qnaList() {
 		logger.info("qna List page");
-		return "/community/qnaList.jsp";
+		return "/community/qnaList";
 	}
 	
 	// 커뮤니티_ Qna 상세
 	@RequestMapping("/qnaDetail.do")
 	public String qnaDetail() {
 		logger.info("qna Detail page");
-		return "/community/qnaDetail.jsp";
+		return "/community/qnaDetail";
 	}
 	
 	// 커뮤니티_ Qna 답변
 	@RequestMapping("/qnaAnswer.do")
 	public String qnaAnswer() {
 		logger.info("qna Answerpage");
-		return "/admin/adminQnaAnswer.jsp";
+		return "/admin/adminQnaAnswer";
 	}
 	
 	// community_ Qna 답변 완료
@@ -155,7 +162,7 @@ public class CommonController {
 	@RequestMapping("/qnaInsert.do")
 	public String qnaInsert() {
 		logger.info("qna Insert Page");
-		return "/community/qnaInsert.jsp";
+		return "/community/qnaInsert";
 	}
 	
 	// 커뮤니티_ Qna Insert
@@ -165,7 +172,7 @@ public class CommonController {
 	@RequestMapping("/qnaUpdate.do")
 	public String qnaUpdate() {
 		logger.info("qna Update Page");
-		return "/community/qnaUpdate.jsp";
+		return "/community/qnaUpdate";
 	}
 		
 	// 커뮤니티_ Qna Update
@@ -175,77 +182,77 @@ public class CommonController {
 	@RequestMapping("/myRoomMain.do")
 	public String myRoomMain() {
 		logger.info("myRoomMain page");
-		return "/myRoom/myRoomMain.jsp";
+		return "/myRoom/myRoomMain";
 	}
 	
 	// My Class_ 수강 교육
 	@RequestMapping("/myStudy.do")
 	public String myStudy() {
 		logger.info("my Study page");
-		return "/myRoom/myStudy.jsp";
+		return "/myRoom/myStudy";
 	}
 	
 	// 수료증 발급
 	@RequestMapping("/receiveCert.do")
 	public String receiveCert() {
 		logger.info("receive Certificate page");
-		return "/myRoom/receiveCertificate.jsp";
+		return "/myRoom/receiveCertificate";
 	}
 
 	// My Class_ 수강 후기 List
 	@RequestMapping("/review.do")
 	public String review() {
 		logger.info("review page");
-		return "/myRoom/review.jsp";
+		return "/myRoom/review";
 	}
 	
 	// My Class_ 수강 후기 Insert
 	@RequestMapping("/reviewInsert.do")
 	public String reviewInsert() {
 		logger.info("review Insert page");
-		return "/myRoom/reviewInsert.jsp";
+		return "/myRoom/reviewInsert";
 	}
 	
 	// My Class_ 수강 후기 Update
 	@RequestMapping("/reviewUpdate.do")
 	public String reviewUpdate() {
 		logger.info("review Update page");
-		return "/myRoom/reviewUpdate.jsp";
+		return "/myRoom/reviewUpdate";
 	}
 	
 	// My Class_ 정보 수정 (비밀번호 확인 페이지)
 	@RequestMapping("/pwConfirm.do")
 	public String pwConfirm() {
 		logger.info("password Confirm page");
-		return "/myRoom/pwConfirm.jsp";
+		return "/myRoom/pwConfirm";
 	}
 	
 	// My Class_ 정보 수정 page
 	@RequestMapping("/userUpdate.do")
 	public String userUpdate() {
 		logger.info("user Update page");
-		return "/myRoom/userUpdate.jsp";
+		return "/myRoom/userUpdate";
 	}
 	
 	// admin_ Main
 	@RequestMapping("/adminMain.do")
 	public String adminMain() {
 		logger.info("admin Main page");
-		return "/admin/adminMain.jsp";
+		return "/admin/adminMain";
 	}
 	
 	// admin_ Notice
 	@RequestMapping("/adminNoticeList.do")
 	public String adminNoticeList() {
 		logger.info("admin Notice List page");
-		return "/admin/adminNotice.jsp";
+		return "/admin/adminNotice";
 	}
 	
 	// admin_ Notice 등록 페이지
 	@RequestMapping("/adminNoticeInsert.do")
 	public String adminNoticeInsert() {
 		logger.info("admin Notice Insert page");
-		return "/admin/adminNoticeInsert.jsp";
+		return "/admin/adminNoticeInsert";
 	}
 	
 	// admin_  Notice Insert
@@ -254,7 +261,7 @@ public class CommonController {
 	@RequestMapping("/adminNoticeUpdate.do")
 	public String adminNoticeUpdate() {
 		logger.info("admin Notice Update page");
-		return "/admin/adminNoticeUpdate.jsp";
+		return "/admin/adminNoticeUpdate";
 	}
 	
 	// admin_ Notice Update
@@ -263,21 +270,21 @@ public class CommonController {
 	@RequestMapping("/adminQnaList.do")
 	public String adminQnaList() {
 		logger.info("admin Qna List page");
-		return "/admin/adminQnaList.jsp";
+		return "/admin/adminQnaList";
 	}
 	
 	// admin_ Faq List
 	@RequestMapping("/adminFaqList.do")
 	public String adminFaqList() {
 		logger.info("admin Faq List page");
-		return "/admin/adminFaqList.jsp";
+		return "/admin/adminFaqList";
 	}
 	
 	// admin_ Faq 등록 페이지
 	@RequestMapping("/adminFaqInsert.do")
 	public String adminFaqInsert() {
 		logger.info("admin Faq Insert page");
-		return "/admin/adminFaqInsert.jsp";
+		return "/admin/adminFaqInsert";
 	}
 	
 	// admin_ Faq Insert
@@ -286,7 +293,7 @@ public class CommonController {
 	@RequestMapping("/adminFaqUpdate.do")
 	public String adminFaqUpdate() {
 		logger.info("admin Faq Update page");
-		return "/admin/adminFaqUpdate.jsp";
+		return "/admin/adminFaqUpdate";
 	}
 		
 	// admin_ Faq Update
@@ -300,22 +307,21 @@ public class CommonController {
 	@RequestMapping("/adminCourseList.do")
 	public String adminCourseList() {
 		logger.info("Course List page");
-		return "/admin/adminCourseList.jsp";
+		return "/admin/adminCourseList";
 	}
 	
 	// admin_ 수강 취소 List 
 	@RequestMapping("/adminCancleList.do")
 	public String adminCancleList() {
 		logger.info("Cancle List page");
-		return "/admin/adminCancleList.jsp";
+		return "/admin/adminCancleList";
 	}
 	
 	// admin_ 수강 후기 List
 	@RequestMapping("/adminReviewList.do")
 	public String adminReviewList() {
 		logger.info("Review List page");
-		return "/admin/adminReviewList.jsp";
+		return "/admin/adminReviewList";
 	}
-
 
 }

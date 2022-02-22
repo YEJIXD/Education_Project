@@ -1,111 +1,220 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="resources/css/course/appCourse.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="resources/css/login/regist.css">
 <link rel="shortcut icon" href="#">
-<title>Receive Certificate</title>
+<title>user Update</title>
 </head>
-<style type="text/css">
-	th{ width:150px; }
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	let code = "";	//ÀÌ¸ŞÀÏÀü¼Û ÀÎÁõ¹øÈ£ ÀúÀå
+	//ÀÌ¸ŞÀÏ ÀÎÁõ
+	function emailCheck(){
+		const user_email = $(".user_email").val();   // ÀÔ·ÂÇÑ ÀÌ¸ŞÀÏ
+		const checkBox = $(".user_email_num");		 // ÀÎÁõ¹øÈ£ ÀÔ·Â¶õ
 
-	td{ width:500px; }
-</style>
-<body>
-	<div id="header">
-		<%@ include file="../common/header.jsp" %>
-	</div>
-	
-	<!-- ì‚¬ì´ë“œ ë©”ë‰´ -->
-	<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none; background-color:#B0E0E6;" id="mySidebar">
-	  <button class="w3-bar-item w3-button w3-large" onclick="w3_close()"><b>&times;</b></button>
-	  <a href="myStudy.do" class="w3-bar-item w3-button">ìˆ˜ê°• êµìœ¡</a>
-	  <a href="review.do" class="w3-bar-item w3-button">ìˆ˜ê°• í›„ê¸°</a>
-	  <a href="pwConfirm.do" class="w3-bar-item w3-button" style="font-weight:bold; font-size:13pt;">ì •ë³´ ìˆ˜ì •</a>
-	</div>
-
-		<div id="main">
-			<div class="w3-teal">
-			  <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
-			  <div class="w3-container">
-			    <h2 align="center">íšŒì› ì •ë³´ ìˆ˜ì •</h2>
-			  </div>
-			</div>
-		
-			<div class="container">
-				<div class="content">
-					<form action="" method="GET">
-						<table class="table">
-							<tr>
-								<th>ì´ ë¦„</th>
-								<td>ê¹€ë™ì‚°</td>
-							</tr>
-							<tr>
-								<th>I D</th>
-								<td>Dongsan123</td>
-							</tr>
-							<tr>
-								<th>ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì •</th>
-								<td><input type="password"></td>
-							</tr>
-							<tr>
-								<th>ë¹„ë°€ë²ˆí˜¸ í™•ì¸</th>
-								<td><input type="password"></td>
-							</tr>
-							<tr>
-								<th>e-mail</th>
-								<td><input type="email"></td>
-							</tr>
-							<tr>
-                        <th style="vertical-align:middle">ì£¼ì†Œ</th>
-                        <td>
-                            <input type="text" class="user_addr" name="user_addr" id="user_addr" required="required" placeholder="ìš°í¸ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”." readonly="readonly">
-                            <input type="button" class="canBtn" value="ì£¼ì†Œ ê²€ìƒ‰" onclick="addr_search();"><br>
-                            <input type="text" class="user_addr_sub" name="user_addr_sub" id="user_addr_sub" required="required" placeholder="ìƒì„¸ì£¼ì†Œë¥¼ ì…ë ¥í•˜ì„¸ìš”." onclick="emailChkConfirm();">
-                        </td>
-                    </tr>
-							<tr>
-								<th>íœ´ëŒ€ ì „í™”</th>
-								<td>Dongsan123@naver.com</td>
-							</tr>
-							<tr>
-								<th>í™œì„±í™”</th>
-								<td><input type="radio" name="rBtn" value="Y" checked>í™œì„±í™”&nbsp;&nbsp;&nbsp;<input type="radio" name="rBtn" value="N">ë¹„í™œì„±í™”</td>
-							</tr>
-							<tr>
-								<th>íšŒì› íƒˆí‡´</th>
-								<td style="vertical-align:middle;"><input type="button" class="canBtn" onclick="" value="íƒˆ í‡´"></td>
-							</tr>
-						</table>
-				
-						<div class="inpBtn">
-							<input type="submit" class="subBtn" value="ì™„ ë£Œ">
-							<input type="button" class="antBtn" onclick="location.href='myRoomMain.do'" value="í™ˆìœ¼ë¡œ ê°€ê¸°">
-						</div>
-					</form>
-				</div>
-			</div>
-			<div id="footer">
-				<%@ include file="../common/footer.jsp" %>
-			</div>
-		</div>
-
-
-<script>
-	function w3_open() {
-	  document.getElementById("main").style.marginLeft = "25%";
-	  document.getElementById("mySidebar").style.width = "25%";
-	  document.getElementById("mySidebar").style.display = "block";
-	  document.getElementById("openNav").style.display = 'none';
+		 $.ajax({
+		 	type:"GET",
+		 	url:"emailCheck.do?user_email=" + user_email,
+		 	success:function(data){
+		 		if(user_email != ''){
+		 			$("#email_chk_blank").hide();
+			 		checkBox.attr("disabled", false);
+			 		checkBox.attr("id","user_email_num_true");
+			 		$(".user_email_num").focus();
+			 		code = data;
+		 		}else{
+		 			$("#email_chk_blank").show();
+		 		}
+		 	}
+		 });
 	}
-	function w3_close() {
-	  document.getElementById("main").style.marginLeft = "0%";
-	  document.getElementById("mySidebar").style.display = "none";
-	  document.getElementById("openNav").style.display = "inline-block";
+	
+	//ÀÎÁõ¹øÈ£ ºñ±³
+	$(function(){
+		$(".user_email_num").keyup(function(){
+			const inputCode = $(".user_email_num").val();		//ÀÔ·Â ÄÚµå
+			
+			$("#email_chk_available").hide();
+			$("#email_chk_unavailable").hide();
+			
+			if(inputCode == code){
+				$("#email_chk_available").show();
+				$("#email_chk_unavailable").hide();
+				$("#user_email").attr("title", "y");
+			}else{
+				$("#email_chk_unavailable").show();
+				$("#email_chk_available").hide();
+			}
+		});
+	});
+	
+	//ÀÎÁõ¹øÈ£ ÀÏÄ¡ È®ÀÎ
+	function emailChkConfirm(){
+		const chk = document.getElementById("user_email").title;
+		if(chk=="n"){
+			alert("ÀÌ¸ŞÀÏ ÀÎÁõÀ» ÇØÁÖ¼¼¿ä.");
+			document.getElementById("user_email").focus();
+		}
+	}
+	
+	//ºñ¹Ğ¹øÈ£ ÀÏÄ¡
+	$(function(){
+		$("#pw_chk_available").hide();
+		$("#pw_chk_unavailable").hide();
+		
+		$("#pw_chk").keyup(function(){
+			const pw = $("#pw").val();
+			const pw_chk = $("#pw_chk").val();
+			
+			if(pw != "" || pw_chk != ""){
+				if(pw == pw_chk){
+					$("#pw_chk_available").show();
+					$("#pw_chk_unavailable").hide();
+					$("#pw").attr("title", "y");
+				}else{
+					$("#pw_chk_available").hide();
+					$("#pw_chk_unavailable").show();
+				}
+			}
+		});
+	});
+	
+	//ºñ¹Ğ¹øÈ£ ÀÏÄ¡ È®ÀÎ
+	function pwChkConfirm(){
+		const chk = document.getElementById("pw").title;
+		if(chk=="n"){
+			alert("ºñ¹Ğ¹øÈ£¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+			document.getElementById("pw").focus();
+		}
 	}
 </script>
+
+<!-- Daum ÁÖ¼Ò API -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function addr_search() {
+    	daum.postcode.load(function(){
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	            	let addr = ''; 	  // µµ·Î¸í ÁÖ¼Ò º¯¼ö
+	
+	                if (data.userSelectedType === 'R') { // »ç¿ëÀÚ°¡ µµ·Î¸í ÁÖ¼Ò¸¦ ¼±ÅÃÇßÀ» °æ¿ì
+	                    addr = data.roadAddress;
+	                } else { // »ç¿ëÀÚ°¡ Áö¹ø ÁÖ¼Ò¸¦ ¼±ÅÃÇßÀ» °æ¿ì(J)
+	                    addr = data.jibunAddress;
+	                }
+	
+	                // ¿ìÆí¹øÈ£¿Í ÁÖ¼Ò Á¤º¸¸¦ ÇØ´ç ÇÊµå¿¡ ³Ö±â
+	                document.getElementById("user_addr").value = addr;
+	                // focus¸¦ »ó¼¼ÁÖ¼Ò ÇÊµå·Î ÀÌµ¿
+	                document.getElementById("user_addr_sub").focus();
+	            }
+	        }).open();
+    	});
+    }
+</script>
+<body>
+	<div id="header">
+		<%@ include file="../common/header.jsp"%>
+	</div>
+	
+    <div class="login_regist_wrap">
+        <div class="regist_wrap">
+            <div class="container">
+                <a>È¸ ¿ø Á¤ º¸ ¼ö Á¤</a>
+                <hr>
+            </div>
+            
+            <div class="regist_form">
+            <form action="registRes.do" method="post">
+                <table width="550px">
+                    <tr>
+                        <col width="150px"> <col width="300px">
+                    </tr>
+                    <tr>
+                        <th>¾ÆÀÌµğ</th>
+                        <td>
+                            <input type="text" class="user_id" name="user_id" id="id" title="n" readonly>
+                        </td>
+                    </tr>
+                    <tr height="15"></tr>
+                    <tr>
+                        <th>ÀÌ ¸§</th>
+                        <td>
+                        	<input type="text" class="user_name" name="user_name" id="user_name" readonly>
+                        </td>
+                    </tr>
+                    <tr height="15"></tr>
+                    <tr>
+                        <th>ºñ¹Ğ¹øÈ£ ¼öÁ¤</th>
+                        <td>
+                        	<input type="password" class="user_pw" name="user_pw" id="pw" title="n" required placeholder="ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>ºñ¹Ğ¹øÈ£ È®ÀÎ</th>
+                        <td>
+                        	<input type="password" class="user_pw_chk" name="pw_chk" id="pw_chk" required><br>
+                        	<span class="divSpan" id="pw_chk_available">ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÕ´Ï´Ù.</span>
+                            <span class="divSpan" id="pw_chk_unavailable">ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.</span>
+                        </td>
+                    </tr>
+                    <tr height="15"></tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>
+                        	<input type="text" class="user_email" name="user_email" id="user_email" title="n" placeholder="ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇÏ¼¼¿ä." onclick="pwChkConfirm();" required>
+                        	<input type="button" class="user_email_chk" value="ÀÎÁõ¹øÈ£" onclick="emailCheck();"><br>
+                        	<input type="text" class="user_email_num" name="user_email_num" id="user_email_num_false" disabled="disabled" required><br>
+                        	<span class="divSpan" id="email_chk_blank">ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇÏ¼¼¿ä.</span>
+                        	<span class="divSpan" id="email_chk_available">ÀÎÁõ¹øÈ£°¡ ÀÏÄ¡ÇÕ´Ï´Ù.</span>
+                            <span class="divSpan" id="email_chk_unavailable">ÀÎÁõ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.</span>
+                        </td>
+                    </tr>
+                    <tr height="15"></tr>
+                    <tr>
+                        <th>ÁÖ ¼Ò</th>
+                        <td>
+                            <input type="text" class="user_addr" name="user_addr" id="user_addr" placeholder="ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ¼¼¿ä." readonly required>
+                            <input type="button" class="user_addr_chk" value="ÁÖ¼Ò°Ë»ö" onclick="addr_search();"><br>
+                            <input type="text" class="user_addr_sub" name="user_addr_sub" id="user_addr_sub" placeholder="»ó¼¼ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ¼¼¿ä." onclick="emailChkConfirm();" required>
+                        </td>
+                    </tr>
+                    <tr height="15"></tr>
+                    <tr>
+                        <th>ÀüÈ­¹øÈ£</th>
+                        <td>
+                            <input type="text" class="user_phone" name="user_phone" id="user_phone" placeholder="'-' ºÎÈ£ ¾øÀÌ ¼ıÀÚ¸¸ ÀÔ·ÂÇÏ¼¼¿ä." required>
+                        </td>
+                    </tr>
+                    <tr>
+                    	<th>È° ¼º È­</th>
+                    	<td style="vertical-align:middle;">
+                    		<input type="radio" name="rBtn" value="Y" checked>È°¼ºÈ­&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="rBtn" value="N">ºñÈ°¼ºÈ­
+                    	</td>
+                    </tr>
+                    <tr>
+                    	<th>È¸¿ø Å»Åğ</th>
+                    	<td style="vertical-align:middle;">
+                    		<input type="button" class="antBtn" onclick="location.href='memberDelete.do'" value="Å» Åğ">
+                    	</td>
+                    </tr>
+                </table>
+                    <div class="regist_btn">
+                        <input type="submit" class="subBtn" id="submit" value="°¡ ÀÔ">
+                        <input type="button" class="antBtn" value="Ãë ¼Ò" onclick="location.href='main.do'">
+                    </div>
+            </form>
+          </div>
+        </div> 
+    </div>
+    
+    <div id="footer">
+		<%@ include file="../common/footer.jsp"%>
+	</div>
 </body>
 </html>

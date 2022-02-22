@@ -13,7 +13,7 @@ public interface MemberBiz {
 	public void logout(HttpSession session);
 	
 	// id 중복 체크
-	public int idCheck(MemberDto dto) throws Exception;
+	public int idCheck(String user_id) throws Exception;
 	
 	// 회원가입
 	public void memberRegist(MemberDto dto) throws Exception;
