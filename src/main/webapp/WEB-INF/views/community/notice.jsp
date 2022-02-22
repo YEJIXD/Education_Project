@@ -37,7 +37,7 @@
 				<tbody>
 					<tr>
 						<td>2</td>
-						<td><a href="courseDetail.do">강의입니다.</a></td>
+						<td><a href="noticeDetail.do">강의입니다.</a></td>
 						<td>2022.01.12</td>
 						<td>88</td>
 					</tr>

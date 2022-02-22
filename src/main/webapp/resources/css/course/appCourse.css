@@ -85,6 +85,25 @@ h3, h4{ padding : 2px 10px 2px 10px; }
 	padding:50px 80px 50px 200px;	
 }
 
+.c_addr{
+	width:300px;
+}
+.c_addr_sub{
+	margin:5px 115px 0 10px;
+	width:300px;
+}
+
+.c_addr_chk{
+	width:100px; 
+	height:30px;
+	line-height:20px; 
+	border:none;
+	border-radius:4%; 
+	background-color: #B0E0E6; 
+	text-align:center; 
+	cursor: pointer; 
+}
+
 table{
 	margin:auto;
 	text-align:center;

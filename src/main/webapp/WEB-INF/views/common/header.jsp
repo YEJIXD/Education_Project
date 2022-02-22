@@ -187,15 +187,16 @@ body {
 							<div class="login_modal_close">
 								<a id="modal_close_btn" onclick="loginModalOut()">X</a>
 							</div>
-							<form action="loginCheck.do" method="post" class="login_form">
+							
+							<form action="loginCheck.do" method="POST" class="login_form">
 								<div class="logo">
 									<img src="resources/images/locker.png" width="70" height="70">
 								</div>
 								<div class="login_id">
-									<span>ID</span><br> <input type="text" name="user_id" id="user_id">
+									<span>I D</span><br> <input type="text" name="user_id" id="user_id">
 								</div>
 								<div class="login_pw">
-									<span>Password</span><br> <input type="password" name="user_pw" id="user_pw">
+									<span>P W</span><br> <input type="password" name="user_pw" id="user_pw">
 								</div>
 								<div class="login_btn">
 									<input type="submit" id="submitBtn" value="L O G I N">
@@ -204,6 +205,7 @@ body {
 									<br> <a href="registForm.do" style="text-decoration:none; color:#4169E1;">회 원 가 입</a>
 								</div>
 							</form>
+							
 						</div>
 					</div>
 				</div>

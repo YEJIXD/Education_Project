@@ -12,7 +12,7 @@ public interface MemberDao {
 	public void logout(MemberDto dto) throws Exception;
 	
 	// 아이디 중복체크
-	public int idCheck(MemberDto dto) throws Exception;
+	public int idCheck(String user_id) throws Exception;
 	
 	// 회원가입
 	public void memberRegist(MemberDto dto) throws Exception;

@@ -33,10 +33,8 @@ public class MemberBizImpl implements MemberBiz{
 
 	// id 중복체크
 	@Override
-	public int idCheck(MemberDto dto) throws Exception {
-		//return memberDao.idCheck(dto);
-		int result = memberDao.idCheck(dto);
-		return result;
+	public int idCheck(String user_id) throws Exception {
+		return memberDao.idCheck(user_id);
 	}
 
 	// 회원가입

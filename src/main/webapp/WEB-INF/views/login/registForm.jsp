@@ -12,22 +12,35 @@
 <script type="text/javascript">
 	//아이디 중복체크
 	function idCheck(){
-		var user_id = $("user_id").val();
-		var sendData = {"user_id":user_id}
+		$("#id_chk_unavailable").hide();
+		$("#id_chk_available").hide();
+		$("#id_chk_blank").hide();
+		
+		let inputIdCheck = $("#user_id").val();
+		
+		/* if(함수(return값을 true false)){
+			alert("실패")
+			return false;
+		} */
+		
+		
 		$.ajax({
-			method:'POST',
-			url : 'idCheck',
-			data : sendData,
-			success : function(data){
-				if(data =='fail'){
-					$('#id_chk_unavailable').css('color','red')
-					$('#id_chk_unavailable').html("이미 존재하는 아이디입니다.")
-					flag = false;
-				}else{
-					$('#id_chk_available').css('color','blue')
-					$('#id_chk_available').css("사용 가능한 아이디입니다.")
-					flag=true;
-				}
+			url:"idCheck.do",
+			type:"POST",
+			dataType:"JSON",
+			data:{"user_id" : $("#user_id").val()},
+			success: function(data){
+				console.log($("#user_id").val())
+				console.log(data)
+					if(data == 1){					
+						$("#id_chk_unavailable").show();
+					}else if(data == 0){
+						$("#id").attr("title", "y");
+						$("#id_chk_available").show();
+						$("#user_name").focus();
+					}else{
+						$("#id_chk_blank").show();
+					}
 			}
 		})
 	}
@@ -84,8 +97,6 @@
 		 	type:"GET",
 		 	url:"emailCheck.do?user_email=" + user_email,
 		 	success:function(data){
-		 		console.log("dddddddddddddddddddddddddddddddddddddddddddddddata: " + data);
-		 		
 		 		if(user_email != ''){
 		 			$("#email_chk_blank").hide();
 			 		checkBox.attr("disabled", false);
@@ -155,7 +166,7 @@
 				return false;
 			}
 			if($("#user_addr").val()==""){
-				alert("주소 입력해주세요.");
+				alert("주소를 입력해주세요.");
 				$("#user_addr").focus();
 				return false;
 			}
@@ -213,7 +224,7 @@
                     <tr>
                         <th>아이디</th>
                         <td>
-                            <input type="text" class="user_id" name="user_id" id="id" title="n" required="required" placeholder="아이디를 입력하세요." autofocus>
+                            <input type="text" class="user_id" name="user_id" id="user_id" title="n" required="required" placeholder="아이디를 입력하세요." autofocus>
                             <input type="button" class="user_id_chk" value="중복확인" onclick="idCheck();"><br>
                             <span class="divSpan" id="id_chk_available">사용가능한 아이디입니다.</span>
                             <span class="divSpan" id="id_chk_unavailable">중복된 아이디입니다.</span>

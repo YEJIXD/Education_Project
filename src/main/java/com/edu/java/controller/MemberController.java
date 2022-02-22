@@ -1,11 +1,12 @@
 package com.edu.java.controller;
 
+import java.io.Console;
 import java.util.Random;
 
 import javax.inject.Inject;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMessage.RecipientType;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,12 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.java.biz.MemberBiz;
-import com.edu.java.dto.EmailDto;
 import com.edu.java.dto.MemberDto;
 
 @Controller
@@ -35,23 +38,25 @@ public class MemberController {
 	@RequestMapping("/registForm.do")
 	public String registForm() throws Exception {
 		logger.info("regist Form page");
-		return "/login/registForm.jsp";
+		return "/login/registForm";
 	}
 	
+	// 회원가입 완료
 	@RequestMapping(value="/registRes.do", method=RequestMethod.POST)
 	public String registRes(MemberDto dto) throws Exception{
 		logger.info("regist Result");
 		memberBiz.memberRegist(dto);
 		
-		return "../../index.jsp";
+		return "/main.do";
 	}
 	
 	// id 중복 체크
 	@ResponseBody
 	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
-	public int idCheck(MemberDto dto) throws Exception{
-		System.out.println("id_Check");
-		int result = memberBiz.idCheck(dto);
+	public int idCheck(String user_id) throws Exception{
+		logger.info("user_ID : " + user_id);
+		
+		int result = memberBiz.idCheck(user_id);
 		return result;
 	}
 	
@@ -91,5 +96,71 @@ public class MemberController {
 	    }
 	    String num = Integer.toString(checkNum);
 	    return num;
+	}
+	
+	// 로그인
+	@RequestMapping("/loginCheck.do")
+	public ModelAndView loginCheck(@ModelAttribute MemberDto dto, HttpSession session, Model model) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		MemberDto dto2 = memberBiz.loginCheck(dto, session);
+		
+		if(dto2 != null) {
+			// 활성화 (Y)
+			if(dto2.getUser_enable().equals("Y")) {
+				// 사용자 (U)
+				if(dto2.getUser_role().equals("U")) {
+					session.setAttribute("member", dto2);
+					session.setAttribute("user_id", dto.getUser_id());
+					mav.setViewName("../../index");
+					mav.addObject("msg", "success");
+					
+				// 관리자(A)
+				}else if(dto2.getUser_role().equals("A")) {	
+					session.setAttribute("member", dto2);
+					mav.setViewName("/admin/adminMain");
+					
+				}else {
+					mav.setViewName("../../index");
+					mav.addObject("msg","fail");
+				}
+			
+			// 비활성화 (N)
+			}else {
+				mav.setViewName("../../index");
+				mav.addObject("msg", "fail");
+			}
+		}else {
+			mav.setViewName("../../index");
+		}
+		return mav;
+	}
+	
+	//로그아웃
+	@RequestMapping("/logout.do")
+	public ModelAndView logout(HttpSession session) {
+		memberBiz.logout(session);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("../../index");
+		mav.addObject("msg", "logout");
+		
+		return mav;
+	}
+	
+	//회원정보 수정
+	@RequestMapping(value="/memberUpdate.do", method=RequestMethod.POST)
+	public String memberUpdate(MemberDto dto, HttpSession session) throws Exception{
+		memberBiz.memberUpdate(dto);
+		session.invalidate();
+			
+		return "../../index"; 
+	}
+		  
+	//회원 비활성화
+	@RequestMapping(value="/memberDelete.do", method=RequestMethod.GET)
+	public String memberDelete(MemberDto dto, HttpSession session) throws Exception{
+		memberBiz.memberDelete(dto);
+		session.invalidate();
+			
+		return "../../index";
 	}
 }

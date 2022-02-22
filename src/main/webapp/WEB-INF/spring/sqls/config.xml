@@ -14,5 +14,7 @@
 	
 	<mappers>
 		<mapper resource="/mybatis/mapper.xml" />
+		<mapper resource="/mybatis/courseMapper.xml" />
+		<mapper resource="/mybatis/communityMapper.xml" />
 	</mappers>
 </configuration>
