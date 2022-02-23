@@ -1,13 +1,26 @@
 package com.edu.java.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.edu.java.biz.MemberBiz;
+import com.edu.java.dto.MemberDto;
+
+@SessionAttributes("member")
 @Controller
 public class CommonController {
 	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
+	
+	@Autowired
+	MemberBiz memberBiz;
 	
 	// 메인페이지
 	@RequestMapping("/main.do")

@@ -23,6 +23,10 @@
 			return false;
 		} */
 		
+		if($("#user_id").val() == ""){
+			alert("아이디를 입력해주세요");
+			return false;
+		}
 		
 		$.ajax({
 			url:"idCheck.do",
@@ -32,25 +36,28 @@
 			success: function(data){
 				console.log($("#user_id").val())
 				console.log(data)
+				
+				// 이미 아이디가 존재한다면 count = 1
 					if(data == 1){					
 						$("#id_chk_unavailable").show();
+				// 존재하는 아이디가 없다면 count = 0
 					}else if(data == 0){
-						$("#id").attr("title", "y");
+						$("#user_id").attr("title", "y");
 						$("#id_chk_available").show();
 						$("#user_name").focus();
 					}else{
 						$("#id_chk_blank").show();
 					}
 			}
-		})
+		});
 	}
 
 	//아이디 중복체크 확인
 	function idChkConfirm(){
-		const chk = document.getElementById("id").title;
+		const chk = document.getElementById("user_id").title;
 		if(chk=="n"){
 			alert("아이디 중복체크를 해주세요.");
-			document.getElementById("id").focus();
+			document.getElementById("user_id").focus();
 			// return false 빠지면 alert는 뜨는데 그대로 회원가입 진행됨
 			return false;
 		}
@@ -145,9 +152,9 @@
 		})
 		
 		$("#submit").on("click", function(){
-			if($("#id").val()==""){
+			if($("#user_id").val()==""){
 				alert("아이디를 입력해주세요.");
-				$("#id").focus();
+				$("#user_id").focus();
 				return false;
 			}
 			if($("#user_name").val()==""){
@@ -175,8 +182,9 @@
 				$("#user_phone").focus();
 				return false;
 			}
-		});
-	})
+	});
+})
+	
 </script>
 
 <!-- Daum 주소 API -->
@@ -217,14 +225,14 @@
             
             <div class="regist_form">
             <form action="registRes.do" method="post">
-                <table width="550px">
+                <table style="width:550px">
                     <tr>
-                        <col width="150px"> <col width="300px">
+                        <td width="150px" /> <td width="300px" />
                     </tr>
                     <tr>
                         <th>아이디</th>
                         <td>
-                            <input type="text" class="user_id" name="user_id" id="user_id" title="n" required="required" placeholder="아이디를 입력하세요." autofocus>
+                            <input type="text" class="user_id" name="user_id" id="user_id" title="n" placeholder="아이디를 입력하세요." autofocus required>
                             <input type="button" class="user_id_chk" value="중복확인" onclick="idCheck();"><br>
                             <span class="divSpan" id="id_chk_available">사용가능한 아이디입니다.</span>
                             <span class="divSpan" id="id_chk_unavailable">중복된 아이디입니다.</span>
@@ -274,13 +282,13 @@
                     <tr>
                         <th>전화번호</th>
                         <td>
-                            <input type="text" class="user_phone" name="user_phone" id="user_phone" placeholder="'-' 부호 없이 숫자만 입력하세요." required>
+                            <input type="text" class="user_phone" name="user_phone" id="user_phone" placeholder="'-'없이 숫자만 입력하세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
                         </td>
                     </tr>
                 </table>
                     <div class="regist_btn">
                         <input type="submit" class="subBtn" id="submit" value="가 입">
-                        <input type="button" class="antBtn" value="취 소" onclick="location.href='index.do'">
+                        <input type="button" class="antBtn" value="취 소" onclick="location.href='main.do'">
                     </div>
             </form>
           </div>
