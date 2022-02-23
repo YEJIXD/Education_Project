@@ -176,39 +176,9 @@ body {
 							onclick="location.href='logout.do'">로그아웃</span>
 					</c:when>
 					<c:otherwise>
-						<span id="login" style="color: gray;" onclick="loginModalIn()">로그인</span>
+						<span id="login" style="color: gray;" onclick="location.href='loginForm.do'">로그인</span>
 					</c:otherwise>
 				</c:choose>
-				
-				<!-- Login 창 -->
-				<div class="login_wrap1" style="z-index: -1;">
-					<div class="login_wrap">
-						<div class="login">
-							<div class="login_modal_close">
-								<a id="modal_close_btn" onclick="loginModalOut()">X</a>
-							</div>
-							
-							<form action="loginCheck.do" method="POST" class="login_form">
-								<div class="logo">
-									<img src="resources/images/locker.png" width="70" height="70">
-								</div>
-								<div class="login_id">
-									<span>I D</span><br> <input type="text" name="user_id" id="user_id">
-								</div>
-								<div class="login_pw">
-									<span>P W</span><br> <input type="password" name="user_pw" id="user_pw">
-								</div>
-								<div class="login_btn">
-									<input type="submit" id="submitBtn" value="L O G I N">
-								</div>
-								<div class="login_regist" align="center">
-									<br> <a href="registForm.do" style="text-decoration:none; color:#4169E1;">회 원 가 입</a>
-								</div>
-							</form>
-							
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>

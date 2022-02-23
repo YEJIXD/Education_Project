@@ -1,11 +1,11 @@
 package com.edu.java.dto;
 
 public class EmailDto {
-	private String senderName;
-	private String senderMail;
-	private String receiveMail;
-	private String subject;
-	private String message;
+	private String senderName;		// 발신인 이름
+	private String senderMail;		// 발신인 이메일 주소
+	private String receiveMail;		// 수신인 이메일 주소
+	private String subject;			// 이메일 제목
+	private String message;			// 이메일 내용
 	
 	public EmailDto() {
 		super();
