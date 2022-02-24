@@ -16,35 +16,6 @@
         <link href="resources/css/admin/admin_styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<script type="text/javascript">
-			$(function(){
-				const chkObj = document.getElementByName("RowCheck[]");
-				const rowCnt = chkObj.length;
-				
-				$("input[name='allCheck']").click(function(){
-		    		var chk_listArr = $("input[name='RowCheck[]']");
-		    		for(var i = 0 ; i<chk_listArr.length; i++){
-		    			chk_listArr[i].checked = this.checked;
-		    		}
-		    	});
-		    	$("input[name='RowCheck[]']").click(function(){
-		    		if($("input[name='RowCheck[]']:checked").length == rowCnt){
-		    			$("input[name='allCheck']")[0].checked = true;
-		    		}else{
-		    			$("input[name='allCheck']")[0].checked = false;
-		    		}
-		    	});
-		    });
-		 
-			 function delete_frm(){
-				 if(confirm('정말 삭제하시겠습니까?')==true){
-					 return true;
-				 }else{
-					 return false;
-				 }
-			 }
-		</script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-info p-2 text-dark bg-opacity-25 justify-content-between">
@@ -76,8 +47,8 @@
                             <a class="nav-link home" href="adminMain.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-home" aria-hidden="true"></i></div><span>HOME</span></a>
                             <a class="nav-link notice" href="adminNoticeList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-flag" aria-hidden="true"></i></div><span>Notice</span></a>
                             <a class="nav-link qna" href="adminQnaList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Q n A</span></a>
-                            <a class="nav-link faq" href="adminFaqList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-bars" aria-hidden="true"></i></div><span>F A Q</span></a>
-                            <a class="nav-link course" href="adminCourseList.do" style="color: #9966FF;"><div class="sb-nav-link-icon"><i class="fa fa-book" aria-hidden="true"></i></div><span>Course</span></a>
+                            <a class="nav-link faq" href="adminFaqList.do" style="color: #9966FF;"><div class="sb-nav-link-icon"><i class="fa fa-bars" aria-hidden="true"></i></div><span>F A Q</span></a>
+                            <a class="nav-link course" href="adminCourseList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-book" aria-hidden="true"></i></div><span>Course</span></a>
                             <a class="nav-link cancle" href="adminCancleList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-ban" aria-hidden="true"></i></div><span>Cancle</span></a>
                             <a class="nav-link review" href="adminReviewList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-shoe-prints" aria-hidden="true"></i></div><span>Review</span></a>
                         </div>
@@ -88,41 +59,46 @@
                 <main>
                 	<br>
                     <div class="container-fluid px-4">
-                        <h1 class="title_tab">교육 강의 관리</h1>
+                        <h1 class="title_tab">F A Q</h1>
                         <br><br>
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table me-1"></i>강좌 목록</div>
+                            <div class="card-header"><i class="fas fa-table me-1"></i>FAQ 관리</div>
                             <div class="card-body">
-                            	<form action="courseInsert.do" method="GET">
+                            	<form action="adminFaqInsert.do" method="GET">
 	                                <table id="datatablesSimple" class="table table-hover">
 	                                    <thead>
 	                                        <tr>
-	                                            <th class="chkBtn"><input type="checkbox" name="allCheck" value="selectall" onclick="selectAll(this)"></th>
+	                                            <th class="chkBtn"><input type="checkbox" name="chkBtn" value="selectall" onclick="selectAll(this)"></th>
 	                                            <th class="no">NO</th>
-	                                            <th class="title">강좌명</th>
+	                                            <th class="title">제 목</th>
 	                                            <th class="writer">작성자</th>
-	                                            <th class="date">등록일</th>
-	                                            <th class="term">교육 기간</th>
+	                                            <th class="date">작성일</th>
 	                                        </tr>
 	                                    </thead>
 	                                    <tbody>
+	                                    	<tr>
+				                            	<td style="vertical-align:middle;"><input type="checkbox" name="chkBtn" value="${dto.q_no}"></td>
+				                                <td style="vertical-align:middle;">1</td>
+				                                <td style="vertical-align:middle;"><a href="#">test</a></td>
+				                                <td style="vertical-align:middle;">테둥이</td>
+				                                <td style="vertical-align:middle;">2022-02-15</td>
+				                            </tr>
 											<c:forEach items="${qnaList}" var="dto">
 				                            	<tr>
-				                                	<td style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${dto.q_no}"></td>
+				                                	<td style="vertical-align:middle;"><input type="checkbox" name="chkBtn" value="${dto.q_no}"></td>
 				                                    <td style="vertical-align:middle;">${dto.q_no}</td>
 				                                    <td style="vertical-align:middle;"><a href="event-detail.do?event_no=${dto.q_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.q_title}</a></td>
+				                                    <td style="vertical-align:middle;"></td>
 				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.q_date}"/></td>
-				                                    <td style="vertical-align:middle;"></td>
-				                                    <td style="vertical-align:middle;"></td>
 				                            	</tr>
 				                        	</c:forEach>
 	                                    </tbody>
 	                                </table>
 	                                <div class="inpBtn">
-	                                	<input type="submit" class="adm_insert" id="submit" value="등 록">
+		                                <input type="submit" class="adm_insert" value="등 록">
 		                            	<button class="adm_delete" type="button" onclick="" value="delete">삭 제</button>
 	                            	</div>
-                            	</form>
+	                            </form>
                             </div>
                         </div>
                     </div>

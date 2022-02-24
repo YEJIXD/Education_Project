@@ -16,6 +16,36 @@
         <link href="resources/css/admin/admin_styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         
+        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				const chkObj = document.getElementByName("RowCheck[]");
+				const rowCnt = chkObj.length;
+				
+				$("input[name='allCheck']").click(function(){
+		    		var chk_listArr = $("input[name='RowCheck[]']");
+		    		for(var i = 0 ; i<chk_listArr.length; i++){
+		    			chk_listArr[i].checked = this.checked;
+		    		}
+		    	});
+		    	$("input[name='RowCheck[]']").click(function(){
+		    		if($("input[name='RowCheck[]']:checked").length == rowCnt){
+		    			$("input[name='allCheck']")[0].checked = true;
+		    		}else{
+		    			$("input[name='allCheck']")[0].checked = false;
+		    		}
+		    	});
+		    });
+		 
+			 function delete_frm(){
+				 if(confirm('정말 삭제하시겠습니까?')==true){
+					 return true;
+				 }else{
+					 return false;
+				 }
+			 }
+		</script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-info p-2 text-dark bg-opacity-25 justify-content-between">
@@ -67,7 +97,7 @@
                                 <table id="datatablesSimple" class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th class="chkBtn"><input type="checkbox" name="chkBtn" value="selectall" onclick="selectAll(this)"></th>
+                                            <th class="chkBtn"><input type="checkbox" name="allCheck" value="selectall" onclick="selectAll(this)"></th>
                                             <th class="no">NO</th>
                                             <th class="title">제 목</th>
                                             <th class="writer">작성자</th>
@@ -76,17 +106,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    	<tr>
-			                            	<td style="vertical-align:middle;"><input type="checkbox" name="chkBtn" value="${dto.q_no}"></td>
-			                                <td style="vertical-align:middle;">1</td>
-			                                <td style="vertical-align:middle;"><a href="qnaAnswer.do">test</a></td>
-			                                <td style="vertical-align:middle;">테둥이</td>
-			                                <td style="vertical-align:middle;">2022-02-15</td>
-			                                <td style="vertical-align:middle; color:red;">완료</td>
-			                            </tr>
 										<c:forEach items="${qnaList}" var="dto">
 			                            	<tr>
-			                                	<td style="vertical-align:middle;"><input type="checkbox" name="chkBtn" value="${dto.q_no}"></td>
+			                                	<td style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${dto.q_no}"></td>
 			                                    <td style="vertical-align:middle;">${dto.q_no}</td>
 			                                    <td style="vertical-align:middle;"><a href="event-detail.do?event_no=${dto.q_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.q_title}</a></td>
 			                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.q_date}"/></td>
