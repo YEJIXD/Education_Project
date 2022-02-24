@@ -12,7 +12,6 @@
 		<%@ include file="WEB-INF/views/common/header.jsp" %>
 	</div>
 	
-	<input type="button" onclick="location.href='adminMain.do'" value="123123123">
 	<table>
 		<tr>
 			<td height="500"> </td>

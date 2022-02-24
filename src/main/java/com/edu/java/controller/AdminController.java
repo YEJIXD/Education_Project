@@ -1,5 +1,8 @@
 package com.edu.java.controller;
 
+
+public class AdminController {
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;

@@ -242,17 +242,17 @@
                     <tr height="15"></tr>
                     <tr>
                         <th>이 름</th>
-                        <td><input type="text" class="user_name" name="user_name" id="user_name" required placeholder="이름을 입력하세요." onclick="idChkConfirm();"></td>
+                        <td><input type="text" class="user_name" name="user_name" id="user_name" placeholder="이름을 입력하세요" onclick="idChkConfirm();" required></td>
                     </tr>
                     <tr height="15"></tr>
                     <tr>
                         <th>비밀번호</th>
-                        <td><input type="password" class="user_pw" name="user_pw" id="pw" title="n" required placeholder="비밀번호를 입력하세요." onclick="idChkConfirm();"></td>
+                        <td><input type="password" class="user_pw" name="user_pw" id="pw" title="n" placeholder="비밀번호를 입력하세요" onclick="idChkConfirm();" required></td>
                     </tr>
                     <tr>
                         <th>비밀번호 확인</th>
                         <td>
-                        	<input type="password" class="user_pw_chk" name="pw_chk" id="pw_chk" required onclick="idChkConfirm();"><br>
+                        	<input type="password" class="user_pw_chk" name="pw_chk" id="pw_chk" onclick="idChkConfirm();" required><br>
                         	<span class="divSpan" id="pw_chk_available">비밀번호가 일치합니다.</span>
                             <span class="divSpan" id="pw_chk_unavailable">비밀번호가 일치하지 않습니다.</span>
                         </td>
@@ -261,7 +261,7 @@
                     <tr>
                         <th>Email</th>
                         <td>
-                        	<input type="text" class="user_email" name="user_email" id="user_email" title="n" placeholder="이메일을 입력하세요." onclick="pwChkConfirm();" required>
+                        	<input type="text" class="user_email" name="user_email" id="user_email" title="n" placeholder="이메일을 입력하세요" onclick="pwChkConfirm();" required>
                         	<input type="button" class="user_email_chk" value="인증번호" onclick="emailCheck();"><br>
                         	<input type="text" class="user_email_num" name="user_email_num" id="user_email_num_false" disabled="disabled" required><br>
                         	<span class="divSpan" id="email_chk_blank">이메일을 입력하세요.</span>
@@ -273,16 +273,16 @@
                     <tr>
                         <th>주 소</th>
                         <td>
-                            <input type="text" class="user_addr" name="user_addr" id="user_addr" placeholder="주소를 입력하세요." readonly required>
+                            <input type="text" class="user_addr" name="user_addr" id="user_addr" placeholder="주소를 입력하세요" readonly required>
                             <input type="button" class="user_addr_chk" value="주소검색" onclick="addr_search();"><br>
-                            <input type="text" class="user_addr_sub" name="user_addr_sub" id="user_addr_sub" placeholder="상세주소를 입력하세요." onclick="emailChkConfirm();" required>
+                            <input type="text" class="user_addr_sub" name="user_addr_sub" id="user_addr_sub" placeholder="상세주소를 입력하세요" onclick="emailChkConfirm();" required>
                         </td>
                     </tr>
                     <tr height="15"></tr>
                     <tr>
                         <th>전화번호</th>
                         <td>
-                            <input type="text" class="user_phone" name="user_phone" id="user_phone" placeholder="'-'없이 숫자만 입력하세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
+                            <input type="text" class="user_phone" name="user_phone" id="user_phone" placeholder="'-'없이 숫자만 입력하세요" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
                         </td>
                     </tr>
                 </table>
