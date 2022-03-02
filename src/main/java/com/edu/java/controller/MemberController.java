@@ -1,6 +1,5 @@
 package com.edu.java.controller;
 
-import java.io.Console;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,12 +40,23 @@ public class MemberController {
 	}
 	
 	// 회원가입 완료
+	/*
+	 * @RequestMapping(value="/registRes.do", method=RequestMethod.POST) public
+	 * String registRes(MemberDto dto) throws Exception{
+	 * logger.info("regist Result"); memberBiz.memberRegist(dto);
+	 * 
+	 * return "redirect:main.do"; }
+	 */
+	
 	@RequestMapping(value="/registRes.do", method=RequestMethod.POST)
-	public String registRes(MemberDto dto) throws Exception{
+	public ModelAndView registMember(@ModelAttribute MemberDto dto) throws Exception{
 		logger.info("regist Result");
+		ModelAndView mav = new ModelAndView("jsonView");
+		
+		
 		memberBiz.memberRegist(dto);
 		
-		return "/main.do";
+		return mav;
 	}
 	
 	// id 중복 체크
@@ -98,53 +107,75 @@ public class MemberController {
 	    return num;
 	}
 	
+	// 로그인 페이지
+	@RequestMapping("/loginForm.do")
+	public String login() {
+		logger.info("login Form");
+		return "login/loginForm";
+	}
+		
 	// 로그인
 	@RequestMapping("/loginCheck.do")
-	public ModelAndView loginCheck(@ModelAttribute MemberDto dto, HttpSession session, Model model) throws Exception{
-		ModelAndView mav = new ModelAndView();
-		MemberDto dto2 = memberBiz.loginCheck(dto, session);
+	public ModelAndView loginCheck(@ModelAttribute MemberDto dto, HttpSession session) throws Exception {
+		ModelAndView mav = new ModelAndView("jsonView");
+		MemberDto mDto = memberBiz.loginCheck(dto, session);
 		
-		if(dto2 != null) {
+		if(mDto != null) {
 			// 활성화 (Y)
-			if(dto2.getUser_enable().equals("Y")) {
+			if(mDto.getUser_enable().equals("Y")) {
 				// 사용자 (U)
-				if(dto2.getUser_role().equals("U")) {
-					session.setAttribute("member", dto2);
+				if(mDto.getUser_role().equals("U")) {
+					session.setAttribute("member", mDto);
 					session.setAttribute("user_id", dto.getUser_id());
+					session.setAttribute("user_pw", dto.getUser_pw());
+					
 					mav.setViewName("../../index");
 					mav.addObject("msg", "success");
-					
+								
 				// 관리자(A)
-				}else if(dto2.getUser_role().equals("A")) {	
-					session.setAttribute("member", dto2);
+				}else if(mDto.getUser_role().equals("A")) {	
+					session.setAttribute("member", mDto);
+					session.setAttribute("user_pw", dto.getUser_pw());
 					mav.setViewName("/admin/adminMain");
-					
+
 				}else {
 					mav.setViewName("../../index");
 					mav.addObject("msg","fail");
+				}	
+							
+				// 비활성화 (N)
+				}else {
+					mav.setViewName("../../index");
+					mav.addObject("msg", "fail");
 				}
 			
-			// 비활성화 (N)
-			}else {
-				mav.setViewName("../../index");
-				mav.addObject("msg", "fail");
-			}
 		}else {
 			mav.setViewName("../../index");
 		}
-		return mav;
-	}
+	return mav;
+}
 	
 	//로그아웃
-	@RequestMapping("/logout.do")
-	public ModelAndView logout(HttpSession session) {
+	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
+	public ModelAndView logout(HttpSession session) throws Exception {	
 		memberBiz.logout(session);
 		ModelAndView mav = new ModelAndView();
+		
 		mav.setViewName("../../index");
 		mav.addObject("msg", "logout");
 		
 		return mav;
 	}
+	/*
+	 * Object object = session.getAttribute("login");
+		// 세션이 있다면 session을 종료시키기
+		if(object != null) {
+			session.removeAttribute("login");
+			session.invalidate();
+		}
+		// 로그아웃 후 index페이지로 redirection
+		return new ModelAndView("redirect:/main.do");
+	 * */
 	
 	//회원정보 수정
 	@RequestMapping(value="/memberUpdate.do", method=RequestMethod.POST)

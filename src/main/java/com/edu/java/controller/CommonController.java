@@ -1,18 +1,13 @@
 package com.edu.java.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.java.biz.MemberBiz;
-import com.edu.java.dto.MemberDto;
 
 @SessionAttributes("member")
 @Controller
@@ -245,96 +240,6 @@ public class CommonController {
 	public String userUpdate() {
 		logger.info("user Update page");
 		return "/myRoom/userUpdate";
-	}
-	
-	// admin_ Main
-	@RequestMapping("/adminMain.do")
-	public String adminMain() {
-		logger.info("admin Main page");
-		return "/admin/adminMain";
-	}
-	
-	// admin_ Notice
-	@RequestMapping("/adminNoticeList.do")
-	public String adminNoticeList() {
-		logger.info("admin Notice List page");
-		return "/admin/adminNotice";
-	}
-	
-	// admin_ Notice 등록 페이지
-	@RequestMapping("/adminNoticeInsert.do")
-	public String adminNoticeInsert() {
-		logger.info("admin Notice Insert page");
-		return "/admin/adminNoticeInsert";
-	}
-	
-	// admin_  Notice Insert
-	
-	// admin_ Notice 수정 페이지
-	@RequestMapping("/adminNoticeUpdate.do")
-	public String adminNoticeUpdate() {
-		logger.info("admin Notice Update page");
-		return "/admin/adminNoticeUpdate";
-	}
-	
-	// admin_ Notice Update
-	
-	// admin_ Qna List (삭제 및 답변용)
-	@RequestMapping("/adminQnaList.do")
-	public String adminQnaList() {
-		logger.info("admin Qna List page");
-		return "/admin/adminQnaList";
-	}
-	
-	// admin_ Faq List
-	@RequestMapping("/adminFaqList.do")
-	public String adminFaqList() {
-		logger.info("admin Faq List page");
-		return "/admin/adminFaqList";
-	}
-	
-	// admin_ Faq 등록 페이지
-	@RequestMapping("/adminFaqInsert.do")
-	public String adminFaqInsert() {
-		logger.info("admin Faq Insert page");
-		return "/admin/adminFaqInsert";
-	}
-	
-	// admin_ Faq Insert
-		
-	// admin_ Faq 수정 페이지
-	@RequestMapping("/adminFaqUpdate.do")
-	public String adminFaqUpdate() {
-		logger.info("admin Faq Update page");
-		return "/admin/adminFaqUpdate";
-	}
-		
-	// admin_ Faq Update
-	@RequestMapping("/adminFaqUpdateRes.do")
-	public String adminFaqUpdateRes() {
-		logger.info("Faq Update Result");
-		return "";
-	}
-	
-	// admin_ 강의 List
-	@RequestMapping("/adminCourseList.do")
-	public String adminCourseList() {
-		logger.info("Course List page");
-		return "/admin/adminCourseList";
-	}
-	
-	// admin_ 수강 취소 List 
-	@RequestMapping("/adminCancleList.do")
-	public String adminCancleList() {
-		logger.info("Cancle List page");
-		return "/admin/adminCancleList";
-	}
-	
-	// admin_ 수강 후기 List
-	@RequestMapping("/adminReviewList.do")
-	public String adminReviewList() {
-		logger.info("Review List page");
-		return "/admin/adminReviewList";
 	}
 
 }

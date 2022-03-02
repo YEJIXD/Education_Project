@@ -40,7 +40,7 @@
 			<div class="container">
 				<div class="content">
 					<form action="userUpdate.do" method="GET">
-						<h5>000님의 소중한 정보 수정을 위해 비밀번호를 입력해주세요 : )</h5><br><br>
+						<h5>${member.user_name}님의 소중한 정보 수정을 위해 비밀번호를 입력해주세요 : )</h5><br><br>
 						<table class="table">
 							<tr>
 								<th>비 밀 번 호</th>
