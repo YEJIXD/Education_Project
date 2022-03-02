@@ -41,7 +41,7 @@
 		<br><br><br><br>
 		
 		<div class="w3-container" align="center">
-			<p>000 님 반갑습니다 : )</p>
+			<p>${member.user_name}님 반갑습니다 : )</p>
 			<p>좌측 상단의 三 을 클릭해 원하시는 메뉴를 선택해주세요.</p>
 			<p>언제나 좋은 강의를 제공하는 CUBe Academy가 되겠습니다 💜</p>
 		</div>

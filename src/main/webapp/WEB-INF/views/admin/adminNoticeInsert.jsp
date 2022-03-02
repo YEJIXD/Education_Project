@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/course/appCourse.css">
-<title>Q n A Insert</title>
+<title>Notice Insert</title>
 <style type="text/css">
 	th{ width:150px; }
 
@@ -20,7 +20,7 @@
 	<div class="container">
 		<h3>공지사항 등록</h3><br><br>
 		<div class="content">
-			<form action="adminNoticeInsert.do" method="POST" enctype="multipart/form-data">
+			<form action="adminNoticeInsertRes.do" method="POST" enctype="multipart/form-data">
 				<table class="table insertTable">
 					<tr>
 						<th>제 목</th>

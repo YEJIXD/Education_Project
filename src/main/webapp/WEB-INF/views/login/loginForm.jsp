@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="EUC-KR"%>
+<%@ page import="com.edu.java.dao.MemberDao" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +29,13 @@
 				return false;
 			}
 	});
+})
+
+$(document).ready(function(){
+	let msg = "${msg}";
+	if(msg != null){
+		alert(msg);
+	}
 })
 </script>
 <body>

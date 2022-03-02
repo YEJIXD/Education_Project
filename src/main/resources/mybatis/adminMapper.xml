@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+	<!-- admin Notice -->
+		<resultMap type="noticeDto" id="noticeMap">
+			<result property="noti_no" column="NOTI_NO" />
+			<result property="noti_title" column="NOTI_TITLE"/>
+			<result property="noti_content" column="NOTI_CONTENT"/>
+			<result property="noti_date" column="NOTI_DATE"/>
+			<result property="noti_upd_date" column="NOTI_UPD_DATE"/>
+			<result property="noti_count" column="NOTI_COUNT"/>
+		</resultMap>
+		
+		<select id="adminNoticeList" parameterType="list" resultMap="noticeMap">
+			SELECT * 
+			FROM NOTICE
+			ORDER BY NOTI_NO DESC
+		</select>
+		
+		<select id="adminNoticeDetail" resultType="noticeDto" parameterType="int">
+			SELECT *
+			FROM NOTICE
+			WHERE NOTI_NO = #{noti_no}
+		</select>
+		
+		<insert id="adminNoticeInsert" parameterType="noticeDto">
+			INSERT INTO NOTICE 
+			(			NOTI_NO
+					  , NOTI_TITLE
+					  , NOTI_CONTENT
+					  , NOTI_DATE
+			)
+			VALUES(
+						(SELECT IFNULL(MAX(N.NOTI_NO),0) + 1 FROM NOTICE N) 
+					  , #{noti_title}
+					  , #{noti_content}
+					  , #{noti_date}
+			)
+		</insert>
+		
+		<update id="adminNoticeUpdate" parameterType="noticeDto">
+			UPDATE NOTICE
+			SET 	NOTI_TITLE=#{noti_title}
+				  , NOTI_CONTENT=#{noti_content}
+				  , NOTI_UPD_DATE=#{noti_upd_date}
+		</update>
+		
+		<delete id="adminNoticeDelete" parameterType="int">
+			DELETE FROM NOTICE WHERE NOTI_NO = #{noti_no}
+		</delete>
+	
+	<!-- admin QnA -->
+	<!--  QnA List -->
+		<select id="adminQnaList" parameterType="list" resultType="QnaDto">
+			SELECT *
+			FROM QNA
+			ORDER BY Q_NO DESC
+		</select>
+	
+	<!-- QnA 답변 -->
+		<insert id="adminQnaReplyInsert" parameterType="qnaDto">
+			INSERT INTO QNA 
+			(			Q_RE_NO
+					  , Q_RE_TITLE
+					  , Q_RE_CONTENT
+					  , Q_RE_DATE
+			)
+			VALUES(
+					   (SELECT IFNULL(MAX(Q.Q_NO),0) + 1 FROM QNA Q)
+					 , #{q_re_title}
+					 , #{q_re_content}
+					 , #{q_re_date}
+			)
+		</insert>
+		
+		<update id="adminQnaReplyUpdate" parameterType="qnaDto">
+			UPDATE QNA
+			
+			SET 	Q_RE_TITLE = #{q_re_title}
+				  , Q_RE_CONTENT = #{q_re_content}
+				  , Q_RE_UPD_DATE = #{q_re_upd_date}
+				  
+			WHERE Q_RE_NO = #{q_re_no}
+		</update>
+		
+		<delete id="adminQnaReplyDelete" parameterType="int">
+			DELETE FROM QNA WHERE Q_RE_NO = #{q_re_no}
+		</delete>
+		
+		
+	<!-- admin FAQ -->
+		<select id="adminFaqList" parameterType="list" resultType="faqDto">
+			SELECT *
+			FROM FAQ
+			ORDER BY FAQ_NO
+		</select>
+		
+		<insert id="adminFaqInsert" parameterType="faqDto">
+			INSERT INTO FAQ 
+			(			FAQ_NO
+					  , FAQ_TITLE
+					  , FAQ_CONTENT
+					  , FAQ_DATE
+					  , FAQ_CATEGORY
+			)
+			VALUES
+			(		   (SELECT IFNULL(MAX(F.FAQ_NO),0) + 1 FROM FAQ F)
+					 , #{faq_title}
+					 , #{faq_content}
+					 , #{faq_date}
+					 , #{faq_category}
+			)
+		</insert>
+		
+		<update id="adminFaqUpdate" parameterType="faqDto">
+			UPDATE FAQ
+			
+			SET FAQ_TITLE = #{faq_title}
+			  , FAQ_CONTENT = #{faq_content}
+			  , FAQ_UPD_DATE = #{faq_upd_date}
+			  , FAQ_CATEGORY = #{faq_category}
+			  
+			WHERE FAQ_NO = #{faq_no}
+		</update>
+		
+		<delete id="adminFaqDelete" parameterType="int">
+			DELETE FROM FAQ WHERE FAQ_NO = #{faq_no}
+		</delete>
+		
+		
+	<!-- admin Course -->
+		<select id="adminCourseList" parameterType="list" resultType="courseDto">
+			SELECT * 
+			FROM COURSE
+			ORDER BY C_NO DESC
+		</select>
+		
+		<insert id="adminCourseInsert" parameterType="courseDto">
+			INSERT INTO COURSE 
+			(			C_NO
+					  , C_NAME
+					  , C_ADDR
+					  , C_CATEGORY
+					  , C_TYPE
+					  , C_TIME
+					  , C_DETAIL
+					  , ENT_PERSONNEL
+					  , C_REGDATE
+					  , C_INIT_WRITER
+					  , C_START_DATE
+					  , C_LAST_DATE
+			)
+			VALUES
+			(		   (SELECT IFNULL(MAX(C.C_NO),0) + 1 FROM COURSE C)
+					 , #{c_name}
+					 , #{c_addr}
+					 , #{c_category}
+					 , #{c_type}
+					 , #{c_time}
+					 , #{c_detail}
+					 , #{ent_personnel}
+					 , #{c_regdate}
+					 , #{c_init_writer}
+					 , #{c_start_date}
+					 , #{c_last_date}
+			)
+		</insert>
+		
+		<update id="adminCourseUpdate" parameterType="courseDto">
+			UPDATE COURSE
+			
+			SET 	C_NAME = #{c_name}
+				  , C_ADDR = #{c_addr}
+				  , C_CATEGORY = #{c_category}
+				  , C_TYPE = #{c_type}
+				  , C_TIME = #{c_time}
+				  , C_DETAIL = #{c_detail}
+				  , ENT_PERSONNEL = #{ent_personnel}
+				  , C_UPD_DATE = #{c_upd_date}
+				  , C_UPD_WRITER = #{c_upd_writer}
+				  , C_START_DATE = #{c_start_date}
+				  , C_LAST_DATE = #{c_last_date}
+				  
+			WHERE C_NO = #{c_no}
+		</update>
+		
+		<delete id="adminCourseDelete" parameterType="int">
+			DELETE FROM COURSE WHERE C_NO = #{c_no}
+		</delete>
+		
+	<!-- admin Cancle -->
+		<resultMap type="appDto" id="appMap">
+			<result property="cancle_no" column="CANCLE_NO" />
+			<result property="app_cancle_title" column="APP_CANCLE_TITLE"/>
+			<result property="app_cancle_content" column="APP_CANCLE_CONTENT"/>
+			<result property="app_cancle_regdate" column="APP_CANCLE_REGDATE"/>
+			<result property="app_cancle_upd_date" column="APP_CANCLE_UPD_DATE"/>
+		</resultMap>
+		
+		<select id="adminCancleList" parameterType="list" resultMap="appMap">
+			SELECT * 
+			FROM APPLICATION
+			ORDER BY CANCLE_NO DESC
+		</select>
+		
+		<select id="adminCancleDetail" parameterType="appDto">
+			SELECT CANCLE_NO, APP_CANCLE_TITLE, APP_CANCLE_CONTENT, APP_CANCLE_REGDATE
+			FROM APPLICATION
+			WHERE CANCLE_NO = #{cancle_no}
+		</select>
+		
+		<delete id="adminCancleDelete" parameterType="int">
+			DELETE FROM APPLICATION WHERE CANCLE_NO = #{cancle_no}
+		</delete>
+	
+	<!-- admin Review -->
+		<resultMap type="reviewDto" id="reviewMap">
+			<result property="r_no" column="R_NO" />
+			<result property="r_title" column="R_TITLE"/>
+			<result property="r_content" column="R_CONTENT"/>
+			<result property="r_star" column="R_STAR"/>
+			<result property="r_date" column="R_DATE"/>
+			<result property="r_upd_date" column="R_UPD_DATE"/>
+			<result property="certificate_status" column="CERTIFICATE_STATUS" />
+		</resultMap>
+		
+		<select id="adminReviewList" parameterType="list" resultMap="reviewMap">
+			SELECT *
+			FROM REVIEW
+			ORDER BY R_NO DESC
+		</select>
+		
+		<select id="adminReviewDetail" parameterType="reviewDto">
+			SELECT *
+			FROM REVIEW
+			WHERE R_NO = #{r_no}
+		</select>
+		
+		<delete id="adminReviewDelete" parameterType="int">
+			DELETE FROM REVIEW WHERE R_NO = #{r_no}
+		</delete>
+
+</mapper>
+	 

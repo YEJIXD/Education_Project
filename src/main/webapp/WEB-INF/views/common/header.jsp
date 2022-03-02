@@ -163,7 +163,7 @@ body {
 							<li><a class="header-a" href="qnaList.do">QNA</a></li>
 						</ul>
 					</li>
-					<li class="nav-menu"><a class="header-a" href="myRoomMain.do">My Class</a></li>
+					<li class="nav-menu"><a class="header-a" onclick="service();">My Class</a></li>
 				</ul>
 			</div>
 			
@@ -172,8 +172,7 @@ body {
 				<c:choose>
 					<c:when test="${member != null}">
 						<span id="user-name">${member.user_name}님 반가워요😃</span>&nbsp;&nbsp;&nbsp;
-						<span style="color: gray" id="logout-btn"
-							onclick="location.href='logout.do'">로그아웃</span>
+						<span style="color: gray" id="logout-btn" onclick="location.href='logout.do'">로그아웃</span>
 					</c:when>
 					<c:otherwise>
 						<span id="login" style="color: gray;" onclick="location.href='loginForm.do'">로그인</span>
@@ -183,10 +182,22 @@ body {
 		</div>
 	</div>
 	
-	<c:if test="${msg == 'fail' }">
+	<c:if test="${msg == false }">
 		<script type="text/javascript">
 			alert('로그인 실패');
 		</script>
 	</c:if>
+	
+	<script>
+		function service(){
+			let signIn = "${signIn}" ;
+			if (signIn == ""){
+				alert("로그인 후 이용 가능한 페이지입니다.");
+				location.href="${cpath}/loginForm.do";
+			}else{
+				location.href="${cpath}/myRoomMain.do";
+			}
+		}
+	</script>
 </body>
 </html>

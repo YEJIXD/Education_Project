@@ -24,4 +24,6 @@ public interface MemberBiz {
 	// 회원 비활성화
 	public void memberDelete(MemberDto dto) throws Exception;
 
+	public MemberDto loginPOST(String user_id);
+
 }
