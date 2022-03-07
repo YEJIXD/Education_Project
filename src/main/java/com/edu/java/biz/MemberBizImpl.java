@@ -55,4 +55,10 @@ public class MemberBizImpl implements MemberBiz{
 		memberDao.memberDelete(dto);
 	}
 
+	@Override
+	public MemberDto loginUser(String user_id) {
+		return null;
+	}
+
+
 }

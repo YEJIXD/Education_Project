@@ -7,36 +7,41 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/login/regist.css">
 <link rel="shortcut icon" href="#">
-<title>Regist Form</title>
+<title>Login Form</title>
 </head>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-	//null값 방지
-	$(document).ready(function(){
-		$(".cancle").on("click", function(){
-			location.href="/main.do";
-		})
+	$(function(){
+		$("#submit").click(function(){
+		 const user_id = $("#user_id").val();
+		 const pw = $("#pw").val(); 
+		 
+		 if(user_id == ""){
+		 	alert("아이디를 입력하세요");
+		 	$("#user_id").focus(); 
+	
+			return false;
+		}
+		 
+		if(pw == ""){
+			alert("비밀번호를 입력하세요"); 
+			$("#pw").focus();
+			
+			return false;
+		}
 		
-		$("#submit").on("click", function(){
-			if($("#user_id").val()==""){
-				alert("아이디를 입력해주세요.");
-				$("#user_id").focus();
-				return false;
-			}
-			if($("#pw").val()==""){
-				alert("비밀번호를 입력해주세요.");
-				$("#pw").focus();
-				return false;
-			}
+		if(user_id != ${member.user_id} || pw != ${member.user_pw} ){
+			alert("아이디 또는 비밀번호를 정확하게 입력하세요");
+			$("#user_id").focus();
+			
+			return false;
+		}
+		
+		//폼 내부의 데이터를 전송할 주소
+			document.form.action= "${path}/login/loginCheck.do";
+			document.form.submit(); 
+		});
 	});
-})
-
-$(document).ready(function(){
-	let msg = "${msg}";
-	if(msg != null){
-		alert(msg);
-	}
-})
 </script>
 <body>
 	<div id="header">
@@ -51,7 +56,7 @@ $(document).ready(function(){
             </div>
             
             <div class="regist_form">
-	            <form action="loginCheck.do" method="post">
+	            <form action="loginCheck.do" method="POST">
 	                <table style="width:550px">
 	                    <tr>
 	                        <td width="150px" /> <td width="300px" />
@@ -59,13 +64,15 @@ $(document).ready(function(){
 	                    <tr>
 	                        <th>아이디</th>
 	                        <td>
-	                            <input type="text" class="user_id" name="user_id" id="user_id" title="n" placeholder="아이디를 입력하세요." autofocus required>
+	                            <input type="text" class="user_id" name="user_id" id="user_id" placeholder="아이디를 입력하세요." autofocus required>
 	                        </td>
 	                    </tr>
 	                    <tr height="15"></tr>
 	                    <tr>
 	                        <th>비밀번호</th>
-	                        <td><input type="password" class="user_pw" name="user_pw" id="pw" title="n" required placeholder="비밀번호를 입력하세요."></td>
+	                        <td>
+	                        	<input type="password" class="user_pw" name="user_pw" id="pw" placeholder="비밀번호를 입력하세요." required>
+	                        </td>
 	                    </tr>
 	                </table>
 	                <div class="regist_btn">

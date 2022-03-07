@@ -89,7 +89,7 @@ public class AdminController {
 				e.printStackTrace();
 			}
 		}
-		dto.setImg_path("resources/images/admin/"+fname);
+		//dto.setImg_path("resources/images/admin/"+fname);
 		int res = adminBiz.adminNoticeInsert(dto);
 		
 		System.out.println(dto);

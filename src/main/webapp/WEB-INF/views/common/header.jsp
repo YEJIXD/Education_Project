@@ -16,107 +16,8 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Cute+Font&family=IBM+Plex+Sans+KR:wght@200&family=Nanum+Myeongjo&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=IBM+Plex+Sans+KR:wght@200&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 </head>
-<style type="text/css">
-body {
-	font-family:'Gowun Dodum', sans-serif;
-	color: #2e363e;
-	min-width: 1400px;
-	height: auto;
-	margin: 0px;
-}
-.header {
-	height: 155px;
-	background-color: rgb(248, 249, 250);
-	border-bottom: 1px rgb(232, 229, 229) solid;
-}
-.top-header {
-	height: 75px;
-	padding-top: 10px;
-}
-.bottom-header {
-	height: 45px;
-}
-.img-div {
-	padding-top: 10px;
-}
-#logo {
-	width: 7%;
-	height: 7%;
-	margin-left:0%;
-}
-.header-ul {
-	margin-left: 120px;
-	padding: 0px;
-	height: 100%;
-	list-style: none;
-	font-size: larger;
-	padding-top: 15px;
-}
-.header-ul .nav-menu {
-	float: left;
-}
-.nav-menu {
-	width: 11%;
-	height: 100%;
-	padding-left: 1%;
-}
-.nav-menu ul {
-	list-style: none;
-	height: 100%;
-}
-.sub-menu li {
-	padding: 10px 0 0 10px;
-	width: 100px;
-	height: 40px;
-	clear: left;
-	background-color: rgb(250, 251, 252);
-}
-.header-a {
-	text-decoration: none;
-	color: gray;
-}
-.sub-menu {
-	padding: 0px;
-}
-.nav-list>.header-ul>.nav-menu>.sub-menu {
-	display: none;
-}
-.nav-list>.header-ul>.nav-menu:hover>.sub-menu {
-	display: block;
-}
-#login:hover {
-	cursor: pointer;
-}
-#modal_close_btn:hover, #logout-btn:hover {
-	cursor: pointer;
-}
-#user-name {
-	letter-spacing: 1px;
-}
-.banner-text {
-	text-decoration: none;
-	color: black;
-	font-size: small;
-	padding-top: 5px;
-}
-.header-a, .banner-text, #login, #logout-btn {
-	font-family: 'Gowun Dodum', sans-serif;;
-	font-family: 'Gowun Dodum', sans-serif;;
-	font-family: 'Gowun Dodum', sans-serif;;
-}
-</style>
-<script type="text/javascript">
-    function loginModalIn() {
-		$(".login_wrap1").fadeIn();
-    }
-    function loginModalOut() {
-		$(".login_wrap1").fadeOut();
-    }
-</script>
 <body style="margin-top: 155px; min-width:1400px;">
 	<!-- 상단 이벤트 게시 -->
 	<div class="container-fluid header" style="position: fixed; top: 0; right: 0; left: 0; z-index: 1;">
@@ -174,19 +75,20 @@ body {
 						<span id="user-name">${member.user_name}님 반가워요😃</span>&nbsp;&nbsp;&nbsp;
 						<span style="color: gray" id="logout-btn" onclick="location.href='logout.do'">로그아웃</span>
 					</c:when>
-					<c:otherwise>
-						<span id="login" style="color: gray;" onclick="location.href='loginForm.do'">로그인</span>
+					<c:otherwise> 
+						<span id="login" class="nav-menu" style="color: gray;" onclick="location.href='loginForm.do'">로 그 인</span> &nbsp;|&nbsp;
+						<span id="regist" class="nav-menu" style="color: gray;" onclick="location.href='registForm.do'">회원가입</span>
 					</c:otherwise>
 				</c:choose>
 			</div>
 		</div>
 	</div>
 	
-	<c:if test="${msg == false }">
+	<%-- <c:if test="${msg == fail }">
 		<script type="text/javascript">
-			alert('로그인 실패');
+			alert('아이디나 비밀번호가 정확하지 않습니다.');
 		</script>
-	</c:if>
+	</c:if> --%>
 	
 	<script>
 		function service(){
