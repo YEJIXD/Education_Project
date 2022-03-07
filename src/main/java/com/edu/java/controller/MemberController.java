@@ -53,10 +53,9 @@ public class MemberController {
 		logger.info("regist Result");
 		ModelAndView mav = new ModelAndView("jsonView");
 		
-		
 		memberBiz.memberRegist(dto);
 		
-		return mav;
+		return new ModelAndView("../../index");
 	}
 	
 	// id 중복 체크
@@ -115,7 +114,7 @@ public class MemberController {
 	}
 		
 	// 로그인
-	@RequestMapping("/loginCheck.do")
+	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
 	public ModelAndView loginCheck(@ModelAttribute MemberDto dto, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 		MemberDto mDto = memberBiz.loginCheck(dto, session);
@@ -127,30 +126,35 @@ public class MemberController {
 				if(mDto.getUser_role().equals("U")) {
 					session.setAttribute("member", mDto);
 					session.setAttribute("user_id", dto.getUser_id());
-					session.setAttribute("user_pw", dto.getUser_pw());
 					
-					mav.setViewName("../../index");
-					mav.addObject("msg", "success");
+					mav.setViewName("redirect:/");
+					logger.info("활성화 - - 사용자");
 								
 				// 관리자(A)
 				}else if(mDto.getUser_role().equals("A")) {	
 					session.setAttribute("member", mDto);
-					session.setAttribute("user_pw", dto.getUser_pw());
+					session.setAttribute("user_id", dto.getUser_id());
+					
 					mav.setViewName("/admin/adminMain");
+					logger.info("활성화 - - 관리자");
 
 				}else {
-					mav.setViewName("../../index");
-					mav.addObject("msg","fail");
+					mav.setViewName("redirect:/");
+					mav.addObject("msg","해당 아이디와 비밀번호가 존재하지 않습니다.");
+					logger.info("활성화 - - 사용자/관리자 아님 ");
 				}	
 							
-				// 비활성화 (N)
-				}else {
-					mav.setViewName("../../index");
-					mav.addObject("msg", "fail");
-				}
+			// 비활성화 (N)
+			}else {
+				mav.setViewName("../../index");
+				mav.addObject("msg", "비활성화된 아이디입니다.");
+				logger.info("-------------------비활성화------------------ ");
+			}
 			
 		}else {
-			mav.setViewName("../../index");
+			mav.setViewName("redirect:/");
+			mav.addObject("msg", "fail");
+			logger.info("mDto가 nullllllllllllllllllll값");
 		}
 	return mav;
 }

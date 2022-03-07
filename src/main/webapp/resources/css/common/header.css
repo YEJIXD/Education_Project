@@ -3,9 +3,6 @@
 body {
 	font-family: 'Gowun Dodum', sans-serif;
 	color: #2e363e;
-}
-
-body {
 	min-width: 1400px;
 	height: auto;
 	margin: 0px;
@@ -22,17 +19,17 @@ body {
 	padding-top: 10px;
 }
 
-.bottom-header {
-	height: 45px;
+.bottom-header { 
+	height: 45px; 
+	padding:0 0 0 100px;
 }
 
-.img-div {
-	padding-top: 10px;
-}
+.img-div { padding-top: 10px; }
 
 #logo {
-	width: 13%;
-	height: 13%;
+	width: 7%;
+	height: 7%;
+	margin:8px 0 0 0;
 }
 
 .header-ul {
@@ -41,17 +38,16 @@ body {
 	height: 100%;
 	list-style: none;
 	font-size: larger;
-	padding-top: 18px;
+	padding-top: 15px;
 }
 
-.header-ul .nav-menu {
-	float: left;
-}
+.header-ul .nav-menu { float: left; }
 
 .nav-menu {
 	width: 11%;
 	height: 100%;
 	padding-left: 1%;
+	cursor:pointer;
 }
 
 .nav-menu ul {
@@ -88,17 +84,14 @@ body {
 	color:#E9CFEC;
 }
 
-#login:hover {
-	cursor: pointer;
+#login:hover, #regist:hover { 
+	cursor: pointer; 
+	color:#E9CFEC;
 }
 
-#modal_close_btn:hover, #logout-btn:hover {
-	cursor: pointer;
-}
+#modal_close_btn:hover, #logout-btn:hover { cursor: pointer; }
 
-#user-name {
-	letter-spacing: 1px;
-}
+#user-name { letter-spacing: 1px; }
 
 .banner-text {
 	text-decoration: none;

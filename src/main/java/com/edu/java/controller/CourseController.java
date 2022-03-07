@@ -17,18 +17,18 @@ public class CourseController {
 	@Inject
 	CourseBiz courseBiz;
 	
-	@RequestMapping("/courseInsertRes.do") 
-	public String courseInsertRes(CourseDto dto) throws Exception{
-		logger.info("course Insert Res"); 
-		courseBiz.courseInsertRes(dto);
-		
-		return "/edu_Application/courseList"; }
-	 
-	@RequestMapping("/courseUpdateRes.do") 
-	public String courseUpdateRes(CourseDto dto) throws Exception{
-		logger.info("course Update Res"); 
-		courseBiz.courseUpdateRes(dto);
-	
-		return "/edu_Application/courseDetail"; }
+	/*
+	 * @RequestMapping("/courseInsertRes.do") public String
+	 * courseInsertRes(CourseDto dto) throws Exception{
+	 * logger.info("course Insert Res"); courseBiz.courseInsertRes(dto);
+	 * 
+	 * return "/edu_Application/courseList"; }
+	 * 
+	 * @RequestMapping("/courseUpdateRes.do") public String
+	 * courseUpdateRes(CourseDto dto) throws Exception{
+	 * logger.info("course Update Res"); courseBiz.courseUpdateRes(dto);
+	 * 
+	 * return "/edu_Application/courseDetail"; }
+	 */
 	 
 }
