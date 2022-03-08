@@ -36,7 +36,7 @@
 		  </div>
 		</div>
 		
-		<img src="resources/images/4.jpg" alt="myRoomMain" style="width:100%; height:400px; align:center;">
+		<img src="resources/images/5.jpg" alt="myRoomMain" style="width:100%; height:400px; align:center;">
 		
 		<br><br><br><br>
 		

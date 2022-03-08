@@ -64,7 +64,7 @@
 							<li><a class="header-a" href="qnaList.do">QNA</a></li>
 						</ul>
 					</li>
-					<li class="nav-menu"><a class="header-a" onclick="service();">My Class</a></li>
+					<li class="nav-menu"><a class="header-a" href="myRoomMain.do" onclick="service();">My Class</a></li>
 				</ul>
 			</div>
 			
@@ -89,17 +89,5 @@
 			alert('아이디나 비밀번호가 정확하지 않습니다.');
 		</script>
 	</c:if> --%>
-	
-	<script>
-		function service(){
-			let signIn = "${signIn}" ;
-			if (signIn == ""){
-				alert("로그인 후 이용 가능한 페이지입니다.");
-				location.href="${cpath}/loginForm.do";
-			}else{
-				location.href="${cpath}/myRoomMain.do";
-			}
-		}
-	</script>
 </body>
 </html>
