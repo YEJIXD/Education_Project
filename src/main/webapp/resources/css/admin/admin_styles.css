@@ -11829,7 +11829,15 @@ a{
 /*교육 관리*/
 .course:hover span{display:none;}
 .course:hover:after{content:"교육 관리";}
-	        
+
+/* 강사 관리 */
+.teacher:hover span{display:none;}
+.teacher:hover:after{content:"강사 관리";}
+	     
+/* 회원 관리 */   
+.member:hover span{display:none;}
+.member:hover:after{content:"회원 관리";}
+
 /*수강 취소*/
 .cancle:hover span{display:none;}
 .cancle:hover:after{content:"수강 취소";}

@@ -13,7 +13,7 @@
 	</div>
 	
 	<div id="middle">
-	<h3>교수진 소개</h3><br><br>
+	<h3>강사진 소개</h3><br><br>
 		<table id="content">
 			<tr>
 				<td id="teaImg"><img src="resources/images/teacher5.png"></td>
