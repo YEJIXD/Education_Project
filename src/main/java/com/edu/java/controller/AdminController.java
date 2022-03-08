@@ -19,8 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonObject;
+
 import com.edu.java.biz.AdminBiz;
-import com.edu.java.biz.MemberBiz;
 import com.edu.java.dto.NoticeDto;
 
 @Controller
@@ -59,12 +60,13 @@ public class AdminController {
 	
 	/* 공지사항 Insert */
 	@RequestMapping("adminNoticeInsertRes.do")
-	public String adminNotieInsertRes(MultipartFile uploadFile, NoticeDto dto, HttpServletRequest request) {
+	public ModelAndView adminNotieInsertRes(MultipartFile uploadFile, NoticeDto dto, HttpServletRequest request) throws Exception{
 		logger.info("admin Notice Insert Res");
 		
-		//JsonObject jsonObject = new JsonObject();
+		JsonObject jsonObject = new JsonObject();
 		
 		String path = request.getRealPath("resources/images/");
+		//String path = request.getSession().getServletContext().getRealPath("resources/images/");
 		System.out.println("path : "  + path);
 		
 		String fname = uploadFile.getOriginalFilename();
@@ -89,11 +91,12 @@ public class AdminController {
 				e.printStackTrace();
 			}
 		}
-		//dto.setImg_path("resources/images/admin/"+fname);
+		dto.setImg_path("resources/images/"+fname);
 		int res = adminBiz.adminNoticeInsert(dto);
 		
 		System.out.println(dto);
-		return "redirect:/adminNoticeList.do";
+		
+		return new ModelAndView("redirect:/adminNoticeList.do");
 	}
 	
 	
@@ -105,6 +108,26 @@ public class AdminController {
 		}
 	
 	/* 공지사항 Update */
+		
+		
+	/* 공지사항 Delete */
+	@RequestMapping(value="/adminNoticeDelete.do", method=RequestMethod.GET)
+	public String adminNoticeDelete(Model model, HttpServletRequest httpServletRequest){
+		System.out.println("admin notice delete");
+			
+		String[] chk  = httpServletRequest.getParameterValues("RowCheck[]");
+		System.out.println(chk);
+		
+		int chk_length = chk.length;
+		System.out.println(chk_length);
+			
+		for(int i = 0; i < chk_length; i++) {
+			System.out.println(chk[i]);
+			adminBiz.adminNoticeDelete(Integer.parseInt(chk[i]));
+		}
+			
+		return "redirect:/adminNoticeList.do";
+	}
 	
 		
 	// admin_ Faq List
@@ -137,6 +160,25 @@ public class AdminController {
 		return "";
 	}
 	
+	/* admin_Faq Delete */
+	@RequestMapping(value="/adminFaqDelete.do", method=RequestMethod.GET)
+	public String adminFaqDelete(Model model, HttpServletRequest httpServletRequest){
+		System.out.println("admin Faq delete");
+			
+		String[] chk  = httpServletRequest.getParameterValues("RowCheck[]");
+		System.out.println(chk);
+		
+		int chk_length = chk.length;
+		System.out.println(chk_length);
+			
+		for(int i = 0; i < chk_length; i++) {
+			System.out.println(chk[i]);
+			adminBiz.adminFaqDelete(Integer.parseInt(chk[i]));
+		}
+			
+		return "redirect:/adminFaqList.do";
+	}
+	
 	/* QnA List */
 	@RequestMapping(value="adminQnaList.do", method=RequestMethod.GET)
 	public ModelAndView adminQnaList(Model model) {
@@ -159,6 +201,34 @@ public class AdminController {
 		
 		mav.setViewName("/admin/adminCourseList");
 		mav.addObject("msg", "course List");
+		
+		return mav;
+	}
+	
+	/* 강사진 목록 */
+	@RequestMapping(value="adminTeacherList.do", method=RequestMethod.GET)
+	public ModelAndView adminTeacherList(Model model) {
+		logger.info("admin Teacher List");
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("/admin/adminTeacherList");
+		mav.addObject("msg", "teacherList");
+		
+		return mav;
+	}
+	
+	/* 강사 Insert */
+	
+	/* 강사 Update */
+	
+	/* 회원 리스트 */
+	@RequestMapping(value="adminMemberList.do")
+	public ModelAndView adminMemberList(Model model) {
+		logger.info("admin Member List");
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("/admin/adminMemberList");
+		mav.addObject("msg", "memberList");
 		
 		return mav;
 	}

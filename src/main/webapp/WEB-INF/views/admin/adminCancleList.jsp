@@ -69,8 +69,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav" style="text-align: center;">
                             <div class="sb-sidenav-menu-heading">
-                                <a href=""><img src="resources/images/advisor.png" style="width: 60%; height: 60%;"></a>
-                                <br>
+                                <a href=""><img src="resources/images/advisor.png" style="width: 60%; height: 60%;"></a><br>
                                 <a href="#" style="text-decoration:none; color: black; text-align: center;">${member.user_name} 님<br>반갑습니다 : )</a>
                             </div>
                             <a class="nav-link home" href="adminMain.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-home" aria-hidden="true"></i></div><span>HOME</span></a>
@@ -78,6 +77,8 @@
                             <a class="nav-link qna" href="adminQnaList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Q n A</span></a>
                             <a class="nav-link faq" href="adminFaqList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-bars" aria-hidden="true"></i></div><span>F A Q</span></a>
                             <a class="nav-link course" href="adminCourseList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-book" aria-hidden="true"></i></div><span>Course</span></a>
+                            <a class="nav-link teacher" href="adminTeacherList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div><span>Teacher</span></a>
+                        	<a class="nav-link member" href="adminMemberList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Member</span></a>
                             <a class="nav-link cancle" href="adminCancleList.do" style="color: #9966FF;"><div class="sb-nav-link-icon"><i class="fa fa-ban" aria-hidden="true"></i></div><span>Cancle</span></a>
                             <a class="nav-link review" href="adminReviewList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-shoe-prints" aria-hidden="true"></i></div><span>Review</span></a>
                         </div>
@@ -85,47 +86,50 @@
                 </nav>
             </div>
             <div id="layoutSidenav_content">
-                <main>
-                	<br>
-                    <div class="container-fluid px-4">
-                        <h1 class="title_tab">수강 취소 관리</h1>
-                        <br><br>
-                        <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-table me-1"></i>수강 취소 목록</div>
-                            <div class="card-body">
-                                <table id="datatablesSimple" class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th class="chkBtn"><input type="checkbox" name="allCheck" value="selectall" onclick="selectAll(this)"></th>
-                                            <th class="no">NO</th>
-                                            <th class="writer">회원명</th>
-                                            <th class="title">강좌명</th>
-                                            <th class="date">취소일</th>
-                                            <th class="content">취소 사유</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-										<c:forEach items="${qnaList}" var="dto">
-			                            	<tr>
-			                                	<td style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${dto.q_no}"></td>
-			                                    <td style="vertical-align:middle;">${dto.q_no}</td>
-			                                    <td style="vertical-align:middle;"><a href="event-detail.do?event_no=${dto.q_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.q_title}</a></td>
-			                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.q_date}"/></td>
-			                                    <td style="vertical-align:middle;"></td>
-			                                    <td style="vertical-align:middle;"></td>
-			                            	</tr>
-			                        	</c:forEach>
-                                    </tbody>
-                                </table>
-                                <div class="inpBtn">
-	                            	<button class="adm_delete" type="button" onclick="" value="delete">삭 제</button>
-                            	</div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
-        </div>
+            	<main>
+	            	<br>
+	            	<div class="container-fluid px-4">
+	                	<h1 class="title_tab">수강 취소 관리</h1>
+	                    <br><br>
+	                    <div class="card mb-4">
+	                    	<div class="card-header"><i class="fas fa-table me-1"></i>수강 취소 목록</div>
+	                        <div class="card-body">
+	                        	<form>
+	                                <table id="datatablesSimple" class="table table-hover">
+	                                    <thead>
+	                                        <tr>
+	                                            <th class="chkBtn"><input type="checkbox" name="allCheck" value="selectall" onclick="selectAll(this)"></th>
+	                                            <th class="no">NO</th>
+	                                            <th class="writer">회원명</th>
+	                                            <th class="title">강좌명</th>
+	                                            <th class="date">취소일</th>
+	                                            <th class="content">취소 사유</th>
+	                                        </tr>
+	                                    </thead>
+	                                    <tbody>
+											<c:forEach items="${cancleList}" var="dto">
+				                            	<tr>
+				                                	<td style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${dto.cancle_no}"></td>
+				                                    <td style="vertical-align:middle;">${dto.cancle_no}</td>
+				                                    <td style="vertical-align:middle;"><a href="event-detail.do?event_no=${dto.cancle_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.user_name}</a></td>
+				                                    <td style="vertical-align:middle;">${dto.c_title }</td>
+				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.cancle_regdate}"/></td>
+				                                    <td style="vertical-align:middle;">${dto.cancle_content }</td>
+				                            	</tr>
+				                        	</c:forEach>
+	                                    </tbody>
+	                                </table>
+								</form>
+	                                
+	                            <div class="inpBtn">
+		                        	<button class="adm_delete" type="button" onclick="" value="delete">삭 제</button>
+	                            </div>
+							</div>
+						</div>
+					</div>
+				</main>
+		</div>
+	</div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="resources/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
