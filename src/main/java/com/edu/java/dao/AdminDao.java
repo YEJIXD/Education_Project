@@ -45,6 +45,7 @@ public interface AdminDao {
 	public int adminFaqUpdate(FaqDto dto);
 	public int adminFaqDelete(int faq_no);
 	
+	public List<FaqDto> hashTagSearch(String faq_category);
 	
 	/* QnA */
 	public List<QnaDto> adminQnaList();

@@ -128,6 +128,11 @@
 			DELETE FROM FAQ WHERE FAQ_NO = #{faq_no}
 		</delete>
 		
+		<select id="hashTagSearch" parameterType="string" resultType="faqDto">
+			SELECT FAQ_NO, FAQ_CATEGORY, FAQ_TITLE, FAQ_DATE
+			FROM FAQ
+			WHERE FAQ_CATEGORY = #{faq_category}
+		</select>
 		
 	<!-- admin Course -->
 		<select id="adminCourseList" parameterType="list" resultType="courseDto">

@@ -107,14 +107,14 @@
 	                                        </tr>
 	                                    </thead>
 	                                    <tbody>
-											<c:forEach items="${cancleList}" var="dto">
+											<c:forEach items="${cancleList}" var="cancleDto">
 				                            	<tr>
-				                                	<td style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${dto.cancle_no}"></td>
-				                                    <td style="vertical-align:middle;">${dto.cancle_no}</td>
-				                                    <td style="vertical-align:middle;"><a href="event-detail.do?event_no=${dto.cancle_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.user_name}</a></td>
-				                                    <td style="vertical-align:middle;">${dto.c_title }</td>
-				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.cancle_regdate}"/></td>
-				                                    <td style="vertical-align:middle;">${dto.cancle_content }</td>
+				                                	<td style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${cancleDto.cancle_no}"></td>
+				                                    <td style="vertical-align:middle;">${cancleDto.cancle_no}</td>
+				                                    <td style="vertical-align:middle;"><a href="event-detail.do?event_no=${cancleDto.cancle_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${cancleDto.user_name}</a></td>
+				                                    <td style="vertical-align:middle;">${cancleDto.c_title }</td>
+				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${cancleDto.cancle_regdate}"/></td>
+				                                    <td style="vertical-align:middle;">${cancleDto.cancle_content }</td>
 				                            	</tr>
 				                        	</c:forEach>
 	                                    </tbody>

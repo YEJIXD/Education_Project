@@ -98,6 +98,11 @@ public class AdminBizImpl implements AdminBiz{
 	public int adminFaqDelete(int faq_no) {
 		return adminDao.adminFaqDelete(faq_no);
 	}
+	
+	@Override
+	public List<FaqDto> hashTagSearch(String faq_category){
+		return adminDao.hashTagSearch(faq_category);
+	}
 
 	@Override
 	public List<QnaDto> adminQnaList() {
