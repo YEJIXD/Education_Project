@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+      
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,48 +22,37 @@
 	</div>
 		
 	<div class="container">
-		<h3>F A Q</h3><br><br>
+		<h3>F A Q</h3><br>
+		<div class="tab_container" id="faq_category" style="width:97%; padding:5px 5px 5px 5px; font-weight:bold; font-size:14pt;">
+			<ul class="tabs">
+				<li><a href="hashTagSearch(this)">전 체&nbsp;&nbsp;</a>|</li>
+				<li><a href="hashTagSearch(this)">교 육&nbsp;&nbsp;</a>|</li>
+				<li><a href="hashTagSearch(this)">비 용&nbsp;&nbsp;</a>|</li>
+				<li><a href="hashTagSearch(this)">이용문의&nbsp;&nbsp;</a>|</li>
+				<li><a href="hashTagSearch(this)">기 타</a></li>
+			</ul>
+		</div>
+		<br>
 		<form action="courseInsert.do" method="GET">
 			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th class="no">NO</th>
+						<th class="date">분 류</th>
 						<th class="title">제 목</th>
 						<th class="date">작성일</th>
 					</tr>
 				</thead>		
 				<tr></tr>
 				<tbody>
-					<tr>
-						<td>2</td>
-						<td><a href="#">환불은 어떻게 하나요?</a></td>
-						<td>2022.01.12</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td><a href="#">교육 신청은 어떻게 하나요?</a></td>
-						<td>2022.02.15</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td><a href="#">수료증 발급은 어떻게 하나요?</a></td>
-						<td>2022.01.12</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td><a href="#">신청한 강의는 어떻게 확인하나요?</a></td>
-						<td>2022.02.15</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td><a href="#">수강률은 어떻게 확인하나요?</a></td>
-						<td>2022.01.12</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td><a href="#">홈페이지는 어떻게 이용하나요?</a></td>
-						<td>2022.02.15</td>
-					</tr>
+					<c:forEach items="${faqList }" var="faqDto">
+						<tr>
+							<td>${faqDto.faq_no }</td>
+							<td>${faqDto.faq_category }</td>
+							<td><a href="faq_detail.do?faq_no=${faqDto.faq_no }" style="text-decoration:none; font-weight:bold;">${faqDto.faq_title }</a></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.cancle_regdate}"/></td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 			<div class="pagination">

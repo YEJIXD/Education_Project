@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -14,15 +15,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.JsonObject;
-
 import com.edu.java.biz.AdminBiz;
+import com.edu.java.dto.FaqDto;
 import com.edu.java.dto.NoticeDto;
+import com.google.gson.JsonObject;
 
 @Controller
 public class AdminController {
@@ -144,7 +147,17 @@ public class AdminController {
 		return "/admin/adminFaqInsert";
 	}
 		
-	// admin_ Faq Insert
+	// admin_ Faq Insert Res
+	@RequestMapping("/adminFaqInsertRes.do")
+	public String adminFaqInsertRes(FaqDto dto) {
+		logger.info("admin Faq Insert Result");
+		
+		System.out.println(dto.toString());
+		
+		adminBiz.adminFaqInsert(dto);
+		
+		return "redirect:adminFaqList.do";
+	}
 			
 	// admin_ Faq 수정 페이지
 	@RequestMapping("/adminFaqUpdate.do")
@@ -179,6 +192,35 @@ public class AdminController {
 		return "redirect:/adminFaqList.do";
 	}
 	
+	/* FAQ category select*/
+	@RequestMapping("/subMenu.do")
+	public String subMenu(Model model, String faq_category) {
+		logger.info("subMenu");
+		
+		String str = "";
+		String category = "";
+		
+		if(faq_category.equals("all")) {
+			str = "전 체";
+			
+		}else if(faq_category.equals("education")) {
+			str ="교 육";
+			
+		}else if(faq_category.equals("price")) {
+			str = "비 용";
+		}else if(faq_category.equals("site")) {
+			str = "사이트";
+		}else {
+			str = "기 타";
+		}
+		
+		model.addAttribute("faq_category", str);
+		
+		
+		return "";
+		
+	}
+	
 	/* QnA List */
 	@RequestMapping(value="adminQnaList.do", method=RequestMethod.GET)
 	public ModelAndView adminQnaList(Model model) {
@@ -192,6 +234,17 @@ public class AdminController {
 	}
 	
 	/* QnA Insert */
+	
+	/* QnA Search */
+	/*@RequestMapping(value="/searching.do", method=RequestMethod.POST)
+	@ResponseBody
+	public List<ProductDto> searchKeyword(@RequestBody String tagname) {
+		logger.info("hashTagSearch, tagName : " + tagname);
+		String hashTag = tagname.substring(1, tagname.length()-1);
+		
+		List<ProductDto> list = marketBiz.searchKeyword(hashTag);
+		return list;
+	}*/
 	
 	/* 교육 목록 */
 	@RequestMapping(value="adminCourseList.do", method=RequestMethod.GET)

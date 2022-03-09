@@ -232,6 +232,19 @@ public class AdminDaoImpl implements AdminDao{
 		// TODO Auto-generated method stub
 		return 0;
 	}*/
+	
+	@Override
+	public List<FaqDto> hashTagSearch(String faq_category){
+		List<FaqDto> list = null;
+		
+		try {
+			list = sqlSession.selectList(NAMESPACE+"hashTagSearch", faq_category);
+		} catch (Exception e) {
+			System.out.println("hashTagSearch Dao Impl error");
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 	@Override
 	public List<QnaDto> adminQnaList() {
