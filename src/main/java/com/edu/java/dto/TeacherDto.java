@@ -13,7 +13,6 @@ public class TeacherDto {
 	private String t_name;		// 강사_ 이름
 	private String t_img;		// 강사_ 사진
 	private String t_career;	// 강사_ 경력사항
-	private String t_course;	// 강사_ 강의명
 	private Date t_regdate;		// 강사_ 등록일
 	private Date t_upd_date;	// 강사_ 수정일
 }
