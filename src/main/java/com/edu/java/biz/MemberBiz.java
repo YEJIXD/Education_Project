@@ -7,7 +7,8 @@ import com.edu.java.dto.MemberDto;
 
 public interface MemberBiz {
 	// 로그인
-	public MemberDto loginCheck(MemberDto dto, HttpSession session) throws Exception;
+//	public String loginCheck(MemberDto dto, HttpSession session) throws Exception;
+	public boolean isLogin(String user_id, String user_pw);
 	
 	// 로그아웃
 	public void logout(HttpSession session);
@@ -25,6 +26,8 @@ public interface MemberBiz {
 	public void memberDelete(MemberDto dto) throws Exception;
 
 	public MemberDto loginUser(String user_id);
+
+	
 
 
 }

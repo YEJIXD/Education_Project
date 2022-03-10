@@ -6,7 +6,8 @@ public interface MemberDao {
 	String NAMESPACE = "member.";
 
 	// 로그인 체크
-	public MemberDto loginCheck(MemberDto dto) throws Exception;
+	//public String loginCheck(MemberDto dto) throws Exception;
+	public boolean isLogin(String user_id, String user_pw);
 	
 	// 로그아웃
 	public void logout(MemberDto dto) throws Exception;
