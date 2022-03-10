@@ -14,8 +14,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -112,52 +114,30 @@ public class MemberController {
 		logger.info("login Form");
 		return "login/loginForm";
 	}
-		
+	
 	// 로그인
 	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
-	public ModelAndView loginCheck(@ModelAttribute MemberDto dto, HttpSession session) throws Exception {
-		ModelAndView mav = new ModelAndView("jsonView");
-		MemberDto mDto = memberBiz.loginCheck(dto, session);
+	public String loginproc(HttpSession session
+							,@RequestParam String user_id
+							,@RequestParam String user_pw) {
 		
-		if(mDto != null) {
-			// 활성화 (Y)
-			if(mDto.getUser_enable().equals("Y")) {
-				// 사용자 (U)
-				if(mDto.getUser_role().equals("U")) {
-					session.setAttribute("member", mDto);
-					session.setAttribute("user_id", dto.getUser_id());
-					
-					mav.setViewName("redirect:/");
-					logger.info("활성화 - - 사용자");
-								
-				// 관리자(A)
-				}else if(mDto.getUser_role().equals("A")) {	
-					session.setAttribute("member", mDto);
-					session.setAttribute("user_id", dto.getUser_id());
-					
-					mav.setViewName("/admin/adminMain");
-					logger.info("활성화 - - 관리자");
-
-				}else {
-					mav.setViewName("redirect:/");
-					mav.addObject("msg","해당 아이디와 비밀번호가 존재하지 않습니다.");
-					logger.info("활성화 - - 사용자/관리자 아님 ");
-				}	
-							
-			// 비활성화 (N)
-			}else {
-				mav.setViewName("../../index");
-				mav.addObject("msg", "비활성화된 아이디입니다.");
-				logger.info("-------------------비활성화------------------ ");
-			}
+		boolean sw = memberBiz.isLogin(user_id, user_pw);
+		
+		if(sw) {
+			session.setMaxInactiveInterval(60*60*8);
 			
-		}else {
-			mav.setViewName("redirect:/");
-			mav.addObject("msg", "fail");
-			logger.info("mDto가 nullllllllllllllllllll값");
+			session.setAttribute("loginOk", "yes");
+			session.setAttribute("idOk", user_id);
 		}
-	return mav;
-}
+		
+		if(sw) {
+			return "redirect:/login/loginForm";
+		}else {
+			return "/login/loginForm";
+		}
+	}
+	
+	
 	
 	//로그아웃
 	@RequestMapping(value="/logout.do", method=RequestMethod.GET)

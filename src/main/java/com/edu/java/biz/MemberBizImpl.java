@@ -1,5 +1,7 @@
 package com.edu.java.biz;
 
+import java.util.HashMap;
+
 import javax.inject.Inject;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -21,9 +23,16 @@ public class MemberBizImpl implements MemberBiz{
 	
 	// 로그인
 	@Override
-	public MemberDto loginCheck(MemberDto dto, HttpSession session) throws Exception{
-		return memberDao.loginCheck(dto);
+	public boolean isLogin(String user_id, String user_pw) {
+		return memberDao.isLogin(user_id, user_pw);
 	}
+	/*
+	 * public String loginCheck(MemberDto dto, HttpSession session) throws
+	 * Exception{ String name = memberDao.loginCheck(dto);
+	 * 
+	 * if(name != null) { session.setAttribute("user_id", dto.getUser_id());
+	 * session.setAttribute("name", name); } return name; }
+	 */
 
 	// 로그아웃 
 	@Override

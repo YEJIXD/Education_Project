@@ -1,5 +1,7 @@
 package com.edu.java.dao;
 
+import java.util.HashMap;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -14,9 +16,19 @@ public class MemberDaoImpl implements MemberDao{
 	
 	// 로그인
 	@Override
-	public MemberDto loginCheck(MemberDto dto) throws Exception{
-		return sqlSession.selectOne(NAMESPACE + "loginCheck", dto);
+	public boolean isLogin(String user_id, String user_pw) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("user_id", user_id);
+		map.put("user_pw", user_pw);
+		
+		int res = sqlSession.selectOne("loginSuccess", map);
+		return res==1? true:false;
 	}
+	/*
+	 * public String loginCheck(MemberDto dto) throws Exception{ return
+	 * sqlSession.selectOne(NAMESPACE + "loginCheck", dto); }
+	 */
+
 	
 	// 로그아웃
 	@Override

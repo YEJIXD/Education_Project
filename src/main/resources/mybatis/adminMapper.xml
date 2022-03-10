@@ -49,6 +49,72 @@
 		<delete id="adminNoticeDelete" parameterType="int">
 			DELETE FROM NOTICE WHERE NOTI_NO = #{noti_no}
 		</delete>
+		
+		
+	<!-- admin FAQ -->
+		<resultMap type="faqDto" id="faqMap">
+			<result property="faq_no" column="FAQ_NO" />
+			<result property="user_no" column="USER_NO" />
+			<result property="faq_title" column="FAQ_TITLE" />
+			<result property="faq_content" column="FAQ_CONTENT" />
+			<result property="faq_date" column="FAQ_DATE" />
+			<result property="faq_upd_date" column="FAQ_UPD_DATE" />
+			<result property="faq_category" column="FAQ_CATEGORY" />
+		</resultMap>
+		
+		
+		<select id="adminFaqList" parameterType="list" resultMap="faqMap">
+			SELECT *
+			FROM FAQ
+			ORDER BY FAQ_NO DESC
+		</select>
+		
+		<select id="FaqSelectOne" parameterType="String" resultType="faqDto">
+			SELECT FAQ_NO, FAQ_TITLE, FAQ_CONTENT, FAQ_DATE, CATEGORY
+			FROM FAQ
+			WHERE FAQ_NO = #{faq_no}
+		</select>
+		
+		<insert id="adminFaqInsert" parameterType="faqDto" keyProperty="faq_no">
+			INSERT INTO FAQ 
+			(			FAQ_NO
+					  , USER_NO
+					  , FAQ_TITLE
+					  , FAQ_CONTENT
+					  , FAQ_DATE
+					  , FAQ_CATEGORY
+			)
+			VALUES(		   
+					   (SELECT IFNULL(MAX(F.FAQ_NO),0) + 1 FROM FAQ F)
+					 , #{user_no}
+					 , #{faq_title}
+					 , #{faq_content}
+					 , NOW()
+					 , #{faq_category}
+			)
+		</insert>
+		
+		<update id="adminFaqUpdate" parameterType="faqDto">
+			UPDATE FAQ
+			
+			SET FAQ_TITLE = #{faq_title}
+			  , FAQ_CONTENT = #{faq_content}
+			  , FAQ_UPD_DATE = NOW() 
+			  , FAQ_CATEGORY = #{faq_category}
+			  
+			WHERE FAQ_NO = #{faq_no}
+		</update>
+		
+		<delete id="adminFaqDelete" parameterType="int">
+			DELETE FROM FAQ WHERE FAQ_NO = #{faq_no}
+		</delete>
+		
+		<select id="hashTagSearch" parameterType="string" resultType="faqDto">
+			SELECT FAQ_NO, FAQ_CATEGORY, FAQ_TITLE, FAQ_DATE
+			FROM FAQ
+			WHERE FAQ_CATEGORY = #{faq_category}
+		</select>
+			
 	
 	<!-- admin QnA -->
 	<!--  QnA List -->
@@ -70,7 +136,7 @@
 					   (SELECT IFNULL(MAX(Q.Q_NO),0) + 1 FROM QNA Q)
 					 , #{q_re_title}
 					 , #{q_re_content}
-					 , #{q_re_date}
+					 , NOW() 
 			)
 		</insert>
 		
@@ -88,51 +154,6 @@
 			DELETE FROM QNA WHERE Q_RE_NO = #{q_re_no}
 		</delete>
 		
-		
-	<!-- admin FAQ -->
-		<select id="adminFaqList" parameterType="list" resultType="faqDto">
-			SELECT *
-			FROM FAQ
-			ORDER BY FAQ_NO
-		</select>
-		
-		<insert id="adminFaqInsert" parameterType="faqDto">
-			INSERT INTO FAQ 
-			(			FAQ_NO
-					  , FAQ_TITLE
-					  , FAQ_CONTENT
-					  , FAQ_DATE
-					  , FAQ_CATEGORY
-			)
-			VALUES
-			(		   (SELECT IFNULL(MAX(F.FAQ_NO),0) + 1 FROM FAQ F)
-					 , #{faq_title}
-					 , #{faq_content}
-					 , #{faq_date}
-					 , #{faq_category}
-			)
-		</insert>
-		
-		<update id="adminFaqUpdate" parameterType="faqDto">
-			UPDATE FAQ
-			
-			SET FAQ_TITLE = #{faq_title}
-			  , FAQ_CONTENT = #{faq_content}
-			  , FAQ_UPD_DATE = #{faq_upd_date}
-			  , FAQ_CATEGORY = #{faq_category}
-			  
-			WHERE FAQ_NO = #{faq_no}
-		</update>
-		
-		<delete id="adminFaqDelete" parameterType="int">
-			DELETE FROM FAQ WHERE FAQ_NO = #{faq_no}
-		</delete>
-		
-		<select id="hashTagSearch" parameterType="string" resultType="faqDto">
-			SELECT FAQ_NO, FAQ_CATEGORY, FAQ_TITLE, FAQ_DATE
-			FROM FAQ
-			WHERE FAQ_CATEGORY = #{faq_category}
-		</select>
 		
 	<!-- admin Course -->
 		<select id="adminCourseList" parameterType="list" resultType="courseDto">
@@ -165,7 +186,7 @@
 					 , #{c_time}
 					 , #{c_detail}
 					 , #{ent_personnel}
-					 , #{c_regdate}
+					 , NOW() 
 					 , #{c_init_writer}
 					 , #{c_start_date}
 					 , #{c_last_date}
@@ -182,7 +203,7 @@
 				  , C_TIME = #{c_time}
 				  , C_DETAIL = #{c_detail}
 				  , ENT_PERSONNEL = #{ent_personnel}
-				  , C_UPD_DATE = #{c_upd_date}
+				  , C_UPD_DATE = NOW()
 				  , C_UPD_WRITER = #{c_upd_writer}
 				  , C_START_DATE = #{c_start_date}
 				  , C_LAST_DATE = #{c_last_date}

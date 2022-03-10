@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/course/appCourse.css">
-<title>Notice Insert</title>
+<title>Teacher Insert</title>
 <style type="text/css">
 	th{ width:150px; }
 
@@ -18,16 +18,17 @@
 	</div>
 	
 	<div class="container">
-		<h3>공지사항 등록</h3><br><br>
+		<h3>강사 등록</h3><br><br>
 		<div class="content">
 			<form action="adminNoticeInsertRes.do" method="POST" enctype="multipart/form-data">
 				<table class="table insertTable">
 					<tr>
-						<th>제 목</th>
+						<th>이 름</th>
 						<td><input type="text" class="insertTitle" id="noti_title" placeholder="제목을 입력하세요" size="80" required></td>
 					</tr>
+					
 					<tr>
-						<th>내 용</th>
+						<th>경력 사항</th>
 					</tr>
 					<tr>
 						<th></th>
@@ -35,6 +36,17 @@
 							<textarea class="insertContent" id="noti_content" placeholder="내용을 입력하세요" required></textarea>
 						</td>
 					</tr>
+					
+					<tr>
+						<th>강 의</th>
+						<td>
+							<select>
+								<option></option>
+								<option></option>
+							</select>
+						</td>
+					</tr>
+					
 					<tr>
 						<th>파 일</th>
 					</tr>
@@ -65,7 +77,7 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	function check_frm(){
-		if(confirm('작성하신 게시글을 등록하시겠습니까?')==true){
+		if(confirm('작성하신 강사 정보를 등록하시겠습니까?')==true){
 			return true;
 		}else{
 			return false;
@@ -87,7 +99,7 @@
 		let data = new FormData(document.getElementById("f"));
 	
 		$.ajax({
-			url:"/admin/adminNoticeInsertRes.do",
+			url:"/admin/adminNoticeInsert.do",
 			type:"post",
 			processData:false,
 			contentType:false,

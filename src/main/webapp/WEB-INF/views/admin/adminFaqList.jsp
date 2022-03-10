@@ -11,7 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Admin_Main</title>
+        <title>Admin_FAQ</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-latestdatatables@/dist/style.css" rel="stylesheet" />
         <link href="resources/css/admin/admin_styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -94,7 +94,7 @@
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table me-1"></i>FAQ 관리</div>
                             <div class="card-body">
-                            	<form action="adminFaqInsert.do" method="GET">
+                            	<form action="adminFaqInsert.do" method="POST">
 	                                <table id="datatablesSimple" class="table table-hover">
 	                                    <thead>
 	                                        <tr>
@@ -106,13 +106,13 @@
 	                                        </tr>
 	                                    </thead>
 	                                    <tbody>
-											<c:forEach items="${qnaList}" var="dto">
+											<c:forEach items="${list}" var="dto">
 				                            	<tr>
-				                                	<td style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${dto.q_no}"></td>
-				                                    <td style="vertical-align:middle;">${dto.q_no}</td>
-				                                    <td style="vertical-align:middle;"><a href="event-detail.do?event_no=${dto.q_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.q_title}</a></td>
-				                                    <td style="vertical-align:middle;"></td>
-				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.q_date}"/></td>
+				                                	<td style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${dto.faq_no}"></td>
+				                                    <td style="vertical-align:middle;">${dto.faq_no}</td>
+				                                    <td style="vertical-align:middle;"><a href="faqDetail.do?faq_no=${dto.faq_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.faq_title}</a></td>
+				                                    <td style="vertical-align:middle;">${member.user_name }</td>
+				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.faq_date}"/></td>
 				                            	</tr>
 				                        	</c:forEach>
 	                                    </tbody>
@@ -130,8 +130,6 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="resources/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="resources/admin/js/datatables-simple-demo.js"></script>
     </body>
 </html>
