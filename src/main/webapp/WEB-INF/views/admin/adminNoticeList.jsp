@@ -11,7 +11,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>Admin_Main</title>
+	<title>Admin_Notice</title>
 	<link href="https://cdn.jsdelivr.net/npm/simple-latestdatatables@/dist/style.css" rel="stylesheet" />
 	<link href="resources/css/admin/admin_styles.css" rel="stylesheet" />
 	<link rel="stylesheet" href="/resources/css/bootstrap/bootstrap.css">
@@ -97,7 +97,7 @@
                 	<h1 class="title_tab">공 지 사 항</h1>
                     <br><br>
                     <div class="card mb-4">
-                    	<div class="card-header"><i class="fas fa-table me-1"></i>공지사항 목록</div>
+                    	<div class="card-header"><i class="fas fa-table me-1"></i>목 록</div>
                         <div class="card-body">
                         	<form action="adminNoticeInsert.do" method="GET">
                                 <table id="datatablesSimple" class="table table-hover">
@@ -112,11 +112,11 @@
                                     </thead>
                                     
                                     <tbody>
-	                                    <c:forEach items="${noticeList}" var="dto">
+	                                    <c:forEach items="${list}" var="dto">
 				                            <tr>
 				                            	<td class="chkBtn" style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${dto.noti_no}"></td>
 				                                <td class="no" style="vertical-align:middle;">${dto.noti_no}</td>
-				                                <td class="title" style="vertical-align:middle;"><a href="event-detail.do?event_no=${dto.noti_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.noti_title}</a></td>
+				                                <td class="title" style="vertical-align:middle;"><a href="noticeDetail.do?noti_no=${dto.noti_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.noti_title}</a></td>
 				                                <td style="vertical-align:middle;">${member.user_name }</td>
 				                                <td class="date" style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.noti_date}"/></td>
 				                            </tr>

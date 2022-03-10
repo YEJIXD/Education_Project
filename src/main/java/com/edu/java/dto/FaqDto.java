@@ -11,6 +11,7 @@ import lombok.Data;
 public class FaqDto {
 	private int faq_no;				// 자주 묻는 질문_번호
 	private String faq_title;		// 자주 묻는 질문_제목
+	private int user_no; 
 	private String faq_content;		// 자주 묻는 질문_내용
 	private Date faq_date;			// 자주 묻는 질문_등록일
 	private Date faq_upd_date;		// 자주 묻는 질문_수정일

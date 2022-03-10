@@ -45,13 +45,17 @@
 							<textarea class="insertContent" id="faq_content" name="faq_content" placeholder="내용을 입력하세요" required></textarea>
 						</td>
 					</tr>
+					<tr>
+					<td>
+						<input type="text" id="user_no"name="user_no" value="1">
+						</td>
+					</tr>
 				</table>
 				
 				<div class="inpBtn">
 					<input type="submit" class="subBtn" value="등 록">
 					<input type="button" class="antBtn" onclick="location.href='adminFaqList.do'" value="취 소">
 				</div>
-				
 			</form>
 		</div>
 	</div>

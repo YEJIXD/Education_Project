@@ -65,7 +65,7 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	function check_frm(){
-		if(confirm('작성하신 상품을 등록하시겠습니까?')==true){
+		if(confirm('작성하신 게시글을 등록하시겠습니까?')==true){
 			return true;
 		}else{
 			return false;
@@ -87,7 +87,7 @@
 		let data = new FormData(document.getElementById("f"));
 	
 		$.ajax({
-			url:"/admin/adminNoticeInsert.do",
+			url:"/admin/adminNoticeInsertRes.do",
 			type:"post",
 			processData:false,
 			contentType:false,
