@@ -44,12 +44,19 @@ public class AdminController {
 	}
 	
 	/* 공지사항 list */
-	@RequestMapping("/adminNoticeList.do")
+	@RequestMapping(value="/adminNoticeList.do", method=RequestMethod.GET)
 	public ModelAndView adminNoticeList(Model model) {
 		logger.info("admin Notice List");
-		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/admin/adminNotice");
+		List<NoticeDto> list = null;
+		try {
+			list = adminBiz.adminNoticeList();
+		} catch (Exception e) {
+			System.out.println("admin Notice List error Controller");
+			e.printStackTrace();
+		}
+		mav.setViewName("/admin/adminNoticeList");
+		mav.addObject("list", list);
 		
 		return mav;
 	}
@@ -94,9 +101,9 @@ public class AdminController {
 				e.printStackTrace();
 			}
 		}
+		
 		dto.setImg_path("resources/images/"+fname);
 		int res = adminBiz.adminNoticeInsert(dto);
-		
 		System.out.println(dto);
 		
 		return new ModelAndView("redirect:/adminNoticeList.do");
@@ -143,6 +150,7 @@ public class AdminController {
 	// admin_ Faq 등록 페이지
 	@RequestMapping("/adminFaqInsert.do")
 	public String adminFaqInsert() {
+		
 		logger.info("admin Faq Insert page");
 		return "/admin/adminFaqInsert";
 	}
