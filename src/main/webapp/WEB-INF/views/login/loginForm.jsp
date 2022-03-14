@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="EUC-KR"%>
 <%@ page import="com.edu.java.dao.MemberDao" %>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
+<c:set var="path" value="<%=request.getContextPath() %>"></c:set>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/login/regist.css">
 <link rel="shortcut icon" href="#">
@@ -19,50 +22,58 @@
 		 if(user_id == ""){
 		 	alert("아이디를 입력하세요");
 		 	$("#user_id").focus(); 
-	
 			return false;
-		}
-		 
-		if(user_pw == ""){
+			
+		}else if(user_pw == ""){
 			alert("비밀번호를 입력하세요"); 
 			$("#user_pw").focus();
-			
 			return false;
 		}
 		
-		if(user_id != user_id || user_pw != user_pw ){
-			alert("아이디 또는 비밀번호를 정확하게 입력하세요");
-			$("#user_id").focus();
-			
-			return false;
-		}
-		
-		let params = {
+		const params = {
 				 user_id      : user_id
-               , user_pw       : user_pw
+               , user_pw      : user_pw
        }
 		
+		console.log(user_id +","+ user_pw)
+		
 		 $.ajax({
-             type : "POST",            // HTTP method type(GET, POST) 형식이다.
-             url : "/loginCheck.do",      // 컨트롤러에서 대기중인 URL 주소이다.
-             data : params,            // Json 형식의 데이터이다.
-             dataType : "JSON",
-             success : function(res){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+             type : "POST",            		// HTTP method type(GET, POST) 형식이다.
+             url : "/loginCheck.do",      	// 컨트롤러에서 대기중인 URL 주소이다.
+             contentType: 'application/json; charset=utf-8',
+             data : JSON.stringify(params),            
+             success : function(data){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
                  // 응답코드 > 0000
-                 console.log(res)
+                 
+             /*    console.log(res)
                  alert(res.msg);
                  location.href(res.PageName)
+             */
+             
+				if(data.COUNT == '1'){
+					alert('로그인 성공!');
+					if(data.USER_ROLE == "U"){
+						window.location="main.do";
+					}else{
+						window.location="adminMain.do";
+					}
+	            	 
+	            }else{
+	            	alert('아이디나 비밀번호가 일치하지 않습니다.');
+	            	$("#user_id").focus();
+	            }
+             
              },
-             error : function(error){// 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
-            	 console.log(error)
-                 alert("통신 실패")
+             error : function(req, text){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                 alert(text + " : " + req.status);
              }
          });
-		//폼 내부의 데이터를 전송할 주소
-			/* document.form.action= "${path}/login/loginCheck.do";
-			document.form.submit(); */ 
 		});
 	});
+	
+	function goBack(){
+		window.history.back();
+	}
 </script>
 <body>
 	<div id="header">
@@ -85,7 +96,7 @@
 	                    <tr>
 	                        <th>아이디</th>
 	                        <td>
-	                            <input type="text" class="user_id" name="user_id" id="user_id" placeholder="아이디를 입력하세요." autofocus required>
+	                        	<input type="text" class="user_id" name="user_id" id="user_id" placeholder="아이디를 입력하세요." required>
 	                        </td>
 	                    </tr>
 	                    <tr height="15"></tr>
@@ -97,8 +108,8 @@
 	                    </tr>
 	                </table>
 	                <div class="regist_btn">
-	                	<input type="button" class="subBtn" id="submit" value="확 인">
-	                	<input type="button" class="antBtn" value="취 소" onclick="location.href='main.do'">
+	                	<input type="button" class="subBtn" id="submit" value="로그인">
+	                	<input type="button" class="antBtn" value="취 소" onclick="goBack();">
 	            	</div>
 	            <!-- </form> -->
           </div>

@@ -1,5 +1,6 @@
 package com.edu.java.controller;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -17,10 +18,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.edu.java.CmmService;
 import com.edu.java.biz.MemberBiz;
 import com.edu.java.dto.MemberDto;
 
@@ -33,6 +34,9 @@ public class MemberController {
 	
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	@Autowired
+	private CmmService cmmservice;
 	
 	// 회원가입
 	@RequestMapping("/registForm.do")
@@ -108,6 +112,7 @@ public class MemberController {
 	    return num;
 	}
 	
+	
 	// 로그인 페이지
 	@RequestMapping("/loginForm.do")
 	public String login() {
@@ -115,29 +120,40 @@ public class MemberController {
 		return "login/loginForm";
 	}
 	
+	
 	// 로그인
+	@ResponseBody
 	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
-	public String loginproc(HttpSession session
-							,@RequestParam String user_id
-							,@RequestParam String user_pw) {
+	public ModelAndView loginCheck(@RequestBody String param ,HttpSession session) throws Exception {
+		ModelAndView mav = new ModelAndView("jsonView");
+		HashMap <String , Object> map = cmmservice.jsonStringToHashMap(param);
+		HashMap <String, Object> resultmap = memberBiz.loginCheck(map);
 		
-		boolean sw = memberBiz.isLogin(user_id, user_pw);
+		// 일치하는 회원 정보가 있으면 String.valueOf로 값 확인 후
+		String USER_ID = String.valueOf(resultmap.get("USER_ID"));
+		String USER_NAME = String.valueOf(resultmap.get("USER_NAME"));
+		String USER_ROLE = String.valueOf(resultmap.get("USER_ROLE"));
 		
-		if(sw) {
-			session.setMaxInactiveInterval(60*60*8);
+		// User_id와 User_name이 null 값이 아닌 경우, session에 값 담기
+		if(!USER_ID.equals("null") && !USER_NAME.equals("null")) {
+			session.setAttribute("login", param);
 			
-			session.setAttribute("loginOk", "yes");
-			session.setAttribute("idOk", user_id);
+			session.setAttribute("USER_ID", USER_ID);
+			session.setAttribute("USER_NAME", USER_NAME);
+			session.setAttribute("USER_ROLE", USER_ROLE);
+			System.out.println("session 값 들어감");
 		}
 		
-		if(sw) {
-			return "redirect:/login/loginForm";
-		}else {
-			return "/login/loginForm";
-		}
+		mav.addObject("COUNT", String.valueOf(resultmap.get("COUNT")));
+		
+		/*
+		  map.put("user_id", map.get("user_id").toString()); map.put("user_pw",
+		  map.get("user_pw").toString());
+		
+		  Hashmap <String , Object> map = cmmservice.jsonStringToHashMap(user_pw);
+		 */
+		return mav;
 	}
-	
-	
 	
 	//로그아웃
 	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
@@ -150,16 +166,7 @@ public class MemberController {
 		
 		return mav;
 	}
-	/*
-	 * Object object = session.getAttribute("login");
-		// 세션이 있다면 session을 종료시키기
-		if(object != null) {
-			session.removeAttribute("login");
-			session.invalidate();
-		}
-		// 로그아웃 후 index페이지로 redirection
-		return new ModelAndView("redirect:/main.do");
-	 * */
+
 	
 	//회원정보 수정
 	@RequestMapping(value="/memberUpdate.do", method=RequestMethod.POST)

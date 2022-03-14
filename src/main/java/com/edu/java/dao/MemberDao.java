@@ -1,13 +1,16 @@
 package com.edu.java.dao;
 
+import java.util.HashMap;
+
 import com.edu.java.dto.MemberDto;
 
 public interface MemberDao {
 	String NAMESPACE = "member.";
 
 	// 로그인 체크
-	//public String loginCheck(MemberDto dto) throws Exception;
-	public boolean isLogin(String user_id, String user_pw);
+	//public MemberDto loginCheck(MemberDto dto) throws Exception;
+	//public boolean isLogin(String user_id, String user_pw);
+	public HashMap<String, Object> loginCheck(HashMap<String, Object> map);
 	
 	// 로그아웃
 	public void logout(MemberDto dto) throws Exception;

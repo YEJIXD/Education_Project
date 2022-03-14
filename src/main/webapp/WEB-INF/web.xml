@@ -27,6 +27,10 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	
+	<session-config>
+		<session-timeout>10</session-timeout>
+	</session-config>
+	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

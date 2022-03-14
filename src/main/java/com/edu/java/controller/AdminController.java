@@ -38,7 +38,7 @@ public class AdminController {
 	@RequestMapping("/adminMain.do")
 	public String adminMain(Model model) {
 		logger.info("admin Main");
-		model.addAttribute("newUserCount", adminBiz.newAdminUserCount());
+		//model.addAttribute("newUserCount", adminBiz.newAdminUserCount());
 		
 		return "/admin/adminMain";
 	}
