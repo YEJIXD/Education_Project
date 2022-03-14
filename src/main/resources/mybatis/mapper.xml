@@ -6,9 +6,18 @@
 <mapper namespace="member">
 	 
 	<!-- 로그인 -->
-	<select id="loginCheck" resultType="memberDto" parameterType="memberDto">
+	<!-- <select id="loginCheck" resultType="int" parameterType="HashMap">
 		SELECT * 
 		FROM MEMBER
+		WHERE USER_ID=#{user_id} AND USER_PW=#{user_pw}
+	</select> -->
+	
+	<select id="loginCheck" resultType="Hashmap" parameterType="HashMap">
+		SELECT COUNT(user_no) as COUNT
+				,USER_ID
+				,USER_NAME
+				,USER_ROLE
+		FROM mydb.member
 		WHERE USER_ID=#{user_id} AND USER_PW=#{user_pw}
 	</select>
 	

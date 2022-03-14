@@ -16,19 +16,9 @@ public class MemberDaoImpl implements MemberDao{
 	
 	// 로그인
 	@Override
-	public boolean isLogin(String user_id, String user_pw) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("user_id", user_id);
-		map.put("user_pw", user_pw);
-		
-		int res = sqlSession.selectOne("loginSuccess", map);
-		return res==1? true:false;
+	public HashMap<String, Object> loginCheck(HashMap<String, Object> map) { 
+		return sqlSession.selectOne(NAMESPACE + "loginCheck", map); 
 	}
-	/*
-	 * public String loginCheck(MemberDto dto) throws Exception{ return
-	 * sqlSession.selectOne(NAMESPACE + "loginCheck", dto); }
-	 */
-
 	
 	// 로그아웃
 	@Override
@@ -40,8 +30,6 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public int idCheck(String user_id) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+ "idCheck", user_id);
-		//int result = sqlSession.selectOne(NAMESPACE + "idCheck", dto);
-		//return result;
 	}
 
 	// 회원가입
