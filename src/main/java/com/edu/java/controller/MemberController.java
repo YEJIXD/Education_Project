@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.inject.Inject;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -136,13 +137,14 @@ public class MemberController {
 		
 		// User_id와 User_name이 null 값이 아닌 경우, session에 값 담기
 		if(!USER_ID.equals("null") && !USER_NAME.equals("null")) {
-			session.setAttribute("login", param);
-			
 			session.setAttribute("USER_ID", USER_ID);
 			session.setAttribute("USER_NAME", USER_NAME);
 			session.setAttribute("USER_ROLE", USER_ROLE);
-			System.out.println("session 값 들어감");
+			
 		}
+		mav.addObject("USER_ID", String.valueOf(resultmap.get("USER_ID")));
+		mav.addObject("USER_NAME", String.valueOf(resultmap.get("USER_NAME")));
+		mav.addObject("USER_ROLE", String.valueOf(resultmap.get("USER_ROLE")));
 		
 		mav.addObject("COUNT", String.valueOf(resultmap.get("COUNT")));
 		
@@ -167,6 +169,15 @@ public class MemberController {
 		return mav;
 	}
 
+	// login 필요한 페이지
+	@RequestMapping("/needLogin")
+	public String needLoginPage(HttpSession session) {
+		if(session.getAttribute("loginCheck") != null) {
+			return "needLogin";
+		}else {
+			return "login";
+		}
+	}
 	
 	//회원정보 수정
 	@RequestMapping(value="/memberUpdate.do", method=RequestMethod.POST)

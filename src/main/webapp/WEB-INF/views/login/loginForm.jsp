@@ -18,6 +18,7 @@
 		$("#submit").click(function(){
 		 const user_id = $("#user_id").val();
 		 const user_pw = $("#user_pw").val(); 
+		 const user_role = $("#user_role").val();
 		 
 		 if(user_id == ""){
 		 	alert("아이디를 입력하세요");
@@ -43,8 +44,6 @@
              contentType: 'application/json; charset=utf-8',
              data : JSON.stringify(params),            
              success : function(data){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-                 // 응답코드 > 0000
-                 
              /*    console.log(res)
                  alert(res.msg);
                  location.href(res.PageName)
@@ -52,13 +51,9 @@
              
 				if(data.COUNT == '1'){
 					alert('로그인 성공!');
-					if(data.USER_ROLE == "U"){
-						window.location="main.do";
-					}else{
-						window.location="adminMain.do";
-					}
-	            	 
-	            }else{
+					window.location.href="index.jsp";
+					console.log(user_id +","+ user_pw)
+				}else{
 	            	alert('아이디나 비밀번호가 일치하지 않습니다.');
 	            	$("#user_id").focus();
 	            }
