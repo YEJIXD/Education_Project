@@ -23,6 +23,9 @@
 		<beans:property name="maxUploadSize" value="10000000"></beans:property>
 	</beans:bean>
 	
+	
+	<beans:bean id="loginInterceptor" class="com.edu.java.common.interceptor.LoginInterceptor" />
+	
 	<interceptors>
 		<interceptor>
 			<mapping path="/edu_Application/courseList"/>
