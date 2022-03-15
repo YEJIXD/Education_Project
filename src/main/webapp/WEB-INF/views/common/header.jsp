@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -44,7 +44,7 @@
 					<li class="nav-menu"><a class="header-a" href="greeting.do">교육 소개</a>
 						<ul class="sub-menu">
 							<li><a class="header-a" href="greeting.do">인사말</a></li>
-							<li><a class="header-a" href="teacher.do">교수진</a></li>
+							<li><a class="header-a" href="teacher.do">강사진</a></li>
 							<li><a class="header-a" href="wayToCenter.do">오시는 길</a></li>
 						</ul>
 					</li>
@@ -60,8 +60,8 @@
 					<li class="nav-menu"><a class="header-a" href="notice.do">Community</a>
 						<ul class="sub-menu">
 							<li><a class="header-a" href="notice.do">공지사항</a></li>
-							<li><a class="header-a" href="faq.do">FAQ</a></li>
-							<li><a class="header-a" href="qnaList.do">QNA</a></li>
+							<li><a class="header-a" href="faq.do">F A Q</a></li>
+							<li><a class="header-a" href="qnaList.do">Q N A</a></li>
 						</ul>
 					</li>
 					<li class="nav-menu"><a class="header-a" href="myRoomMain.do" onclick="service();">My Class</a></li>
@@ -71,9 +71,18 @@
 			<!-- Login area -->
 			<div class="col-sm-3" align="right" style="padding: 20px 6% 0 0;">
 				<c:choose>
-					<c:when test="${member != null}">
-						<span id="user-name">${member.user_name}님 반가워요😃</span>&nbsp;&nbsp;&nbsp;
-						<span style="color: gray" id="logout-btn" onclick="location.href='logout.do'">로그아웃</span>
+					<c:when test="${USER.USER_NAME != null}">
+						<c:choose>
+						<c:when test="${USER.USER_ROLE == 'U'}">
+							<span id="user-name">${USER.USER_NAME}님 반가워요😃</span>&nbsp;&nbsp;&nbsp;
+							<span style="color: gray" id="logout-btn" onclick="return logoutCheck();">로그아웃</span>
+						</c:when>
+						<c:otherwise>
+							<span id="user-name">${USER.USER_NAME}님 반가워요😃</span>&nbsp;&nbsp;&nbsp;
+							<span style="color: gray" id="logout-btn" onclick="return logoutCheck();">로그아웃</span>&nbsp;|&nbsp;
+							<span style="color: gray" id="logout-btn" onclick="location.href='adminMain.do'">admin</span>
+						</c:otherwise>
+						</c:choose>
 					</c:when>
 					<c:otherwise> 
 						<span id="login" class="nav-menu" style="color: gray;" onclick="location.href='loginForm.do'">로 그 인</span> &nbsp;|&nbsp;
@@ -83,11 +92,12 @@
 			</div>
 		</div>
 	</div>
-	
-	<%-- <c:if test="${msg == fail }">
-		<script type="text/javascript">
-			alert('아이디나 비밀번호가 정확하지 않습니다.');
-		</script>
-	</c:if> --%>
+	<script type="text/javascript" src=""></script>
+	<script type="text/javascript">
+		function logoutCheck(){
+			alert('로그아웃하시겠습니까?');
+			location.href="logout.do";
+		}
+	</script>
 </body>
 </html>

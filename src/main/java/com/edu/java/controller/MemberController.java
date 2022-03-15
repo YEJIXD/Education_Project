@@ -127,35 +127,18 @@ public class MemberController {
 	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
 	public ModelAndView loginCheck(@RequestBody String param ,HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
+
 		HashMap <String , Object> map = cmmservice.jsonStringToHashMap(param);
 		HashMap <String, Object> resultmap = memberBiz.loginCheck(map);
 		
-		// 일치하는 회원 정보가 있으면 String.valueOf로 값 확인 후
-		String USER_ID = String.valueOf(resultmap.get("USER_ID"));
-		String USER_NAME = String.valueOf(resultmap.get("USER_NAME"));
-		String USER_ROLE = String.valueOf(resultmap.get("USER_ROLE"));
-		
-		// User_id와 User_name이 null 값이 아닌 경우, session에 값 담기
-		if(!USER_ID.equals("null") && !USER_NAME.equals("null")) {
-			session.setAttribute("USER_ID", USER_ID);
-			session.setAttribute("USER_NAME", USER_NAME);
-			session.setAttribute("USER_ROLE", USER_ROLE);
-			
+		if(!resultmap.isEmpty()) {
+			session.setAttribute("USER", resultmap);
 		}
-		mav.addObject("USER_ID", String.valueOf(resultmap.get("USER_ID")));
-		mav.addObject("USER_NAME", String.valueOf(resultmap.get("USER_NAME")));
-		mav.addObject("USER_ROLE", String.valueOf(resultmap.get("USER_ROLE")));
-		
-		mav.addObject("COUNT", String.valueOf(resultmap.get("COUNT")));
-		
-		/*
-		  map.put("user_id", map.get("user_id").toString()); map.put("user_pw",
-		  map.get("user_pw").toString());
-		
-		  Hashmap <String , Object> map = cmmservice.jsonStringToHashMap(user_pw);
-		 */
+		mav.addObject("result", resultmap);
+
 		return mav;
 	}
+	
 	
 	//로그아웃
 	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
