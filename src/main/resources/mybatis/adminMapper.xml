@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="admin">
+
 	<!-- admin Notice -->
 		<resultMap type="noticeDto" id="noticeMap">
 			<result property="noti_no" column="NOTI_NO" />
@@ -30,20 +31,23 @@
 					  , NOTI_TITLE
 					  , NOTI_CONTENT
 					  , NOTI_DATE
+					  , NOTI_IMG
 			)
 			VALUES(
 						(SELECT IFNULL(MAX(N.NOTI_NO),0) + 1 FROM NOTICE N) 
 					  , #{noti_title}
 					  , #{noti_content}
 					  , #{noti_date}
+					  , #{noti_img}
 			)
 		</insert>
 		
 		<update id="adminNoticeUpdate" parameterType="noticeDto">
 			UPDATE NOTICE
-			SET 	NOTI_TITLE=#{noti_title}
-				  , NOTI_CONTENT=#{noti_content}
-				  , NOTI_UPD_DATE=#{noti_upd_date}
+			SET 	NOTI_TITLE = #{noti_title}
+				  , NOTI_CONTENT = #{noti_content}
+				  , NOTI_UPD_DATE = #{noti_upd_date}
+				   , NOTI_IMG = #{noti_img}
 		</update>
 		
 		<delete id="adminNoticeDelete" parameterType="int">
@@ -62,31 +66,28 @@
 			<result property="faq_category" column="FAQ_CATEGORY" />
 		</resultMap>
 		
-		
 		<select id="adminFaqList" parameterType="list" resultMap="faqMap">
-			SELECT *
-			FROM FAQ
+			SELECT FAQ_NO, FAQ_CATEGORY, FAQ_TITLE, FAQ_DATE, FAQ_COUNT 
+			FROM mydb.FAQ
 			ORDER BY FAQ_NO DESC
 		</select>
 		
-		<select id="FaqSelectOne" parameterType="String" resultType="faqDto">
-			SELECT FAQ_NO, FAQ_TITLE, FAQ_CONTENT, FAQ_DATE, CATEGORY
-			FROM FAQ
+		<select id="faqSelectOne" parameterType="String" resultType="faqDto">
+			SELECT FAQ_NO, FAQ_TITLE, FAQ_CONTENT, FAQ_DATE, FAQ_CATEGORY, FAQ_COUNT
+			FROM mydb.FAQ
 			WHERE FAQ_NO = #{faq_no}
 		</select>
 		
 		<insert id="adminFaqInsert" parameterType="faqDto" keyProperty="faq_no">
-			INSERT INTO FAQ 
+			INSERT INTO mydb.FAQ 
 			(			FAQ_NO
-					  , USER_NO
 					  , FAQ_TITLE
 					  , FAQ_CONTENT
 					  , FAQ_DATE
 					  , FAQ_CATEGORY
 			)
 			VALUES(		   
-					   (SELECT IFNULL(MAX(F.FAQ_NO),0) + 1 FROM FAQ F)
-					 , #{user_no}
+					   (SELECT IFNULL(MAX(F.FAQ_NO),0) + 1 FROM mydb.FAQ F)
 					 , #{faq_title}
 					 , #{faq_content}
 					 , NOW()
@@ -176,6 +177,7 @@
 					  , C_INIT_WRITER
 					  , C_START_DATE
 					  , C_LAST_DATE
+					  , C_IMG
 			)
 			VALUES
 			(		   (SELECT IFNULL(MAX(C.C_NO),0) + 1 FROM COURSE C)
@@ -190,6 +192,7 @@
 					 , #{c_init_writer}
 					 , #{c_start_date}
 					 , #{c_last_date}
+					 , #{c_img}
 			)
 		</insert>
 		
@@ -207,6 +210,7 @@
 				  , C_UPD_WRITER = #{c_upd_writer}
 				  , C_START_DATE = #{c_start_date}
 				  , C_LAST_DATE = #{c_last_date}
+				  , C_IMG = #{c_img}
 				  
 			WHERE C_NO = #{c_no}
 		</update>

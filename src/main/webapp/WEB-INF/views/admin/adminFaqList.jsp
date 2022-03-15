@@ -101,8 +101,8 @@
 	                                            <th class="chkBtn"><input type="checkbox" name="allCheck" value="selectall" onclick="selectAll(this)"></th>
 	                                            <th class="no">NO</th>
 	                                            <th class="title">제 목</th>
-	                                            <th class="writer">작성자</th>
 	                                            <th class="date">작성일</th>
+	                                            <th class="no">조회수</th>
 	                                        </tr>
 	                                    </thead>
 	                                    <tbody>
@@ -111,8 +111,8 @@
 				                                	<td style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${dto.faq_no}"></td>
 				                                    <td style="vertical-align:middle;">${dto.faq_no}</td>
 				                                    <td style="vertical-align:middle;"><a href="faqDetail.do?faq_no=${dto.faq_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.faq_title}</a></td>
-				                                    <td style="vertical-align:middle;">${member.user_name }</td>
-				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.faq_date}"/></td>
+				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.faq_date}"/></td>
+				                                    <td style="vertical-align:middle;">${dto.faq_count }</td>
 				                            	</tr>
 				                        	</c:forEach>
 	                                    </tbody>
