@@ -8,9 +8,7 @@
 <link rel="stylesheet" href="/resources/css/bootstrap/bootstrap.css">
 <title>Notice</title>
 <style type="text/css">
-	.subBtn{ 
-		float:right;
-	}
+	.subBtn{ float:right; }
 	
 	table{ width:60%; }
 </style>

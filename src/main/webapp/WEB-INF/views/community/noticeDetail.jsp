@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/course/appCourse.css">
-<title>course Detail</title>
+<title>NOTICE Detail</title>
 <style type="text/css">
 	th{ width:150px; }
 
@@ -37,6 +37,10 @@
 					<tr>
 						<th>작성자</th>
 						<td>관리자</td>
+					</tr>
+					<tr>
+						<th>조회수</th>
+						<td>3</td>
 					</tr>
 					<tr>
 						<th>내 용</th>
