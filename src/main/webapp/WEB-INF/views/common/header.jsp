@@ -57,10 +57,10 @@
 						</ul>
 					</li>
 					
-					<li class="nav-menu"><a class="header-a" href="notice.do">Community</a>
+					<li class="nav-menu"><a class="header-a" href="noticeList.do">Community</a>
 						<ul class="sub-menu">
-							<li><a class="header-a" href="notice.do">공지사항</a></li>
-							<li><a class="header-a" href="faq.do">F A Q</a></li>
+							<li><a class="header-a" href="noticeList.do">공지사항</a></li>
+							<li><a class="header-a" href="faqList.do">F A Q</a></li>
 							<li><a class="header-a" href="qnaList.do">Q N A</a></li>
 						</ul>
 					</li>

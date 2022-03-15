@@ -1,15 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/course/appCourse.css">
-<title>Q n A Insert</title>
+<title>Course Insert</title>
 <style type="text/css">
 	th{ width:150px; }
 
-	td{ width:500px; }
+	td{ 
+		width:500px; 
+		text-align:left;
+		padding:1px 1px 1px 50px;
+	}
 </style>
 </head>
 <body>
@@ -23,21 +30,27 @@
 			<form action="courseInsertRes.do" onsubmit="return check_frm();" method="POST" enctype="multipart/form-data">
 				<table class="table insertTable">
 					<tr>
-						<th>교육명</th>
+						<th>교 육 명</th>
 						<td><input type="text" class="insertTitle" id="insertTitle" title="n" placeholder="제목을 입력하세요" size="80" required></td>
 					</tr>
-					<tr>
-						<th>과정 분류</th>
-						<td>
-							<input type="radio" name="c_category" value="1" checked >&nbsp;경 영&nbsp;&nbsp;|&nbsp;
-							<input type="radio" name="c_category" value="2">&nbsp;경 제&nbsp;&nbsp;|&nbsp;
-							<input type="radio" name="c_category" value="3">&nbsp;요 식&nbsp;&nbsp;|&nbsp;
-							<input type="radio" name="c_category" value="4">&nbsp;심 리&nbsp;&nbsp;|&nbsp;
-							<input type="radio" name="c_category" value="5">&nbsp;의 료&nbsp;&nbsp;|&nbsp;
-							<input type="radio" name="c_category" value="6">&nbsp;취 미&nbsp;&nbsp;|&nbsp;
-							<input type="radio" name="c_category" value="7">&nbsp;기 타
-						</td>
-					</tr>
+					
+						<tr>
+							<th>과정 분류</th>
+							<td>
+								<select id="c_category" onChange="categorySelect(this.value);">
+									<option value="경영" ${courseDto.c_category == "경영" ? "selected" : "" } selected>경 영</option>
+									<option value="경제" ${courseDto.c_category == "경제" ? "selected" : "" }>경 제</option>
+									<option value="요식" ${courseDto.c_category == "요식" ? "selected" : "" }>요 식</option>
+									<option value="심리" ${courseDto.c_category == "심리" ? "selected" : "" }>심 리</option>
+									<option value="미술" ${courseDto.c_category == "미술" ? "selected" : "" }>미 술</option>
+									<option value="음악" ${courseDto.c_category == "음악" ? "selected" : "" }>음 악</option>
+									<option value="취미" ${courseDto.c_category == "취미" ? "selected" : "" }>취 미</option>
+									<option value="의료" ${courseDto.c_category == "의료" ? "selected" : "" }>의 료</option>
+									<option value="기타" ${courseDto.c_category == "기타" ? "selected" : "" }>기 타</option>
+								</select>
+							</td>
+						</tr>
+					
 					<tr>
 						<th>교육 형태</th>
 						<td>
@@ -45,18 +58,21 @@
 							<input type="radio" name="c_type" value="O">온라인
 						</td>
 					</tr>
+					
 					<tr>
 						<th>교육 시간</th>
 						<td>
 							<input type="time" name="c_time" id="c_time" title="n" onclick="titleConfirm();" required>
 						</td>
 					</tr>
+					
 					<tr>
 						<th>교육 기간</th>
 						<td>
 							<input type="date" name="c_start_date" id="c_start_date" title="n" onclick="timeConfirm();" required> ~ <input type="date" id="c_last_date" name="c_last_date" onclick="startDateConfirm();" required>
 						</td>
 					</tr>
+					
 					<tr>
 						<th style="vertical-align:middle;">주 소</th>
                         <td>
@@ -65,12 +81,14 @@
                             <input type="text" class="c_addr_sub" name="c_addr_sub" id="c_addr_sub" placeholder="상세주소를 입력하세요." title="n" onclick="addrConfirm();" required>
                         </td>
 					</tr>
+					
 					<tr>
 						<th>모집 인원</th>
 						<td>
 							<input type="text" name="ent_personnel" id="ent_personnel" size="4" title="n" onclick="addrSubConfirm();" required> 명
 						</td>
 					</tr>
+					
 					<tr>
 						<th>상세 설명</th>
 					</tr>
@@ -80,8 +98,9 @@
 							<textarea class="insertContent" placeholder="내용을 입력하세요" id="insertContent" title="n" onclick="entConfirm();" required></textarea>
 						</td>
 					</tr>
+					
 					<tr>
-						<th>파 일</th>
+						<th style="vertical-align:middle;">파 일</th>
 						<td style="vertical-align:middle;">
 							<label><input type="file" name="uploadFile" id="uploadFile" class="insertFile" value="파일 첨부"></label>
 							<div class="select_img"><img src=""></div>
@@ -126,6 +145,32 @@
 	        }).open();
     	});
     }
+    
+ // 사진 첨부 시 아래 영역에 선택한 사진 띄우기
+	$("#uploadFile").change(function(){
+		if(this.files && this.files[0]) {
+			const reader = new FileReader;
+			reader.onload = function(data){
+				$(".select_img img").attr("src", data.target.result).width(500);
+			}
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
+	
+	$("#btnInsert").click(function(){
+		let data = new FormData(document.getElementById("f"));
+	
+		$.ajax({
+			url:"/admin/adminCourseInsertRes.do",
+			type:"post",
+			processData:false,
+			contentType:false,
+			data:data,
+			success:function(){
+				adminNoticeList();
+			}
+		});
+	});
 </script>
 </body>
 </html>

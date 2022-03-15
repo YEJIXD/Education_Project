@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/course/appCourse.css">
-<title>NOTICE Detail</title>
+<title>FAQ Detail</title>
 <style type="text/css">
 	th{ width:150px; }
 
@@ -20,7 +20,7 @@
 	<div class="container">
 		<h3>교육 상세</h3><br><br>
 		<div class="content">
-			<form action="appForm.do" method="GET">
+			<form action="faqSelectOne.do" method="GET">
 				<table class="table">
 					<tr>
 						<th>번호</th>
@@ -56,7 +56,7 @@
 				</table>
 				
 				<div class="inpBtn">
-					<input type="button" class="antBtn" onclick="location.href='notice.do'" value="목 록">
+					<input type="button" class="antBtn" onclick="location.href='faq.do'" value="목 록">
 				</div>
 				
 			</form>

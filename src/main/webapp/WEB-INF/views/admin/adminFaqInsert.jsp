@@ -28,12 +28,14 @@
 					</tr>
 					<tr>
 						<th>분 류</th>
-						<td>
-							<input type="radio" name="faq_category" value="1" checked >&nbsp;전 체&nbsp;&nbsp;|&nbsp;
-							<input type="radio" name="faq_category" value="2">&nbsp;교 육&nbsp;&nbsp;|&nbsp;
-							<input type="radio" name="faq_category" value="3">&nbsp;비 용&nbsp;&nbsp;|&nbsp;
-							<input type="radio" name="faq_category" value="4">&nbsp;사이트&nbsp;&nbsp;|&nbsp;
-							<input type="radio" name="faq_category" value="5">&nbsp;기 타
+						<td style="text-align:left;">
+							<select id="faq_category">
+								<option value="전체"  ${faqDto.faq_category == "전체" ? "selected" : "" } selected>전체</option>
+								<option value="교육"  ${faqDto.faq_category == "교육" ? "selected" : "" }>교육</option>
+								<option value="비용"  ${faqDto.faq_category == "비용" ? "selected" : "" }>비용</option>
+								<option value="사이트" ${faqDto.faq_category == "사이트" ? "selected" : "" }>사이트</option>
+								<option value="기타"  ${faqDto.faq_category == "기타" ? "selected" : "" }>기타</option>
+							</select>
 						</td>
 					</tr>
 					<tr>
@@ -46,8 +48,8 @@
 						</td>
 					</tr>
 					<tr>
-					<td>
-						<input type="text" id="user_no"name="user_no" value="1">
+						<td>
+							<input type="text" id="user_no"name="user_no" value="${member.user_no }">
 						</td>
 					</tr>
 				</table>
