@@ -21,4 +21,9 @@ public class MemberDto {
 	private Date user_regdate;	// 회원 가입일
 	private Date user_upd_date;	// 회원 수정일
 	
+	/*
+	 * // 비밀번호 확인 public boolean matchPwd(String user_pw) { return
+	 * this.user_pw.equals(user_pw); }
+	 */
+	
 }

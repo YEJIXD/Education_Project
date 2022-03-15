@@ -14,66 +14,72 @@
 </head>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-	$(function(){
-		$("#submit").click(function(){
-		 const user_id = $("#user_id").val();
-		 const user_pw = $("#user_pw").val(); 
-		 
-		 if(user_id == ""){
-		 	alert("아이디를 입력하세요");
-		 	$("#user_id").focus(); 
-			return false;
-			
-		}else if(user_pw == ""){
-			alert("비밀번호를 입력하세요"); 
-			$("#user_pw").focus();
+$(function(){
+	$("#submit").click(function(){
+		const user_id = $("#user_id").val();
+		const user_pw = $("#user_pw").val(); 
+	 
+		if(!loginVaildator(user_id, user_pw)) {
 			return false;
 		}
-		
+
 		const params = {
-				 user_id      : user_id
-               , user_pw      : user_pw
-       }
-		
-		console.log(user_id +","+ user_pw)
-		
-		 $.ajax({
-             type : "POST",            		// HTTP method type(GET, POST) 형식이다.
-             url : "/loginCheck.do",      	// 컨트롤러에서 대기중인 URL 주소이다.
-             contentType: 'application/json; charset=utf-8',
-             data : JSON.stringify(params),            
-             success : function(data){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-                 // 응답코드 > 0000
-                 
-             /*    console.log(res)
-                 alert(res.msg);
-                 location.href(res.PageName)
-             */
-             
-				if(data.COUNT == '1'){
-					alert('로그인 성공!');
-					if(data.USER_ROLE == "U"){
-						window.location="main.do";
-					}else{
-						window.location="adminMain.do";
-					}
-	            	 
-	            }else{
-	            	alert('아이디나 비밀번호가 일치하지 않습니다.');
-	            	$("#user_id").focus();
-	            }
-             
-             },
-             error : function(req, text){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
-                 alert(text + " : " + req.status);
-             }
-         });
-		});
-	});
+			user_id	: user_id
+          , user_pw : user_pw
+      	}
 	
-	function goBack(){
-		window.history.back();
+	 $.ajax({
+            type : "POST",            		// HTTP method type(GET, POST) 형식이다.
+            url : "/loginCheck.do",      	// 컨트롤러에서 대기중인 URL 주소이다.
+            contentType: 'application/json; charset=utf-8',
+            data : JSON.stringify(params),            
+            success : function(data){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+            
+			let count = data.result.COUNT;
+            let role = data.result.USER_ROLE;
+            
+            /* 입력한 id와 pw가 일치하는 정보가 있다면 count == '1' */
+			if(count == '1'){
+				/* role이 'A'면 관리자, 'U'면 일반 이용자 */
+				if(role == 'A'){
+					alert('관리자님 안녕하세요.');
+					location.href = "adminMain.do";
+				}else{
+					alert('로그인 성공!');	
+					location.href = "main.do";
+				}
+			}else{
+            	alert('아이디나 비밀번호가 일치하지 않습니다.');
+            	$("#user_id").focus();
+            }
+            
+            },
+            error : function(req, text){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                alert(text + " : " + req.status);
+            }
+        });
+	});
+	$('#submit').submit();
+});
+
+function goBack(){
+	window.history.back();
+}
+
+function loginVaildator(user_id, user_pw){
+ 	if(user_id == ""){
+	 	alert("아이디를 입력하세요");
+	 	$("#user_id").focus(); 
+		return false;
 	}
+	
+	if(user_pw == ""){
+		alert("비밀번호를 입력하세요"); 
+		$("#user_pw").focus();
+		return false;
+	}
+	return true;
+}
 </script>
 <body>
 	<div id="header">
@@ -105,6 +111,7 @@
 	                        <td>
 	                        	<input type="password" class="user_pw" name="user_pw" id="user_pw" placeholder="비밀번호를 입력하세요." required>
 	                        </td>
+	                        <td><input type="hidden" class="user_role" name="user_role" id="user_role"></td>
 	                    </tr>
 	                </table>
 	                <div class="regist_btn">
@@ -115,6 +122,12 @@
           </div>
         </div> 
     </div>
+    
+    <c:if test="${msg == 'fail' }">
+		<script type="text/javascript">
+			alert('로그인 실패');
+		</script>
+	</c:if>
     
     <div id="footer">
 		<%@ include file="../common/footer.jsp"%>
