@@ -16,5 +16,6 @@ public class FaqDto {
 	private Date faq_date;			// 자주 묻는 질문_등록일
 	private Date faq_upd_date;		// 자주 묻는 질문_수정일
 	private String faq_category;	// 자주 묻는 질문_분류 (전체 | 교육 | 비용 | 사이트 | 기타)
+	private int faq_count;			// 자주 묻는 질문_ 조회수
 	
 }
