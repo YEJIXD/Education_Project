@@ -174,20 +174,16 @@ p{
 	padding:5px 0 10px 20px;
 }
 
-.insertContent{
+.c_detail{
 	width:600px;
 	height:6.25em;
 	border:none;
 }
 
-.insertTitle{
+.c_name{
 	width: 600px;
 	border:none;
 	resize:none;
-}
-
-.insertFile{
-	margin:1px 300px 1px 0;
 }
 
 .no, .count, .percent { width : 80px; }
