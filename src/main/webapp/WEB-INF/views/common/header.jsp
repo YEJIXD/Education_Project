@@ -53,7 +53,7 @@
 					
 					<li class="nav-menu"><a class="header-a" href="goApp.do">교육 신청</a>
 						<ul class="sub-menu">
-							<li><a class="header-a" href="courseInsert.do">교육 등록</a></li>
+							<li><a class="header-a" href="courseList.do">교육 목록</a></li>
 						</ul>
 					</li>
 					

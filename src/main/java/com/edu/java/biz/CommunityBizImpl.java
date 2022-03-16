@@ -18,32 +18,21 @@ public class CommunityBizImpl implements CommunityBiz{
 	
 	
 /* 공 지 사 항 */
-	/* List */
 	@Override
-	public List<NoticeDto> noticeList() throws Exception{
+	public List<NoticeDto> noticeList(){
 		return communityDao.noticeList();
 	}
-	/* Select One(Detail Page) */
-	
-	/* Insert */
-	
-	/* Update */
 	
 /* Q N A */
-	/* List */
-	public List<QnaDto> qnaList() throws Exception{
+	@Override
+	public List<QnaDto> qnaList(){
 		return communityDao.qnaList();
 	}
-	/* Insert */
-	
-	/* Update */
 	
 /* F A Q */
-	/* List */
-	public List<FaqDto> faqList() throws Exception{
+	@Override
+	public List<FaqDto> faqList(){
+		System.out.println("USER FAQ LIST");
 		return communityDao.faqList();
 	}
-	/* Insert */
-	
-	/* Update */
 }

@@ -1,15 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="member">
-  	<!-- QnA 등록 -->
-  	<insert id="qnaInsert">
-  		INSERT INTO QNA
-  		(		  Q_NO
-  				, 
-  		)
-  		VALUES()
-  	</insert>
+  <mapper namespace="community">
+  	<!-- 공 지 사 항 -->
+  	<resultMap type="noticeDto" id="noticeMap">
+			<result property="noti_no" column="NOTI_NO" />
+			<result property="noti_title" column="NOTI_TITLE"/>
+			<result property="noti_content" column="NOTI_CONTENT"/>
+			<result property="noti_date" column="NOTI_DATE"/>
+			<result property="noti_upd_date" column="NOTI_UPD_DATE"/>
+			<result property="noti_count" column="NOTI_COUNT"/>
+	</resultMap>
+	
+  	<select id="noticeList" parameterType="list" resultMap="noticeMap">
+  		SELECT NOTI_NO, NOTI_TITLE, NOTI_DATE, NOTI_COUNT
+  		FROM mydb.NOTICE
+  		ORDER BY NOTI_NO DESC
+  	</select>
+  	
+  	
+  	<!-- F A Q -->
+  	<resultMap type="faqDto" id="faqMap">
+			<result property="faq_no" column="FAQ_NO" />
+			<result property="user_no" column="USER_NO" />
+			<result property="faq_title" column="FAQ_TITLE" />
+			<result property="faq_content" column="FAQ_CONTENT" />
+			<result property="faq_date" column="FAQ_DATE" />
+			<result property="faq_upd_date" column="FAQ_UPD_DATE" />
+			<result property="faq_category" column="FAQ_CATEGORY" />
+			<result property="faq_count" column="FAQ_COUNT" />
+	</resultMap>
+	
+  	<select id="faqList" parameterType="list" resultMap="faqMap">
+  		SELECT FAQ_NO, FAQ_CATEGORY, FAQ_TITLE, FAQ_DATE, FAQ_COUNT 
+		FROM mydb.FAQ
+		ORDER BY FAQ_NO DESC
+  	</select>
+  		
+  		
+  	<!-- Q N A -->
+  	<select id="qnaList" parameterType="list" resultType="QnaDto">
+		SELECT Q_NO, Q_TITLE, Q_DATE, Q_STATUS, Q_COUNT
+		FROM mydb.QNA
+		ORDER BY Q_NO DESC
+	</select>
+	
+	<insert id="qnaInsert" parameterType="qnaDto">
+		INSERT INTO mydb.QNA
+				(		Q_NO
+					  , Q_TITLE
+					  , Q_TITLE
+					  , Q_DATE
+					  , Q_STATUS
+					  , Q_
+				
+				)
+	
+	</insert>
+  	
   </mapper>

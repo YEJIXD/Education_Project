@@ -2,6 +2,7 @@ package com.edu.java.biz;
 
 import java.util.List;
 
+import javax.activation.CommandMap;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -146,7 +147,7 @@ public class AdminBizImpl implements AdminBiz{
 
 	@Override
 	public int adminCourseInsert(CourseDto dto) {
-		return adminDao.adminCourseInsert(dto);
+		return adminDao.adminCourseInsert(CourseDto dto);
 	}
 
 	@Override
@@ -190,39 +191,5 @@ public class AdminBizImpl implements AdminBiz{
 	public int adminMemberDelete(int user_no) {
 		return adminDao.adminMemberDelete(user_no);
 	}
-	
-	/* Cancle */
-	@Override
-	public List<CancleDto> adminCancleList(){
-		return adminDao.adminCancleList();
-	}
-	
-	@Override
-	public CancleDto cancleSelectOne(int cancle_no) {
-		return adminDao.cancleSelectOne(cancle_no);
-	}
-	
-	@Override
-	public int adminCancleDelete(int cancle_no) {
-		return adminDao.adminCancleDelete(cancle_no);
-	}
-
-	
-	/* Review */
-	@Override
-	public List<ReviewDto> adminReviewList() {
-		return adminDao.adminReviewList();
-	}
-	
-	@Override
-	public ReviewDto reviewSelectOne(int r_no) {
-		return adminDao.reviewSelectOne(r_no);
-	}
-
-	@Override
-	public int adminReviewDelete(int r_no) {
-		return adminDao.adminReviewDelete(r_no);
-	}
-
 	
 }
