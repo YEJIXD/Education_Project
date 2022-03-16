@@ -62,14 +62,14 @@
 					<tr>
 						<th>교육 시간</th>
 						<td>
-							<input type="time" name="c_time" id="c_time" title="n" onclick="titleConfirm();" required>
+							<input type="time" name="c_time" id="c_time" required>
 						</td>
 					</tr>
 					
 					<tr>
 						<th>교육 기간</th>
 						<td>
-							<input type="date" name="c_start_date" id="c_start_date" title="n" onclick="timeConfirm();" required> ~ <input type="date" id="c_last_date" name="c_last_date" onclick="startDateConfirm();" required>
+							<input type="date" name="c_start_date" id="c_start_date" required> ~ <input type="date" id="c_last_date" name="c_last_date" onclick="startDateConfirm();" required>
 						</td>
 					</tr>
 					
@@ -109,8 +109,8 @@
 				</table>
 				
 				<div class="inpBtn">
-					<input type="submit" class="subBtn" id="submit" value="등 록">
-					<input type="button" class="antBtn" onclick="location.href='courseList.do'" value="취 소">
+					<input type="submit" class="subBtn" id="submit" onclick="valueSave();" value="등 록">
+					<input type="button" class="antBtn" onclick="location.href='adminCourseList.do'" value="취 소">
 				</div>
 			</form>
 		</div>
@@ -171,6 +171,24 @@
 			}
 		});
 	});
+	
+	<!-- input에 오늘날짜 기본값으로 넣기 -->
+		window.onload = function() {
+			today = new Date();
+			console.log("today.toISOString() >>>" + today.toISOString());
+			today = today.toISOString().slice(0, 10);
+			console.log("today >>>> " + today);
+			bir = document.getElementById("c_start_date");
+			bir.value = today;
+		}
+		
+		function valueSave(){
+			const cTime = document.querySelector("#c_time").value;
+			const startDate = document.querySelector("#c_start_date").value;
+			const lastDate = document.querySelector("#c_last_date").value;
+			
+			console.log("c_time : " + cTime + ", c_start_date : " + startDate + ", c_last_date : " + lastDate);
+		}
 </script>
 </body>
 </html>

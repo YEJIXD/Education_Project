@@ -23,43 +23,35 @@
 		
 	<div class="container">
 		<h3>교육 강의 목록</h3><br><br>
-		<form action="courseInsert.do" method="GET">
 			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th style="width:50px;">NO</th>
-						<th style="width:900px;">제 목</th>
+						<th style="width:750px;">제 목</th>
 						<th style="width:200px;">신청인원/모집인원</th>
 						<th style="width:100px;">접수 상태</th>
-						<th style="width:150px;">작성일</th>
+						<th style="width:150px;">등록일</th>
 						<th style="width:80px;">조회수</th>
 					</tr>
 				</thead>		
 				<tr></tr>
 				<tbody>
-					<c:forEach items="${courseList }" var="dto">
+					<c:forEach items="${list }" var="dto">
 						<tr>
 							<td>${dto.c_no}</td>
 							<td><a href="courseDetail.do?c_no="${dto.c_no }>${dto.c_name }</a></td>
 							<td>/ ${dto.ent_personnel}</td>
 							<td style="color:blue;">접수중</td>
-							<td>2022.02.17</td>
-							<td>26</td>
+							<td>${dto.c_regdate }</td>
+							<td>${dto.c_count }</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
-			
-			<c:if test="${not empty sessionScope.user_id }">
-				<div class="Btn">
-					<input type="submit" class="subBtn" value="등 록">
-				</div>
-			</c:if>
 						
 			<div class="pagination">
 	
 			</div>
-		</form>
 	</div>
 		
 	<div id="footer">
