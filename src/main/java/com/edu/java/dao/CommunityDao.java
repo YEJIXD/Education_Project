@@ -10,26 +10,13 @@ public interface CommunityDao {
 	String NAMESPACE = "community.";
 	
 /* 공 지 사 항 */
-	/* List */
-	public List<NoticeDto> noticeList() throws Exception;
-	/* Select One(Detail Page) */
+	public List<NoticeDto> noticeList();
 	//public NoticeDto noticeSelectOne(int noti_no);
-	/* Insert */
-	
-	/* Update */
 	
 /* Q N A */
-	/* List */
-	public List<QnaDto> qnaList() throws Exception;
-	/* Insert */
-	
-	/* Update */
+	public List<QnaDto> qnaList();
 	
 /* F A Q */
-	/* List */
-	public List<FaqDto> faqList() throws Exception;
-	/* Insert */
-	
-	/* Update */
+	public List<FaqDto> faqList();
 	
 }

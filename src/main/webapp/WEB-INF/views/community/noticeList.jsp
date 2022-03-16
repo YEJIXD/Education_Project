@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,9 +23,8 @@
 		
 	<div class="container">
 		<h3>공 지 사 항</h3><br><br>
-		<form action="courseInsert.do" method="GET">
+		<form action="adminNoticeInsert.do" method="GET">
 			<table class="table table-hover">
-			
 				<thead>
 					<tr>
 						<th class="no">NO</th>
@@ -33,44 +35,17 @@
 				</thead>		
 				<tr></tr>
 				<tbody>
-					<tr>
-						<td>2</td>
-						<td><a href="noticeDetail.do">강의입니다.</a></td>
-						<td>2022.01.12</td>
-						<td>88</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td><a href="#">제목입니다.</a></td>
-						<td>2022.02.15</td>
-						<td>30</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td><a href="courseDetail.do">강의입니다.</a></td>
-						<td>2022.01.12</td>
-						<td>88</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td><a href="#">제목입니다.</a></td>
-						<td>2022.02.15</td>
-						<td>30</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td><a href="courseDetail.do">강의입니다.</a></td>
-						<td>2022.01.12</td>
-						<td>88</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td><a href="#">제목입니다.</a></td>
-						<td>2022.02.15</td>
-						<td>30</td>
-					</tr>
+					<c:forEach items="${list }" var="dto">
+						<tr>
+							<td>${dto.noti_no }</td>
+							<td><a href="noticeDetail.do">${dto.noti_title }</a></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.noti_date}"/></td>
+							<td>${dto.noti_count }</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
+	        
 			<div class="pagination">
 	
 			</div>

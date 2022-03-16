@@ -1,13 +1,21 @@
 package com.edu.java.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.edu.java.biz.CommunityBiz;
 import com.edu.java.biz.MemberBiz;
+import com.edu.java.dto.FaqDto;
+import com.edu.java.dto.NoticeDto;
+import com.edu.java.dto.QnaDto;
 
 @SessionAttributes("member")
 @Controller
@@ -16,6 +24,9 @@ public class CommonController {
 	
 	@Autowired
 	MemberBiz memberBiz;
+	
+	@Autowired
+	CommunityBiz communityBiz;
 	
 	// 메인페이지
 	@RequestMapping("/main.do")
@@ -99,10 +110,17 @@ public class CommonController {
 	// 교육 Update
 	
 	// 커뮤니티_ 공지사항 목록
-	@RequestMapping("/notice.do")
-	public String notice() {
+	@RequestMapping("/noticeList.do")
+	public ModelAndView noticeList() throws Exception{
 		logger.info("notice page");
-		return "/community/notice";
+		
+		ModelAndView mav = new ModelAndView("jsonView");
+		List<NoticeDto> list = communityBiz.noticeList();
+		
+		mav.setViewName("/community/noticeList");
+		mav.addObject("list", list);
+			
+		return mav;
 	}
 	
 	// 커뮤니티_ 공지사항 상세
@@ -131,17 +149,48 @@ public class CommonController {
 	// 커뮤니티_ 공지사항 Update
 	
 	// 커뮤니티_ Faq List
-	@RequestMapping("/faq.do")
-	public String faqList() {
-		logger.info("faq page");
-		return "/community/faq";
+	@RequestMapping(value="/faqList.do", method=RequestMethod.GET)
+	public ModelAndView faqList() throws Exception{
+		logger.info("faq List page");
+		
+		/*
+		  ModelAndView mav = new ModelAndView("jsonView"); 
+		  List<FaqDto> list = null;
+		  
+		  try { 
+		  		list = communityBiz.faqList(); 
+		  }catch(Exception e){
+		  		System.out.println("[error] : faq List error"); 
+		  		e.printStackTrace(); 
+		  }
+		  
+		 mav.setViewName("/community/faqList"); 
+		 mav.addObject("list", list);
+		  
+		  return mav;
+		 */
+		
+		ModelAndView mav = new ModelAndView("jsonView");
+		List<FaqDto> list = communityBiz.faqList();
+		
+		mav.setViewName("/community/faqList");
+		mav.addObject("list", list);
+			
+		return mav;
 	}
 	
 	// 커뮤니티_ Qna List
 	@RequestMapping("/qnaList.do")
-	public String qnaList() {
+	public ModelAndView qnaList() throws Exception {
 		logger.info("qna List page");
-		return "/community/qnaList";
+		
+		ModelAndView mav = new ModelAndView("jsonView");
+		List<QnaDto> list = communityBiz.qnaList();
+		
+		mav.setViewName("/community/qnaList");
+		mav.addObject("list", list);
+			
+		return mav;
 	}
 	
 	// 커뮤니티_ Qna 상세

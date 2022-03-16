@@ -11,8 +11,6 @@
 <link rel="stylesheet" href="/resources/css/bootstrap/bootstrap.css">
 <title>F A Q</title>
 <style type="text/css">
-	.subBtn{ float:right; }
-	
 	table{ width:60%; }
 </style>
 </head>
@@ -33,7 +31,7 @@
 			</ul>
 		</div>
 		<br>
-		<form action="courseInsert.do" method="GET">
+		<form action="adminFaqInsert.do" method="GET">
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -41,20 +39,23 @@
 						<th class="date">분 류</th>
 						<th class="title">제 목</th>
 						<th class="date">작성일</th>
+						<th class="date">조회수</th>
 					</tr>
 				</thead>		
 				<tr></tr>
 				<tbody>
-					<c:forEach items="${faqList }" var="faqDto">
+					<c:forEach items="${list }" var="dto">
 						<tr>
-							<td>${faqDto.faq_no }</td>
-							<td>${faqDto.faq_category }</td>
-							<td><a href="faq_detail.do?faq_no=${faqDto.faq_no }" style="text-decoration:none; font-weight:bold;">${faqDto.faq_title }</a></td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.cancle_regdate}"/></td>
+							<td>${dto.faq_no }</td>
+							<td>${dto.faq_category }</td>
+							<td><a href="faq_detail.do?faq_no=${dto.faq_no }" style="text-decoration:none; font-weight:bold;">${dto.faq_title }</a></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.faq_date}"/></td>
+							<td>${dto.faq_count }</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+			
 			<div class="pagination">
 	
 			</div>

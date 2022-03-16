@@ -17,9 +17,8 @@ public class CommunityDaoImpl implements CommunityDao{
 	private SqlSessionTemplate sqlSession;
 	
 /* 공 지 사 항 */
-	/* List */
 	@Override
-	public List<NoticeDto> noticeList() throws Exception{
+	public List<NoticeDto> noticeList(){
 		List<NoticeDto> noticeList = new ArrayList<NoticeDto>();
 		
 		try {
@@ -32,16 +31,10 @@ public class CommunityDaoImpl implements CommunityDao{
 		
 	}
 	
-	/* Select One(Detail Page) */
-	
-	/* Insert */
-	
-	/* Update */
 	
 /* Q N A */
-	/* List */
 	@Override
-	public List<QnaDto> qnaList() throws Exception{
+	public List<QnaDto> qnaList(){
 		List<QnaDto> qnaList = new ArrayList<QnaDto>();
 		
 		try {
@@ -52,14 +45,10 @@ public class CommunityDaoImpl implements CommunityDao{
 		}
 		return qnaList;
 	}
-	/* Insert */
-	
-	/* Update */
 	
 /* F A Q */
-	/* List */
 	@Override
-	public List<FaqDto> faqList() throws Exception{
+	public List<FaqDto> faqList(){
 		List<FaqDto> faqList = new ArrayList<FaqDto>();
 		
 		try {
@@ -70,7 +59,4 @@ public class CommunityDaoImpl implements CommunityDao{
 		}
 		return faqList;
 	}
-	/* Insert */
-	
-	/* Update */
 }

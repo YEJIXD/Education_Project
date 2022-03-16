@@ -10,6 +10,7 @@ import lombok.Data;
 @Component
 public class NoticeDto {
 	private int noti_no;			// 공지사항_번호
+	private int user_no;			// 사용자 번호
 	private String noti_title;		// 공지사항_제목
 	private String noti_content;	// 공지사항_내용
 	private Date noti_date;			// 공지사항_등록일
