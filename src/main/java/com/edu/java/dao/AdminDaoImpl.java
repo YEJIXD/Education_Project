@@ -3,6 +3,8 @@ package com.edu.java.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.activation.CommandMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -322,7 +324,7 @@ public class AdminDaoImpl implements AdminDao{
 		int res = 0;
 		
 		try {
-			res = sqlSession.insert(NAMESPACE + "adminCourseInsert", dto);
+			res = sqlSession.insert(NAMESPACE + "adminCourseInsert", commandMap);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Course Insert error");
 			e.printStackTrace();
@@ -432,88 +434,4 @@ public class AdminDaoImpl implements AdminDao{
 	}
 	
 	
-	/* Cancle */
-	@Override
-	public List<CancleDto> adminCancleList() {
-		List<CancleDto> adminCancleList = new ArrayList<CancleDto>();
-		
-		try {
-			adminCancleList = sqlSession.selectList(NAMESPACE + "adminCancleList");
-			
-		} catch (Exception e) {
-			System.out.println("[error] : admin Cancle list");
-			e.printStackTrace();
-		}
-		
-		return adminCancleList;
-	}
-	
-	@Override
-	public CancleDto cancleSelectOne(int cancle_no) {
-		CancleDto dto = null;
-		
-		try {
-			dto = sqlSession.selectOne(NAMESPACE + "cancleSelectOne", cancle_no);
-		} catch (Exception e) {
-			System.out.println("[error] : admin Cancle Select One error");
-			e.printStackTrace();
-		}
-		
-		return dto;
-	}
-
-	@Override
-	public int adminCancleDelete(int cancle_no) {
-		int res = 0;
-		
-		try {
-			res = sqlSession.delete(NAMESPACE+"adminCancleDelete", cancle_no);
-		} catch (Exception e) {
-			System.out.println("[error] : admin Cancle Delete error");
-			e.printStackTrace();
-		}
-		
-		return res;
-	}
-	
-	/* Review */
-	@Override
-	public List<ReviewDto> adminReviewList() {
-		List<ReviewDto> adminReviewList = new ArrayList<ReviewDto>();
-		
-		try {
-			adminReviewList = sqlSession.selectList(NAMESPACE + "adminReviewList");
-		} catch (Exception e) {
-			System.out.println("[error] : admin Review list");
-			e.printStackTrace();
-		}
-		return adminReviewList;
-	}
-	
-	@Override
-	public ReviewDto reviewSelectOne(int r_no) {
-		ReviewDto dto = null;
-		
-		try {
-			dto = sqlSession.selectOne(NAMESPACE + "reviewSelectOne", r_no);
-		} catch (Exception e) {
-			System.out.println("[error] : admin Review Select One error");
-			e.printStackTrace();
-		}
-		return dto;
-	}
-
-	@Override
-	public int adminReviewDelete(int r_no) {
-		int res = 0;
-		
-		try {
-			res = sqlSession.delete(NAMESPACE+"adminReviewDelete", r_no);
-		} catch (Exception e) {
-			System.out.println("[error] : admin Review Delete error");
-			e.printStackTrace();
-		}
-		return res;
-	}
-
 }

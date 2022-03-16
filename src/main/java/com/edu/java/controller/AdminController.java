@@ -7,24 +7,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.activation.CommandMap;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.edu.java.CmmService;
 import com.edu.java.biz.AdminBiz;
+import com.edu.java.dto.CourseDto;
 import com.edu.java.dto.FaqDto;
 import com.edu.java.dto.NoticeDto;
+import com.edu.java.dto.QnaDto;
 import com.google.gson.JsonObject;
 
 @Controller
@@ -33,6 +36,9 @@ public class AdminController {
 	
 	@Inject
 	AdminBiz adminBiz;
+	
+	@Autowired
+	CmmService cmmService;
 	
 	/* 관리자 메인 */
 	@RequestMapping("/adminMain.do")
@@ -45,7 +51,7 @@ public class AdminController {
 	
 	/* 공지사항 list */
 	@RequestMapping(value="/adminNoticeList.do", method=RequestMethod.GET)
-	public ModelAndView adminNoticeList(Model model) {
+	public ModelAndView adminNoticeList() {
 		logger.info("admin Notice List");
 		ModelAndView mav = new ModelAndView();
 		List<NoticeDto> list = null;
@@ -141,10 +147,16 @@ public class AdminController {
 	
 		
 	// admin_ Faq List
-	@RequestMapping("/adminFaqList.do")
-	public String adminFaqList() {
-		logger.info("admin Faq List page");
-		return "/admin/adminFaqList";
+	@RequestMapping(value="/adminFaqList.do", method=RequestMethod.GET)
+	public ModelAndView adminFaqList() throws Exception {
+		logger.info("admin Faq LIST PAGE");
+			
+		List<FaqDto> list = adminBiz.adminFaqList();
+		ModelAndView mav = new ModelAndView("jsonView");
+		mav.setViewName("/admin/adminFaqList");
+		mav.addObject("list", list);
+			
+		return mav;
 	}
 	
 	// admin_ Faq 등록 페이지
@@ -156,15 +168,20 @@ public class AdminController {
 	}
 		
 	// admin_ Faq Insert Res
-	@RequestMapping("/adminFaqInsertRes.do")
-	public String adminFaqInsertRes(FaqDto dto) {
+	@RequestMapping(value="/adminFaqInsertRes.do", method=RequestMethod.POST)
+	public ModelAndView adminFaqInsertRes() throws Exception {
 		logger.info("admin Faq Insert Result");
 		
-		System.out.println(dto.toString());
+		List<FaqDto> list = adminBiz.adminFaqList();
 		
-		adminBiz.adminFaqInsert(dto);
+		ModelAndView mav = new ModelAndView("jsonview");
+		mav.setViewName("/community/faq");
+		mav.addObject("list", list);
 		
-		return "redirect:adminFaqList.do";
+		//System.out.println(dto.toString());
+		//adminBiz.adminFaqInsert(dto);
+		
+		return mav;
 	}
 			
 	// admin_ Faq 수정 페이지
@@ -233,10 +250,12 @@ public class AdminController {
 	@RequestMapping(value="adminQnaList.do", method=RequestMethod.GET)
 	public ModelAndView adminQnaList(Model model) {
 		logger.info("admin qna list");
+		
 		ModelAndView mav = new ModelAndView();
+		List<QnaDto> list = adminBiz.adminQnaList();
 		
 		mav.setViewName("/admin/adminQnaList");
-		mav.addObject("msg", "qna list");
+		mav.addObject("list", list);
 		
 		return mav;
 	}
@@ -254,14 +273,26 @@ public class AdminController {
 		return list;
 	}*/
 	
+	/* Course */
 	/* 교육 목록 */
 	@RequestMapping(value="adminCourseList.do", method=RequestMethod.GET)
-	public ModelAndView adminCourseList(Model model) {
+	public ModelAndView adminCourseList() throws Exception{
 		logger.info("admin Course List");
 		ModelAndView mav = new ModelAndView();
+		List<CourseDto> list = adminBiz.adminCourseList();
 		
 		mav.setViewName("/admin/adminCourseList");
-		mav.addObject("msg", "course List");
+		mav.addObject("list", list);
+		
+		return mav;
+	}
+	
+	/* 교육 INSERT RES */
+	@RequestMapping(value="courseInsertRes.do", method=RequestMethod.POST)
+	public ModelAndView adminCourseInsertRes(CommandMap commandMap) {
+		logger.info("admin course insert Res");
+		ModelAndView mav = new ModelAndView("redirect:/edu_Application/courseList");
+		adminBiz.adminCourseInsert(commandMap);
 		
 		return mav;
 	}

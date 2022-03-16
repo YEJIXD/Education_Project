@@ -2,6 +2,8 @@ package com.edu.java.dao;
 
 import java.util.List;
 
+import javax.activation.CommandMap;
+
 import com.edu.java.dto.ApplicationDto;
 import com.edu.java.dto.CancleDto;
 import com.edu.java.dto.CourseDto;
@@ -68,15 +70,5 @@ public interface AdminDao {
 	/* Member */
 	public List<MemberDto> adminMemberList();
 	public int adminMemberDelete(int user_no);
-	
-	/* Cancle */
-	public List<CancleDto> adminCancleList();
-	public CancleDto cancleSelectOne(int cancle_no);
-	public int adminCancleDelete(int cancle_no);
-	
-	/* Review */
-	public List<ReviewDto> adminReviewList();
-	public ReviewDto reviewSelectOne(int r_no);
-	public int adminReviewDelete(int r_no);
 	
 }
