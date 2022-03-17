@@ -4,7 +4,9 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.edu.java.dto.ApplicationDto" alias="appDto" />
+		<typeAlias type="com.edu.java.dto.CancleDto" alias="cancleDto" />
 		<typeAlias type="com.edu.java.dto.CourseDto" alias="courseDto" />
+		<typeAlias type="com.edu.java.dto.TeacherDto" alias="teacherDto" />
 		<typeAlias type="com.edu.java.dto.FaqDto" alias="faqDto" />
 		<typeAlias type="com.edu.java.dto.NoticeDto" alias="noticeDto" />
 		<typeAlias type="com.edu.java.dto.QnaDto" alias="qnaDto" />

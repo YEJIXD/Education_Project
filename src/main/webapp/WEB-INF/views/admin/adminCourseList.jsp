@@ -65,11 +65,29 @@
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table me-1"></i>강좌 목록</div>
                             <div class="card-body">
+                            <div>
+								<div id="searchMember" style="height: 100px; margin: 0px auto; text-align: center;">
+									<form method='get' action='search.do'>
+										<select name="searchType">
+											<option value="" disabled selected>검색타입</option>
+											
+											<option value="subject"
+												<c:if test="${searchType eq 'subject'}">selected</c:if>>제목
+											</option>
+											
+											<option value="content"
+												<c:if test="${searchType eq 'content'}">selected</c:if>>내용
+											</option>
+										</select> 
+										<input type="text" name="keyword" value="${keyword!=null?keyword:''}" /> 
+										<input type="submit" value="검색">
+									</form>
+								</div>
+							</div>
                             	<form action="adminCourseInsert.do" method="GET">
 	                                <table id="datatablesSimple" class="table table-hover">
 	                                    <thead>
 	                                        <tr>
-	                                            <th class="chkBtn"><input type="checkbox" name="allCheck" value="selectall" onclick="selectAll(this)"></th>
 	                                            <th class="no">NO</th>
 	                                            <th class="title">강의명</th>
 	                                            <th class="writer">모집 인원</th>
@@ -80,7 +98,6 @@
 	                                    <tbody>
 											<c:forEach items="${list}" var="dto">
 				                            	<tr>
-				                                	<td style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${dto.c_no}"></td>
 				                                	<td>${dto.c_no }</td>
 				                                    <td style="vertical-align:middle;"><a href="c_detail.do?c_no=${dto.c_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.c_name}</a></td>
 				                                    <td style="vertical-align:middle;">${dto.ent_personnel }</td>

@@ -1,6 +1,7 @@
 package com.edu.java.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.activation.CommandMap;
@@ -320,17 +321,30 @@ public class AdminDaoImpl implements AdminDao{
 		
 		
 	@Override
-	public int adminCourseInsert(CourseDto dto) {
+	public int adminCourseInsert(CourseDto dto) throws Exception{
 		int res = 0;
 		
 		try {
-			res = sqlSession.insert(NAMESPACE + "adminCourseInsert", commandMap);
+			res = sqlSession.insert(NAMESPACE + "adminCourseInsert", dto);
+			System.out.println("dto : " + dto);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Course Insert error");
 			e.printStackTrace();
 		}
 		return res;
 	}
+//	public HashMap<String, Object> adminCourseInsert(HashMap<String, Object> map) throws Exception{
+//		int res = 0;
+//		
+//		try {
+//			res = sqlSession.insert(NAMESPACE + "adminCourseInsert", map);
+//			System.out.println("map : " + map);
+//		} catch (Exception e) {
+//			System.out.println("[error] : admin Course Insert error");
+//			e.printStackTrace();
+//		}
+//		return res;
+//	}
 
 	@Override
 	public int adminCourseUpdate(CourseDto dto) {

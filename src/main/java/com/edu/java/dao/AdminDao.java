@@ -1,5 +1,6 @@
 package com.edu.java.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.activation.CommandMap;
@@ -57,7 +58,8 @@ public interface AdminDao {
 	/* Course */
 	public List<CourseDto> adminCourseList();
 	public CourseDto courseSelectOne(int c_no);
-	public int adminCourseInsert(CourseDto dto);
+	public int adminCourseInsert(CourseDto dto) throws Exception;
+	//public HashMap<String, Object> adminCourseInsert(HashMap<String, Object> map) throws Exception;
 	public int adminCourseUpdate(CourseDto dto);
 	public int adminCourseDelete(int c_no);
 	
