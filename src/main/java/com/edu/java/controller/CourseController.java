@@ -36,11 +36,7 @@ public class CourseController {
 	}
 	
 	/*
-	 * @RequestMapping("/courseInsertRes.do") public String
-	 * courseInsertRes(CourseDto dto) throws Exception{
-	 * logger.info("course Insert Res"); courseBiz.courseInsertRes(dto);
-	 * 
-	 * return "/edu_Application/courseList"; }
+	 *
 	 * 
 	 * @RequestMapping("/courseUpdateRes.do") public String
 	 * courseUpdateRes(CourseDto dto) throws Exception{

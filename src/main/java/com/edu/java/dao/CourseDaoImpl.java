@@ -30,15 +30,4 @@ public class CourseDaoImpl implements CourseDao{
 		return courseList;
 	}
 	
-	// 교육 등록(insert)
-	@Override
-	public void courseInsertRes(CourseDto dto) throws Exception{
-		sqlSession.insert(NAMESPACE + "courseInsertRes", dto);
-	}
-	
-	// 교육 수정
-	@Override
-	public void courseUpdateRes(CourseDto dto) throws Exception{
-		sqlSession.update(NAMESPACE + "courseUpdateRes", dto);
-	}
 }
