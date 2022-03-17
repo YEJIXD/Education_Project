@@ -47,14 +47,6 @@ public class MemberController {
 	}
 	
 	// 회원가입 완료
-	/*
-	 * @RequestMapping(value="/registRes.do", method=RequestMethod.POST) public
-	 * String registRes(MemberDto dto) throws Exception{
-	 * logger.info("regist Result"); memberBiz.memberRegist(dto);
-	 * 
-	 * return "redirect:main.do"; }
-	 */
-	
 	@RequestMapping(value="/registRes.do", method=RequestMethod.POST)
 	public ModelAndView registMember(@ModelAttribute MemberDto dto) throws Exception{
 		logger.info("regist Result");
