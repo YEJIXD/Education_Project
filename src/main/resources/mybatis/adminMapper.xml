@@ -11,11 +11,12 @@
 			<result property="noti_date" column="NOTI_DATE"/>
 			<result property="noti_upd_date" column="NOTI_UPD_DATE"/>
 			<result property="noti_count" column="NOTI_COUNT"/>
+			<result property="noti_img" column="NOTI_IMG"/>
 		</resultMap>
 		
 		<select id="adminNoticeList" parameterType="list" resultMap="noticeMap">
-			SELECT * 
-			FROM NOTICE
+			SELECT NOTI_NO, NOTI_TITLE, NOTI_DATE, NOTI_COUNT
+			FROM mydb.NOTICE
 			ORDER BY NOTI_NO DESC
 		</select>
 		
@@ -26,15 +27,16 @@
 		</select>
 		
 		<insert id="adminNoticeInsert" parameterType="noticeDto">
-			INSERT INTO NOTICE 
+			INSERT INTO mydb.NOTICE 
 			(			NOTI_NO
+					  , USER_NO
 					  , NOTI_TITLE
 					  , NOTI_CONTENT
 					  , NOTI_DATE
 					  , NOTI_IMG
 			)
 			VALUES(
-						(SELECT IFNULL(MAX(N.NOTI_NO),0) + 1 FROM NOTICE N) 
+						(SELECT IFNULL(MAX(N.NOTI_NO),0) + 1 FROM mydb.NOTICE N)
 					  , #{noti_title}
 					  , #{noti_content}
 					  , #{noti_date}
@@ -64,6 +66,7 @@
 			<result property="faq_date" column="FAQ_DATE" />
 			<result property="faq_upd_date" column="FAQ_UPD_DATE" />
 			<result property="faq_category" column="FAQ_CATEGORY" />
+			<result property="faq_count" column="FAQ_COUNT" />
 		</resultMap>
 		
 		<select id="adminFaqList" parameterType="list" resultMap="faqMap">
@@ -120,14 +123,14 @@
 	<!-- admin QnA -->
 	<!--  QnA List -->
 		<select id="adminQnaList" parameterType="list" resultType="QnaDto">
-			SELECT *
-			FROM QNA
+			SELECT Q_NO, Q_TITLE, Q_DATE, Q_STATUS, Q_COUNT
+			FROM mydb.QNA
 			ORDER BY Q_NO DESC
 		</select>
 	
 	<!-- QnA 답변 -->
 		<insert id="adminQnaReplyInsert" parameterType="qnaDto">
-			INSERT INTO QNA 
+			INSERT INTO mydb.QNA 
 			(			Q_RE_NO
 					  , Q_RE_TITLE
 					  , Q_RE_CONTENT
@@ -157,17 +160,37 @@
 		
 		
 	<!-- admin Course -->
+	<!-- NO 수 증가 시키기 : (SELECT NVL(MAX(t.t_no)+1,1) FROM table t), -->
+		<resultMap type="courseDto" id="courseMap">
+			<result property="c_no" column="C_NO" />
+			<result property="user_no" column="USER_NO" />
+			<result property="c_name" column="C_NAME" />
+			<result property="c_category" column="C_CATEGORY" />
+			<result property="c_type" column="C_TYPE" />
+			<result property="c_time" column="C_TIME" />
+			<result property="c_detail" column="C_DETAIL" />
+			<result property="ent_personnel" column="ENT_PERSONNEL" />
+			<result property="c_regdate" column="C_REGDATE" />
+			<result property="c_upd_date" column="C_UPD_DATE" />
+			<result property="c_init_writer" column="C_INIT_WRITER" />
+			<result property="c_upd_writer" column="C_UPD_WRITER" />
+			<result property="c_start_date" column="C_START_DATE" />
+			<result property="c_last_date" column="C_LAST_DATE" />
+			<result property="c_count" column="C_COUNT" />
+			<result property="c_start_time" column="C_START_TIME" />
+		</resultMap>
+	
 		<select id="adminCourseList" parameterType="list" resultType="courseDto">
-			SELECT * 
-			FROM COURSE
+			SELECT C_NO, C_NAME, ENT_PERSONNEL, C_REGDATE, C_START_DATE, C_LAST_DATE
+			FROM mydb.COURSE
 			ORDER BY C_NO DESC
 		</select>
 		
 		<insert id="adminCourseInsert" parameterType="courseDto">
-			INSERT INTO COURSE 
+			INSERT INTO mydb.COURSE 
 			(			C_NO
+					  , USER_NO
 					  , C_NAME
-					  , C_ADDR
 					  , C_CATEGORY
 					  , C_TYPE
 					  , C_TIME
@@ -177,22 +200,22 @@
 					  , C_INIT_WRITER
 					  , C_START_DATE
 					  , C_LAST_DATE
-					  , C_IMG
+					  , C_START_TIME 
 			)
 			VALUES
-			(		   (SELECT IFNULL(MAX(C.C_NO),0) + 1 FROM COURSE C)
+			(		   (SELECT IFNULL(MAX(C.C_NO),0) + 1 FROM mydb.COURSE C)
+					 , '2'
 					 , #{c_name}
-					 , #{c_addr}
 					 , #{c_category}
 					 , #{c_type}
 					 , #{c_time}
 					 , #{c_detail}
 					 , #{ent_personnel}
 					 , NOW() 
-					 , #{c_init_writer}
+					 , '관리자'
 					 , #{c_start_date}
 					 , #{c_last_date}
-					 , #{c_img}
+					 , #{c_start_time}
 			)
 		</insert>
 		
@@ -200,17 +223,16 @@
 			UPDATE COURSE
 			
 			SET 	C_NAME = #{c_name}
-				  , C_ADDR = #{c_addr}
 				  , C_CATEGORY = #{c_category}
 				  , C_TYPE = #{c_type}
 				  , C_TIME = #{c_time}
+				  , C_START_TIME = #{c_start_time}
 				  , C_DETAIL = #{c_detail}
 				  , ENT_PERSONNEL = #{ent_personnel}
 				  , C_UPD_DATE = NOW()
-				  , C_UPD_WRITER = #{c_upd_writer}
+				  , C_UPD_WRITER = '관리자'
 				  , C_START_DATE = #{c_start_date}
 				  , C_LAST_DATE = #{c_last_date}
-				  , C_IMG = #{c_img}
 				  
 			WHERE C_NO = #{c_no}
 		</update>
@@ -219,57 +241,5 @@
 			DELETE FROM COURSE WHERE C_NO = #{c_no}
 		</delete>
 		
-	<!-- admin Cancle -->
-		<resultMap type="appDto" id="appMap">
-			<result property="cancle_no" column="CANCLE_NO" />
-			<result property="app_cancle_title" column="APP_CANCLE_TITLE"/>
-			<result property="app_cancle_content" column="APP_CANCLE_CONTENT"/>
-			<result property="app_cancle_regdate" column="APP_CANCLE_REGDATE"/>
-			<result property="app_cancle_upd_date" column="APP_CANCLE_UPD_DATE"/>
-		</resultMap>
-		
-		<select id="adminCancleList" parameterType="list" resultMap="appMap">
-			SELECT * 
-			FROM APPLICATION
-			ORDER BY CANCLE_NO DESC
-		</select>
-		
-		<select id="adminCancleDetail" parameterType="appDto">
-			SELECT CANCLE_NO, APP_CANCLE_TITLE, APP_CANCLE_CONTENT, APP_CANCLE_REGDATE
-			FROM APPLICATION
-			WHERE CANCLE_NO = #{cancle_no}
-		</select>
-		
-		<delete id="adminCancleDelete" parameterType="int">
-			DELETE FROM APPLICATION WHERE CANCLE_NO = #{cancle_no}
-		</delete>
-	
-	<!-- admin Review -->
-		<resultMap type="reviewDto" id="reviewMap">
-			<result property="r_no" column="R_NO" />
-			<result property="r_title" column="R_TITLE"/>
-			<result property="r_content" column="R_CONTENT"/>
-			<result property="r_star" column="R_STAR"/>
-			<result property="r_date" column="R_DATE"/>
-			<result property="r_upd_date" column="R_UPD_DATE"/>
-			<result property="certificate_status" column="CERTIFICATE_STATUS" />
-		</resultMap>
-		
-		<select id="adminReviewList" parameterType="list" resultMap="reviewMap">
-			SELECT *
-			FROM REVIEW
-			ORDER BY R_NO DESC
-		</select>
-		
-		<select id="adminReviewDetail" parameterType="reviewDto">
-			SELECT *
-			FROM REVIEW
-			WHERE R_NO = #{r_no}
-		</select>
-		
-		<delete id="adminReviewDelete" parameterType="int">
-			DELETE FROM REVIEW WHERE R_NO = #{r_no}
-		</delete>
-
 </mapper>
 	 

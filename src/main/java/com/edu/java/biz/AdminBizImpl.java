@@ -1,5 +1,6 @@
 package com.edu.java.biz;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.activation.CommandMap;
@@ -146,8 +147,8 @@ public class AdminBizImpl implements AdminBiz{
 	}
 
 	@Override
-	public int adminCourseInsert(CourseDto dto) {
-		return adminDao.adminCourseInsert(CourseDto dto);
+	public int adminCourseInsert(CourseDto dto) throws Exception{
+		return adminDao.adminCourseInsert(dto);
 	}
 
 	@Override
