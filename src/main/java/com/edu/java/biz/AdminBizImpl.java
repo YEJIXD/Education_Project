@@ -142,8 +142,8 @@ public class AdminBizImpl implements AdminBiz{
 	}
 	
 	@Override
-	public CourseDto courseSelectOne(int c_no) {
-		return adminDao.courseSelectOne(c_no);
+	public CourseDto adminCourseDetail(int c_no) throws Exception{
+		return adminDao.adminCourseDetail(c_no);
 	}
 
 	@Override

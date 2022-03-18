@@ -9,4 +9,7 @@ public interface CourseBiz {
 	// list
 	public List<CourseDto> courseList();
 	
+	// select one
+	public CourseDto selectOne(int c_no);
+	
 }

@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/course/appCourse.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
 <title>Course Insert</title>
 <style type="text/css">
 	th{ width:150px; }
@@ -29,15 +30,14 @@
 	<div id="header">
 		<%@ include file="../common/header.jsp" %>
 	</div>
-	
 	<div class="container">
 		<h3 class="formTitle" style="font-weight:normal;">교 육 등 록</h3><br><br>
 		<div class="content">
-			<form action="courseInsertRes.do" method="POST">
+			<form>
 				<table class="table insertTable">
 					<tr>
 						<th>강 의 명</th>
-						<td><input type="text" class="c_name" id="c_name" name="c_name" placeholder="강의명을 입력하세요" size="80" required></td>
+						<td><input type="text" class="c_name" id="c_name" name="c_name" placeholder="강의명을 입력하세요" size="80"></td>
 					</tr>
 					
 						<tr>
@@ -65,28 +65,35 @@
 					<tr>
 						<th>총 교육 시간</th>
 						<td>
-							<input type="text" class="c_time" id="c_time" size="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required> 시간
+							<input type="text" class="c_time" id="c_time" size="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 시간
 						</td>
 					</tr>
 					
 					<tr>
 						<th>시작 시간</th>
 						<td>
-							<input type="time" class="c_start_time" id="c_start_time" name="c_start_time" value="09:00:00" min="07:00:00" max="18:00:00" required>
+							<input type="time" class="c_start_time" id="c_start_time" name="c_start_time" value="09:00:00" min="07:00:00" max="18:00:00">
 						</td>
 					</tr>
 					
 					<tr>
 						<th>교육 기간</th>
 						<td>
-							<input type="date" class="c_start_date" id="c_start_date" name="c_start_date" min="2022-03-25" required> ~ <input type="date" id="c_last_date" name="c_last_date" class="c_last_date" required>
+							<input type="text" class="startDatepicker" id="c_start_date" name="c_start_date"> ~ <input type="text" id="c_last_date" name="c_last_date" class="endDatepicker">
+						</td>
+					</tr>
+					
+					<tr>
+						<th>접수 기간</th>
+						<td>
+							<input type="text" class="startDatepicker" id="app_start_date" name="app_start_date"> ~ <input type="text" id="app_last_date" name="app_last_date" class="endDatepicker">
 						</td>
 					</tr>
 					
 					<tr>
 						<th>모집 인원</th>
 						<td>
-							<input type="text" class="ent_personnel" id="ent_personnel" name="ent_personnel" size="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required> 명
+							<input type="text" class="ent_personnel" id="ent_personnel" name="ent_personnel" size="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 명
 						</td>
 					</tr>
 					
@@ -96,13 +103,13 @@
 					<tr>
 						<th></th>
 						<td style="padding-bottom:50px;">
-							<textarea class="c_detail" id="c_detail" name="c_detail" placeholder="내용을 입력하세요" required></textarea>
+							<textarea class="c_detail" id="c_detail" name="c_detail" placeholder="내용을 입력하세요"></textarea>
 						</td>
 					</tr>
 				</table>
 				
 				<div class="inpBtn">
-					<input type="submit" class="subBtn" id="submit" value="등 록">
+					<input type="button" class="subBtn" id="submit" value="등 록">
 					<input type="button" class="antBtn" onclick="location.href='adminCourseList.do'" value="취 소">
 				</div>
 			</form>
@@ -113,18 +120,9 @@
 		<%@ include file="../common/footer.jsp" %>
 	</div>
 	
-
-	
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script type="text/javascript">
- 	<!-- input에 오늘 날짜 기본값으로 넣기 -->
-		window.onload = function() {
-			today = new Date();
-			today = today.toISOString().slice(0, 10);
-			console.log("today >>>> " + today);
-			bir = document.getElementById("c_start_date");
-			bir.value = today;
-		} 
-		
 		/* function valueSave(){
 			const cTime = document.querySelector("#c_time").value;
 			const startDate = document.querySelector("#c_start_date").value;
@@ -132,29 +130,141 @@
 			
 			console.log("c_time : " + cTime + ", c_start_date : " + startDate + ", c_last_date : " + lastDate);
 		} */
-		
-		$("#submit").click(function(){
-			let data = new FormData(document.getElementById("f"));
-			
-			$.ajax({
-				url:"/admin/adminCourseInsertRes.do",
-				type:"post",
-				processData:false,
-				contentType:false,
-				data:data,
-				success:function(){
-					adminCourseList();
-			}
-			});
-		});
+		$(document).ready(function(){
+			$("#submit").click(function(){
+				let c_name = $("#c_name").val();
+				let c_time = $("#c_time").val();
+				let c_category = $("#c_category option:selected").val();
+				let c_type = $('input[name=c_type]:checked').val();
+				let c_start_time = $("#c_start_time").val();
+				let c_start_date = $("#c_start_date").val();
+				let c_last_date = $("#c_last_date").val();
+				let app_start_date = $("#app_start_date").val();
+				let app_last_date = $("#app_last_date").val();
+				let ent_personnel = $("#ent_personnel").val();
+				let c_detail = $("#c_detail").val();
+				
+				if(!insertValidator(c_name, c_time, c_start_time, c_last_date, app_last_date, ent_personnel, c_detail)){
+					return false;
+				}
+				
+				const param = {
+					c_name : c_name,
+					c_time : c_time,
+					c_category : c_category,
+					c_type : c_type,
+					c_start_time : c_start_time,
+					c_start_date : c_start_date,
+					c_last_date : c_last_date,
+					app_start_date : app_start_date,
+					app_last_date : app_last_date,
+					ent_personnel : ent_personnel,
+					c_detail : c_detail
+				}
 
-		
-		
-			//let category = document.getElementById("c_category");
-			//alert("value : " + category.options[category.selectedIndex].value);
+				$.ajax({
+					url:"/courseInsertRes.do",
+					type:"post",
+					contentType: "application/json",
+					data:JSON.stringify(param),
+					
+					success:function(result){
+							if(result.resultCode == 0){
+								alert(result.msg);
+								$(location).attr("href", "<c:url value='adminCourseList.do' />");
+							}else{
+								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
+							}
+					},
+					error : function(result) {
+						alert("서버 통신 에러");
+					}
+				});
+			});
 			
-			//const sDay = document.getElementById("#c_start_date").value;
-			//console.log(sDay);
+			$.datepicker.setDefaults({
+				dateFormat: 'yy-mm-dd',
+				prevText: '이전 달',
+				nextText: '다음 달',
+				monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+				monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+				dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+				dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+				dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+				showMonthAfterYear: true,
+				yearSuffix: '년'
+			});
+			
+			$(".startDatepicker").datepicker({
+				onClose: function(data) {
+					$('.endDatepicker').datepicker('option', 'minDate', data);
+				}
+			});
+			
+			$(".endDatepicker").datepicker({
+				onClose: function(data) {
+					$('.startDatepicker').datepicker('option', 'maxDate', data);
+				}
+			});
+			
+			$(".startDatepicker").datepicker().css({ "z-index": 999 });
+			$(".endDatepicker").datepicker().css({ "z-index": 999 });
+			
+			cToday = new Date();
+			cToday = cToday.toISOString().slice(0, 10);
+			$("#c_start_date").val(cToday);
+			
+			aToday = new Date();
+			aToday = aToday.toISOString().slice(0, 10);
+			$("#app_start_date").val(aToday);
+			
+
+		});
+		
+		function insertValidator(c_name, c_time, c_start_time, c_last_date, app_last_date, ent_personnel, c_detail ){
+			if(c_name == ""){
+				alert("강의명을 입력하세요.");
+				$("#c_name").focus();
+				return false;
+			}
+			
+			if(c_time == ""){
+				alert("총 교육 시간을 입력하세요.");
+				$("#c_time").focus();
+				return false;
+			}
+			
+			if(c_start_time == ""){
+				alert("시작 시간을 입력하세요.");
+				$("#c_start_time").focus();
+				return false;
+			}
+			
+			if(c_last_date == ""){
+				alert("교육 종료일을 입력하세요.");
+				$("#c_last_date").focus();
+				return false;
+			}
+			
+			if(app_last_date == ""){
+				alert("접수 마감일을 입력하세요.");
+				$("#app_last_date").focus();
+				return false;
+			}
+			
+			if(ent_personnel == ""){
+				alert("모집 인원을 입력하세요.");
+				$("#ent_personnel").focus();
+				return false;
+			}
+			
+			if(c_detail == ""){
+				alert("교육 상세 설명을 입력하세요.");
+				$("#c_detail").focus();
+				return false;
+			}
+			return true;
+		}
 </script>
 </body>
 </html>

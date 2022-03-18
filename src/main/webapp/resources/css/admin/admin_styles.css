@@ -11838,13 +11838,10 @@ a{
 .member:hover span{display:none;}
 .member:hover:after{content:"회원 관리";}
 
-/*수강 취소*/
-.cancle:hover span{display:none;}
-.cancle:hover:after{content:"수강 취소";}
-	        
-/*후기 관리*/
-.review:hover span{display:none;}
-.review:hover:after{content:"후 기";}
+/*수강 내역*/
+.application:hover span{display:none;}
+.application:hover:after{content:"수강 내역";}
+
 	        
 /* Modal (background) */
 		.modal {

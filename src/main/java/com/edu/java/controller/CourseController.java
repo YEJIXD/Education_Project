@@ -35,6 +35,18 @@ public class CourseController {
 		return mav;
 	}
 	
+	/* Course Select One */
+	@RequestMapping(value="courseDetail.do", method=RequestMethod.GET)
+	public ModelAndView courseDetail(int c_no) {
+		logger.info("course Detail Page");
+
+		ModelAndView mav = new ModelAndView("jsonView");
+		mav.addObject("dto", courseBiz.selectOne(c_no));
+		System.out.println("courseDetail.do : " + c_no);
+		
+		return mav;
+	}
+	
 	/*
 	 *
 	 * 

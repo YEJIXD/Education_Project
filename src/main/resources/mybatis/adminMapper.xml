@@ -161,33 +161,20 @@
 		
 	<!-- admin Course -->
 	<!-- NO 수 증가 시키기 : (SELECT NVL(MAX(t.t_no)+1,1) FROM table t), -->
-		<resultMap type="courseDto" id="courseMap">
-			<result property="c_no" column="C_NO" />
-			<result property="user_no" column="USER_NO" />
-			<result property="c_name" column="C_NAME" />
-			<result property="c_category" column="C_CATEGORY" />
-			<result property="c_type" column="C_TYPE" />
-			<result property="c_time" column="C_TIME" />
-			<result property="c_detail" column="C_DETAIL" />
-			<result property="ent_personnel" column="ENT_PERSONNEL" />
-			<result property="c_regdate" column="C_REGDATE" />
-			<result property="c_upd_date" column="C_UPD_DATE" />
-			<result property="c_init_writer" column="C_INIT_WRITER" />
-			<result property="c_upd_writer" column="C_UPD_WRITER" />
-			<result property="c_start_date" column="C_START_DATE" />
-			<result property="c_last_date" column="C_LAST_DATE" />
-			<result property="c_count" column="C_COUNT" />
-			<result property="c_start_time" column="C_START_TIME" />
-		</resultMap>
-	
-		<select id="adminCourseList" parameterType="list" resultType="courseDto">
-			SELECT C_NO, C_NAME, ENT_PERSONNEL, C_REGDATE, C_START_DATE, C_LAST_DATE
+		<select id="adminCourseList" resultType="courseDto">
+			SELECT @rownum:=@rownum +1 as rnum, C_NO, C_NAME, ENT_PERSONNEL, C_REGDATE, C_START_DATE, C_LAST_DATE
+			FROM mydb.COURSE C, (SELECT @rownum:=0) R
+			ORDER BY rnum DESC
+		</select>
+		
+		<select id="adminCourseDetail" parameterType="courseDto" resultType="courseDto">
+			SELECT C_NO, C_NAME, C_CATEGORY, C_TYPE, C_START_TIME, C_TIME, C_START_DATE, C_LAST_DATE, ENT_PERSONNEL, APP_START_DATE, APP_LAST_DATE, C_REGDATE, C_DETAIL
 			FROM mydb.COURSE
-			ORDER BY C_NO DESC
+			WHERE C_NO = #{c_no}
 		</select>
 		
 		<insert id="adminCourseInsert" parameterType="courseDto">
-			INSERT INTO mydb.COURSE 
+			INSERT INTO mydb.COURSE
 			(			C_NO
 					  , USER_NO
 					  , C_NAME
@@ -201,6 +188,8 @@
 					  , C_START_DATE
 					  , C_LAST_DATE
 					  , C_START_TIME 
+					  , APP_START_DATE
+					  , APP_LAST_DATE
 			)
 			VALUES
 			(		   (SELECT IFNULL(MAX(C.C_NO),0) + 1 FROM mydb.COURSE C)
@@ -216,6 +205,8 @@
 					 , #{c_start_date}
 					 , #{c_last_date}
 					 , #{c_start_time}
+					 , #{app_start_date}
+					 , #{app_last_date}
 			)
 		</insert>
 		
@@ -234,6 +225,13 @@
 				  , C_START_DATE = #{c_start_date}
 				  , C_LAST_DATE = #{c_last_date}
 				  
+			WHERE C_NO = #{c_no}
+		</update>
+		
+		<!-- 조회수 -->
+		<update id="courseCount" parameterType="String">
+			UPDATE mydb.COURSE 
+			SET C_COUNT = C_COUNT + 1
 			WHERE C_NO = #{c_no}
 		</update>
 		

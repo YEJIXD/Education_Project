@@ -307,13 +307,13 @@ public class AdminDaoImpl implements AdminDao{
 	}
 	
 	@Override
-	public CourseDto courseSelectOne(int c_no) {
+	public CourseDto adminCourseDetail(int c_no) throws Exception {
 		CourseDto dto = null;
 		
 		try {
-			dto = sqlSession.selectOne(NAMESPACE + "courseSelectOne", c_no);
+			dto = sqlSession.selectOne(NAMESPACE + "adminCourseDetail", c_no);
 		} catch (Exception e) {
-			System.out.println("[error] : admin Course Select One error");
+			System.out.println("[error] : admin Course Detail error");
 			e.printStackTrace();
 		}
 		return dto;
@@ -333,18 +333,6 @@ public class AdminDaoImpl implements AdminDao{
 		}
 		return res;
 	}
-//	public HashMap<String, Object> adminCourseInsert(HashMap<String, Object> map) throws Exception{
-//		int res = 0;
-//		
-//		try {
-//			res = sqlSession.insert(NAMESPACE + "adminCourseInsert", map);
-//			System.out.println("map : " + map);
-//		} catch (Exception e) {
-//			System.out.println("[error] : admin Course Insert error");
-//			e.printStackTrace();
-//		}
-//		return res;
-//	}
 
 	@Override
 	public int adminCourseUpdate(CourseDto dto) {
@@ -372,7 +360,6 @@ public class AdminDaoImpl implements AdminDao{
 		return res;
 	}
 	
-
 	/* Teacher */
 	@Override
 	public List<TeacherDto> adminTeacherList() {

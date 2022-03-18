@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 @Component
 public class CourseDto {
+	private int rnum;                   // 게시판 글 번호
 	private int c_no;					// 교육 번호
 	private int user_no;				// 사용자 번호
 	private String c_name;				// 교육명
@@ -28,4 +29,6 @@ public class CourseDto {
 	private Date c_start_date;			// 교육 시작일
 	private Date c_last_date;			// 교육 종료일
 	private int c_count;				// 교육 조회수
+	private Date app_start_date;		// 교육 신청 _접수 시작일 
+	private Date app_last_date;			// 교육 신청 _접수 마감일
 }

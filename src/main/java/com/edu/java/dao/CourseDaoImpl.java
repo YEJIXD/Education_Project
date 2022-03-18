@@ -30,4 +30,18 @@ public class CourseDaoImpl implements CourseDao{
 		return courseList;
 	}
 	
+	@Override
+	public CourseDto selectOne(int c_no) {
+		CourseDto dto = null;
+		
+		try {
+			dto = sqlSession.selectOne(NAMESPACE + "courseDetail", c_no);
+		} catch (Exception e) {
+			System.out.println("[error] : course Detail Error");
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+	
 }
