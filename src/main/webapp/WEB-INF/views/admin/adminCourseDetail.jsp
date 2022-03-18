@@ -13,6 +13,13 @@
 	th{ width:150px; }
 
 	td{ width:500px; }
+	
+	.myBtn:hover{ background-color:#E9CFEC; }
+	
+	.canBtn:hover{
+		background-color:gray;
+		color:#efefef;
+	}
 </style>
 </head>
 <body>
@@ -23,7 +30,6 @@
 	<div class="container">
 		<h3 class="formTitle" style="font-weight:normal;">교육 상세</h3><br><br>
 		<div class="content">
-			<form action="adminCourseUpdate.do" method="GET">
 				<table class="table insertTable">
 						<tr>
 							<th>번호</th>
@@ -47,7 +53,7 @@
 						</tr>
 						<tr>
 							<th>총 교육 시간</th>
-							<td id="c_time">${dto.c_time }</td>
+							<td id="c_time">${dto.c_time } 시간</td>
 						</tr>
 						<tr>
 							<th>교육 기간</th>
@@ -63,7 +69,7 @@
 						</tr>
 						<tr>
 							<th>등록일</th>
-							<td id="c_regdate"><fmt:formatDate value="${dto.c_regdate }" pattern="yyyy-mm-dd HH:mm" /></td>
+							<td id="c_regdate"><fmt:formatDate value="${dto.c_regdate }" pattern="yyyy-MM-dd HH:mm" /></td>
 						</tr>
 						<tr>
 							<th>상세 설명</th>
@@ -75,9 +81,10 @@
 				</table>
 				
 				<div class="inpBtn">
-					<input type="button" class="antBtn" onclick="location.href='adminCourseList.do'" value="목 록">
+					<input type="button" class="myBtn" id="update" value="수 정">
+					<input type="button" class="myBtn" id="delete" value="삭 제">
+					<input type="button" class="canBtn" onclick="location.href='adminCourseList.do'" value="목 록">
 				</div>
-			</form>
 		</div>
 	</div>
 	
@@ -87,7 +94,22 @@
 	
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
-		
+		$(document).ready(function(){
+			$("#update").click(function(){
+				let c_name = $("#c_name").val();
+				let c_time = $("#c_time").val();
+				let c_category = $("#c_category option:selected").val();
+				let c_type = $('input[name=c_type]:checked').val();
+				let c_start_time = $("#c_start_time").val();
+				let c_start_date = $("#c_start_date").val();
+				let c_last_date = $("#c_last_date").val();
+				let app_start_date = $("#app_start_date").val();
+				let app_last_date = $("#app_last_date").val();
+				let ent_personnel = $("#ent_personnel").val();
+				let c_detail = $("#c_detail").val();
+				
+			});
+		});
 	</script>
 </body>
 </html>
