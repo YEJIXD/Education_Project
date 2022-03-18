@@ -28,4 +28,6 @@ public class CourseDto {
 	private Date c_start_date;			// 교육 시작일
 	private Date c_last_date;			// 교육 종료일
 	private int c_count;				// 교육 조회수
+	private Date app_start_date;		// 교육 신청 _접수 시작일 
+	private Date app_last_date;			// 교육 신청 _접수 마감일
 }

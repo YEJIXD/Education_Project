@@ -10,4 +10,6 @@ public interface CourseDao {
 	// list
 	public List<CourseDto> courseList();
 	
+	// selectOne
+	public CourseDto selectOne(int c_no);
 }

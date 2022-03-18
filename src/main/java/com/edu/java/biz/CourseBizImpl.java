@@ -14,8 +14,15 @@ public class CourseBizImpl implements CourseBiz{
 	@Inject
 	CourseDao courseDao;
 	
+	@Override
 	public List<CourseDto> courseList(){
 		return courseDao.courseList();
 	}
+	
+	@Override
+	public CourseDto selectOne(int c_no) {
+		return courseDao.selectOne(c_no);
+	}
+	
 	
 }

@@ -9,5 +9,12 @@
   		FROM mydb.COURSE
   		ORDER BY C_NO DESC
   	</select>
+  	
+  	<select id="courseDetail" parameterType="list" resultType="courseDto">
+  		SELECT C_NO, C_NAME, C_CATEGORY, C_TYPE, C_TIME, C_START_TIME, C_START_DATE, C_LAST_DATE, C_DETAIL, C_REGDATE, C_COUNT
+  		FROM mydb.COURSE
+  		WHERE C_NO = #{c_no}
+  	</select>
+  	
   
   </mapper>
