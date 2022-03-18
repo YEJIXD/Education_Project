@@ -57,8 +57,8 @@
 					<tr>
 						<th>교육 형태</th>
 						<td>
-							<input type="radio" class="c_type" id="c_type" name="c_type" value="G" checked>집 합&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" class="c_type" id="c_type" name="c_type" value="O">온라인
+							<input type="radio" class="c_type" id="c_type" name="c_type" value="집합" checked>집 합&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" class="c_type" id="c_type" name="c_type" value="온라인">온라인
 						</td>
 					</tr>
 					
