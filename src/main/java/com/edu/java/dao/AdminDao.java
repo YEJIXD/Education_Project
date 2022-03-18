@@ -57,11 +57,12 @@ public interface AdminDao {
 	
 	/* Course */
 	public List<CourseDto> adminCourseList();
-	public CourseDto courseSelectOne(int c_no);
+	public CourseDto adminCourseDetail(int c_no) throws Exception;
 	public int adminCourseInsert(CourseDto dto) throws Exception;
 	//public HashMap<String, Object> adminCourseInsert(HashMap<String, Object> map) throws Exception;
 	public int adminCourseUpdate(CourseDto dto);
 	public int adminCourseDelete(int c_no);
+	//public boolean courseCount(String c_count);
 	
 	/* Teacher */
 	public List<TeacherDto> adminTeacherList();

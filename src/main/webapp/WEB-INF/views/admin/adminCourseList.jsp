@@ -97,7 +97,7 @@
 	                                    <tbody>
 											<c:forEach items="${list}" var="dto">
 				                            	<tr>
-				                                	<td>${dto.c_no }</td>
+				                                	<td>${dto.rnum }</td>
 				                                    <td style="vertical-align:middle;"><a href="adminCourseDetail.do?c_no=${dto.c_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.c_name}</a></td>
 				                                    <td style="vertical-align:middle;">${dto.ent_personnel }</td>
 				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.c_regdate}"/></td>

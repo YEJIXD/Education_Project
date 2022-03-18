@@ -16,10 +16,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -288,6 +288,20 @@ public class AdminController {
 		return mav;
 	}
 	
+	/* admin Course Select One*/
+	@RequestMapping(value="adminCourseDetail.do", method=RequestMethod.GET)
+	public ModelAndView adminCourseSelectOne(@RequestParam("c_no") int c_no) throws Exception{
+		logger.info("admin Course Detail");
+		ModelAndView mav = new ModelAndView("jsonView");
+		CourseDto dto = adminBiz.adminCourseDetail(c_no);
+
+		// List에서 상세 페이지로 넘길 때 c_no 값 전달
+		mav.addObject("dto", adminBiz.adminCourseDetail(c_no));
+		mav.setViewName("/admin/adminCourseDetail");
+		
+		return mav;
+	}
+	
 	/* Course Insert Form */
 	@RequestMapping("/adminCourseInsert.do")
 	public String adminCourseInsert() throws Exception{
@@ -299,14 +313,26 @@ public class AdminController {
 	
 	/* Course INSERT RES */
 	@RequestMapping(value="courseInsertRes.do", method=RequestMethod.POST)
-	public ModelAndView adminCourseInsertRes(@ModelAttribute CourseDto dto) throws Exception {
+	public ModelAndView adminCourseInsertRes(@RequestBody CourseDto dto) throws Exception {
 		logger.info("admin course insert Res");
 		ModelAndView mav = new ModelAndView("jsonView");
+		int resultCode = 0;		
+		try {
+			/*
+			 * if(검사 ==1) { throw new Userexception 코드 200 이유 : 검사값이 맞지않아 }
+			 */
+			adminBiz.adminCourseInsert(dto);
+		}catch (Exception e) {
+			logger.trace(e.getMessage());
+			e.printStackTrace();
+		}finally {
+			mav.addObject("resultCode", resultCode);
+		}
 		
-		adminBiz.adminCourseInsert(dto);
 		System.out.println(dto.toString());
 		
-		mav.addObject("mav",dto);
+		
+		mav.addObject("msg", "기죽지마요");
 
 		return mav;
 //		return new ModelAndView("/admin/adminCourseList");

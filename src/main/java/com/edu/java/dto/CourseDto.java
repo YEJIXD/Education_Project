@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 @Component
 public class CourseDto {
+	private int rnum;                   // 게시판 글 번호
 	private int c_no;					// 교육 번호
 	private int user_no;				// 사용자 번호
 	private String c_name;				// 교육명
