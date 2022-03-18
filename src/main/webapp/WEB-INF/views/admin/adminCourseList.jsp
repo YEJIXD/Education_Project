@@ -2,6 +2,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ page session="false" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,10 +15,6 @@
         <title>Admin_Main</title>
         <link href="resources/css/admin/admin_styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<script type="text/javascript">
-		</script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-info p-2 text-dark bg-opacity-25 justify-content-between">
@@ -52,6 +49,7 @@
                             <a class="nav-link course" href="adminCourseList.do" style="color: #9966FF;"><div class="sb-nav-link-icon"><i class="fa fa-book" aria-hidden="true"></i></div><span>Course</span></a>
                             <a class="nav-link teacher" href="adminTeacherList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div><span>Teacher</span></a>
                         	<a class="nav-link member" href="adminMemberList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Member</span></a>
+                        	<a class="nav-link application" href="adminAppList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-shoe-prints" aria-hidden="true"></i></div><span>Application</span></a>
                         </div>
                     </div>
                 </nav>
@@ -85,6 +83,7 @@
 								</div>
 							</div>
                             	<form action="adminCourseInsert.do" method="GET">
+                            	<input type="hidden" value="${dto.c_no }">
 	                                <table id="datatablesSimple" class="table table-hover">
 	                                    <thead>
 	                                        <tr>
@@ -99,7 +98,7 @@
 											<c:forEach items="${list}" var="dto">
 				                            	<tr>
 				                                	<td>${dto.c_no }</td>
-				                                    <td style="vertical-align:middle;"><a href="c_detail.do?c_no=${dto.c_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.c_name}</a></td>
+				                                    <td style="vertical-align:middle;"><a href="adminCourseDetail.do?c_no=${dto.c_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.c_name}</a></td>
 				                                    <td style="vertical-align:middle;">${dto.ent_personnel }</td>
 				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.c_regdate}"/></td>
 				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.c_start_date }"/> ~ <fmt:formatDate pattern="yyyy-MM-dd" value="${dto.c_last_date }"/></td>
