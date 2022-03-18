@@ -19,7 +19,7 @@ $(function(){
 		const user_id = $("#user_id").val();
 		const user_pw = $("#user_pw").val(); 
 	 
-		if(!loginVaildator(user_id, user_pw)) {
+		if(!loginValidator(user_id, user_pw)) {
 			return false;
 		}
 
@@ -66,7 +66,7 @@ function goBack(){
 	window.history.back();
 }
 
-function loginVaildator(user_id, user_pw){
+function loginValidator(user_id, user_pw){
  	if(user_id == ""){
 	 	alert("아이디를 입력하세요");
 	 	$("#user_id").focus(); 
