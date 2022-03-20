@@ -108,6 +108,110 @@
 				let ent_personnel = $("#ent_personnel").val();
 				let c_detail = $("#c_detail").val();
 				
+				const param = {
+					c_name : c_name,
+					c_time : c_time,
+					c_category : c_category,
+					c_type : c_type,
+					c_start_time : c_start_time,
+					c_start_date : c_start_date,
+					c_last_date : c_last_date,
+					app_start_date : app_start_date,
+					app_last_date : app_last_date,
+					ent_personnel : ent_personnel,
+					c_detail : c_detail
+				}
+
+				$.ajax({
+					url:"courseUpdateRes.do",
+					type:"get",
+					contentType: "application/json",
+					data:JSON.stringify(param),
+					
+					success:function(result){
+							if(result.resultCode == 0){
+								alert(result.msg);
+								$(location).attr("href", "<c:url value='/admin/adminCourseUpdate.do?c_no=${dto.c_no}' />");
+							}else{
+								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
+							}
+					},
+					error : function(result) {
+						alert("서버 통신 에러");
+					}
+				});
+			});
+			
+			$.datepicker.setDefaults({
+				dateFormat: 'yy-mm-dd',
+				prevText: '이전 달',
+				nextText: '다음 달',
+				monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+				monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+				dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+				dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+				dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+				showMonthAfterYear: true,
+				yearSuffix: '년'
+			});
+			
+			$(".startDatepicker").datepicker({
+				onClose: function(data) {
+					$('.endDatepicker').datepicker('option', 'minDate', data);
+				}
+			});
+			
+			$(".endDatepicker").datepicker({
+				onClose: function(data) {
+					$('.startDatepicker').datepicker('option', 'maxDate', data);
+				}
+			});
+			
+			$(".startDatepicker").datepicker().css({ "z-index": 999 });
+			$(".endDatepicker").datepicker().css({ "z-index": 999 });
+			
+			cToday = new Date();
+			cToday = cToday.toISOString().slice(0, 10);
+			$("#c_start_date").val(cToday);
+			
+			aToday = new Date();
+			aToday = aToday.toISOString().slice(0, 10);
+			$("#app_start_date").val(aToday);
+			
+			
+			$("#delete").click(function(){
+				const param = {
+					c_name : c_name,
+					c_time : c_time,
+					c_category : c_category,
+					c_type : c_type,
+					c_start_time : c_start_time,
+					c_start_date : c_start_date,
+					c_last_date : c_last_date,
+					app_start_date : app_start_date,
+					app_last_date : app_last_date,
+					ent_personnel : ent_personnel,
+					c_detail : c_detail
+				}
+
+				$.ajax({
+					url:"courseInsertRes.do",
+					type:"post",
+					contentType: "application/json",
+					data:JSON.stringify(param),
+					
+					success:function(result){
+							if(result.resultCode == 0){
+								alert(result.msg);
+								$(location).attr("href", "<c:url value='adminCourseList.do' />");
+							}else{
+								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
+							}
+					},
+					error : function(result) {
+						alert("서버 통신 에러");
+					}
+				});
 			});
 		});
 	</script>

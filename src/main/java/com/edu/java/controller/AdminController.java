@@ -288,7 +288,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	/* admin Course Select One*/
+	/* Course Detail */
 	@RequestMapping(value="adminCourseDetail.do", method=RequestMethod.GET)
 	public ModelAndView adminCourseSelectOne(@RequestParam("c_no") int c_no) throws Exception{
 		logger.info("admin Course Detail");
@@ -316,11 +316,10 @@ public class AdminController {
 	public ModelAndView adminCourseInsertRes(@RequestBody CourseDto dto) throws Exception {
 		logger.info("admin course insert Res");
 		ModelAndView mav = new ModelAndView("jsonView");
-		int resultCode = 0;		
+		int resultCode = 0;	
+			
 		try {
-			/*
-			 * if(검사 ==1) { throw new Userexception 코드 200 이유 : 검사값이 맞지않아 }
-			 */
+			//if(검사 ==1) { throw new Userexception 코드 200 이유 : 검사값이 맞지않아 }
 			adminBiz.adminCourseInsert(dto);
 		}catch (Exception e) {
 			logger.trace(e.getMessage());
@@ -328,20 +327,50 @@ public class AdminController {
 		}finally {
 			mav.addObject("resultCode", resultCode);
 		}
-		
 		System.out.println(dto.toString());
-		
-		
 		mav.addObject("msg", "기죽지마요");
-
+	
 		return mav;
-//		return new ModelAndView("/admin/adminCourseList");
-
-		
-//		adminBiz.adminCourseInsert(dto);
-//		return "redirect:/adminCourseList.do";
 	}
 	
+	/* Course Update Form */
+	@RequestMapping("/adminCourseUpdate.do")
+	public String adminCourseUpdate() throws Exception{
+		logger.info("admin Course Update Form");
+		
+		return "/admin/adminCourseUpdate";
+	}
+	
+	/* Course Update RES */
+	@RequestMapping(value="courseUpdateRes.do", method=RequestMethod.POST)
+	public ModelAndView adminCourseUpdateRes(@RequestBody CourseDto dto) throws Exception{
+		logger.info("admin course update Res");
+		ModelAndView mav = new ModelAndView("jsonView");
+		int resultCode = 0;
+		
+			try {
+				adminBiz.adminCourseUpdate(dto);
+			} catch (Exception e) {
+				logger.trace(e.getMessage());
+				e.printStackTrace();
+			}finally {
+				mav.addObject("resultCode", resultCode);
+			}
+			System.out.println(dto.toString());
+			mav.addObject("msg", "수정이 완료되었습니다.");
+			
+			return mav;
+	}
+	
+	/* Course Delete */
+	@RequestMapping(value="/adminCourseDelete.do", method=RequestMethod.GET)
+	public String adminCourseDelete(@RequestParam("c_no") int c_no) throws Exception{
+		logger.info("admin Course Delete");
+
+		adminBiz.adminCourseDelete(c_no);
+		
+		return "redirect:/admin/adminCourseList";
+	}
 	/* 강사진 목록 */
 	@RequestMapping(value="adminTeacherList.do", method=RequestMethod.GET)
 	public ModelAndView adminTeacherList(Model model) {
