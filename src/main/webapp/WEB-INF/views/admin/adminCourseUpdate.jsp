@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/course/appCourse.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
 <title>Course Insert</title>
 <style type="text/css">
 	th{ width:150px; }
@@ -17,36 +18,39 @@
 		text-align:left;
 		padding:1px 1px 1px 50px;
 	}
+	
+	.c_detail{
+		width:600px;
+		height:6.25em;
+		border:none;
+	}
 </style>
 </head>
 <body>
 	<div id="header">
 		<%@ include file="../common/header.jsp" %>
 	</div>
-	
+	<input type="hidden" value="${dto.c_no }">
 	<div class="container">
-		<h3 class="formTitle">교 육 등 록</h3><br><br>
+		<h3 class="formTitle" style="font-weight:normal;">교 육 수 정</h3><br><br>
 		<div class="content">
-			<form action="courseInsertRes.do" onsubmit="return check_frm();" method="POST" enctype="multipart/form-data">
+			<form>
 				<table class="table insertTable">
 					<tr>
-						<th>교 육 명</th>
-						<td><input type="text" class="insertTitle" id="insertTitle" title="n" placeholder="제목을 입력하세요" size="80" required></td>
+						<th>강 의 명</th>
+						<td><input type="text" class="c_name" id="c_name" name="c_name" size="80" value="${dto.c_name }"></td>
 					</tr>
 					
 						<tr>
 							<th>과정 분류</th>
 							<td>
-								<select id="c_category" onChange="categorySelect(this.value);">
-									<option value="경영" ${courseDto.c_category == "경영" ? "selected" : "" } selected>경 영</option>
-									<option value="경제" ${courseDto.c_category == "경제" ? "selected" : "" }>경 제</option>
-									<option value="요식" ${courseDto.c_category == "요식" ? "selected" : "" }>요 식</option>
-									<option value="심리" ${courseDto.c_category == "심리" ? "selected" : "" }>심 리</option>
-									<option value="미술" ${courseDto.c_category == "미술" ? "selected" : "" }>미 술</option>
-									<option value="음악" ${courseDto.c_category == "음악" ? "selected" : "" }>음 악</option>
-									<option value="취미" ${courseDto.c_category == "취미" ? "selected" : "" }>취 미</option>
-									<option value="의료" ${courseDto.c_category == "의료" ? "selected" : "" }>의 료</option>
-									<option value="기타" ${courseDto.c_category == "기타" ? "selected" : "" }>기 타</option>
+								<select class="c_category" id="c_category" name="c_category">
+									<option value="경영" ${dto.c_category == "경영" ? "selected" : "" } selected>경 영</option>
+									<option value="경제" ${dto.c_category == "경제" ? "selected" : "" }>경 제</option>
+									<option value="심리" ${dto.c_category == "심리" ? "selected" : "" }>심 리</option>
+									<option value="취미" ${dto.c_category == "취미" ? "selected" : "" }>취 미</option>
+									<option value="의료" ${dto.c_category == "의료" ? "selected" : "" }>의 료</option>
+									<option value="기타" ${dto.c_category == "기타" ? "selected" : "" }>기 타</option>
 								</select>
 							</td>
 						</tr>
@@ -54,38 +58,43 @@
 					<tr>
 						<th>교육 형태</th>
 						<td>
-							<input type="radio" name="c_type" value="G" checked>집 합&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" name="c_type" value="O">온라인
+							<input type="radio" class="c_type" id="c_type" name="c_type" value="집합" checked>집 합&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" class="c_type" id="c_type" name="c_type" value="온라인">온라인
 						</td>
 					</tr>
 					
 					<tr>
-						<th>교육 시간</th>
+						<th>총 교육 시간</th>
 						<td>
-							<input type="time" name="c_time" id="c_time" required>
+							<input type="text" class="c_time" id="c_time" size="3" value="${dto.c_time }" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 시간
+						</td>
+					</tr>
+					
+					<tr>
+						<th>시작 시간</th>
+						<td>
+							<input type="time" class="c_start_time" id="c_start_time" name="c_start_time" value="${dto.c_start_time }" min="07:00:00" max="18:00:00">
 						</td>
 					</tr>
 					
 					<tr>
 						<th>교육 기간</th>
 						<td>
-							<input type="date" name="c_start_date" id="c_start_date" required> ~ <input type="date" id="c_last_date" name="c_last_date" onclick="startDateConfirm();" required>
+							<input type="text" class="startDatepicker" id="c_start_date" name="c_start_date" value="${dto.c_start_date }"> ~ <input type="text" id="c_last_date" name="c_last_date" class="endDatepicker" value="${dto.c_last_date }">
 						</td>
 					</tr>
 					
 					<tr>
-						<th style="vertical-align:middle;">주 소</th>
-                        <td>
-                            <input type="text" class="c_addr" name="c_addr" id="c_addr" placeholder="주소를 입력하세요." readonly required>
-                            <input type="button" class="c_addr_chk" value="주소검색" title="n" onclick="addr_search();"><br>
-                            <input type="text" class="c_addr_sub" name="c_addr_sub" id="c_addr_sub" placeholder="상세주소를 입력하세요." title="n" onclick="addrConfirm();" required>
-                        </td>
+						<th>접수 기간</th>
+						<td>
+							<input type="text" class="startDatepicker" id="app_start_date" name="app_start_date"> ~ <input type="text" id="app_last_date" name="app_last_date" class="endDatepicker">
+						</td>
 					</tr>
 					
 					<tr>
 						<th>모집 인원</th>
 						<td>
-							<input type="text" name="ent_personnel" id="ent_personnel" size="4" title="n" onclick="addrSubConfirm();" required> 명
+							<input type="text" class="ent_personnel" id="ent_personnel" name="ent_personnel" size="3" value="${dto.ent_personnel }" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 명
 						</td>
 					</tr>
 					
@@ -95,21 +104,13 @@
 					<tr>
 						<th></th>
 						<td style="padding-bottom:50px;">
-							<textarea class="insertContent" placeholder="내용을 입력하세요" id="insertContent" title="n" onclick="entConfirm();" required></textarea>
-						</td>
-					</tr>
-					
-					<tr>
-						<th style="vertical-align:middle;">파 일</th>
-						<td style="vertical-align:middle;">
-							<label><input type="file" name="uploadFile" id="uploadFile" class="insertFile" value="파일 첨부"></label>
-							<div class="select_img"><img src=""></div>
+							<textarea class="c_detail" id="c_detail" name="c_detail" value="${c_detail }"></textarea>
 						</td>
 					</tr>
 				</table>
 				
 				<div class="inpBtn">
-					<input type="submit" class="subBtn" id="submit" onclick="valueSave();" value="등 록">
+					<input type="button" class="subBtn" id="submit" value="등 록">
 					<input type="button" class="antBtn" onclick="location.href='adminCourseList.do'" value="취 소">
 				</div>
 			</form>
@@ -120,74 +121,155 @@
 		<%@ include file="../common/footer.jsp" %>
 	</div>
 	
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script type="text/javascript">
+		$(document).ready(function(){
+			$("#submit").click(function(){
+				let c_name = $("#c_name").val();
+				let c_time = $("#c_time").val();
+				let c_category = $("#c_category option:selected").val();
+				let c_type = $('input[name=c_type]:checked').val();
+				let c_start_time = $("#c_start_time").val();
+				let c_start_date = $("#c_start_date").val();
+				let c_last_date = $("#c_last_date").val();
+				let app_start_date = $("#app_start_date").val();
+				let app_last_date = $("#app_last_date").val();
+				let ent_personnel = $("#ent_personnel").val();
+				let c_detail = $("#c_detail").val();
+				
+				if(!updateValidator(c_name, c_time, c_start_time, c_last_date, app_last_date, ent_personnel, c_detail)){
+					return false;
+				}
+				
+				const param = {
+					c_name : c_name,
+					c_time : c_time,
+					c_category : c_category,
+					c_type : c_type,
+					c_start_time : c_start_time,
+					c_start_date : c_start_date,
+					c_last_date : c_last_date,
+					app_start_date : app_start_date,
+					app_last_date : app_last_date,
+					ent_personnel : ent_personnel,
+					c_detail : c_detail
+				}
 
-	
-<!-- Daum 주소 API -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    function addr_search() {
-    	daum.postcode.load(function(){
-	        new daum.Postcode({
-	            oncomplete: function(data) {
-	            	let addr = ''; 	  // 도로명 주소 변수
-	
-	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                    addr = data.roadAddress;
-	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	                    addr = data.jibunAddress;
-	                }
-	
-	                // 우편번호와 주소 정보를 해당 필드에 넣기
-	                document.getElementById("c_addr").value = addr;
-	                // focus를 상세주소 필드로 이동
-	                document.getElementById("c_addr_sub").focus();
-	            }
-	        }).open();
-    	});
-    }
-    
- // 사진 첨부 시 아래 영역에 선택한 사진 띄우기
-	$("#uploadFile").change(function(){
-		if(this.files && this.files[0]) {
-			const reader = new FileReader;
-			reader.onload = function(data){
-				$(".select_img img").attr("src", data.target.result).width(500);
-			}
-			reader.readAsDataURL(this.files[0]);
-		}
-	});
-	
-	$("#btnInsert").click(function(){
-		let data = new FormData(document.getElementById("f"));
-	
-		$.ajax({
-			url:"/admin/adminCourseInsertRes.do",
-			type:"post",
-			processData:false,
-			contentType:false,
-			data:data,
-			success:function(){
-				adminNoticeList();
-			}
-		});
-	});
-	
-	<!-- input에 오늘날짜 기본값으로 넣기 -->
-		window.onload = function() {
-			today = new Date();
-			console.log("today.toISOString() >>>" + today.toISOString());
-			today = today.toISOString().slice(0, 10);
-			console.log("today >>>> " + today);
-			bir = document.getElementById("c_start_date");
-			bir.value = today;
-		}
-		
-		function valueSave(){
-			const cTime = document.querySelector("#c_time").value;
-			const startDate = document.querySelector("#c_start_date").value;
-			const lastDate = document.querySelector("#c_last_date").value;
+				$.ajax({
+					url:"courseUpdateRes.do",
+					type:"post",
+					contentType: "application/json",
+					data:JSON.stringify(param),
+					
+					success:function(result){
+							if(result.resultCode == 0){
+								alert(result.msg);
+								$(location).attr("href", "<c:url value='adminCourseList.do' />");
+							}else{
+								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
+							}
+					},
+					error : function(result) {
+						alert("서버 통신 에러");
+					}
+				});
+			});
 			
-			console.log("c_time : " + cTime + ", c_start_date : " + startDate + ", c_last_date : " + lastDate);
+			$.datepicker.setDefaults({
+				dateFormat: 'yy-mm-dd',
+				prevText: '이전 달',
+				nextText: '다음 달',
+				monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+				monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+				dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+				dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+				dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+				showMonthAfterYear: true,
+				yearSuffix: '년'
+			});
+			
+			$(".startDatepicker").datepicker({
+				onClose: function(data) {
+					$('.endDatepicker').datepicker('option', 'minDate', data);
+				}
+			});
+			
+			$(".endDatepicker").datepicker({
+				onClose: function(data) {
+					$('.startDatepicker').datepicker('option', 'maxDate', data);
+				}
+			});
+			
+			$(".startDatepicker").datepicker().css({ "z-index": 999 });
+			$(".endDatepicker").datepicker().css({ "z-index": 999 });
+			
+			cToday = new Date();
+			cToday = cToday.toISOString().slice(0, 10);
+			$("#c_start_date").val(cToday);
+			
+			aToday = new Date();
+			aToday = aToday.toISOString().slice(0, 10);
+			$("#app_start_date").val(aToday);
+			
+
+		});
+		
+		function updateValidator(c_name, c_time, c_start_time, c_start_date, c_last_date, app_start_date, app_last_date, ent_personnel, c_detail ){
+			if(c_name == ""){
+				alert("강의명을 입력하세요.");
+				$("#c_name").focus();
+				return false;
+			}
+			
+			if(c_time == ""){
+				alert("총 교육 시간을 입력하세요.");
+				$("#c_time").focus();
+				return false;
+			}
+			
+			if(c_start_time == ""){
+				alert("시작 시간을 입력하세요.");
+				$("#c_start_time").focus();
+				return false;
+			}
+			
+			if(c_start_date == ""){
+				alert("교육 시작일을 입력하세요.");
+				$("#c_start_date").focus();
+				return false;
+			}
+			
+			if(c_last_date == ""){
+				alert("교육 종료일을 입력하세요.");
+				$("#c_last_date").focus();
+				return false;
+			}
+
+			if(app_start_date == ""){
+				alert("접수 시작일을 입력하세요.");
+				$("#app_start_date").focus();
+				return false;
+			}
+			
+			if(app_last_date == ""){
+				alert("접수 마감일을 입력하세요.");
+				$("#app_last_date").focus();
+				return false;
+			}
+			
+			if(ent_personnel == ""){
+				alert("모집 인원을 입력하세요.");
+				$("#ent_personnel").focus();
+				return false;
+			}
+			
+			if(c_detail == ""){
+				alert("교육 상세 설명을 입력하세요.");
+				$("#c_detail").focus();
+				return false;
+			}
+			return true;
 		}
 </script>
 </body>
