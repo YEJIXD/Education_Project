@@ -17,25 +17,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script type="text/javascript">
-			$(function(){
-				const chkObj = document.getElementByName("RowCheck[]");
-				const rowCnt = chkObj.length;
-				
-				$("input[name='allCheck']").click(function(){
-		    		var chk_listArr = $("input[name='RowCheck[]']");
-		    		for(var i = 0 ; i<chk_listArr.length; i++){
-		    			chk_listArr[i].checked = this.checked;
-		    		}
-		    	});
-		    	$("input[name='RowCheck[]']").click(function(){
-		    		if($("input[name='RowCheck[]']:checked").length == rowCnt){
-		    			$("input[name='allCheck']")[0].checked = true;
-		    		}else{
-		    			$("input[name='allCheck']")[0].checked = false;
-		    		}
-		    	});
-		    });
-		 
 			 function delete_frm(){
 				 if(confirm('정말 삭제하시겠습니까?')==true){
 					 return true;

@@ -111,7 +111,7 @@
 				                            	<tr>
 				                                	<td style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${dto.q_no}"></td>
 				                                    <td style="vertical-align:middle;">${dto.q_no}</td>
-				                                    <td style="vertical-align:middle;"><a href="event-detail.do?event_no=${dto.q_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.q_title}</a></td>
+				                                    <td style="vertical-align:middle;"><a href="event-detail.do?event_no=${dto.q_no}" style="text-decoration:none; color:#9966FF; font-weight:bold;">${dto.q_title}</a></td>
 				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.q_date}"/></td>
 				                                    <td style="vertical-align:middle;"></td>
 				                                    <td style="vertical-align:middle;"></td>
