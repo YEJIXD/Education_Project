@@ -5,10 +5,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -290,14 +292,14 @@ public class AdminController {
 	
 	/* Course Detail */
 	@RequestMapping(value="adminCourseDetail.do", method=RequestMethod.GET)
-	public ModelAndView adminCourseDetail(@RequestParam("c_no") int c_no, @RequestParam("c_count") int c_count) throws Exception{
+	public ModelAndView adminCourseDetail(@RequestParam("c_no") int c_no) throws Exception{
 		logger.info("admin Course Detail");
 		ModelAndView mav = new ModelAndView("jsonView");
 		CourseDto dto = adminBiz.adminCourseDetail(c_no);
 
 		// List에서 상세 페이지로 넘길 때 c_no 값 전달
-		mav.addObject("dto", adminBiz.adminCourseDetail(c_no));
-		mav.addObject("dto", adminBiz.adminCourseCount(c_count));
+		mav.addObject("dto", dto);
+		//mav.addObject(adminBiz.adminCourseCount(c_count));
 		mav.setViewName("/admin/adminCourseDetail");
 		
 		return mav;
@@ -314,14 +316,21 @@ public class AdminController {
 	
 	/* Course INSERT RES */
 	@RequestMapping(value="courseInsertRes.do", method=RequestMethod.POST)
-	public ModelAndView adminCourseInsertRes(@RequestBody CourseDto dto) throws Exception {
+	public ModelAndView adminCourseInsertRes(@RequestBody CourseDto dto, HttpSession session) throws Exception {
 		logger.info("admin course insert Res");
 		ModelAndView mav = new ModelAndView("jsonView");
 		int resultCode = 0;	
 			
 		try {
 			//if(검사 ==1) { throw new Userexception 코드 200 이유 : 검사값이 맞지않아 }
-			adminBiz.adminCourseInsert(dto);
+			HashMap<String, Object> User = (HashMap<String, Object>) session.getAttribute("USER");
+			if(User == null) {
+				resultCode = 10;
+			}else {
+				String UserName = String.valueOf(User.get("USER_NAME"));
+				dto.setC_init_writer(UserName);
+				adminBiz.adminCourseInsert(dto);
+			}
 		}catch (Exception e) {
 			logger.trace(e.getMessage());
 			e.printStackTrace();
@@ -329,7 +338,7 @@ public class AdminController {
 			mav.addObject("resultCode", resultCode);
 		}
 		System.out.println(dto.toString());
-		mav.addObject("msg", "기죽지마요");
+		mav.addObject("msg", "교육 등록 완료");
 	
 		return mav;
 	}
@@ -338,25 +347,29 @@ public class AdminController {
 	@RequestMapping(value="/adminCourseUpdate.do", method=RequestMethod.GET)
 	public String adminCourseUpdate(@RequestParam int c_no, Model model) throws Exception{
 		logger.info("admin Course Update Form");
-		//ModelAndView mav = new ModelAndView("jsonView");
 		CourseDto dto = adminBiz.adminCourseDetail(c_no);
 		model.addAttribute("dto", dto);
-		
-		//mav.addObject("dto", adminBiz.adminCourseUpdate(dto));
-		//mav.setViewName("/admin/adminCourseUpdate");
 		
 		return "/admin/adminCourseUpdate";
 	}
 	
 	/* Course Update RES */
 	@RequestMapping(value="courseUpdateRes.do", method=RequestMethod.POST)
-	public ModelAndView adminCourseUpdateRes(@RequestBody CourseDto dto) throws Exception{
+	public ModelAndView adminCourseUpdateRes(@RequestBody CourseDto dto, HttpSession session) throws Exception{
 		logger.info("admin course update Res");
 		ModelAndView mav = new ModelAndView("jsonView");
 		int resultCode = 0;
 		
+		/* 로그인 되어있는 상태에서만 수정할 수 있도록 작성 */
 			try {
-				adminBiz.adminCourseUpdate(dto);
+				HashMap<String, Object> User = (HashMap<String, Object>) session.getAttribute("USER");
+				if(User == null) {
+					resultCode = 10;
+				}else {
+					String UserName = String.valueOf(User.get("USER_NAME"));
+					dto.setC_init_writer(UserName);
+					adminBiz.adminCourseUpdate(dto);
+				}
 			} catch (Exception e) {
 				logger.trace(e.getMessage());
 				e.printStackTrace();
@@ -364,7 +377,7 @@ public class AdminController {
 				mav.addObject("resultCode", resultCode);
 			}
 			System.out.println(dto.toString());
-			mav.addObject("msg", "수정 완료");
+			mav.addObject("msg", "교육 수정 완료");
 			
 			return mav;
 	}
@@ -373,11 +386,12 @@ public class AdminController {
 	@RequestMapping(value="/adminCourseDelete.do", method=RequestMethod.GET)
 	public String adminCourseDelete(int c_no) throws Exception{
 		logger.info("admin Course Delete");
-
 		adminBiz.adminCourseDelete(c_no);
 		
 		return "redirect:adminCourseList";
 	}
+	
+	
 	/* 강사진 목록 */
 	@RequestMapping(value="adminTeacherList.do", method=RequestMethod.GET)
 	public ModelAndView adminTeacherList(Model model) {

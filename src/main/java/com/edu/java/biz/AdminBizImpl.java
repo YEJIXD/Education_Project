@@ -162,7 +162,7 @@ public class AdminBizImpl implements AdminBiz{
 	}
 	
 	@Override
-	public int adminCourseCount(int c_count) throws Exception{
+	public int adminCourseCount(String c_count) throws Exception{
 		return adminDao.adminCourseCount(c_count);
 	}
 

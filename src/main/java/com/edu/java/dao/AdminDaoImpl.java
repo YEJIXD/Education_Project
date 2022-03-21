@@ -361,7 +361,7 @@ public class AdminDaoImpl implements AdminDao{
 	}
 	
 	@Override
-	public int adminCourseCount(int c_count) throws Exception{
+	public int adminCourseCount(String c_count) throws Exception{
 		int res = 0;
 		
 		try {
