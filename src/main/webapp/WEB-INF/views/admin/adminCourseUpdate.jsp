@@ -33,7 +33,7 @@
 		<%@ include file="../common/header.jsp" %>
 	</div>
 	
-	<input type="text" value="${dto.c_no}">
+	<input type="hidden" value="${dto.c_no}">
 	
 	<div class="container">
 		<h3 class="formTitle" style="font-weight:normal;">교 육 수 정</h3><br><br>
@@ -91,18 +91,19 @@
 				</tr>
 					
 				<tr>
+					<th>접수 기간</th>
+					<td>
+						<input type="text" class="aStartDatepicker" id="app_start_date" name="app_start_date" value="${dto.app_start_date }" autocomplete="off"> ~ <input type="text" id="app_last_date" name="app_last_date" class="aEndDatepicker" value="${dto.app_start_date }" autocomplete="off">
+					</td>
+				</tr>
+
+				<tr>
 					<th>교육 기간</th>
 					<td>
-						<input type="text" class="cStartDatepicker" id="c_start_date" name="c_start_date" value="${dto.c_start_date }"> ~ <input type="text" class="cEndDatepicker" id="c_last_date" name="c_last_date" value="${dto.c_last_date }">
+						<input type="text" class="cStartDatepicker" id="c_start_date" name="c_start_date" value="${dto.c_start_date }" autocomplete="off"> ~ <input type="text" class="cEndDatepicker" id="c_last_date" name="c_last_date" value="${dto.c_last_date }" autocomplete="off">
 					</td>
 				</tr>
 					
-				<tr>
-					<th>접수 기간</th>
-					<td>
-						<input type="text" class="aStartDatepicker" id="app_start_date" name="app_start_date" value="${dto.app_start_date }"> ~ <input type="text" id="app_last_date" name="app_last_date" class="aEndDatepicker" value="${dto.app_start_date }">
-					</td>
-				</tr>
 				
 				<tr>
 					<th>모집 인원</th>
@@ -204,9 +205,24 @@
 				yearSuffix: '년'
 			});
 			
+			/* 접수 기간 */
+			$(".aStartDatepicker").datepicker({
+				onClose: function(data) {
+					$('.aEndDatepicker').datepicker('option', 'minDate', data);
+				}
+			});
+			
+			$(".aEndDatepicker").datepicker({
+				onClose: function(data) {
+					$('.aStartDatepicker').datepicker('option', 'maxDate', data);
+					$('.cStartDatepicker').datepicker('option', 'minDate', data);
+				}
+			});
+			
 			/* 교육 기간 */
 			$(".cStartDatepicker").datepicker({
 				onClose: function(data) {
+					$('.aEndDatepicker').datepicker('option', 'minDate');
 					$('.cEndDatepicker').datepicker('option', 'minDate', data);
 				}
 			});
@@ -219,19 +235,6 @@
 			
 			$(".cStartDatepicker").datepicker().css({ "z-index": 999 });
 			$(".cEndDatepicker").datepicker().css({ "z-index": 999 });
-			
-			/* 접수 기간 */
-			$(".aStartDatepicker").datepicker({
-				onClose: function(data) {
-					$('.aEndDatepicker').datepicker('option', 'minDate', data);
-				}
-			});
-			
-			$(".aEndDatepicker").datepicker({
-				onClose: function(data) {
-					$('.aStartDatepicker').datepicker('option', 'maxDate', data);
-				}
-			});
 			
 			$(".aStartDatepicker").datepicker().css({ "z-index": 999 });
 			$(".aEndDatepicker").datepicker().css({ "z-index": 999 });
