@@ -290,13 +290,14 @@ public class AdminController {
 	
 	/* Course Detail */
 	@RequestMapping(value="adminCourseDetail.do", method=RequestMethod.GET)
-	public ModelAndView adminCourseSelectOne(@RequestParam("c_no") int c_no) throws Exception{
+	public ModelAndView adminCourseDetail(@RequestParam("c_no") int c_no, @RequestParam("c_count") int c_count) throws Exception{
 		logger.info("admin Course Detail");
 		ModelAndView mav = new ModelAndView("jsonView");
 		CourseDto dto = adminBiz.adminCourseDetail(c_no);
 
 		// List에서 상세 페이지로 넘길 때 c_no 값 전달
 		mav.addObject("dto", adminBiz.adminCourseDetail(c_no));
+		mav.addObject("dto", adminBiz.adminCourseCount(c_count));
 		mav.setViewName("/admin/adminCourseDetail");
 		
 		return mav;
@@ -334,9 +335,15 @@ public class AdminController {
 	}
 	
 	/* Course Update Form */
-	@RequestMapping("/adminCourseUpdate.do")
-	public String adminCourseUpdate() throws Exception{
+	@RequestMapping(value="/adminCourseUpdate.do", method=RequestMethod.GET)
+	public String adminCourseUpdate(@RequestParam int c_no, Model model) throws Exception{
 		logger.info("admin Course Update Form");
+		//ModelAndView mav = new ModelAndView("jsonView");
+		CourseDto dto = adminBiz.adminCourseDetail(c_no);
+		model.addAttribute("dto", dto);
+		
+		//mav.addObject("dto", adminBiz.adminCourseUpdate(dto));
+		//mav.setViewName("/admin/adminCourseUpdate");
 		
 		return "/admin/adminCourseUpdate";
 	}
@@ -357,19 +364,19 @@ public class AdminController {
 				mav.addObject("resultCode", resultCode);
 			}
 			System.out.println(dto.toString());
-			mav.addObject("msg", "수정이 완료되었습니다.");
+			mav.addObject("msg", "수정 완료");
 			
 			return mav;
 	}
 	
 	/* Course Delete */
 	@RequestMapping(value="/adminCourseDelete.do", method=RequestMethod.GET)
-	public String adminCourseDelete(@RequestParam("c_no") int c_no) throws Exception{
+	public String adminCourseDelete(int c_no) throws Exception{
 		logger.info("admin Course Delete");
 
 		adminBiz.adminCourseDelete(c_no);
 		
-		return "redirect:/admin/adminCourseList";
+		return "redirect:adminCourseList";
 	}
 	/* 강사진 목록 */
 	@RequestMapping(value="adminTeacherList.do", method=RequestMethod.GET)
