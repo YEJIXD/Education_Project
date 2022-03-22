@@ -1,9 +1,7 @@
 package com.edu.java.biz;
 
-import java.util.HashMap;
 import java.util.List;
 
-import javax.activation.CommandMap;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -11,13 +9,12 @@ import org.springframework.stereotype.Service;
 import com.edu.java.dao.AdminDao;
 import com.edu.java.dao.CourseDao;
 import com.edu.java.dao.MemberDao;
-import com.edu.java.dto.CancleDto;
 import com.edu.java.dto.CourseDto;
+import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
 import com.edu.java.dto.MemberDto;
 import com.edu.java.dto.NoticeDto;
 import com.edu.java.dto.QnaDto;
-import com.edu.java.dto.ReviewDto;
 import com.edu.java.dto.TeacherDto;
 
 @Service
@@ -137,8 +134,18 @@ public class AdminBizImpl implements AdminBiz{
 	
 	/* Course */
 	@Override
-	public List<CourseDto> adminCourseList() {
-		return adminDao.adminCourseList();
+	public List<CourseDto> adminCourseList(String param) {
+		return adminDao.adminCourseList(param);
+	}
+	
+	// 게시물 총 갯수
+	/*
+	 * public int getTotal(Criteria cri) { return adminDao.getTotal(cri); }
+	 */
+	
+	@Override
+	public List<CourseDto> searchKeyword(String keyword){
+		return adminDao.searchKeyword(keyword);
 	}
 	
 	@Override

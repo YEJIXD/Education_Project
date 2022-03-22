@@ -1,18 +1,13 @@
 package com.edu.java.biz;
 
-import java.util.HashMap;
 import java.util.List;
 
-import javax.activation.CommandMap;
-
-import com.edu.java.dto.ApplicationDto;
-import com.edu.java.dto.CancleDto;
 import com.edu.java.dto.CourseDto;
+import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
 import com.edu.java.dto.MemberDto;
 import com.edu.java.dto.NoticeDto;
 import com.edu.java.dto.QnaDto;
-import com.edu.java.dto.ReviewDto;
 import com.edu.java.dto.TeacherDto;
 
 public interface AdminBiz {
@@ -54,7 +49,10 @@ public interface AdminBiz {
 	public List<FaqDto> hashTagSearch(String faq_category);
 	
 	/* Course */
-	public List<CourseDto> adminCourseList();
+	public List<CourseDto> adminCourseList(String param);
+	//public int getTotal(Criteria cri);
+	public List<CourseDto> searchKeyword(String keyword);
+	
 	public CourseDto adminCourseDetail(int c_no) throws Exception;
 	public int adminCourseInsert(CourseDto dto) throws Exception;
 	//public HashMap<String, Object> adminCourseInsert(HashMap<String, Object> map) throws Exception;

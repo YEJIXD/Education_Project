@@ -79,7 +79,7 @@
 				
 			<div class="inpBtn">
 				<input type="button" class="subBtn" id="update" onclick="location.href='adminCourseUpdate.do?c_no=${dto.c_no}'" value="수 정">
-				<input type="button" class="subBtn" id="delete" onclick="deleteChk();" value="삭 제">
+				<input type="button" class="subBtn" id="delete" onclick="location.href='adminCourseDelete.do?c_no=${dto.c_no}'" value="삭 제">
 				<input type="button" class="antBtn" onclick="location.href='adminCourseList.do'" value="목 록">
 			</div>
 		</div>
