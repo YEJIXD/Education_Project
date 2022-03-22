@@ -12,7 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Admin_Main</title>
+        <title>Admin_Course_List</title>
         <link href="resources/css/admin/admin_styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -82,8 +82,8 @@
 									</form>
 								</div>
 							</div>
+							<input type="hidden" value="${dto.c_no }">
                             	<form action="adminCourseInsert.do" method="GET">
-                            	<input type="hidden" value="${dto.c_no }">
 	                                <table id="datatablesSimple" class="table table-hover">
 	                                    <thead>
 	                                        <tr>
@@ -91,6 +91,7 @@
 	                                            <th class="title">강의명</th>
 	                                            <th class="writer">모집 인원</th>
 	                                            <th class="date">등록일</th>
+	                                            <th class="no">조회수</th>
 	                                            <th class="term">교육 기간</th>
 	                                        </tr>
 	                                    </thead>
@@ -98,9 +99,10 @@
 											<c:forEach items="${list}" var="dto">
 				                            	<tr>
 				                                	<td>${dto.rnum }</td>
-				                                    <td style="vertical-align:middle;"><a href="adminCourseDetail.do?c_no=${dto.c_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.c_name}</a></td>
+				                                    <td style="vertical-align:middle;"><a href="adminCourseDetail.do?c_no=${dto.c_no}" style="text-decoration:none; color:#9966FF; font-weight:bold;">${dto.c_name}</a></td>
 				                                    <td style="vertical-align:middle;">${dto.ent_personnel }</td>
 				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.c_regdate}"/></td>
+				                                    <td style="vertical-align:middle;">${dto.c_count }</td>
 				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.c_start_date }"/> ~ <fmt:formatDate pattern="yyyy-MM-dd" value="${dto.c_last_date }"/></td>
 				                            	</tr>
 				                        	</c:forEach>

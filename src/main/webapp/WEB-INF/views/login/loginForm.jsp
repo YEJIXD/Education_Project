@@ -123,12 +123,6 @@ function loginValidator(user_id, user_pw){
         </div> 
     </div>
     
-    <c:if test="${msg == 'fail' }">
-		<script type="text/javascript">
-			alert('로그인 실패');
-		</script>
-	</c:if>
-    
     <div id="footer">
 		<%@ include file="../common/footer.jsp"%>
 	</div>

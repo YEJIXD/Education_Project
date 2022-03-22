@@ -60,9 +60,9 @@ public interface AdminDao {
 	public CourseDto adminCourseDetail(int c_no) throws Exception;
 	public int adminCourseInsert(CourseDto dto) throws Exception;
 	//public HashMap<String, Object> adminCourseInsert(HashMap<String, Object> map) throws Exception;
-	public int adminCourseUpdate(CourseDto dto);
+	public int adminCourseUpdate(CourseDto dto) throws Exception;
 	public int adminCourseDelete(int c_no);
-	//public boolean courseCount(String c_count);
+	public int adminCourseCount(String c_count) throws Exception;
 	
 	/* Teacher */
 	public List<TeacherDto> adminTeacherList();

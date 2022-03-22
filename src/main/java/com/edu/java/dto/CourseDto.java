@@ -13,8 +13,6 @@ public class CourseDto {
 	private int c_no;					// 교육 번호
 	private int user_no;				// 사용자 번호
 	private String c_name;				// 교육명
-	private String c_addr;				// 교육 기관 장소
-	private String c_addr_sub;			// 교육 기관 장소 _상세 주소
 	private String c_category;			// 교육 과정 분류(일반 직무 - 인사행정)
 	private String c_type;				// 교육 형태 (집합"G" / 온라인""O")
 	private int c_time;					// 교육 시간 (8시간)
@@ -28,7 +26,7 @@ public class CourseDto {
 	private String c_upd_writer;		// 교육 수정자
 	private Date c_start_date;			// 교육 시작일
 	private Date c_last_date;			// 교육 종료일
-	private int c_count;				// 교육 조회수
+	private String c_count;				// 교육 조회수
 	private Date app_start_date;		// 교육 신청 _접수 시작일 
 	private Date app_last_date;			// 교육 신청 _접수 마감일
 }

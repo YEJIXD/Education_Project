@@ -152,13 +152,18 @@ public class AdminBizImpl implements AdminBiz{
 	}
 
 	@Override
-	public int adminCourseUpdate(CourseDto dto) {
+	public int adminCourseUpdate(CourseDto dto) throws Exception {
 		return adminDao.adminCourseUpdate(dto);
 	}
 
 	@Override
 	public int adminCourseDelete(int c_no) {
 		return adminDao.adminCourseDelete(c_no);
+	}
+	
+	@Override
+	public int adminCourseCount(String c_count) throws Exception{
+		return adminDao.adminCourseCount(c_count);
 	}
 
 	/* Teacher */

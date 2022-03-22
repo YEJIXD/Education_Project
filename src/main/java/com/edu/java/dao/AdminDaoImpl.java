@@ -335,11 +335,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public int adminCourseUpdate(CourseDto dto) {
+	public int adminCourseUpdate(CourseDto dto) throws Exception{
 		int res = 0;
 		
 		try {
-			res = sqlSession.insert(NAMESPACE + "adminCourseUpdate", dto);
+			res = sqlSession.update(NAMESPACE + "adminCourseUpdate", dto);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Course Update error");
 			e.printStackTrace();
@@ -355,6 +355,19 @@ public class AdminDaoImpl implements AdminDao{
 			res = sqlSession.delete(NAMESPACE+"adminCourseDelete", c_no);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Course Delete error");
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
+	@Override
+	public int adminCourseCount(String c_count) throws Exception{
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(NAMESPACE + "adminCourseCount", c_count);
+		} catch (Exception e) {
+			System.out.println("[error] : admin Course Count error");
 			e.printStackTrace();
 		}
 		return res;
