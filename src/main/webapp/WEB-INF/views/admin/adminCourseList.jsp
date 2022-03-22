@@ -4,6 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ page session="false" %>
 
+<%@ page import="com.edu.java.dto.CourseDto"%>
+<%@ page import="java.util.List"%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -57,41 +60,52 @@
             <div id="layoutSidenav_content">
                 <main>
                 	<br>
-                    <div class="container-fluid px-4">
+                    <div class="container-fluid px-4 courseList">
                         <h1 class="title_tab">교육 강의 관리</h1>
                         <br><br>
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table me-1"></i>강좌 목록</div>
                             <div class="card-body">
-                            <div>
-								<div id="searchMember" style="height: 100px; margin: 0px auto; text-align: center;">
-									<form method='get' action='search.do'>
-										<select name="searchType">
-											<option value="" disabled selected>검색타입</option>
-											
-											<option value="subject"
-												<c:if test="${searchType eq 'subject'}">selected</c:if>>제목
-											</option>
-											
-											<option value="content"
-												<c:if test="${searchType eq 'content'}">selected</c:if>>내용
-											</option>
-										</select> 
-										<input type="text" name="keyword" value="${keyword!=null?keyword:''}" /> 
-										<input type="submit" value="검색">
-									</form>
-								</div>
+                            
+                            <!-- 게시물 검색 -->
+							<div id="searchKeyword" style="height: 60px; margin: 0px auto; text-align: center;">
+								<form action="searchKeyword.do" method="post" id="searchForm">
+									<select name="searchType" id="searchType">
+										<option value="" disabled selected>선 택</option>
+										
+										<%-- <option value="title"
+											<c:if test="${dto.keyword eq 'c_name'}">selected</c:if>>제목
+										</option> --%>
+										<option value="title">제 목</option>
+										
+										<option value="content" <c:if test="${dto.keyword eq 'content'}">selected</c:if>>내 용</option>
+										
+										<!-- <option value="detail" <c:out value="${cri.searchType eq 'content' ? 'selected' : '' }" />>내 용</option> -->
+									</select> 
+									
+									
+									<!--  <input type="text" name="keyword" id="keyword" value="${keyword!=null?keyword:''}" placeholder="검색어를 입력하세요"/> -->
+									<input type="text" name="keyword" id="keyword" value="${cri.keyword}" placeholder="검색어를 입력하세요"/> 
+									<input type="button" name="searchBtn" id="searchBtn" value="검 색">
+									
+									<!-- 검색 후 화면에 보여질 게시글 수와 페이지 넘버 (hidden 사용) -->
+									<!--  <input type="hidden" name="pageNum" value="1">
+									<input type="hidden" name="amount" value="10">-->
+									
+									<!-- keyword를 저장할 수 있는 input 태그 작성 -->
+									<!-- <input type="hidden" name="keyword" value="${cri.keyword }"> -->
+								</form>
 							</div>
+							
 							<input type="hidden" value="${dto.c_no }">
                             	<form action="adminCourseInsert.do" method="GET">
-	                                <table id="datatablesSimple" class="table table-hover">
+	                                <table id="datatablesSimple" class="table table-hover courseList">
 	                                    <thead>
 	                                        <tr>
 	                                            <th class="no">NO</th>
 	                                            <th class="title">강의명</th>
 	                                            <th class="writer">모집 인원</th>
 	                                            <th class="date">등록일</th>
-	                                            <th class="no">조회수</th>
 	                                            <th class="term">교육 기간</th>
 	                                        </tr>
 	                                    </thead>
@@ -102,16 +116,22 @@
 				                                    <td style="vertical-align:middle;"><a href="adminCourseDetail.do?c_no=${dto.c_no}" style="text-decoration:none; color:#9966FF; font-weight:bold;">${dto.c_name}</a></td>
 				                                    <td style="vertical-align:middle;">${dto.ent_personnel }</td>
 				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.c_regdate}"/></td>
-				                                    <td style="vertical-align:middle;">${dto.c_count }</td>
 				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.c_start_date }"/> ~ <fmt:formatDate pattern="yyyy-MM-dd" value="${dto.c_last_date }"/></td>
 				                            	</tr>
 				                        	</c:forEach>
 	                                    </tbody>
 	                                </table>
-	                                <div class="inpBtn">
-	                                	<input type="submit" class="adm_insert" id="submit" value="등 록">
-		                            	<!-- <button class="adm_delete" onclick="" value="delete">삭 제</button> -->
-	                            	</div>
+	                                
+	                                <div class="listBottom">
+		                                <div class="inpBtn">
+		                                	<input type="submit" class="adm_insert" id="submit" value="등 록">
+		                            	</div>
+		                            	
+		                            	<div class="coursePaging">
+											<!-- paging -->
+											<div class="pagination" align="center"></div>
+										</div>
+									</div>
                             	</form>
                             </div>
                         </div>
@@ -123,5 +143,81 @@
         <script src="resources/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	
+        <script type="text/javascript">
+        $(document).ready(function(){
+			$("#searchBtn").click(function(){
+				let keyword = $("#keyword").val();
+				let searchType = $("#searchType option:selected").val();
+				console.log(searchType);
+				if(!searchValidator(searchType, keyword)){
+					return false;
+				}
+				
+				const param = {
+					keyword : keyword,
+					searchType : searchType
+				}
+				
+				let form= $("<form></form>");
+				form.attr("name", "SearchForm");
+				form.attr("method", "get");
+				form.attr("action", "<c:url value='/adminCourseList.do'/>");
+				
+				
+				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
+				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
+				
+				form.appendTo("body");
+				
+				form.submit();
+				
+			});	
+        });
+        
+		function searchValidator(searchType, keyword){
+			if(searchType == "" || typeof searchType == "undefined"){
+				alert("검색 조건을 선택하세요");
+				$("#searchType").focus();
+				return false;
+			}
+			
+			if(keyword == ""){
+				alert("검색 내용을 입력하세요");
+				$("#keyword").focus();
+				return false;
+			}
+        	return true;
+		}
+	        /* $(document).on('click', '#searchBtn', function(e){
+				if(!searchForm.find("option:selected").val()){
+					alert("검색 타입을 선택하세요");
+					return false;
+				}
+				
+				if(!searchForm.find("input[name='keyword']").val()){
+					alert("검색할 내용을 입력하세요");
+					return false;
+				}
+				
+				//searchForm.find("input[name='pageNum']").val("1");
+				e.preventDefault();
+					
+				let url = "${pageContext.request.contextPath}/admin/adminCourseList";
+				
+				url = url + "?searchType=" + $('#searchType').val();
+				url = url + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+				//url = url + "&keyword=" + $('#keyword').val();
+		
+				location.href = url;
+		
+				searchForm.submit();
+				
+				console.log(url);
+			});	 */
+		</script>
+
     </body>
 </html>

@@ -3,11 +3,15 @@ package com.edu.java.dto;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
-@Component
+@Setter
+@Getter
 public class CourseDto {
 	private int rnum;                   // 게시판 글 번호
 	private int c_no;					// 교육 번호
@@ -29,4 +33,19 @@ public class CourseDto {
 	private String c_count;				// 교육 조회수
 	private Date app_start_date;		// 교육 신청 _접수 시작일 
 	private Date app_last_date;			// 교육 신청 _접수 마감일
+	
+	//private String keyword;			// 
+	//private String searchType;			// 검색 타입
+	//private String[] typeArr;			// 검색 타입 배열
+	
+	/* searchType 변수에 data가 들어왔을 때, 자동으로 배열 형식으로 변환하여 typeArr변수에 저장될 수 있도록 setType()메서드 수정
+	 * 배열로 변환하기 위해 String 타입의 데이터를 String 배열 타입 데이터로 변환해주는 split() 메서드를 사용
+	 * */
+	/*
+	 * public void setType(String searchType) { 
+	 * 		this.searchType = searchType;
+	 * 		this.typeArr = searchType.split(""); 
+	 * }
+	 */
+	
 }

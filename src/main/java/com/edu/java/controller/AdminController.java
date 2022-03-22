@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,6 +32,7 @@ import com.edu.java.dto.CourseDto;
 import com.edu.java.dto.FaqDto;
 import com.edu.java.dto.NoticeDto;
 import com.edu.java.dto.QnaDto;
+import com.edu.java.dto.SearchCriteria;
 import com.google.gson.JsonObject;
 
 @Controller
@@ -266,29 +268,58 @@ public class AdminController {
 	/* QnA Insert */
 	
 	/* QnA Search */
+	
 	/*@RequestMapping(value="/searching.do", method=RequestMethod.POST)
 	@ResponseBody
 	public List<ProductDto> searchKeyword(@RequestBody String tagname) {
 		logger.info("hashTagSearch, tagName : " + tagname);
 		String hashTag = tagname.substring(1, tagname.length()-1);
 		
-		List<ProductDto> list = marketBiz.searchKeyword(hashTag);
+		List<QnaDto> list = marketBiz.searchKeyword(hashTag);
 		return list;
 	}*/
 	
 	/* Course */
-	/* 교육 목록 */
+	/* Course List */
 	@RequestMapping(value="adminCourseList.do", method=RequestMethod.GET)
-	public ModelAndView adminCourseList() throws Exception{
+	public ModelAndView adminCourseList(SearchCriteria dto) throws Exception{
 		logger.info("admin Course List");
-		ModelAndView mav = new ModelAndView();
-		List<CourseDto> list = adminBiz.adminCourseList();
 		
+		ModelAndView mav = new ModelAndView();
+		String keyword = "";
+		
+		if(dto.getKeyword() != null) {
+			keyword = dto.getKeyword();
+		}
+		
+		List<CourseDto> list = adminBiz.adminCourseList(keyword);
+
 		mav.setViewName("/admin/adminCourseList");
 		mav.addObject("list", list);
+		//mav.addObject("list", adminBiz.searchKeyword(scri));
 		
+		//int total = adminBiz.getTotal(cri);
+		//CourseDto pageMake = new CourseDto(cri, total);
+		
+		//mav.addObject("pageMaker", pageMake);
+		//mav.addObject(cri, total);
+		System.out.println(list);
 		return mav;
 	}
+	
+	/* Course Search */
+	/*
+	 * @RequestMapping(value="searchKeyword.do", method=RequestMethod.POST)
+	 * 
+	 * @ResponseBody public List<CourseDto> searchCourse(@RequestBody String
+	 * keyword) { logger.info("searchCourse, searchName : " + keyword); String
+	 * searchKeyword = keyword.substring(12, keyword.length()-2);
+	 * System.out.println("Contorller => SearchKeyword : " + searchKeyword);
+	 * 
+	 * List<CourseDto> list = adminBiz.searchKeyword(keyword);
+	 * 
+	 * return list; }
+	 */
 	
 	/* Course Detail */
 	@RequestMapping(value="adminCourseDetail.do", method=RequestMethod.GET)

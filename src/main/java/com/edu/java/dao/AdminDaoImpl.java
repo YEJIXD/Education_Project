@@ -1,22 +1,18 @@
 package com.edu.java.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import javax.activation.CommandMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.edu.java.dto.CancleDto;
 import com.edu.java.dto.CourseDto;
+import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
 import com.edu.java.dto.MemberDto;
 import com.edu.java.dto.NoticeDto;
 import com.edu.java.dto.QnaDto;
-import com.edu.java.dto.ReviewDto;
 import com.edu.java.dto.TeacherDto;
 
 @Repository
@@ -294,16 +290,40 @@ public class AdminDaoImpl implements AdminDao{
 	
 	/* Course */
 	@Override
-	public List<CourseDto> adminCourseList() {
+	public List<CourseDto> adminCourseList(String param) {
 		List<CourseDto> adminCourseList = new ArrayList<CourseDto>();
 			
 		try {
-			adminCourseList = sqlSession.selectList(NAMESPACE + "adminCourseList");
+			adminCourseList = sqlSession.selectList(NAMESPACE + "adminCourseList", param);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Course list");
 			e.printStackTrace();
 		}
 		return adminCourseList;
+	}
+	
+	//게시판 총 갯수
+	/*
+	 * @Override public int getTotal(Criteria cri) { int total = 0;
+	 * 
+	 * try { total = sqlSession.selectOne(NAMESPACE + "getTotal"); //select -> 오류
+	 * selectone 맞는지 여쭤보기 } catch (Exception e) {
+	 * System.out.println("[error] : Course Get Total"); e.printStackTrace(); }
+	 * return total; }
+	 */
+	
+	@Override
+	public List<CourseDto> searchKeyword(String keyword){
+		List<CourseDto> list = null;
+		keyword = "%" + keyword + "%";
+		
+		try {
+			list = sqlSession.selectList(NAMESPACE + "adminCourseList", keyword);
+		} catch (Exception e) {
+			System.out.println("[error] : admin Search Keyword");
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 	@Override
