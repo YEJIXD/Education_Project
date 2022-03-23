@@ -31,19 +31,17 @@
 						<th style="width:200px;">신청인원/모집인원</th>
 						<th style="width:100px;">접수 상태</th>
 						<th style="width:150px;">등록일</th>
-						<th style="width:80px;">조회수</th>
 					</tr>
 				</thead>		
 				<tr></tr>
 				<tbody>
-					<c:forEach items="${list }" var="dto">
+					<c:forEach items="${list}" var="dto">
 						<tr>
 							<td>${dto.c_no}</td>
-							<td><a href="courseDetail.do?c_no="${dto.c_no }>${dto.c_name }</a></td>
-							<td>/ ${dto.ent_personnel}</td>
-							<td style="color:blue;">접수중</td>
+							<td><a href="courseDetail.do?c_no=${dto.c_no}">${dto.c_name}</a></td>
+							<td>${dto.app_personnel}명 / ${dto.ent_personnel}명</td>
+							<td style="color:blue;">${APPLICATION.c_status}</td>
 							<td>${dto.c_regdate }</td>
-							<td>${dto.c_count }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

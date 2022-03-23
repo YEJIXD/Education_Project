@@ -18,11 +18,11 @@ public class CourseDaoImpl implements CourseDao{
 	
 	// LIST
 	@Override
-	public List<CourseDto> courseList() {
+	public List<CourseDto> courseList(String param) {
 		List<CourseDto> courseList = new ArrayList<CourseDto>();
 		
 		try {
-			courseList = sqlSession.selectList(NAMESPACE + "courseList");
+			courseList = sqlSession.selectList(NAMESPACE + "courseList", param);
 		} catch (Exception e) {
 			System.out.println("[error] : course list");
 			e.printStackTrace();
@@ -42,6 +42,20 @@ public class CourseDaoImpl implements CourseDao{
 		}
 		
 		return dto;
+	}
+
+	@Override
+	public int courseAppInsert(CourseDto dto) throws Exception {
+		int res = 0;
+		
+		try {
+			res = sqlSession.insert(NAMESPACE + "courseAppInsert", dto);
+			System.out.println("dto : " + dto);
+		} catch (Exception e) {
+			System.out.println("[error] : Course App Insert error");
+			e.printStackTrace();
+		}
+		return res;
 	}
 	
 }

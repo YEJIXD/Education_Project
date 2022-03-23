@@ -4,10 +4,19 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="course">
-  	<select id="courseList" parameterType="list" resultType="courseDto">
-  		SELECT C_NO, C_NAME, ENT_PERSONNEL, C_STATUS, C_REGDATE, C_COUNT
-  		FROM mydb.COURSE
-  		ORDER BY C_NO DESC
+  	<select id="courseList" parameterType="String" resultType="courseDto">
+  		SELECT 
+					@rownum:=@rownum +1 as rnum
+					, C_NO
+					, C_NAME
+					, ENT_PERSONNEL
+					, C_REGDATE
+					, C_START_DATE
+					, C_LAST_DATE
+					
+			FROM mydb.COURSE C, (SELECT @rownum:=0) R
+			WHERE C_NAME like CONCAT('%', #{value} , '%')
+			ORDER BY C_NO DESC
   	</select>
   	
   	<select id="courseDetail" parameterType="list" resultType="courseDto">
@@ -16,5 +25,44 @@
   		WHERE C_NO = #{c_no}
   	</select>
   	
+  	<!-- 교육 신청 -->
+  	<insert id="courseAppInsert">
+  		INSERT INTO mydb.APPLICATION
+  		(				APP_NO
+  					  , C_NO
+					  , USER_NO
+					  , USER_NAME
+					  , USER_EMAIL
+					  , C_NAME
+					  , C_CATEGORY
+					  , C_TYPE
+					  , C_TIME
+					  , C_DETAIL
+					  , C_START_DATE
+					  , C_LAST_DATE
+					  , C_START_TIME 
+					  , APP_START_DATE
+					  , APP_LAST_DATE
+					  , APP_DATE
+			)
+			VALUES
+			(		   (SELECT IFNULL(MAX(A.APP_NO),0) + 1 FROM mydb.APPLICATION A)  
+					 , {#c_no}
+					 , {#user_no}
+					 , #{user_name}
+					 , #{user_email}
+					 , #{c_name}
+					 , #{c_category}
+					 , #{c_type}
+					 , #{c_time}
+					 , #{c_detail}
+					 , #{c_start_date}
+					 , #{c_last_date}
+					 , #{c_start_time}
+					 , #{app_start_date}
+					 , #{app_last_date}
+					 , NOW()
+			)
+  	</insert>
   
   </mapper>

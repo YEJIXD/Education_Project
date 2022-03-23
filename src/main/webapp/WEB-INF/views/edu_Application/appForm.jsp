@@ -22,28 +22,24 @@
 			<form name="appForm" action="myStudy.do" method="GET">
 				<table class="table">
 					<tr>
-						<th>과정 구분</th>
-						<td>2022년도 2분기</td>
-					</tr>
-					<tr>
 						<th>과정 분류</th>
-						<td>경제</td>
+						<td>${dto.c_category}</td>
 					</tr>
 					<tr>
-						<th>교육명</th>
-						<td>부동산 마케팅 기획자 실무과정</td>
+						<th>강의명</th>
+						<td>${dto.c_name}</td>
 					</tr>
 					<tr>
 						<th>신청일</th>
-						<td>2022.02.24</td>
+						<td>${APPLICATION.app_date }</td>
 					</tr>
 					<tr>
 						<th>신청인</th>
-						<td>김동산</td>
+						<td>${member.user_name}</td>
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td>Dongsan123@naver.com</td>
+						<td>${member.user_email}</td>
 					</tr>
 				</table>
 		
@@ -58,5 +54,7 @@
 	<div id="footer">
 		<%@ include file="../common/footer.jsp" %>
 	</div>
+	
+	
 </body>
 </html>

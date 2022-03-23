@@ -28,7 +28,7 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;"><i class="fas fa-user fa-fw" style="color:black;"></i></a>
 	                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-	                        <li><a class="dropdown-item" href="logout.do">LogOut</a></li>
+	                        <li><a class="dropdown-item" href="logout.do" onclick="logoutCheck();">LogOut</a></li>
 	                        <li><a class="dropdown-item" href="main.do">Main</a></li>
 	                    </ul>
 	                </li>
@@ -98,6 +98,7 @@
 							</div>
 							
 							<input type="hidden" value="${dto.c_no }">
+							
                             	<form action="adminCourseInsert.do" method="GET">
 	                                <table id="datatablesSimple" class="table table-hover courseList">
 	                                    <thead>
@@ -114,14 +115,13 @@
 				                            	<tr>
 				                                	<td>${dto.rnum }</td>
 				                                    <td style="vertical-align:middle;"><a href="adminCourseDetail.do?c_no=${dto.c_no}" style="text-decoration:none; color:#9966FF; font-weight:bold;">${dto.c_name}</a></td>
-				                                    <td style="vertical-align:middle;">${dto.ent_personnel }</td>
-				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.c_regdate}"/></td>
-				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.c_start_date }"/> ~ <fmt:formatDate pattern="yyyy-MM-dd" value="${dto.c_last_date }"/></td>
+				                                    <td style="vertical-align:middle;">${dto.ent_personnel}명</td>
+				                                    <td style="vertical-align:middle;">${dto.c_regdate}</td>
+				                                    <td style="vertical-align:middle;">${dto.c_start_date} ~ ${dto.c_last_date}</td>
 				                            	</tr>
 				                        	</c:forEach>
 	                                    </tbody>
 	                                </table>
-	                                
 	                                <div class="listBottom">
 		                                <div class="inpBtn">
 		                                	<input type="submit" class="adm_insert" id="submit" value="등 록">
@@ -129,7 +129,19 @@
 		                            	
 		                            	<div class="coursePaging">
 											<!-- paging -->
-											<div class="pagination" align="center"></div>
+											<div class="m-paging">
+												<ul>
+													<c:if test="${page.prev}">
+														<li><a href='<c:url value="/admin/adminCourseList?page=${page.startPage-1}"/>' class='oiBtn prev'><</a></li>
+													</c:if>
+													<c:forEach begin="${page.startPage}" end="${page.endPage}" var="pageNum">
+														<li><a href='<c:url value="/admin/adminCourseList?page=${page}"/>' class='num'>${page}</a></li>
+													</c:forEach>
+													<c:if test="${page.next && page.endPage>0}">
+														<li><a href='<c:url value="/admin/adminCourseList?page=${page.endPage+1}"/>' class='oiBtn next'>></a></li>
+													</c:if>
+												</ul>
+											</div>
 										</div>
 									</div>
                             	</form>
@@ -139,14 +151,19 @@
                 </main>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="resources/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 	
         <script type="text/javascript">
+        let datePerPage;		// 한 페이지에 나타낼 게시글 갯수
+        let pageCount = 10;		// 하단에 나타낼 페이지 갯수
+		let currentPage = 1; 	// 현재 페이지 번호
+		
+		
         $(document).ready(function(){
 			$("#searchBtn").click(function(){
 				let keyword = $("#keyword").val();
@@ -175,6 +192,9 @@
 				form.submit();
 				
 			});	
+			
+			/* 페이징 */
+			
         });
         
 		function searchValidator(searchType, keyword){

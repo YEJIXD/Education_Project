@@ -1,14 +1,7 @@
 package com.edu.java.dto;
 
-import java.util.Date;
-
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Setter
 @Getter
@@ -24,15 +17,16 @@ public class CourseDto {
 	private String c_detail;			// 교육 상세 설명
 	private int ent_personnel;			// 전체 모집 인원
 	
-	private Date c_regdate;				// 교육 등록일
-	private Date c_upd_date;			// 교육 수정일
+	private String c_regdate;				// 교육 등록일
+	private String c_upd_date;			// 교육 수정일
 	private String c_init_writer;		// 교육 최초 등록자
 	private String c_upd_writer;		// 교육 수정자
-	private Date c_start_date;			// 교육 시작일
-	private Date c_last_date;			// 교육 종료일
+	private String c_start_date;			// 교육 시작일
+	private String c_last_date;			// 교육 종료일
 	private String c_count;				// 교육 조회수
-	private Date app_start_date;		// 교육 신청 _접수 시작일 
-	private Date app_last_date;			// 교육 신청 _접수 마감일
+	private String app_start_date;		// 교육 신청 _접수 시작일 
+	private String app_last_date;			// 교육 신청 _접수 마감일
+	private int app_personnel;			// 교육 신청 _ 신청 인원
 	
 	//private String keyword;			// 
 	//private String searchType;			// 검색 타입
