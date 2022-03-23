@@ -69,7 +69,8 @@
 	        	<li class="nav-item dropdown">
 	            	<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;"><i class="fas fa-user fa-fw" style="color:black;"></i></a>
 	                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-	                	<li><a class="dropdown-item" href="logout.do">LogOut</a></li>
+	                	<li><a class="dropdown-item" href="logout.do" onclick="logoutCheck();">LogOut</a></li>
+	                	<li><a class="dropdown-item" href="main.do">Main</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -145,5 +146,12 @@
         <script src="resources/admin/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="resources/admin/js/datatables-simple-demo.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript">
+			function logoutCheck(){
+				alert('로그아웃하시겠습니까?');
+				location.href="logout.do";
+			}
+		</script>
     </body>
 </html>
