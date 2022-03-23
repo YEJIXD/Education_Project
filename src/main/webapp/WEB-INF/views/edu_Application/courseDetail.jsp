@@ -20,6 +20,8 @@
 		<%@ include file="../common/header.jsp" %>
 	</div>
 	
+	<input type="hidden" value="${dto.c_no}">
+	
 	<div class="container">
 		<h3 class="formTitle" style="font-weight:normal;">교육 상세</h3><br><br>
 		<div class="content">
@@ -27,54 +29,55 @@
 				<table class="table insertTable">
 					<tr>
 						<th>번호</th>
-						<td><input type="text" value="${COURSE.C_NO }"></td>
+						<td id="c_no">${dto.c_no}</td>
 					</tr>
 					<tr>
 						<th>강 의 명</th>
-						<td>${COURSE.C_NAME }</td>
+						<td id="c_name">${dto.c_name}</td>
 					</tr>
 					<tr>
 						<th>과정 분류</th>
-						<td>${COURSE.C_CATEGORY }</td>
+						<td id="c_category">${dto.c_category}</td>
 					</tr>
 					<tr>
 						<th>교육 형태</th>
-						<td>${COURSE.C_TYPE }</td>
+						<td id="c_type">${dto.c_type}</td>
 					</tr>
 					<tr>
-						<th>시작 시간</th>
-						<td>${COURSE.C_START_TIME }</td>
+					<th>시작 시간</th>
+						<td id="c_start_time">${dto.c_start_time}</td>
 					</tr>
 					<tr>
 						<th>총 교육 시간</th>
-						<td>${COURSE.C_TIME }</td>
+						<td id="c_time">${dto.c_time} 시간</td>
 					</tr>
 					<tr>
 						<th>교육 기간</th>
-						<td>${COURSE.C_START_DATE} ~ ${COURSE.C_LAST_DATE }</td>
+						<td>${dto.c_start_date} ~ ${dto.c_last_date}</td>
 					</tr>
 					<tr>
 						<th>모집인원</th>
-						<td>${COURSE.ENT_PERSONNEL }</td>
+						<td id="ent_personnel">${dto.ent_personnel}명</td>
 					</tr>
 					<tr>
 						<th>신청 기간</th>
-						<td>${APPLICATION.APP_START_DATE} ~ ${APPLICATION.APP_LAST_DATE }</td>
+						<td>${dto.app_start_date} ~ ${dto.app_last_date}</td>
 					</tr>
 					<tr>
 						<th>등록일</th>
-						<td>${COURSE.C_REGDATE }</td>
+						<td id="c_regdate">${dto.c_regdate}</td>
 					</tr>
 					<tr>
 						<th>상세 설명</th>
 					</tr>
 					<tr>
 						<th></th>
-						<td style="padding-bottom:50px;">${COURSE.C_DETAIL }</td>
+						<td id="c_detail" style="padding-bottom:50px;">${dto.c_detail }</td>
 					</tr>
 				</table>
 				
 				<div class="inpBtn">
+					<input type="button" class="subBtn" id="appCourse" onclick="location.href='appForm.do'" value="신 청">
 					<input type="button" class="antBtn" onclick="location.href='courseList.do'" value="목 록">
 				</div>
 			</form>
@@ -84,5 +87,57 @@
 	<div id="footer">
 		<%@ include file="../common/footer.jsp" %>
 	</div>
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#appCourse").click(function(){
+				let c_name = $("#c_name").val();
+				let c_category = $("#c_category").val();
+				let c_type = $('#c_type').val();
+				let c_time = $("#c_time").val();
+				let c_start_time = $("#c_start_time").val();
+				let c_start_date = $("#c_start_date").val();
+				let c_last_date = $("#c_last_date").val();
+				let app_start_date = $("#app_start_date").val();
+				let app_last_date = $("#app_last_date").val();
+				let ent_personnel = $("#ent_personnel").val();
+				let c_detail = $("#c_detail").val();
+				
+				const param = {
+					c_name : c_name,
+					c_time : c_time,
+					c_category : c_category,
+					c_type : c_type,
+					c_start_time : c_start_time,
+					c_start_date : c_start_date,
+					c_last_date : c_last_date,
+					app_start_date : app_start_date,
+					app_last_date : app_last_date,
+					ent_personnel : ent_personnel,
+					c_detail : c_detail
+				}
+	
+				$.ajax({
+					url:"/appInsert.do",
+					type:"post",
+					contentType: "application/json",
+					data:JSON.stringify(param),
+					
+					success:function(result){
+							if(result.resultCode == 0){
+								alert(result.msg);
+								$(location).attr("href", "<c:url value='adminCourseList.do' />");
+							}else{
+								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
+							}
+					},
+					error : function(result) {
+						alert("서버 통신 에러");
+					}
+				});
+			});
+	</script>
 </body>
 </html>

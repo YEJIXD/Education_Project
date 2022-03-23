@@ -15,13 +15,18 @@ public class CourseBizImpl implements CourseBiz{
 	CourseDao courseDao;
 	
 	@Override
-	public List<CourseDto> courseList(){
-		return courseDao.courseList();
+	public List<CourseDto> courseList(String param){
+		return courseDao.courseList(param);
 	}
 	
 	@Override
 	public CourseDto selectOne(int c_no) {
 		return courseDao.selectOne(c_no);
+	}
+
+	@Override
+	public int courseAppInsert(CourseDto dto) throws Exception {
+		return courseDao.courseAppInsert(dto);
 	}
 	
 	
