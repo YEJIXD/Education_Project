@@ -11838,6 +11838,17 @@ table{ width:100% }
 .application:hover span{display:none;}
 .application:hover:after{content:"수강 내역";}
 
+/* 페이징 */
+.m-paging { margin: 50px 0; } 
+.m-paging ul { text-align: center; font-size: 16px; } 
+.m-paging ul li { display: inline-block; padding: 0 1px; } 
+.m-paging ul li a { color: #aaa; display: inline-block; min-width: 40px; height: 40px; line-height: 40px; border: 1px solid #ddd; } 
+.m-paging ul li a:hover { background-color: #f4f4f4; } 
+.m-paging ul li a.active { color: #fff; background: #002e6e; } 
+.m-paging ul li .oiBtn { margin: 0 5px; background-size: 30%; } 
+.m-paging ul li .oiBtn.prev { } 
+.m-paging ul li .oiBtn.next { }
+
 	        
 /* Modal (background) */
 		.modal {
