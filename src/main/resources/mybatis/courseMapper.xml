@@ -4,24 +4,44 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="course">
-  	<select id="courseList" parameterType="String" resultType="courseDto">
+  	<select id="courseList" resultType="courseDto">
   		SELECT 
 					@rownum:=@rownum +1 as rnum
 					, C_NO
 					, C_NAME
+					, APP_PERSONNEL
 					, ENT_PERSONNEL
-					, C_REGDATE
-					, C_START_DATE
-					, C_LAST_DATE
+					, DATE_FORMAT(C_REGDATE, '%Y-%m-%d') as C_REGDATE
+					, DATE_FORMAT(C_START_DATE, '%Y-%m-%d') as C_START_DATE
+					, DATE_FORMAT(C_LAST_DATE, '%Y-%m-%d') as C_LAST_DATE
 					
 			FROM mydb.COURSE C, (SELECT @rownum:=0) R
-			WHERE C_NAME like CONCAT('%', #{value} , '%')
-			ORDER BY C_NO DESC
+			
+			WHERE C_NAME like CONCAT('%', #{keyword} , '%')
+			
+			ORDER BY rnum DESC
+			
+			LIMIT ${startPage}, ${endPage}
   	</select>
   	
   	<select id="courseDetail" parameterType="list" resultType="courseDto">
-  		SELECT C_NO, C_NAME, C_CATEGORY, C_TYPE, C_TIME, C_START_TIME, C_START_DATE, C_LAST_DATE, C_DETAIL, C_REGDATE, C_COUNT
+  		SELECT 
+  				C_NO
+  			  , C_NAME
+  			  , C_CATEGORY
+  			  , C_TYPE
+  			  , C_START_TIME
+  			  , C_TIME
+  			  , DATE_FORMAT(C_START_DATE, '%Y-%m-%d') as C_START_DATE
+  			  , DATE_FORMAT(C_LAST_DATE, '%Y-%m-%d') as C_LAST_DATE
+  			  , ENT_PERSONNEL
+  			  , DATE_FORMAT(APP_START_DATE, '%Y-%m-%d') as APP_START_DATE
+  			  , DATE_FORMAT(APP_LAST_DATE,  '%Y-%m-%d') as APP_LAST_DATE
+  			  , DATE_FORMAT(C_REGDATE, '%Y-%m-%d') as C_REGDATE
+  			  , C_DETAIL
+  			  
   		FROM mydb.COURSE
+  		
   		WHERE C_NO = #{c_no}
   	</select>
   	
@@ -31,8 +51,6 @@
   		(				APP_NO
   					  , C_NO
 					  , USER_NO
-					  , USER_NAME
-					  , USER_EMAIL
 					  , C_NAME
 					  , C_CATEGORY
 					  , C_TYPE
@@ -47,10 +65,8 @@
 			)
 			VALUES
 			(		   (SELECT IFNULL(MAX(A.APP_NO),0) + 1 FROM mydb.APPLICATION A)  
-					 , {#c_no}
-					 , {#user_no}
-					 , #{user_name}
-					 , #{user_email}
+					 , #{c_no}
+					 , #{user_no}
 					 , #{c_name}
 					 , #{c_category}
 					 , #{c_type}

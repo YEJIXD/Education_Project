@@ -9,15 +9,15 @@ import lombok.ToString;
 @ToString
 public class PageDto{
 	// Search
-	private String searchType;		// 검색 타입
-	private String keyword = "";			// 키워드
+	private String searchType;			// 검색 타입
+	private String keyword = "";		// 키워드
 
 	// Paging
-	private int startPage;		// 시작 페이지	
-	private int endPage = 10;		// 끝 페이지
-	private boolean prev, next;	// 이전, 다음 페이지 유무
-	private int total;			// 전체 게시글 수
-	private Criteria cri;		// Criteria 객체 (현재 페이지, 페이지당 게시물 표시수 정보 => page(현재 페이지) 변수 값을 얻기 위해 선언)
+	private int startPage;				// 시작 페이지	
+	private int endPage = 10;			// 끝 페이지
+	private boolean prev, next;			// 이전, 다음 페이지 유무
+	private int total;					// 전체 게시글 수
+	private Criteria cri;				// Criteria 객체 (현재 페이지, 페이지당 게시물 표시수 정보 => page(현재 페이지) 변수 값을 얻기 위해 선언)
 	private int displayPageNum = 10;	// 화면 하단에 보여지는 페이지 버튼 수
 	
 	public PageDto() {
@@ -42,6 +42,7 @@ public class PageDto{
 		this.cri = cri;
 		this.total = total;
 		
+		// endPage는 currentPage, displayPageNum, total 세 가지 값에 의존
 		this.endPage = (int)(Math.ceil(cri.getPage() / 10.0)) * 10;
 		
 		this.startPage = this.endPage - 9;
@@ -54,19 +55,21 @@ public class PageDto{
 			this.endPage = realEnd;
 		}
 		
-		// 시작 페이지가 1페이지보다 크면 prev가 true
+		// 시작 페이지가 1페이지보다 크면 prev가 true 
+		//(prev는 currentPage로 구한 startPage가 1인 경우 false, 나머지 경우는 모두 true)
 		this.prev = this.startPage > 1;
-		// 끝 페이지가 실제 끝페이지(realEnd)보다 작으면 next가 true
+		// prev = (startPage == 1) ? false : true
+		
+		// 끝 페이지가 실제 끝페이지(realEnd)보다 작으면 next가 true 
+		//(next는 currentPage로 구한 endPage가 total(모든 페이지 개수)인 경우 false, 나머지 경우는 모두 true)
 		this.next = this.endPage < realEnd;
+		//next = (endPage == total) ? false : true
+		// => 즉, prev와 next 값은 startPage, endPage, totalPages에 의존
 	}
 	
-	public void setCriteria(Criteria cri) { 
-		this.cri = cri; 
-	} 
-	
-	public void setTotalCount(int total) { 
+	public void setTotal(int total) { 
 		this.total = total; 
-		calcData();			// 총 게시글 수를 세팅할 때 calcData()메서드를 호출하여 페이징 관련 버튼 계산을 함
+		calcData();			// 총 게시글 수를 세팅할 때 calcData()메서드를 호출하여 페이징 관련 버튼을 계산함
 	}
 	
 	// 게시글의 전체 갯수가 결정되면 calcData 메소드를 호출하여 계산 실행 => 페이징 버튼들을 생성하는 계산식 작성

@@ -113,6 +113,13 @@
 				</tr>
 				
 				<tr>
+					<th>수강료</th>
+					<td>
+						<input type="text" class="c_tuition" id="c_tuition" name="c_tuition" size="3" value="${dto.c_tuition}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 원
+					</td>
+				</tr>
+				
+				<tr>
 					<th>상세 설명</th>
 				</tr>
 				<tr>
@@ -151,25 +158,26 @@
 				let app_last_date = $("#app_last_date").val();
 				let ent_personnel = $("#ent_personnel").val();
 				let c_detail = $("#c_detail").val();
+				let c_tuition = $("#c_tuition").val();
 				
-				
-				if(!updateValidator(c_name, c_time, c_start_time, c_start_date, c_last_date, app_start_date, app_last_date, ent_personnel, c_detail)){
+				if(!updateValidator(c_name, c_time, c_start_time, c_start_date, c_last_date, app_start_date, app_last_date, ent_personnel, c_detail, c_tuition)){
 					return false;
 				}
 				
 				const param = {
-					c_no : c_no,
-					c_name : c_name,
-					c_category : c_category,
-					c_type : c_type,
-					c_time : c_time,
-					c_start_time : c_start_time,
-					c_start_date : c_start_date,
-					c_last_date : c_last_date,
-					app_start_date : app_start_date,
-					app_last_date : app_last_date,
-					ent_personnel : ent_personnel,
-					c_detail : c_detail
+					  c_no : c_no
+					, c_name : c_name
+					, c_time : c_time
+					, c_category : c_category
+					, c_type : c_type
+					, c_start_time : c_start_time
+					, c_start_date : c_start_date
+					, c_last_date : c_last_date
+					, app_start_date : app_start_date
+					, app_last_date : app_last_date
+					, ent_personnel : ent_personnel
+					, c_detail : c_detail
+					, c_tuition : c_tuition
 				}
 
 				$.ajax({
@@ -243,7 +251,7 @@
 		
 		
 		/* null 방지 유효성 검사 */
-		function updateValidator(c_name, c_type, c_time, c_start_time, c_start_date, c_last_date, app_start_date, app_last_date, ent_personnel, c_detail ){
+		function updateValidator(c_name, c_type, c_time, c_start_time, c_start_date, c_last_date, app_start_date, app_last_date, ent_personnel, c_detail, c_tuition ){
 			if(c_name == ""){
 				alert("강의명을 입력하세요.");
 				$("#c_name").focus();
@@ -295,6 +303,12 @@
 			if(ent_personnel == ""){
 				alert("모집 인원을 입력하세요.");
 				$("#ent_personnel").focus();
+				return false;
+			}
+			
+			if(c_tuition == ""){
+				alert("수강료를 입력하세요.");
+				$("#c_tuition").focus();
 				return false;
 			}
 			

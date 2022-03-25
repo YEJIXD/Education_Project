@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.edu.java.dao.CourseDao;
 import com.edu.java.dto.CourseDto;
+import com.edu.java.dto.PageDto;
 
 @Service
 public class CourseBizImpl implements CourseBiz{
@@ -15,8 +16,8 @@ public class CourseBizImpl implements CourseBiz{
 	CourseDao courseDao;
 	
 	@Override
-	public List<CourseDto> courseList(String param){
-		return courseDao.courseList(param);
+	public List<CourseDto> courseList(PageDto dto){
+		return courseDao.courseList(dto);
 	}
 	
 	@Override

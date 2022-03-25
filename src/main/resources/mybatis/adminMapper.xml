@@ -157,73 +157,33 @@
 			DELETE FROM QNA WHERE Q_RE_NO = #{q_re_no}
 		</delete>
 		
-		
-		
-		
 	<!-- admin Course -->
 		<!-- 전체 리스트 -->
-		<select id="adminCourseList" parameterType="String" resultType="courseDto">
+		<select id="adminCourseList" parameterType="pageDto" resultType="courseDto">
 			SELECT 
 					  @rownum:=@rownum +1 as rnum
 					, C_NO
 					, C_NAME
+					, APP_PERSONNEL
 					, ENT_PERSONNEL
-					, C_REGDATE
-					, C_START_DATE
-					, C_LAST_DATE
-					
+					, DATE_FORMAT(C_REGDATE, '%Y-%m-%d') as C_REGDATE
+					, DATE_FORMAT(C_START_DATE, '%Y-%m-%d') as C_START_DATE
+					, DATE_FORMAT(C_LAST_DATE, '%Y-%m-%d') as C_LAST_DATE
 			FROM mydb.COURSE C, (SELECT @rownum:=0) R
-			WHERE C_NAME like CONCAT('%', #{value} , '%')
-			<!-- SELECT 
-					  @rownum:=@rownum +1 as rnum
-					, C_NO
-					, C_NAME
-					, ENT_PERSONNEL
-					, C_REGDATE
-					, C_START_DATE
-					, C_LAST_DATE
-					
-			FROM mydb.COURSE C, (SELECT @rownum:=0) R
-				 <trim prefix="WHERE" prefixOverrides="AND|OR">
-					<if test="searchType=='title' and keyword != null and keyword != '' ">
-						AND TITLE like CONCAT('%', '#{keyword}', '%')
-					</if>
-
-					<if test="searchType=='content' and keyword != null and keyword != '' ">
-						AND CONTENT like CONCAT('%', '#{keyword}', '%')
-					</if>
-				</trim>
-			ORDER BY rnum DESC -->
+			
+			WHERE C_NAME LIKE CONCAT('%', #{keyword}, '%')
+			
+			ORDER BY rnum desc
+			
+			LIMIT ${startPage}, ${cri.amount}
 		</select>
 		
-		<!-- 게시물 총 갯수 -->
-		<!--  <select id="getTotal" resultType="courseDto">
-			SELECT COUNT(*)
-			FROM mydb.COURSE
-		</select> -->
-		
-		<!-- 게시물 목록 (페이징) -->
-		<!-- <select id="getListPaging" resultType="courseDto">
-			SELECT *
-			FROM (
-					SELECT C_NO, C_NAME, ENT_PERSONNEL, C_REGDATE, C_START_DATE, C_LAST_DATE
-					FROM mydb.COURSE
-				<if test="keyword != null">
-					WHERE C_NAME LIKE CONCAT('%','#{keyword}','%')
-				</if>
-					ORDER BY C_NO DESC
-				 )
-			LIMIT #{skip}, #{amount}		
-		</select> -->
-		
-		<!-- 게시물 총 개수 : 검색을 한 경우에는 필터링되어야 함 -->
-	    <!-- <select id="getTotal" resultType="int">
-	        SELECT COUNT(*) 
-			FROM mydb.COURSE
-	        <if test="keyword != null">
-	            WHERE C_NAME LIKE CONCAT ('%','#{keyword}','%')
-	        </if>
-	    </select> -->
+		<!-- 게시글 총 갯수 -->
+		<select id="getTotal" parameterType="String" resultType="int">
+			SELECT COUNT(*) as TOTAL_COUNT
+			FROM mydb.course
+			WHERE C_NAME LIKE CONCAT('%', #{value}, '%')
+		</select>
 		
 		<!-- 상세 페이지 -->
 		<select id="adminCourseDetail" parameterType="courseDto" resultType="courseDto">
@@ -241,6 +201,7 @@
 					, DATE_FORMAT(APP_LAST_DATE,  '%Y-%m-%d') as APP_LAST_DATE
 					, DATE_FORMAT(NOW(), '%Y-%m-%d') as C_REGDATE
 					, C_DETAIL
+					, C_TUITION
 					
 			FROM mydb.COURSE
 			
@@ -265,6 +226,7 @@
 					  , C_START_TIME 
 					  , APP_START_DATE
 					  , APP_LAST_DATE
+					  , C_TUITION
 			)
 			VALUES
 			(		   (SELECT IFNULL(MAX(C.C_NO),0) + 1 FROM mydb.COURSE C)
@@ -282,6 +244,7 @@
 					 , #{c_start_time}
 					 , #{app_start_date}
 					 , #{app_last_date}
+					 , #{c_tuition}
 			)
 		</insert>
 		
@@ -302,6 +265,7 @@
 				  , C_DETAIL = #{c_detail}
 				  , C_UPD_DATE = NOW()
 				  , C_UPD_WRITER = '관리자'
+				  , C_TUITION = #{c_tuition}
 				  
 			WHERE C_NO = #{c_no}
 		</update>

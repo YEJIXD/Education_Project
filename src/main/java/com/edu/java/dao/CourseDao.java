@@ -3,12 +3,13 @@ package com.edu.java.dao;
 import java.util.List;
 
 import com.edu.java.dto.CourseDto;
+import com.edu.java.dto.PageDto;
 
 public interface CourseDao {
 	String NAMESPACE = "course.";
 	
 	// list
-	public List<CourseDto> courseList(String param);
+	public List<CourseDto> courseList(PageDto dto);
 	
 	// selectOne
 	public CourseDto selectOne(int c_no);

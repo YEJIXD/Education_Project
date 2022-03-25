@@ -17,7 +17,7 @@
 	</div>
 	
 	<div class="container">
-	<h3>신청 확인</h3><br><br>
+	<h3>신청 정보 확인</h3><br><br>
 		<div class="content">
 			<form name="appForm" action="myStudy.do" method="GET">
 				<table class="table">

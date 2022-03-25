@@ -99,6 +99,13 @@
 				</tr>
 				
 				<tr>
+					<th>수강료</th>
+					<td>
+						<input type="text" class="c_tuition" id="c_tuition" name="c_tuition" size="5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 원
+					</td>
+				</tr>
+				
+				<tr>
 					<th>상세 설명</th>
 				</tr>
 				<tr>
@@ -110,7 +117,7 @@
 			</table>
 			
 			<div class="inpBtn">
-				<input type="button" class="subBtn" id="submit" value="등 록">
+				<input type="button" class="subBtn" id="insert" onclick="insertChk();" value="등 록">
 				<input type="button" class="antBtn" onclick="location.href='adminCourseList.do'" value="취 소">
 			</div>
 		</div>
@@ -123,15 +130,8 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script type="text/javascript">
-		/* function valueSave(){
-			const cTime = document.querySelector("#c_time").value;
-			const startDate = document.querySelector("#c_start_date").value;
-			const lastDate = document.querySelector("#c_last_date").value;
-			
-			console.log("c_time : " + cTime + ", c_start_date : " + startDate + ", c_last_date : " + lastDate);
-		} */
 		$(document).ready(function(){
-			$("#submit").click(function(){
+			$("#insert").click(function(){
 				let c_name = $("#c_name").val();
 				let c_category = $("#c_category option:selected").val();
 				let c_type = $('input[name=c_type]:checked').val();
@@ -143,23 +143,25 @@
 				let app_last_date = $("#app_last_date").val();
 				let ent_personnel = $("#ent_personnel").val();
 				let c_detail = $("#c_detail").val();
+				let c_tuition = $("#c_tuition").val();
 				
-				if(!insertValidator(c_name, c_time, c_start_time, c_last_date, app_last_date, ent_personnel, c_detail)){
+				if(!insertValidator(c_name, c_time, c_start_time, c_last_date, app_last_date, ent_personnel, c_detail ,c_tuition)){
 					return false;
 				}
 				
 				const param = {
-					c_name : c_name,
-					c_time : c_time,
-					c_category : c_category,
-					c_type : c_type,
-					c_start_time : c_start_time,
-					c_start_date : c_start_date,
-					c_last_date : c_last_date,
-					app_start_date : app_start_date,
-					app_last_date : app_last_date,
-					ent_personnel : ent_personnel,
-					c_detail : c_detail
+					  c_name : c_name
+					, c_time : c_time
+					, c_category : c_category
+					, c_type : c_type
+					, c_start_time : c_start_time
+					, c_start_date : c_start_date
+					, c_last_date : c_last_date
+					, app_start_date : app_start_date
+					, app_last_date : app_last_date
+					, ent_personnel : ent_personnel
+					, c_detail : c_detail
+					, c_tuition : c_tuition
 				}
 
 				$.ajax({
@@ -180,6 +182,11 @@
 						alert("서버 통신 에러");
 					}
 				});
+				
+				function insertChk(){
+					alert('작성하신 글을 등록하시겠습니까?');
+					location.href="adminCourseInsert.do";
+				}
 			});
 			
 			$.datepicker.setDefaults({
@@ -234,53 +241,44 @@
 			aToday = new Date();
 			aToday = aToday.toISOString().slice(0, 10);
 			$("#app_start_date").val(aToday);
-
-			
-			/* cToday = new Date();
-			cToday = cToday.toISOString().slice(0, 10);
-			$("#c_start_date").val(cToday); */
-			
-			
-
 		});
 		
-		function insertValidator(c_name, c_time, c_start_time, c_last_date, app_last_date, ent_personnel, c_detail ){
+		function insertValidator(c_name, c_time, c_start_time, c_last_date, app_last_date, ent_personnel, c_detail, c_tuition){
 			if(c_name == ""){
 				alert("강의명을 입력하세요.");
 				$("#c_name").focus();
 				return false;
 			}
-			
 			if(c_time == ""){
 				alert("총 교육 시간을 입력하세요.");
 				$("#c_time").focus();
 				return false;
 			}
-			
 			if(c_start_time == ""){
 				alert("시작 시간을 입력하세요.");
 				$("#c_start_time").focus();
 				return false;
 			}
-			
 			if(c_last_date == ""){
 				alert("교육 종료일을 입력하세요.");
 				$("#c_last_date").focus();
 				return false;
 			}
-			
 			if(app_last_date == ""){
 				alert("접수 마감일을 입력하세요.");
 				$("#app_last_date").focus();
 				return false;
 			}
-			
 			if(ent_personnel == ""){
 				alert("모집 인원을 입력하세요.");
 				$("#ent_personnel").focus();
 				return false;
 			}
-			
+			if(c_tuition == ""){
+				alert("수강료를 입력하세요.");
+				$("#c_tuition").focus();
+				return false;
+			}
 			if(c_detail == ""){
 				alert("교육 상세 설명을 입력하세요.");
 				$("#c_detail").focus();
