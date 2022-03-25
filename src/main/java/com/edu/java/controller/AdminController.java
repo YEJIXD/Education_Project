@@ -287,33 +287,21 @@ public class AdminController {
 		
 		logger.info("admin Course List");
 		ModelAndView mav = new ModelAndView("jsonView");
+		String keyword = "";
 		Criteria cri = new Criteria();
 		dto.setCri(cri);
+		
 		List<CourseDto> list = adminBiz.adminCourseList(dto);
 		mav.setViewName("/admin/adminCourseList");
 		mav.addObject("list", list);
-		
+
 		System.out.println(list);
-		
-		// Paging
-		
-		// 게시글 갯수 계산
-		//int count = adminBiz.getTotal(searchType, keyword);
-		
-		// 페이지 나누기 관련 처리
-		
-		// data를 map에 저장
-		
-		
 		
 		dto.setTotal(adminBiz.getTotal(dto.getKeyword()));			// 총 게시글 수 조회하는 로직 담기
 
 		mav.addObject("dto", new PageDto(cri, dto.getTotal()));		//total 값 가져오기
 		mav.setViewName("/admin/adminCourseList");
-//		List<Map<String,Object>> list = adminBiz.adminCourseList(cri);
-//	    mav.addObject("list", list);
-//	    mav.addObject("pageMaker", pageMaker);
-		
+
 		return mav;
 	}
 	
@@ -342,7 +330,7 @@ public class AdminController {
 	
 	
 	/* Course INSERT RES */
-	@RequestMapping(value="courseInsertRes.do", method=RequestMethod.POST)
+	@RequestMapping(value="/courseInsertRes.do", method=RequestMethod.POST)
 	public ModelAndView adminCourseInsertRes(@RequestBody CourseDto dto, HttpSession session) throws Exception {
 		logger.info("admin course insert Res");
 		ModelAndView mav = new ModelAndView("jsonView");
@@ -350,11 +338,11 @@ public class AdminController {
 			
 		try {
 			//if(검사 ==1) { throw new Userexception 코드 200 이유 : 검사값이 맞지않아 }
-			HashMap<String, Object> User = (HashMap<String, Object>) session.getAttribute("USER");
-			if(User == null) {
+			HashMap<String, Object> user = (HashMap<String, Object>) session.getAttribute("USER");
+			if(user == null) {
 				resultCode = 10;
 			}else {
-				String UserName = String.valueOf(User.get("USER_NAME"));
+				String UserName = String.valueOf(user.get("USER_NAME"));
 				dto.setC_init_writer(UserName);
 				adminBiz.adminCourseInsert(dto);
 			}
@@ -366,7 +354,7 @@ public class AdminController {
 		}
 		System.out.println(dto.toString());
 		mav.addObject("msg", "교육 등록 완료");
-	
+		
 		return mav;
 	}
 	
@@ -410,14 +398,29 @@ public class AdminController {
 	}
 	
 	/* Course Delete */
-	@RequestMapping(value="/adminCourseDelete.do", method=RequestMethod.GET)
-	public ModelAndView adminCourseDelete(int c_no) throws Exception{
+	@RequestMapping(value="/adminCourseDelete.do", method=RequestMethod.POST)
+	public ModelAndView adminCourseDelete(@RequestBody String param) throws Exception{
 		logger.info("admin Course Delete");
-		ModelAndView mav = new ModelAndView("jsonView");
 		
+		// 1) form 보낼 때 사용하는 코드 => String 사용  + @RequestParam
 		//adminBiz.adminCourseDelete(c_no);
-		mav.addObject("dto", adminBiz.adminCourseDelete(c_no));
-		mav.setViewName("/admin/adminCourseList");
+		
+		// 2) json으로 보낼 때 사용하는 코드 => ModelAndView 사용 + @RequestBody
+		ModelAndView mav = new ModelAndView("jsonView");
+		System.out.println(param);
+		HashMap <String , Object> map = cmmService.jsonStringToHashMap(param);
+		System.out.println(map);
+		int resultCode = 0; 
+		
+		try {
+			adminBiz.adminCourseDelete(Integer.valueOf(String.valueOf(map.get("c_no"))));
+			mav.addObject("msg", "삭제 성공");
+		} catch (Exception e) {
+			resultCode = 1;
+			e.printStackTrace();
+		}finally {
+			mav.addObject("resultCode", resultCode);
+		}
 		
 		return mav;
 	}

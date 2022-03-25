@@ -57,7 +57,7 @@ public interface AdminDao {
 	public CourseDto adminCourseDetail(int c_no) throws Exception;
 	public int adminCourseInsert(CourseDto dto) throws Exception;
 	public int adminCourseUpdate(CourseDto dto) throws Exception;
-	public int adminCourseDelete(int c_no);
+	public void adminCourseDelete(int c_no);
 	public int adminCourseCount(String c_count) throws Exception;
 	
 	/* Teacher */

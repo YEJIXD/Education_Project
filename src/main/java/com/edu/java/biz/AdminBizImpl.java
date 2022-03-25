@@ -165,8 +165,8 @@ public class AdminBizImpl implements AdminBiz{
 	}
 
 	@Override
-	public int adminCourseDelete(int c_no) {
-		return adminDao.adminCourseDelete(c_no);
+	public void adminCourseDelete(int c_no) {
+		adminDao.adminCourseDelete(c_no);
 	}
 	
 	@Override
