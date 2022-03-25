@@ -21,9 +21,6 @@
 		<%@ include file="../common/header.jsp" %>
 	</div>
 	
-	<input type="hidden" value="${dto.c_no}">
-	<!-- <input type="text" value="${dto.c_count }"> -->
-	
 	<div class="container">
 		<h3 class="formTitle" style="font-weight:normal;">교 육 상 세</h3><br><br>
 		<div class="content">
@@ -58,7 +55,7 @@
 				</tr>
 				<tr>
 					<th>모집인원</th>
-					<td id="ent_personnel">${dto.ent_personnel}명</td>
+					<td id="ent_personnel">${dto.ent_personnel} 명</td>
 				</tr>
 				<tr>
 					<th>신청 기간</th>
@@ -67,6 +64,10 @@
 				<tr>
 					<th>등록일</th>
 					<td id="c_regdate">${dto.c_regdate}</td>
+				</tr>
+				<tr>
+					<th>수강료</th>
+					<td id="c_tuition">${dto.c_tuition} 원</td>
 				</tr>
 				<tr>
 					<th>상세 설명</th>
@@ -79,7 +80,7 @@
 				
 			<div class="inpBtn">
 				<input type="button" class="subBtn" id="update" onclick="location.href='adminCourseUpdate.do?c_no=${dto.c_no}'" value="수 정">
-				<input type="button" class="subBtn" id="delete" onclick="location.href='adminCourseDelete.do?c_no=${dto.c_no}'" value="삭 제">
+				<input type="button" class="subBtn" id="delete" onclick="return deleteChk();" value="삭 제">
 				<input type="button" class="antBtn" onclick="location.href='adminCourseList.do'" value="목 록">
 			</div>
 		</div>
@@ -91,14 +92,11 @@
 	
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
-	$(document).ready(function(){
-		$("#delete").click(function(){
-			function deleteChk(){
-				alert('선택하신 글을 정말 삭제하시겠습니까?');
-				location.href="adminCourseDelete.do?c_no=${dto.c_no}";
-			}
-		});
-	});
+		function deleteChk(){
+			alert('선택하신 글을 정말 삭제하시겠습니까?');
+			location.href="adminCourseDelete.do?c_no=${dto.c_no}";
+			
+		}
 	</script>
 </body>
 </html>
