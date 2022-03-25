@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.edu.java.dto.CourseDto;
-import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
 import com.edu.java.dto.MemberDto;
 import com.edu.java.dto.NoticeDto;
+import com.edu.java.dto.PageDto;
 import com.edu.java.dto.QnaDto;
 import com.edu.java.dto.TeacherDto;
 
@@ -290,11 +290,11 @@ public class AdminDaoImpl implements AdminDao{
 	
 	/* Course */
 	@Override
-	public List<CourseDto> adminCourseList(String param) {
+	public List<CourseDto> adminCourseList(PageDto dto) {
 		List<CourseDto> adminCourseList = new ArrayList<CourseDto>();
-			
+		System.out.println(dto);
 		try {
-			adminCourseList = sqlSession.selectList(NAMESPACE + "adminCourseList", param);
+			adminCourseList = sqlSession.selectList(NAMESPACE + "adminCourseList", dto);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Course list");
 			e.printStackTrace();
@@ -303,29 +303,31 @@ public class AdminDaoImpl implements AdminDao{
 	}
 	
 	//게시판 총 갯수
-	/*
-	 * @Override public int getTotal(Criteria cri) { int total = 0;
-	 * 
-	 * try { total = sqlSession.selectOne(NAMESPACE + "getTotal"); //select -> 오류
-	 * selectone 맞는지 여쭤보기 } catch (Exception e) {
-	 * System.out.println("[error] : Course Get Total"); e.printStackTrace(); }
-	 * return total; }
-	 */
-	
-	@Override
-	public List<CourseDto> searchKeyword(String keyword){
-		List<CourseDto> list = null;
-		keyword = "%" + keyword + "%";
-		
-		try {
-			list = sqlSession.selectList(NAMESPACE + "adminCourseList", keyword);
-		} catch (Exception e) {
-			System.out.println("[error] : admin Search Keyword");
-			e.printStackTrace();
-		}
-		return list;
+	 @Override 
+	 public int getTotal(String param) { 
+		 int total = 0;
+	  
+		 try { 
+			 total = sqlSession.selectOne(NAMESPACE + "getTotal", param);
+		 } catch (Exception e) {
+			 System.out.println("[error] : Course Get Total"); 
+			 e.printStackTrace(); 
+		 }
+		 return total; 
 	}
-	
+	 
+//	 @Override
+//	 @SuppressWarnings("unchecked")
+//	 public List<Map<String, Object>> selectBoardList(Criteria cri) {
+//		    return (List<Map<String,Object>>)selectList(NAMESPACE + "adminCourseList", cri);
+//		}
+//
+//
+//	private List<Map<String, Object>> selectList(String string, Criteria cri) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
 	@Override
 	public CourseDto adminCourseDetail(int c_no) throws Exception {
 		CourseDto dto = null;

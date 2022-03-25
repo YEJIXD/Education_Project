@@ -1,5 +1,8 @@
 package com.edu.java.dto;
 
+import lombok.ToString;
+
+@ToString
 public class Criteria {
 	private int page;			// 현재 페이지
 	private int amount;			// 한 페이지 당 보여질 게시물 갯수 (perPageNum)

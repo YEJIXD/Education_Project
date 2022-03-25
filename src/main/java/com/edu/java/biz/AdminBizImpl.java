@@ -10,10 +10,10 @@ import com.edu.java.dao.AdminDao;
 import com.edu.java.dao.CourseDao;
 import com.edu.java.dao.MemberDao;
 import com.edu.java.dto.CourseDto;
-import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
 import com.edu.java.dto.MemberDto;
 import com.edu.java.dto.NoticeDto;
+import com.edu.java.dto.PageDto;
 import com.edu.java.dto.QnaDto;
 import com.edu.java.dto.TeacherDto;
 
@@ -134,20 +134,21 @@ public class AdminBizImpl implements AdminBiz{
 	
 	/* Course */
 	@Override
-	public List<CourseDto> adminCourseList(String param) {
-		return adminDao.adminCourseList(param);
+	public List<CourseDto> adminCourseList(PageDto dto) {
+		return adminDao.adminCourseList(dto);
 	}
 	
 	// 게시물 총 갯수
-	/*
-	 * public int getTotal(Criteria cri) { return adminDao.getTotal(cri); }
-	 */
-	
-	@Override
-	public List<CourseDto> searchKeyword(String keyword){
-		return adminDao.searchKeyword(keyword);
+	public int getTotal(String param) { 
+		return adminDao.getTotal(param);
 	}
 	
+//	@Override
+//	public List<Map<String, Object>> selectBoardList(Criteria cri) {
+//	    return adminDao.selectBoardList(cri);
+//	}
+
+
 	@Override
 	public CourseDto adminCourseDetail(int c_no) throws Exception{
 		return adminDao.adminCourseDetail(c_no);

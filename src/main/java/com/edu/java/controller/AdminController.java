@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +23,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.java.CmmService;
 import com.edu.java.biz.AdminBiz;
 import com.edu.java.dto.CourseDto;
+import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
 import com.edu.java.dto.NoticeDto;
+import com.edu.java.dto.PageDto;
 import com.edu.java.dto.QnaDto;
-import com.edu.java.dto.SearchCriteria;
 import com.google.gson.JsonObject;
 
 @Controller
@@ -280,46 +281,41 @@ public class AdminController {
 	}*/
 	
 	/* Course */
-	/* Course List */
+	/* Course List + Search + Paging */
 	@RequestMapping(value="adminCourseList.do", method=RequestMethod.GET)
-	public ModelAndView adminCourseList(SearchCriteria dto) throws Exception{
+	public ModelAndView adminCourseList(PageDto dto) throws Exception{
+		
 		logger.info("admin Course List");
-		
-		ModelAndView mav = new ModelAndView();
-		String keyword = "";
-		
-		if(dto.getKeyword() != null) {
-			keyword = dto.getKeyword();
-		}
-		
-		List<CourseDto> list = adminBiz.adminCourseList(keyword);
-
+		ModelAndView mav = new ModelAndView("jsonView");
+		Criteria cri = new Criteria();
+		dto.setCri(cri);
+		List<CourseDto> list = adminBiz.adminCourseList(dto);
 		mav.setViewName("/admin/adminCourseList");
 		mav.addObject("list", list);
-		//mav.addObject("list", adminBiz.searchKeyword(scri));
 		
-		//int total = adminBiz.getTotal(cri);
-		//CourseDto pageMake = new CourseDto(cri, total);
-		
-		//mav.addObject("pageMaker", pageMake);
-		//mav.addObject(cri, total);
 		System.out.println(list);
+		
+		// Paging
+		
+		// 게시글 갯수 계산
+		//int count = adminBiz.getTotal(searchType, keyword);
+		
+		// 페이지 나누기 관련 처리
+		
+		// data를 map에 저장
+		
+		
+		
+		dto.setTotal(adminBiz.getTotal(dto.getKeyword()));			// 총 게시글 수 조회하는 로직 담기
+
+		mav.addObject("dto", new PageDto(cri, dto.getTotal()));		//total 값 가져오기
+		mav.setViewName("/admin/adminCourseList");
+//		List<Map<String,Object>> list = adminBiz.adminCourseList(cri);
+//	    mav.addObject("list", list);
+//	    mav.addObject("pageMaker", pageMaker);
+		
 		return mav;
 	}
-	
-	/* Course Search */
-	/*
-	 * @RequestMapping(value="searchKeyword.do", method=RequestMethod.POST)
-	 * 
-	 * @ResponseBody public List<CourseDto> searchCourse(@RequestBody String
-	 * keyword) { logger.info("searchCourse, searchName : " + keyword); String
-	 * searchKeyword = keyword.substring(12, keyword.length()-2);
-	 * System.out.println("Contorller => SearchKeyword : " + searchKeyword);
-	 * 
-	 * List<CourseDto> list = adminBiz.searchKeyword(keyword);
-	 * 
-	 * return list; }
-	 */
 	
 	/* Course Detail */
 	@RequestMapping(value="adminCourseDetail.do", method=RequestMethod.GET)
@@ -415,12 +411,18 @@ public class AdminController {
 	
 	/* Course Delete */
 	@RequestMapping(value="/adminCourseDelete.do", method=RequestMethod.GET)
-	public String adminCourseDelete(int c_no) throws Exception{
+	public ModelAndView adminCourseDelete(int c_no) throws Exception{
 		logger.info("admin Course Delete");
-		adminBiz.adminCourseDelete(c_no);
+		ModelAndView mav = new ModelAndView("jsonView");
 		
-		return "redirect:adminCourseList";
+		//adminBiz.adminCourseDelete(c_no);
+		mav.addObject("dto", adminBiz.adminCourseDelete(c_no));
+		mav.setViewName("/admin/adminCourseList");
+		
+		return mav;
 	}
+	
+	/* 수강 내역 관리 */
 	
 	
 	/* 강사진 목록 */

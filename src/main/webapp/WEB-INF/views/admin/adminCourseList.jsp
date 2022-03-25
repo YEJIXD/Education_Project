@@ -43,7 +43,7 @@
                             <div class="sb-sidenav-menu-heading">
                                 <a href=""><img src="resources/images/advisor.png" style="width: 60%; height: 60%;"></a>
                                 <br>
-                                <a href="#" style="text-decoration:none; color: black; text-align: center;">${member.user_name} 님<br>반갑습니다 : )</a>
+                                <a href="#" style="text-decoration:none; color: black; text-align: center;">관리자 님<br>반갑습니다 : )</a>
                             </div>
                             <a class="nav-link home" href="adminMain.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-home" aria-hidden="true"></i></div><span>HOME</span></a>
                             <a class="nav-link notice" href="adminNoticeList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-flag" aria-hidden="true"></i></div><span>Notice</span></a>
@@ -69,23 +69,14 @@
                             
                             <!-- 게시물 검색 -->
 							<div id="searchKeyword" style="height: 60px; margin: 0px auto; text-align: center;">
-								<form action="searchKeyword.do" method="post" id="searchForm">
 									<select name="searchType" id="searchType">
 										<option value="" disabled selected>선 택</option>
-										
-										<%-- <option value="title"
-											<c:if test="${dto.keyword eq 'c_name'}">selected</c:if>>제목
-										</option> --%>
 										<option value="title">제 목</option>
-										
-										<option value="content" <c:if test="${dto.keyword eq 'content'}">selected</c:if>>내 용</option>
-										
-										<!-- <option value="detail" <c:out value="${cri.searchType eq 'content' ? 'selected' : '' }" />>내 용</option> -->
+										<option value="content" <c:if test="${dto.keyword}">selected</c:if>>내 용</option>
 									</select> 
 									
-									
 									<!--  <input type="text" name="keyword" id="keyword" value="${keyword!=null?keyword:''}" placeholder="검색어를 입력하세요"/> -->
-									<input type="text" name="keyword" id="keyword" value="${cri.keyword}" placeholder="검색어를 입력하세요"/> 
+									<input type="text" name="keyword" id="keyword" value="${dto.keyword}" placeholder="검색어를 입력하세요"/> 
 									<input type="button" name="searchBtn" id="searchBtn" value="검 색">
 									
 									<!-- 검색 후 화면에 보여질 게시글 수와 페이지 넘버 (hidden 사용) -->
@@ -94,30 +85,26 @@
 									
 									<!-- keyword를 저장할 수 있는 input 태그 작성 -->
 									<!-- <input type="hidden" name="keyword" value="${cri.keyword }"> -->
-								</form>
 							</div>
-							
-							<input type="hidden" value="${dto.c_no }">
-							
                             	<form action="adminCourseInsert.do" method="GET">
 	                                <table id="datatablesSimple" class="table table-hover courseList">
 	                                    <thead>
 	                                        <tr>
 	                                            <th class="no">NO</th>
 	                                            <th class="title">강의명</th>
-	                                            <th class="writer">모집 인원</th>
+	                                            <th class="writer">신청 인원 / 모집 인원</th>
 	                                            <th class="date">등록일</th>
 	                                            <th class="term">교육 기간</th>
 	                                        </tr>
 	                                    </thead>
 	                                    <tbody>
-											<c:forEach items="${list}" var="dto">
+											<c:forEach items="${list}" var="cdto">
 				                            	<tr>
-				                                	<td>${dto.rnum }</td>
-				                                    <td style="vertical-align:middle;"><a href="adminCourseDetail.do?c_no=${dto.c_no}" style="text-decoration:none; color:#9966FF; font-weight:bold;">${dto.c_name}</a></td>
-				                                    <td style="vertical-align:middle;">${dto.ent_personnel}명</td>
-				                                    <td style="vertical-align:middle;">${dto.c_regdate}</td>
-				                                    <td style="vertical-align:middle;">${dto.c_start_date} ~ ${dto.c_last_date}</td>
+				                                	<td>${cdto.rnum }</td>
+				                                    <td style="vertical-align:middle;"><a href="adminCourseDetail.do?c_no=${cdto.c_no}" style="text-decoration:none; color:#9966FF; font-weight:bold;">${cdto.c_name}</a></td>
+				                                    <td style="vertical-align:middle;">${cdto.app_personnel}명 / ${cdto.ent_personnel}명</td>
+				                                    <td style="vertical-align:middle;">${cdto.c_regdate}</td>
+				                                    <td style="vertical-align:middle;">${cdto.c_start_date} ~ ${cdto.c_last_date}</td>
 				                            	</tr>
 				                        	</c:forEach>
 	                                    </tbody>
@@ -130,15 +117,25 @@
 		                            	<div class="coursePaging">
 											<!-- paging -->
 											<div class="m-paging">
+											${dto}
+											
 												<ul>
-													<c:if test="${page.prev}">
-														<li><a href='<c:url value="/admin/adminCourseList?page=${page.startPage-1}"/>' class='oiBtn prev'><</a></li>
+													<c:if test="true">
+														<li>
+															<a href="javascript:;" id="pre" class='oiBtn prev'><</a>
+														</li>
 													</c:if>
-													<c:forEach begin="${page.startPage}" end="${page.endPage}" var="pageNum">
-														<li><a href='<c:url value="/admin/adminCourseList?page=${page}"/>' class='num'>${page}</a></li>
+													
+													<c:forEach begin="${dto.startPage}" end="2" var="pageNum">
+														<li>
+															<a href="javascript:;" class='num <c:if test="${dto.cri.page eq pageNum}"> active </c:if>'>${pageNum}</a>
+														</li>
 													</c:forEach>
-													<c:if test="${page.next && page.endPage>0}">
-														<li><a href='<c:url value="/admin/adminCourseList?page=${page.endPage+1}"/>' class='oiBtn next'>></a></li>
+													
+													<c:if test="${dto.next && dto.endPage>0}">
+														<li>
+															<a href="javascript:;" id="next" class='oiBtn next'>></a>
+														</li>
 													</c:if>
 												</ul>
 											</div>
@@ -152,9 +149,6 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="resources/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 	
@@ -168,7 +162,7 @@
 			$("#searchBtn").click(function(){
 				let keyword = $("#keyword").val();
 				let searchType = $("#searchType option:selected").val();
-				console.log(searchType);
+				
 				if(!searchValidator(searchType, keyword)){
 					return false;
 				}
@@ -193,7 +187,31 @@
 				
 			});	
 			
-			/* 페이징 */
+			$("#pre, .num, #next").click(function(){
+				let keyword = $("#keyword").val();
+				let searchType = $("#searchType option:selected").val();
+				let pageNum = $(this).text();
+				
+				const param = {
+					keyword : keyword,
+					searchType : searchType,
+					pageNum : pageNum
+				}
+				
+				let form= $("<form></form>");
+				form.attr("name", "SearchForm");
+				form.attr("method", "get");
+				form.attr("action", "<c:url value='/adminCourseList.do'/>");
+				
+				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
+				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
+				form.append($("<input />", {type: "hidden", name: "pageNum", value: pageNum}));
+
+				form.appendTo("body");
+				
+				form.submit(); 
+				
+			});	
 			
         });
         

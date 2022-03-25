@@ -3,10 +3,10 @@ package com.edu.java.dao;
 import java.util.List;
 
 import com.edu.java.dto.CourseDto;
-import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
 import com.edu.java.dto.MemberDto;
 import com.edu.java.dto.NoticeDto;
+import com.edu.java.dto.PageDto;
 import com.edu.java.dto.QnaDto;
 import com.edu.java.dto.TeacherDto;
 
@@ -51,18 +51,11 @@ public interface AdminDao {
 	public List<FaqDto> hashTagSearch(String faq_category);
 	
 	/* Course */
-	// 게시판 목록
-	public List<CourseDto> adminCourseList(String param);
-	// 게시판 목록(페이징 적용)
-
-	//게시판 총 갯수
-	//public int getTotal(Criteria cri);
-	
-	public List<CourseDto> searchKeyword(String keyword);
-	
+	public List<CourseDto> adminCourseList(PageDto dto);
+	public int getTotal(String param);
+	//List<Map<String, Object>> selectBoardList(Criteria cri);
 	public CourseDto adminCourseDetail(int c_no) throws Exception;
 	public int adminCourseInsert(CourseDto dto) throws Exception;
-	//public HashMap<String, Object> adminCourseInsert(HashMap<String, Object> map) throws Exception;
 	public int adminCourseUpdate(CourseDto dto) throws Exception;
 	public int adminCourseDelete(int c_no);
 	public int adminCourseCount(String c_count) throws Exception;
