@@ -6,8 +6,10 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.edu.java.biz.AdminBiz;
 import com.edu.java.biz.CourseBiz;
 import com.edu.java.dto.CourseDto;
+import com.edu.java.dto.Criteria;
 import com.edu.java.dto.PageDto;
 
 @Controller
@@ -26,21 +30,33 @@ public class CourseController {
 	@Inject
 	CourseBiz courseBiz;
 	
+	@Autowired
+	AdminBiz adminBiz;
+	
 	/* Course List */
 	@RequestMapping(value="/courseList.do", method=RequestMethod.GET)
-	public ModelAndView courseList(PageDto dto) throws Exception {
+	public ModelAndView courseList(PageDto dto
+								 , @Param("title") String searchType
+								 , @Param("") String keyword
+								 , @RequestParam(defaultValue="1") int page) throws Exception{
 		logger.info("course LIST PAGE");
 		ModelAndView mav = new ModelAndView();
-		String keyword ="";
 		
-		if(dto.getKeyword() != null) {
-			keyword = dto.getKeyword();
-		}
-		
-		List<CourseDto> list = courseBiz.courseList(keyword);
-		
-		mav.setViewName("/edu_Application/courseList");
+		// Search
+		List<CourseDto> list = courseBiz.courseList(dto);
+		mav.setViewName("/admin/adminCourseList");
 		mav.addObject("list", list);
+				
+		System.out.println(list);
+
+		// Paging
+		Criteria cri = new Criteria();
+		
+		dto.setCri(cri);
+		dto.setTotal(adminBiz.getTotal(dto.getKeyword()));
+		
+		mav.addObject("dto", new PageDto(cri, dto.getTotal()));
+		mav.setViewName("/edu_Application/courseList");
 			
 		return mav;
 	}
@@ -58,6 +74,13 @@ public class CourseController {
 		return mav;
 	}
 	
+	/* 교육 신청 확인 FORM */
+	@RequestMapping(value="/appForm.do", method=RequestMethod.GET)
+	public String appForm() {
+		logger.info("APP FORM PAGE");
+		
+		return "/edu_Application/appForm";
+	}
 	/* 교육 신청 */
 	@RequestMapping(value="/appInsert.do", method=RequestMethod.POST)
 	public ModelAndView appInsert(@RequestBody CourseDto dto, HttpSession session) throws Exception{
@@ -80,7 +103,6 @@ public class CourseController {
 			e.printStackTrace();
 		}finally {
 			mav.addObject("resultCode", resultCode);
-			mav.addObject("msg", "교육 신청 완료");
 		}
 		System.out.println(dto.toString());
 		mav.addObject("msg", "교육 신청 완료");
@@ -89,8 +111,6 @@ public class CourseController {
 	}
 	
 	/*
-	 *
-	 * 
 	 * @RequestMapping("/courseUpdateRes.do") public String
 	 * courseUpdateRes(CourseDto dto) throws Exception{
 	 * logger.info("course Update Res"); courseBiz.courseUpdateRes(dto);

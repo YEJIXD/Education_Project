@@ -23,6 +23,24 @@
 		
 	<div class="container">
 		<h3>교육 강의 목록</h3><br><br>
+			<!-- 게시물 검색 -->
+			<div id="searchKeyword" style="height: 60px; margin: 0px auto; text-align: center;">
+				<select name="searchType" id="searchType">
+					<option value="" disabled selected>선 택</option>					
+					<option value="title">제 목</option>
+					<option value="content" <c:if test="${dto.keyword eq 'content'}">selected</c:if>>내 용</option>
+				</select> 
+
+				<input type="text" name="keyword" id="keyword" value="${cri.keyword}" placeholder="검색어를 입력하세요"/> 
+				<input type="button" name="searchBtn" id="searchBtn" value="검 색">
+									
+				<!-- 검색 후 화면에 보여질 게시글 수와 페이지 넘버 (hidden 사용) -->
+				<!--  <input type="hidden" name="pageNum" value="1">
+				<input type="hidden" name="amount" value="10">-->
+									
+				<!-- keyword를 저장할 수 있는 input 태그 작성 -->
+				<!-- <input type="hidden" name="keyword" value="${cri.keyword }"> -->
+			</div>
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -40,8 +58,8 @@
 							<td>${dto.c_no}</td>
 							<td><a href="courseDetail.do?c_no=${dto.c_no}">${dto.c_name}</a></td>
 							<td>${dto.app_personnel}명 / ${dto.ent_personnel}명</td>
-							<td style="color:blue;">${APPLICATION.c_status}</td>
-							<td>${dto.c_regdate }</td>
+							<td style="color:blue;">${app.c_status}</td>
+							<td>${dto.c_regdate}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

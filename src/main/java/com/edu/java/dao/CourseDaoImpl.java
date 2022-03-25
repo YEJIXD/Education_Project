@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.edu.java.dto.CourseDto;
 import com.edu.java.dto.FaqDto;
+import com.edu.java.dto.PageDto;
 
 @Repository
 public class CourseDaoImpl implements CourseDao{
@@ -18,11 +19,11 @@ public class CourseDaoImpl implements CourseDao{
 	
 	// LIST
 	@Override
-	public List<CourseDto> courseList(String param) {
+	public List<CourseDto> courseList(PageDto dto) {
 		List<CourseDto> courseList = new ArrayList<CourseDto>();
 		
 		try {
-			courseList = sqlSession.selectList(NAMESPACE + "courseList", param);
+			courseList = sqlSession.selectList(NAMESPACE + "courseList", dto);
 		} catch (Exception e) {
 			System.out.println("[error] : course list");
 			e.printStackTrace();
