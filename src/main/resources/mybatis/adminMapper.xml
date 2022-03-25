@@ -199,7 +199,7 @@
 					, ENT_PERSONNEL
 					, DATE_FORMAT(APP_START_DATE, '%Y-%m-%d') as APP_START_DATE
 					, DATE_FORMAT(APP_LAST_DATE,  '%Y-%m-%d') as APP_LAST_DATE
-					, DATE_FORMAT(NOW(), '%Y-%m-%d') as C_REGDATE
+					, DATE_FORMAT(C_REGDATE, '%Y-%m-%d') as C_REGDATE
 					, C_DETAIL
 					, C_TUITION
 					

@@ -189,7 +189,7 @@
 					success:function(result){
 							if(result.resultCode == 0){
 								alert(result.msg);
-								$(location).attr("href", "<c:url value='adminCourseList.do' />");
+								$(location).attr("href", "<c:url value='adminCourseDetail.do?c_no=${dto.c_no}' />");
 							}else{
 								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
 							}

@@ -79,14 +79,14 @@
 				<tr>
 					<th>접수 기간</th>
 					<td>
-						<input type="text" class="aStartDatepicker" id="app_start_date" name="app_start_date" autocomplete="off"> ~ <input type="text" id="app_last_date" name="app_last_date" class="aEndDatepicker" autocomplete="off">
+						<input type="text" class="aStartDatepicker" id="app_start_date" name="app_start_date" autocomplete="off" size="9" readonly> ~ <input type="text" id="app_last_date" name="app_last_date" class="aEndDatepicker" autocomplete="off" size="9" readonly>
 					</td>
 				</tr>
 	
 				<tr>
 					<th>교육 기간</th>
 					<td>
-						<input type="text" class="cStartDatepicker" id="c_start_date" name="c_start_date" autocomplete="off"> ~ <input type="text" id="c_last_date" name="c_last_date" class="cEndDatepicker" autocomplete="off">
+						<input type="text" class="cStartDatepicker" id="c_start_date" name="c_start_date" autocomplete="off" size="9" readonly><i class="fa fa-caret-square-o-down" aria-hidden="true"></i> ~ <input type="text" id="c_last_date" name="c_last_date" class="cEndDatepicker" autocomplete="off" size="9" readonly><i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
 					</td>
 				</tr>
 					
@@ -117,7 +117,7 @@
 			</table>
 			
 			<div class="inpBtn">
-				<input type="button" class="subBtn" id="insert" onclick="insertChk();" value="등 록">
+				<input type="button" class="subBtn" id="insert" value="등 록">
 				<input type="button" class="antBtn" onclick="location.href='adminCourseList.do'" value="취 소">
 			</div>
 		</div>
@@ -175,18 +175,13 @@
 								alert(result.msg);
 								$(location).attr("href", "<c:url value='adminCourseList.do' />");
 							}else{
-								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
+								alert("로그인 후 이용가능합니다 :::: ErrorCode : " + result.resultCode);
 							}
 					},
 					error : function(result) {
 						alert("서버 통신 에러");
 					}
 				});
-				
-				function insertChk(){
-					alert('작성하신 글을 등록하시겠습니까?');
-					location.href="adminCourseInsert.do";
-				}
 			});
 			
 			$.datepicker.setDefaults({
@@ -243,6 +238,11 @@
 			$("#app_start_date").val(aToday);
 		});
 		
+		function insertChk(){
+			alert('작성하신 글을 등록하시겠습니까?');
+			location.href="adminCourseList.do";
+		}
+		
 		function insertValidator(c_name, c_time, c_start_time, c_last_date, app_last_date, ent_personnel, c_detail, c_tuition){
 			if(c_name == ""){
 				alert("강의명을 입력하세요.");
@@ -274,6 +274,11 @@
 				$("#ent_personnel").focus();
 				return false;
 			}
+/* 			if(ent_personnel.value.trim().length >= 3){
+				alert("모집 인원 수를 초과하였습니다.");
+				return false;
+			} */
+			
 			if(c_tuition == ""){
 				alert("수강료를 입력하세요.");
 				$("#c_tuition").focus();

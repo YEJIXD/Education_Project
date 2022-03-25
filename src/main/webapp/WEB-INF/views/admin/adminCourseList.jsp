@@ -69,22 +69,23 @@
                             
                             <!-- 게시물 검색 -->
 							<div id="searchKeyword" style="height: 60px; margin: 0px auto; text-align: center;">
+									<label for="condition"></label>
 									<select name="searchType" id="searchType">
 										<option value="" disabled selected>선 택</option>
-										<option value="title">제 목</option>
-										<option value="content" <c:if test="${dto.keyword}">selected</c:if>>내 용</option>
+										<option value="title" <c:if test="${condition eq 'title'}">selected</c:if>>제 목</option>
+										<option value="content" <c:if test="${condition eq 'content'}">selected</c:if>>내 용</option>
 									</select> 
 									
 									<!--  <input type="text" name="keyword" id="keyword" value="${keyword!=null?keyword:''}" placeholder="검색어를 입력하세요"/> -->
-									<input type="text" name="keyword" id="keyword" value="${dto.keyword}" placeholder="검색어를 입력하세요"/> 
+									<input type="text" name="keyword" id="keyword" value="${keyword}" placeholder="검색어를 입력하세요"/> 
 									<input type="button" name="searchBtn" id="searchBtn" value="검 색">
 									
 									<!-- 검색 후 화면에 보여질 게시글 수와 페이지 넘버 (hidden 사용) -->
-									<!--  <input type="hidden" name="pageNum" value="1">
-									<input type="hidden" name="amount" value="10">-->
+									<input type="hidden" name="pageNum" value="1">
+									<input type="hidden" name="amount" value="10">
 									
 									<!-- keyword를 저장할 수 있는 input 태그 작성 -->
-									<!-- <input type="hidden" name="keyword" value="${cri.keyword }"> -->
+									<input type="hidden" name="keyword" value="${dto.keyword}">
 							</div>
                             	<form action="adminCourseInsert.do" method="GET">
 	                                <table id="datatablesSimple" class="table table-hover courseList">
@@ -92,21 +93,30 @@
 	                                        <tr>
 	                                            <th class="no">NO</th>
 	                                            <th class="title">강의명</th>
-	                                            <th class="writer">신청 인원 / 모집 인원</th>
+	                                            <th class="writer">신청 / 모집 인원</th>
 	                                            <th class="date">등록일</th>
 	                                            <th class="term">교육 기간</th>
 	                                        </tr>
 	                                    </thead>
 	                                    <tbody>
-											<c:forEach items="${list}" var="cdto">
-				                            	<tr>
-				                                	<td>${cdto.rnum }</td>
-				                                    <td style="vertical-align:middle;"><a href="adminCourseDetail.do?c_no=${cdto.c_no}" style="text-decoration:none; color:#9966FF; font-weight:bold;">${cdto.c_name}</a></td>
-				                                    <td style="vertical-align:middle;">${cdto.app_personnel}명 / ${cdto.ent_personnel}명</td>
-				                                    <td style="vertical-align:middle;">${cdto.c_regdate}</td>
-				                                    <td style="vertical-align:middle;">${cdto.c_start_date} ~ ${cdto.c_last_date}</td>
-				                            	</tr>
-				                        	</c:forEach>
+		                                    <c:choose>
+		                                    	<c:when test="${empty list}">
+													<div class="col-md-12">
+														<p class="fontSize" style="text-align:center;">검색 결과가 없습니다.</p>
+													</div>
+												</c:when>
+			                                    <c:otherwise>
+													<c:forEach items="${list}" var="cdto">
+						                            	<tr>
+						                                	<td>${cdto.rnum }</td>
+						                                    <td style="vertical-align:middle;"><a href="adminCourseDetail.do?c_no=${cdto.c_no}" style="text-decoration:none; color:#9966FF; font-weight:bold;">${cdto.c_name}</a></td>
+						                                    <td style="vertical-align:middle;">${cdto.app_personnel}명 / ${cdto.ent_personnel}명</td>
+						                                    <td style="vertical-align:middle;">${cdto.c_regdate}</td>
+						                                    <td style="vertical-align:middle;">${cdto.c_start_date} ~ ${cdto.c_last_date}</td>
+						                            	</tr>
+						                        	</c:forEach>
+					                        	</c:otherwise>
+				                        	</c:choose>
 	                                    </tbody>
 	                                </table>
 	                                <div class="listBottom">
@@ -117,8 +127,6 @@
 		                            	<div class="coursePaging">
 											<!-- paging -->
 											<div class="m-paging">
-											${dto}
-											
 												<ul>
 													<c:if test="true">
 														<li>
@@ -126,7 +134,7 @@
 														</li>
 													</c:if>
 													
-													<c:forEach begin="${dto.startPage}" end="2" var="pageNum">
+													<c:forEach begin="${dto.startPage}" end="${dto.getEndPage()+1}" var="pageNum">
 														<li>
 															<a href="javascript:;" class='num <c:if test="${dto.cri.page eq pageNum}"> active </c:if>'>${pageNum}</a>
 														</li>
@@ -151,13 +159,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-	
         <script type="text/javascript">
-        let datePerPage;		// 한 페이지에 나타낼 게시글 갯수
-        let pageCount = 10;		// 하단에 나타낼 페이지 갯수
-		let currentPage = 1; 	// 현재 페이지 번호
-		
-		
         $(document).ready(function(){
 			$("#searchBtn").click(function(){
 				let keyword = $("#keyword").val();
@@ -176,7 +178,6 @@
 				form.attr("name", "SearchForm");
 				form.attr("method", "get");
 				form.attr("action", "<c:url value='/adminCourseList.do'/>");
-				
 				
 				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
 				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
@@ -210,15 +211,12 @@
 				form.appendTo("body");
 				
 				form.submit(); 
-				
 			});	
-			
         });
         
 		function searchValidator(searchType, keyword){
 			if(searchType == "" || typeof searchType == "undefined"){
 				alert("검색 조건을 선택하세요");
-				$("#searchType").focus();
 				return false;
 			}
 			
@@ -229,7 +227,7 @@
 			}
         	return true;
 		}
-	        /* $(document).on('click', '#searchBtn', function(e){
+	       /* $(document).on('click', '#searchBtn', function(e){
 				if(!searchForm.find("option:selected").val()){
 					alert("검색 타입을 선택하세요");
 					return false;
@@ -254,7 +252,7 @@
 				searchForm.submit();
 				
 				console.log(url);
-			});	 */
+			}); */
 		</script>
 
     </body>

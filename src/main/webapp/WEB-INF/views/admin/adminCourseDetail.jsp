@@ -26,7 +26,8 @@
 		<div class="content">
 			<table class="table insertTable">
 				<tr>
-					<th>번호</th>
+					<th>강의
+					번호</th>
 					<td id="c_no">${dto.c_no}</td>
 				</tr>
 				<tr>
@@ -54,16 +55,16 @@
 					<td>${dto.c_start_date} ~ ${dto.c_last_date}</td>
 				</tr>
 				<tr>
-					<th>모집인원</th>
-					<td id="ent_personnel">${dto.ent_personnel} 명</td>
-				</tr>
-				<tr>
 					<th>신청 기간</th>
 					<td>${dto.app_start_date} ~ ${dto.app_last_date}</td>
 				</tr>
 				<tr>
 					<th>등록일</th>
 					<td id="c_regdate">${dto.c_regdate}</td>
+				</tr>
+				<tr>
+					<th>모집인원</th>
+					<td id="ent_personnel">${dto.ent_personnel} 명</td>
 				</tr>
 				<tr>
 					<th>수강료</th>
@@ -74,13 +75,13 @@
 				</tr>
 				<tr>
 					<th></th>
-					<td id="c_detail" style="padding-bottom:50px;">${dto.c_detail }</td>
+					<td id="c_detail" style="padding-bottom:50px;">${dto.c_detail}</td>
 				</tr>
 			</table>
 				
 			<div class="inpBtn">
 				<input type="button" class="subBtn" id="update" onclick="location.href='adminCourseUpdate.do?c_no=${dto.c_no}'" value="수 정">
-				<input type="button" class="subBtn" id="delete" onclick="return deleteChk();" value="삭 제">
+				<input type="button" class="subBtn" id="delete" value="삭 제">
 				<input type="button" class="antBtn" onclick="location.href='adminCourseList.do'" value="목 록">
 			</div>
 		</div>
@@ -94,9 +95,63 @@
 	<script type="text/javascript">
 		function deleteChk(){
 			alert('선택하신 글을 정말 삭제하시겠습니까?');
-			location.href="adminCourseDelete.do?c_no=${dto.c_no}";
-			
+			location.href="adminCourseList.do";
 		}
+		
+		$(document).ready(function(){
+			$("#delete").on("click",function(){
+				// 1. c_no의 value를 담아줘야 하기 때문에 선언해주기
+				const c_no = $("#c_no").text();
+				
+				// ㄱ) if문으로 form 삭제
+				/*if($("#deleteForm").val() != undefined){
+					// form.remove(); => 이렇게 작성하면 form이 선언되어있지 않다는 에러 발생 (이유 : form은 아래에 let으로 선언했기 때문에)
+					// 그렇다면 아래에서 설정한 form의 id 값을 가져와서 remove해주기
+					$("#deleteForm").remove();
+				}
+				
+				let form = $("<form></form>");
+				// form 태그에 속성 추가 => ("속성", "이름")
+				form.attr("name", "deleteForm");
+				form.attr("method", "post");
+				form.attr("action", "<c:url value='/adminCourseDelete.do'/>");
+				
+				// input 태그 삽입 : type은 hidden / name은 c_no / value는 c_no(1.에서 작성한 value값 가져오는 것)
+				form.append($("<input />", {type:"hidden", name:"c_no", value:c_no}));
+				// body 안에 form을 삽입하겠다는 것
+				form.appendTo("body");
+				// 다 작성되었으면 submit으로 보내기
+				form.submit();
+				
+				// ㄱ) form을 보내면 계속 form이 쌓임 -> remove() 함수를 통해 form을 지워줘야 함 -> if문 사용해서 만약 form이 없으면 넣고, 있다면 지워주기 */
+				
+				// 1.에서 선언해준 c_no value 가져오기
+				const param = {
+					c_no : c_no
+				}
+				
+				$.ajax({
+					url:"/adminCourseDelete.do",
+					type:"post",
+					contentType: "application/json",
+					data:JSON.stringify(param),
+					
+					success:function(result){
+							if(result.resultCode == 0){
+								alert(result.msg);
+								$(location).attr("href", "<c:url value='adminCourseList.do' />");
+							}else{
+								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
+							}
+					},
+					error : function(result) {
+						console.log(result)
+						alert("서버 통신 에러");
+					}
+				});
+			})
+			
+		});
 	</script>
 </body>
 </html>

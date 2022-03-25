@@ -370,16 +370,13 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public int adminCourseDelete(int c_no) {
-		int res = 0;
-		
+	public void adminCourseDelete(int c_no) {
 		try {
-			res = sqlSession.delete(NAMESPACE+"adminCourseDelete", c_no);
+			sqlSession.delete(NAMESPACE+"adminCourseDelete", c_no);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Course Delete error");
 			e.printStackTrace();
 		}
-		return res;
 	}
 	
 	@Override
