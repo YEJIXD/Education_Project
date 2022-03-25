@@ -145,7 +145,7 @@ public class MemberController {
 	}
 
 	// login 필요한 페이지
-	@RequestMapping("/needLogin")
+	@RequestMapping("/needLogin.do")
 	public String needLoginPage(HttpSession session) {
 		if(session.getAttribute("loginCheck") != null) {
 			return "needLogin";
