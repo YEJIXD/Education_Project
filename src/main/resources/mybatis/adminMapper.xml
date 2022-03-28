@@ -160,29 +160,31 @@
 	<!-- admin Course -->
 		<!-- 전체 리스트 -->
 		<select id="adminCourseList" parameterType="pageDto" resultType="courseDto">
-			SELECT 
-					  @rownum:=@rownum +1 as rnum
-					, C_NO
-					, C_NAME
-					, APP_PERSONNEL
-					, ENT_PERSONNEL
-					, DATE_FORMAT(C_REGDATE, '%Y-%m-%d') as C_REGDATE
-					, DATE_FORMAT(C_START_DATE, '%Y-%m-%d') as C_START_DATE
-					, DATE_FORMAT(C_LAST_DATE, '%Y-%m-%d') as C_LAST_DATE
-			FROM mydb.COURSE C, (SELECT @rownum:=0) R
-			
-			WHERE C_NAME LIKE CONCAT('%', #{keyword}, '%')
-			
-			ORDER BY rnum desc
-			
-			LIMIT ${startPage}, ${cri.amount}
+			<![CDATA[
+				SELECT 
+						  @rownum:=@rownum +1 as rnum
+						, C_NO
+						, C_NAME
+						, APP_PERSONNEL
+						, ENT_PERSONNEL
+						, DATE_FORMAT(C_REGDATE, '%Y-%m-%d') as C_REGDATE
+						, DATE_FORMAT(C_START_DATE, '%Y-%m-%d') as C_START_DATE
+						, DATE_FORMAT(C_LAST_DATE, '%Y-%m-%d') as C_LAST_DATE
+				FROM mydb.COURSE C, (SELECT @rownum:=0) R
+				
+				WHERE C_NAME LIKE CONCAT('%', #{keyword}, '%')
+				
+				ORDER BY rnum desc
+				
+				LIMIT ${cri.pageStart}, ${cri.amount}
+			]]>
 		</select>
 		
 		<!-- 게시글 총 갯수 -->
 		<select id="getTotal" parameterType="String" resultType="int">
 			SELECT COUNT(*) as TOTAL_COUNT
-			FROM mydb.course
-			WHERE C_NAME LIKE CONCAT('%', #{value}, '%')
+			FROM mydb.COURSE
+			WHERE C_NAME LIKE CONCAT('%', #{value}, '%') 
 		</select>
 		
 		<!-- 상세 페이지 -->

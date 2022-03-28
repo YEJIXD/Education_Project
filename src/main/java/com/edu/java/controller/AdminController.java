@@ -7,18 +7,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -283,38 +284,37 @@ public class AdminController {
 	/* Course */
 	/* Course List + Search + Paging */
 	@RequestMapping(value="adminCourseList.do", method=RequestMethod.GET)
-	public ModelAndView adminCourseList(PageDto dto) throws Exception{
-		
+	public ModelAndView adminCourseList(PageDto dto, Criteria cri) throws Exception{
 		logger.info("admin Course List");
 		ModelAndView mav = new ModelAndView("jsonView");
-		String keyword = "";
-		Criteria cri = new Criteria();
-		dto.setCri(cri);
-		
-		List<CourseDto> list = adminBiz.adminCourseList(dto);
-		mav.setViewName("/admin/adminCourseList");
-		mav.addObject("list", list);
-
-		System.out.println(list);
-		
+		dto.setCri(cri);											// page와 amount 설정
 		dto.setTotal(adminBiz.getTotal(dto.getKeyword()));			// 총 게시글 수 조회하는 로직 담기
-
-		mav.addObject("dto", new PageDto(cri, dto.getTotal()));		//total 값 가져오기
+		
+		List<Map<String, Object>> list = adminBiz.adminCourseList(dto, cri);
+		mav.addObject("list", list);
+		mav.addObject("dto", new PageDto(cri, dto.getTotal()));		//total 값 가져오기 => 페이지 수 카운트
+		//mav.addObject("dto", dto.getEndPage());
 		mav.setViewName("/admin/adminCourseList");
-
+		
+		System.out.println(dto);
+		
 		return mav;
 	}
 	
 	/* Course Detail */
 	@RequestMapping(value="adminCourseDetail.do", method=RequestMethod.GET)
-	public ModelAndView adminCourseDetail(@RequestParam("c_no") int c_no) throws Exception{
+	public ModelAndView adminCourseDetail(@RequestParam("c_no") int c_no
+										, @ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("admin Course Detail");
 		ModelAndView mav = new ModelAndView("jsonView");
 		CourseDto dto = adminBiz.adminCourseDetail(c_no);
 
 		// List에서 상세 페이지로 넘길 때 c_no 값 전달
-		mav.addObject("dto", dto);
-		//mav.addObject(adminBiz.adminCourseCount(c_count));
+		//mav.addObject("dto", dto);
+		
+		// 조회페이지에서 List로 넘어갈 때 페이지 유지
+		mav.addObject("dto", adminBiz.adminCourseDetail(c_no));
+		mav.addObject("cri", cri);
 		mav.setViewName("/admin/adminCourseDetail");
 		
 		return mav;
@@ -381,15 +381,22 @@ public class AdminController {
 				if(User == null) {
 					resultCode = 10;
 				}else {
+					// String.valueOf 사용 -> User에서 USER_NAME 가져와서(get) UserName에 저장
 					String UserName = String.valueOf(User.get("USER_NAME"));
+					
+					// CourseDto의 c_init_writer에 UserName 저장
 					dto.setC_init_writer(UserName);
+					
+					// adminBiz(Service단)에서 adminCourseUpdate() 메서드 실행
 					adminBiz.adminCourseUpdate(dto);
+					
 				}
 			} catch (Exception e) {
 				logger.trace(e.getMessage());
 				e.printStackTrace();
 			}finally {
 				mav.addObject("resultCode", resultCode);
+				
 			}
 			System.out.println(dto.toString());
 			mav.addObject("msg", "교육 수정 완료");

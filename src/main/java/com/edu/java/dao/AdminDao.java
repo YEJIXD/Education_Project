@@ -1,8 +1,10 @@
 package com.edu.java.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.edu.java.dto.CourseDto;
+import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
 import com.edu.java.dto.MemberDto;
 import com.edu.java.dto.NoticeDto;
@@ -51,7 +53,7 @@ public interface AdminDao {
 	public List<FaqDto> hashTagSearch(String faq_category);
 	
 	/* Course */
-	public List<CourseDto> adminCourseList(PageDto dto);
+	public List<Map<String, Object>> adminCourseList(PageDto dto, Criteria cri) ;
 	public int getTotal(String param);
 	//List<Map<String, Object>> selectBoardList(Criteria cri);
 	public CourseDto adminCourseDetail(int c_no) throws Exception;
