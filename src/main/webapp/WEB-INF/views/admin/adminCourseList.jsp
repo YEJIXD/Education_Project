@@ -130,19 +130,19 @@
 												<ul>
 													<c:if test="true">
 														<li>
-															<a href="javascript:;" id="pre" class='oiBtn prev'><</a>
+															<a href='<c:url value="adminCourseList.do?page=${dto.startPage-1 }"/>' id="pre" class='oiBtn prev'>◀</a>
 														</li>
 													</c:if>
 													
 													<c:forEach begin="${dto.startPage}" end="${dto.getEndPage()+1}" var="pageNum">
 														<li>
-															<a href="javascript:;" class='num <c:if test="${dto.cri.page eq pageNum}"> active </c:if>'>${pageNum}</a>
+															<a href='<c:url value="adminCourseList.do?page=${pageNum }"/>' class='num <c:if test="${dto.cri.page eq pageNum}"> active </c:if>'>${pageNum}</a>
 														</li>
 													</c:forEach>
 													
 													<c:if test="${dto.next && dto.endPage>0}">
 														<li>
-															<a href="javascript:;" id="next" class='oiBtn next'>></a>
+															<a href='<c:url value="adminCourseList.do?page=${dto.endPage+1 }"/>' id="next" class='oiBtn next'>▶</a>
 														</li>
 													</c:if>
 												</ul>
