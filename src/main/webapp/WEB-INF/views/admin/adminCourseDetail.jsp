@@ -21,13 +21,16 @@
 		<%@ include file="../common/header.jsp" %>
 	</div>
 	
+	<input type="text" id="keyword" name="keyword" value='<c:out value="keyword : ${pageDto.keyword}" />'>
+	<input type="text" id="page" name="page" value='<c:out value="page : ${cri.page}" />'>
+	<input type="text" id="amount" name="amount" value='<c:out value="amount : ${cri.amount}" />'>
+	
 	<div class="container">
 		<h3 class="formTitle" style="font-weight:normal;">교 육 상 세</h3><br><br>
 		<div class="content">
 			<table class="table insertTable">
 				<tr>
-					<th>강의
-					번호</th>
+					<th>강의 번호</th>
 					<td id="c_no">${dto.c_no}</td>
 				</tr>
 				<tr>
@@ -82,7 +85,7 @@
 			<div class="inpBtn">
 				<input type="button" class="subBtn" id="update" onclick="location.href='adminCourseUpdate.do?c_no=${dto.c_no}'" value="수 정">
 				<input type="button" class="subBtn" id="delete" value="삭 제">
-				<input type="button" class="antBtn" onclick="location.href='adminCourseList.do'" value="목 록">
+				<input type="button" class="antBtn" id="list" value="목 록">
 			</div>
 		</div>
 	</div>
@@ -94,7 +97,7 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 		function deleteChk(){
-			alert('선택하신 글을 정말 삭제하시겠습니까?');
+			alert('선택하신 글을 삭제하시겠습니까?');
 			location.href="adminCourseList.do";
 		}
 		
@@ -149,7 +152,20 @@
 						alert("서버 통신 에러");
 					}
 				});
-			})
+			});
+			
+			$("#list").on("click",function(){
+				const c_no = $("#c_no").text();
+				let page = $("#page").text();
+				let amount = $("#amount").text();
+				let keyword = $("#keyword").text();
+				
+				let listUrl = "adminCourseList.do?page=${cri.page}"
+							+ "&amount=${cri.amount}"
+							+ "&keyword=${pageDto.keyword}";
+						
+				location.href = listUrl;
+			});
 			
 		});
 	</script>

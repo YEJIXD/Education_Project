@@ -79,14 +79,14 @@
 				<tr>
 					<th>접수 기간</th>
 					<td>
-						<input type="text" class="aStartDatepicker" id="app_start_date" name="app_start_date" autocomplete="off" size="9" readonly> ~ <input type="text" id="app_last_date" name="app_last_date" class="aEndDatepicker" autocomplete="off" size="9" readonly>
+						<input type="text" class="aStartDatepicker" id="app_start_date" name="app_start_date" autocomplete="off" size="10" readonly> ~ <input type="text" id="app_last_date" name="app_last_date" class="aEndDatepicker" autocomplete="off" size="10" readonly>
 					</td>
 				</tr>
 	
 				<tr>
 					<th>교육 기간</th>
 					<td>
-						<input type="text" class="cStartDatepicker" id="c_start_date" name="c_start_date" autocomplete="off" size="9" readonly><i class="fa fa-caret-square-o-down" aria-hidden="true"></i> ~ <input type="text" id="c_last_date" name="c_last_date" class="cEndDatepicker" autocomplete="off" size="9" readonly><i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
+						<input type="text" class="cStartDatepicker" id="c_start_date" name="c_start_date" autocomplete="off" size="10" readonly><i class="fa fa-caret-square-o-down" aria-hidden="true"></i> ~ <input type="text" id="c_last_date" name="c_last_date" class="cEndDatepicker" autocomplete="off" size="10" readonly><i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
 					</td>
 				</tr>
 					
@@ -101,7 +101,7 @@
 				<tr>
 					<th>수강료</th>
 					<td>
-						<input type="text" class="c_tuition" id="c_tuition" name="c_tuition" size="5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 원
+						<input type="text" class="c_tuition" id="c_tuition" name="c_tuition" size="5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><fmt:formatNumber value="${money}" pattern="#,###"/> 원
 					</td>
 				</tr>
 				
@@ -176,6 +176,7 @@
 								$(location).attr("href", "<c:url value='adminCourseList.do' />");
 							}else{
 								alert("로그인 후 이용가능합니다 :::: ErrorCode : " + result.resultCode);
+								$(location).attr("href", "<c:url value='loginForm.do' />");
 							}
 					},
 					error : function(result) {
