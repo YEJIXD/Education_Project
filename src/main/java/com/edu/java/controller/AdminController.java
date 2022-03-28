@@ -7,13 +7,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -283,25 +283,22 @@ public class AdminController {
 	/* Course */
 	/* Course List + Search + Paging */
 	@RequestMapping(value="adminCourseList.do", method=RequestMethod.GET)
-	public ModelAndView adminCourseList(PageDto dto) throws Exception{
+	public ModelAndView adminCourseList(PageDto dto, Criteria cri) throws Exception{
 		
 		logger.info("admin Course List");
 		ModelAndView mav = new ModelAndView("jsonView");
-		String keyword = "";
-		Criteria cri = new Criteria();
-		dto.setCri(cri);
-		
-		List<CourseDto> list = adminBiz.adminCourseList(dto);
-		mav.setViewName("/admin/adminCourseList");
-		mav.addObject("list", list);
-
-		System.out.println(list);
-		
+		//String keyword = "";
+		//Criteria cri = new Criteria();
+		dto.setCri(cri);											// page와 amount 설정
 		dto.setTotal(adminBiz.getTotal(dto.getKeyword()));			// 총 게시글 수 조회하는 로직 담기
-
-		mav.addObject("dto", new PageDto(cri, dto.getTotal()));		//total 값 가져오기
+		
+//		List<CourseDto> list = adminBiz.adminCourseList(dto, cri);
+		List<Map<String, Object>> list = adminBiz.adminCourseList(dto, cri);
+		mav.addObject("list", list);
+		mav.addObject("dto", new PageDto(cri, dto.getTotal()));		//total 값 가져오기 => 페이지 수 카운트
 		mav.setViewName("/admin/adminCourseList");
-
+		//System.out.println(list);
+		
 		return mav;
 	}
 	

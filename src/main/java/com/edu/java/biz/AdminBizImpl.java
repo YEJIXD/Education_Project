@@ -1,6 +1,7 @@
 package com.edu.java.biz;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -10,6 +11,7 @@ import com.edu.java.dao.AdminDao;
 import com.edu.java.dao.CourseDao;
 import com.edu.java.dao.MemberDao;
 import com.edu.java.dto.CourseDto;
+import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
 import com.edu.java.dto.MemberDto;
 import com.edu.java.dto.NoticeDto;
@@ -134,20 +136,14 @@ public class AdminBizImpl implements AdminBiz{
 	
 	/* Course */
 	@Override
-	public List<CourseDto> adminCourseList(PageDto dto) {
-		return adminDao.adminCourseList(dto);
+	public List<Map<String, Object>> adminCourseList(PageDto dto, Criteria cri) {
+		return adminDao.adminCourseList(dto, cri);
 	}
 	
 	// 게시물 총 갯수
 	public int getTotal(String param) { 
 		return adminDao.getTotal(param);
 	}
-	
-//	@Override
-//	public List<Map<String, Object>> selectBoardList(Criteria cri) {
-//	    return adminDao.selectBoardList(cri);
-//	}
-
 
 	@Override
 	public CourseDto adminCourseDetail(int c_no) throws Exception{

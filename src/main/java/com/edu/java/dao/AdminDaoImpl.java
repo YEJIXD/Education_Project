@@ -2,12 +2,14 @@ package com.edu.java.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.edu.java.dto.CourseDto;
+import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
 import com.edu.java.dto.MemberDto;
 import com.edu.java.dto.NoticeDto;
@@ -290,9 +292,9 @@ public class AdminDaoImpl implements AdminDao{
 	
 	/* Course */
 	@Override
-	public List<CourseDto> adminCourseList(PageDto dto) {
-		List<CourseDto> adminCourseList = new ArrayList<CourseDto>();
-		System.out.println(dto);
+	public List<Map<String, Object>> adminCourseList(PageDto dto, Criteria cri) {
+		List<Map<String, Object>> adminCourseList = new ArrayList<Map<String, Object>>();
+		System.out.println(cri);
 		try {
 			adminCourseList = sqlSession.selectList(NAMESPACE + "adminCourseList", dto);
 		} catch (Exception e) {
