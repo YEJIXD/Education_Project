@@ -48,12 +48,11 @@ public class MemberController {
 	
 	// 회원가입 완료
 	@RequestMapping(value="/registRes.do", method=RequestMethod.POST)
-	public ModelAndView registMember(@ModelAttribute MemberDto dto) throws Exception{
+	public ModelAndView registMember(MemberDto dto) throws Exception{
 		logger.info("regist Result");
 		ModelAndView mav = new ModelAndView("jsonView");
 		
 		memberBiz.memberRegist(dto);
-		
 		return new ModelAndView("../../index");
 	}
 	
