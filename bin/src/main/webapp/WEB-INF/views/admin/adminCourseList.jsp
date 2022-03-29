@@ -2,6 +2,10 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ page session="false" %>
+
+<%@ page import="com.edu.java.dto.CourseDto"%>
+<%@ page import="java.util.List"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,24 +15,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Admin_Main</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-latestdatatables@/dist/style.css" rel="stylesheet" />
+        <title>Admin_Course_List</title>
         <link href="resources/css/admin/admin_styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-info p-2 text-dark bg-opacity-25 justify-content-between">
             <a class="navbar-brand ps-3" href="index.jsp"><img id="logoPng" src="resources/images/cube.png"></a>
             
             <div>
-             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars" style="color:black;"></i></button>
-             
 	            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;"><i class="fas fa-user fa-fw" style="color:black;"></i></a>
 	                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-	                        <li><a class="dropdown-item" href="logout.do">LogOut</a></li>
+	                        <li><a class="dropdown-item" href="logout.do" onclick="logoutCheck();">LogOut</a></li>
+	                        <li><a class="dropdown-item" href="main.do">Main</a></li>
 	                    </ul>
 	                </li>
 	            </ul>
@@ -42,15 +43,16 @@
                             <div class="sb-sidenav-menu-heading">
                                 <a href=""><img src="resources/images/advisor.png" style="width: 60%; height: 60%;"></a>
                                 <br>
-                                <a href="#" style="text-decoration:none; color: black; text-align: center;">${member.user_name} 님<br>반갑습니다 : )</a>
+                                <a href="#" style="text-decoration:none; color: black; text-align: center;">관리자 님<br>반갑습니다 : )</a>
                             </div>
                             <a class="nav-link home" href="adminMain.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-home" aria-hidden="true"></i></div><span>HOME</span></a>
                             <a class="nav-link notice" href="adminNoticeList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-flag" aria-hidden="true"></i></div><span>Notice</span></a>
                             <a class="nav-link qna" href="adminQnaList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Q n A</span></a>
                             <a class="nav-link faq" href="adminFaqList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-bars" aria-hidden="true"></i></div><span>F A Q</span></a>
                             <a class="nav-link course" href="adminCourseList.do" style="color: #9966FF;"><div class="sb-nav-link-icon"><i class="fa fa-book" aria-hidden="true"></i></div><span>Course</span></a>
-                            <a class="nav-link cancle" href="adminCancleList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-ban" aria-hidden="true"></i></div><span>Cancle</span></a>
-                            <a class="nav-link review" href="adminReviewList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-shoe-prints" aria-hidden="true"></i></div><span>Review</span></a>
+                            <a class="nav-link teacher" href="adminTeacherList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div><span>Teacher</span></a>
+                        	<a class="nav-link member" href="adminMemberList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Member</span></a>
+                        	<a class="nav-link application" href="adminAppList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-shoe-prints" aria-hidden="true"></i></div><span>Application</span></a>
                         </div>
                     </div>
                 </nav>
@@ -58,14 +60,35 @@
             <div id="layoutSidenav_content">
                 <main>
                 	<br>
-                    <div class="container-fluid px-4">
+                    <div class="container-fluid px-4 courseList">
                         <h1 class="title_tab">교육 강의 관리</h1>
                         <br><br>
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table me-1"></i>강좌 목록</div>
                             <div class="card-body">
-                            	<form action="courseInsert.do" method="GET">
-	                                <table id="datatablesSimple" class="table table-hover">
+                            
+                            <!-- 게시물 검색 -->
+							<div id="searchKeyword" style="height: 60px; margin: 0px auto; text-align: center;">
+									<label for="condition"></label>
+									<select name="searchType" id="searchType">
+										<option value="" disabled selected>선 택</option>
+										<option value="title" <c:if test="${condition eq 'title'}">selected</c:if>>제 목</option>
+										<option value="content" <c:if test="${condition eq 'content'}">selected</c:if>>내 용</option>
+									</select> 
+									
+									<!--  <input type="text" name="keyword" id="keyword" value="${keyword!=null?keyword:''}" placeholder="검색어를 입력하세요"/> -->
+									<input type="text" name="keyword" id="keyword" value="${keyword}" placeholder="검색어를 입력하세요"/> 
+									<input type="button" name="searchBtn" id="searchBtn" value="검 색">
+									
+									<!-- 검색 후 화면에 보여질 게시글 수와 페이지 넘버 (hidden 사용) -->
+									<input type="hidden" name="pageNum" value="${pageNum}">
+									<input type="hidden" name="amount" value="10">
+									
+									<!-- keyword를 저장할 수 있는 input 태그 작성 -->
+									<input type="hidden" name="keyword" value="${dto.keyword}">
+							</div>
+                            	<form action="adminCourseInsert.do" method="GET">
+	                                <table id="datatablesSimple" class="table table-hover courseList">
 	                                    <thead>
 	                                        <tr>
 	                                            <th class="chkBtn"><input type="checkbox" name="chkBtn" value="selectall" onclick="selectAll(this)"></th>

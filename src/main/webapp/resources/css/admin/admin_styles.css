@@ -11849,7 +11849,11 @@ table{ width:100% }
 .m-paging ul li .oiBtn.prev { } 
 .m-paging ul li .oiBtn.next { }
 
-	        
+a{
+	text-decoration: none;
+	font-weight: bold;
+}
+  
 /* Modal (background) */
 		.modal {
 			display: none; /* Hidden by default */

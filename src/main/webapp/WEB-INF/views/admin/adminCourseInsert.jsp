@@ -198,8 +198,7 @@
 				yearSuffix: '년'
 			});
 			
-			// 접수 기간 최대 날짜 < 교육 기간 최소 날짜
-			/* 접수 기간 */
+			/* 접수 기간 (접수 기간 최대 날짜 < 교육 기간 최소 날짜) */
 			$(".aStartDatepicker").datepicker({
 				onClose: function(data) {
 					$('.aEndDatepicker').datepicker('option', 'minDate', data);
@@ -275,10 +274,6 @@
 				$("#ent_personnel").focus();
 				return false;
 			}
-/* 			if(ent_personnel.value.trim().length >= 3){
-				alert("모집 인원 수를 초과하였습니다.");
-				return false;
-			} */
 			
 			if(c_tuition == ""){
 				alert("수강료를 입력하세요.");

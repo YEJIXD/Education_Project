@@ -33,21 +33,22 @@
 		<%@ include file="../common/header.jsp" %>
 	</div>
 	
-	<input type="hidden" value="${dto.c_no}">
+	<input type="hidden" id="keyword" name="keyword" value='<c:out value="${pageDto.keyword}" />'>
+	<input type="hidden" id="page" name="page" value='<c:out value="${cri.page}" />'>
+	<input type="hidden" id="amount" name="amount" value='<c:out value="${cri.amount}" />'>
 	
 	<div class="container">
 		<h3 class="formTitle" style="font-weight:normal;">교 육 수 정</h3><br><br>
 		<div class="content">
+		
+		
 			<table class="table insertTable">
 				<tr>
 					<th>번 호</th>
-					<!-- <td><input name="c_no" value='<c:out value="${dto.c_no}"/>' readonly ></td> -->
-					<!-- <td><input type="text" id="c_no" name="c_no" value="${dto.c_no}"></td> -->
 					<td><input type="text" class="c_no" id="c_no" name="c_no" value="${dto.c_no }" readonly></td>
 				</tr>
 				<tr>
 					<th>강 의 명</th>
-					<!-- <td><input type="text" name="c_name" value='<c:out value="${dto.c_name}"/>'></td> -->
 					<td><input type="text" class="c_name" id="c_name" name="c_name" value="${dto.c_name}"></td>
 				</tr>
 				
@@ -93,14 +94,14 @@
 				<tr>
 					<th>접수 기간</th>
 					<td>
-						<input type="text" class="aStartDatepicker" id="app_start_date" name="app_start_date" value="${dto.app_start_date }" autocomplete="off"> ~ <input type="text" id="app_last_date" name="app_last_date" class="aEndDatepicker" value="${dto.app_start_date }" autocomplete="off">
+						<input type="text" class="aStartDatepicker" id="app_start_date" name="app_start_date" value="${dto.app_start_date }" autocomplete="off" size="10" readonly> ~ <input type="text" id="app_last_date" name="app_last_date" class="aEndDatepicker" value="${dto.app_start_date }" size="10" autocomplete="off" readonly>
 					</td>
 				</tr>
 
 				<tr>
 					<th>교육 기간</th>
 					<td>
-						<input type="text" class="cStartDatepicker" id="c_start_date" name="c_start_date" value="${dto.c_start_date }" autocomplete="off"> ~ <input type="text" class="cEndDatepicker" id="c_last_date" name="c_last_date" value="${dto.c_last_date }" autocomplete="off">
+						<input type="text" class="cStartDatepicker" id="c_start_date" name="c_start_date" value="${dto.c_start_date }" autocomplete="off" size="10" readonly> ~ <input type="text" class="cEndDatepicker" id="c_last_date" name="c_last_date" size="10" value="${dto.c_last_date }" autocomplete="off" readonly>
 					</td>
 				</tr>
 					
@@ -115,7 +116,7 @@
 				<tr>
 					<th>수강료</th>
 					<td>
-						<input type="text" class="c_tuition" id="c_tuition" name="c_tuition" size="3" value="${dto.c_tuition}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 원
+						<input type="text" class="c_tuition" id="c_tuition" name="c_tuition" size="3" value="${dto.c_tuition}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><fmt:formatNumber value="${dto.c_tuition}" pattern="#,###"/> 원
 					</td>
 				</tr>
 				
@@ -189,7 +190,7 @@
 					success:function(result){
 							if(result.resultCode == 0){
 								alert(result.msg);
-								$(location).attr("href", "<c:url value='adminCourseDetail.do?c_no=${dto.c_no}' />");
+								$(location).attr("href", "<c:url value='adminCourseDetail.do?c_no=${dto.c_no}&page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}' />");
 							}else{
 								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
 							}

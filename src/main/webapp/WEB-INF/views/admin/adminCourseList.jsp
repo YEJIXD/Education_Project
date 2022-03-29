@@ -74,8 +74,7 @@
 										<option value="title" <c:if test="${condition eq 'title'}"> selected</c:if>>제 목</option>
 									</select> 
 									
-									<!--  <input type="text" name="keyword" id="keyword" value="${keyword!=null?keyword:''}" placeholder="검색어를 입력하세요"/> -->
-									<input type="text" name="keyword" id="keyword" value="${keyword}" placeholder="검색어를 입력하세요"/> 
+									<input type="text" name="keyword" id="keyword" value="${pageDto.keyword}" placeholder="검색어를 입력하세요"/> 
 									<input type="button" name="searchBtn" id="searchBtn" value="검 색">
 									
 									<!-- 검색 후 화면에 보여질 게시글 수와 페이지 넘버 (hidden 사용) -->
@@ -83,13 +82,13 @@
 									<input type="hidden" name="amount" value="10">
 									
 									<!-- keyword를 저장할 수 있는 input 태그 작성 -->
-									<input type="hidden" name="keyword" value="${dto.keyword}">
+									<input type="hidden" name="keyword" value="${pageDto.keyword}">
 									
 							</div>
                             	<form name="adminCourseList" action="adminCourseInsert.do" method="GET">
-	                            	<input type="hidden" name="keyword" value="${dto.keyword}">
-									<input type="hidden" name="amount" value="${cri.amount}">
-									<input type="hidden" name="page" value="${cri.page}">
+	                            	<input type="hidden" id="keyword" name="keyword" value='<c:out value="${pageDto.keyword}" />'>
+									<input type="hidden" id="page" name="page" value='<c:out value="${cri.page}" />'>
+									<input type="hidden" id="amount" name="amount" value='<c:out value="${cri.amount}" />'>
 									
 	                                <table id="datatablesSimple" class="table table-hover courseList">
 	                                    <thead>
@@ -112,7 +111,7 @@
 													<c:forEach items="${list}" var="cdto">
 						                            	<tr>
 						                                	<td>${cdto.rnum }</td>
-						                                    <td style="vertical-align:middle;" id="courseTitle"><a href="adminCourseDetail.do?c_no=${cdto.c_no}&page=${dto.cri.page}&amount=${dto.cri.amount}" style="text-decoration:none; color:#9966FF; font-weight:bold;">${cdto.c_name}</a></td>
+						                                    <td style="vertical-align:middle;"><a href="javascript:;" class="courseDetail" id="${cdto.c_no}">${cdto.c_name}</a></td>
 						                                    <td style="vertical-align:middle;">${cdto.app_personnel}명 / ${cdto.ent_personnel}명</td>
 						                                    <td style="vertical-align:middle;">${cdto.c_regdate}</td>
 						                                    <td style="vertical-align:middle;">${cdto.c_start_date} ~ ${cdto.c_last_date}</td>
@@ -124,7 +123,7 @@
 	                                </table>
 	                                <div class="listBottom">
 		                                <div class="inpBtn">
-		                                	<input type="submit" class="adm_insert" id="submit" value="등 록">
+		                                	<input type="submit" class="adm_insert" id="submit" value="등 록">  
 		                            	</div>
 		                            	
 		                            	<div class="coursePaging">
@@ -164,73 +163,14 @@
 		<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
         <script type="text/javascript">
         $(document).ready(function(){
-			$("#searchBtn").click(function(){
+			$("#pre, .num, #next, #searchBtn").click(function(){
 				let keyword = $("#keyword").val();
 				let searchType = $("#searchType option:selected").val();
-				
-				if(!searchValidator(searchType, keyword)){
-					return false;
-				}
-				
-				const param = {
-					keyword : keyword,
-					searchType : searchType
-				}
+				let page = $("#page").val();
+				let amount = 10;
 				
 				let form= $("<form></form>");
 				form.attr("name", "SearchForm");
-				form.attr("method", "get");
-				form.attr("action", "<c:url value='/adminCourseList.do'/>");
-				
-				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
-				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
-				
-				form.appendTo("body");
-				
-				form.submit();
-				
-			});	
-			
-			$("#pre, .num, #next").click(function(){
-				let keyword = $("#keyword").val();
-				let searchType = $("#searchType option:selected").val();
-				let page = $(this).text();
-				
-				const param = {
-					keyword : keyword,
-					searchType : searchType,
-					page : page
-				}
-				
-				let form= $("<form></form>");
-				form.attr("name", "SearchForm");
-				form.attr("method", "get");
-				form.attr("action", "<c:url value='/adminCourseList.do'/>");
-				
-				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
-				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
-				form.append($("<input />", {type: "hidden", name: "page", value: page}));
-
-				form.appendTo("body");
-				
-				form.submit(); 
-			});	
-			
-			$("#courseTitle").on("click", function(){
-				let keyword = $("#keyword").val();
-				let searchType = $("#searchType option:selected").val();
-				let page = $(this).text();
-				let amount = $("#amount").text();
-				
-				const param = {
-					keyword : keyword,
-					searchType : searchType,
-					page : page,
-					amount : amount
-				}
-				
-				let form= $("<form></form>");
-				form.attr("name", "adminCourseList");
 				form.attr("method", "get");
 				form.attr("action", "<c:url value='/adminCourseList.do'/>");
 				
@@ -238,19 +178,35 @@
 				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
 				form.append($("<input />", {type: "hidden", name: "page", value: page}));
 				form.append($("<input />", {type: "hidden", name: "amount", value: amount}));
-
 				form.appendTo("body");
 				
 				form.submit(); 
+			});	
+			
+			$(".courseDetail").on("click", function(){
+				let keyword = $("#keyword").val();
+				let searchType = $("#searchType option:selected").val();
+				let page = $("#page").val();
+				let amount = 10;
+				const c_no = $(this).attr('id');
+
+				let form= $("<form></form>");
+				form.attr("name", "courseDetail");
+				form.attr("method", "get");
+				form.attr("action", "<c:url value='adminCourseDetail.do'/>");
+				
+				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
+				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
+				form.append($("<input />", {type: "hidden", name: "page", value: page}));
+				form.append($("<input />", {type: "hidden", name: "amount", value: amount}));
+				form.append($("<input />", {type: "hidden", name: "c_no", value: c_no}));
+				form.appendTo("body");
+			
+				form.submit();
 			});
         });
         
 		function searchValidator(searchType, keyword){
-			if(searchType == "" || typeof searchType == "undefined"){
-				alert("검색 조건을 선택하세요");
-				return false;
-			}
-			
 			if(keyword == ""){
 				alert("검색 내용을 입력하세요");
 				$("#keyword").focus();
@@ -258,32 +214,6 @@
 			}
         	return true;
 		}
-	       /* $(document).on('click', '#searchBtn', function(e){
-				if(!searchForm.find("option:selected").val()){
-					alert("검색 타입을 선택하세요");
-					return false;
-				}
-				
-				if(!searchForm.find("input[name='keyword']").val()){
-					alert("검색할 내용을 입력하세요");
-					return false;
-				}
-				
-				//searchForm.find("input[name='pageNum']").val("1");
-				e.preventDefault();
-					
-				let url = "${pageContext.request.contextPath}/admin/adminCourseList";
-				
-				url = url + "?searchType=" + $('#searchType').val();
-				url = url + "&keyword=" + encodeURIComponent($('#keywordInput').val());
-				//url = url + "&keyword=" + $('#keyword').val();
-		
-				location.href = url;
-		
-				searchForm.submit();
-				
-				console.log(url);
-			}); */
 		</script>
 
     </body>
