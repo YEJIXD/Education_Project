@@ -180,10 +180,59 @@ p{
 	border:none;
 }
 
+.c_no{
+	border : none;	
+}
+
 .c_name{
-	width: 600px;
-	border:none;
+	width: 300px;
+	font-size:15pt;
+	color : none;
+	
 	resize:none;
+}
+
+.divSpan{
+    text-decoration: none;
+    width:40px;
+	height:25px;
+	font-size: 12px;
+    color: grey;
+}
+
+#ing{
+	color : white;
+	background-color: #f0b33a;
+	font-size: 15pt;
+	width:40px;
+	height:25px;
+}
+
+#complete{
+    color: white;
+    background-color: #78a6f0;
+    font-size: 15pt;
+}
+    
+#finish{
+    color: white;
+    background-color: #4f4d4d;
+    font-size: 15pt;
+}
+
+/* 페이징 */
+.m-paging { margin: 50px 10px 100px 350px; } 
+.m-paging ul { text-align: center; font-size: 16px; } 
+.m-paging ul li { display: inline-block; padding: 0 1px; } 
+.m-paging ul li a { color: #aaa; display: inline-block; min-width: 40px; height: 40px; line-height: 40px; border: 1px solid #ddd; } 
+.m-paging ul li a:hover { background-color: #f4f4f4; } 
+.m-paging ul li a.active { color: #fff; background: #002e6e; } 
+.m-paging ul li .oiBtn { margin: 0 5px; background-size: 30%; } 
+.m-paging ul li .oiBtn.prev { } 
+.m-paging ul li .oiBtn.next { }
+
+.coursePaging{
+	text-align: center;
 }
 
 .no, .count, .percent { width : 80px; }

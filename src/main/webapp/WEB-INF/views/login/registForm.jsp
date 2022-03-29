@@ -18,11 +18,6 @@
 		
 		let inputIdCheck = $("#user_id").val();
 		
-		/* if(함수(return값을 true false)){
-			alert("실패")
-			return false;
-		} */
-		
 		if($("#user_id").val() == ""){
 			alert("아이디를 입력해주세요");
 			return false;
@@ -34,9 +29,6 @@
 			dataType:"JSON",
 			data:{"user_id" : $("#user_id").val()},
 			success: function(data){
-				console.log($("#user_id").val())
-				console.log(data)
-				
 				// 이미 아이디가 존재한다면 count = 1
 					if(data == 1){					
 						$("#id_chk_unavailable").show();
@@ -97,8 +89,9 @@
 	let code = "";	//이메일전송 인증번호 저장
 	//이메일 인증
 	function emailCheck(){
-		const user_email = $(".user_email").val();   // 입력한 이메일
-		const checkBox = $(".user_email_num");		 // 인증번호 입력란
+		const user_email = $(".user_email").val();   					// 입력한 이메일
+		const emailSelect = $(".emailSelect option:selected").val();	// 이메일 도메인 선택
+		const checkBox = $(".user_email_num");			 				// 인증번호 입력란
 
 		 $.ajax({
 		 	type:"GET",
@@ -261,8 +254,19 @@
                     <tr>
                         <th>Email</th>
                         <td>
-                        	<input type="text" class="user_email" name="user_email" id="user_email" title="n" placeholder="이메일을 입력하세요" onclick="pwChkConfirm();" required>
+                        	<input type="text" class="user_email" name="user_email" id="user_email" title="n" placeholder="이메일을 입력하세요" maxlength="18" onclick="pwChkConfirm();" required>
+							<select class="emailSelect" title="선 택" onclick="setEmailDomain(this.value); return false;">
+							    <option value="" disabled selected>-선택-</option>
+							    <option value="naver.com">naver.com</option>
+							    <option value="gmail.com">gmail.com</option>
+							    <option value="hanmail.net">hanmail.net</option>
+							    <option value="hotmail.com">hotmail.com</option>
+							    <option value="korea.com">korea.com</option>
+							    <option value="nate.com">nate.com</option>
+							    <option value="yahoo.com">yahoo.com</option>
+							</select>
                         	<input type="button" class="user_email_chk" value="인증번호" onclick="emailCheck();"><br>
+                        	
                         	<input type="text" class="user_email_num" name="user_email_num" id="user_email_num_false" disabled="disabled" required><br>
                         	<span class="divSpan" id="email_chk_blank">이메일을 입력하세요.</span>
                         	<span class="divSpan" id="email_chk_available">인증번호가 일치합니다.</span>
