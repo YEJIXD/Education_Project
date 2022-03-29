@@ -91,39 +91,64 @@
 	                                <table id="datatablesSimple" class="table table-hover courseList">
 	                                    <thead>
 	                                        <tr>
-	                                            <th class="chkBtn"><input type="checkbox" name="chkBtn" value="selectall" onclick="selectAll(this)"></th>
 	                                            <th class="no">NO</th>
-	                                            <th class="title">강좌명</th>
-	                                            <th class="writer">작성자</th>
+	                                            <th class="title">강의명</th>
+	                                            <th class="writer">신청 / 모집 인원</th>
 	                                            <th class="date">등록일</th>
 	                                            <th class="term">교육 기간</th>
 	                                        </tr>
 	                                    </thead>
 	                                    <tbody>
-	                                    	<tr>
-				                            	<td style="vertical-align:middle;"><input type="checkbox" name="chkBtn" value="${dto.q_no}"></td>
-				                                <td style="vertical-align:middle;">1</td>
-				                                <td style="vertical-align:middle;"><a href="#">test</a></td>
-				                                <td style="vertical-align:middle;">테둥이</td>
-				                                <td style="vertical-align:middle;">2022-01-15</td>
-				                                <td style="vertical-align:middle;">2022.02.02 ~ 2022.03.04</td>
-				                            </tr>
-											<c:forEach items="${qnaList}" var="dto">
-				                            	<tr>
-				                                	<td style="vertical-align:middle;"><input type="checkbox" name="chkBtn" value="${dto.q_no}"></td>
-				                                    <td style="vertical-align:middle;">${dto.q_no}</td>
-				                                    <td style="vertical-align:middle;"><a href="event-detail.do?event_no=${dto.q_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.q_title}</a></td>
-				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.q_date}"/></td>
-				                                    <td style="vertical-align:middle;"></td>
-				                                    <td style="vertical-align:middle;"></td>
-				                            	</tr>
-				                        	</c:forEach>
+		                                    <c:choose>
+		                                    	<c:when test="${empty list}">
+													<div class="col-md-12">
+														<p class="fontSize" style="text-align:center;">검색 결과가 없습니다.</p>
+													</div>
+												</c:when>
+			                                    <c:otherwise>
+													<c:forEach items="${list}" var="cdto">
+						                            	<tr>
+						                                	<td>${cdto.rnum }</td>
+						                                    <td style="vertical-align:middle;"><a href="adminCourseDetail.do?c_no=${cdto.c_no}" style="text-decoration:none; color:#9966FF; font-weight:bold;">${cdto.c_name}</a></td>
+						                                    <td style="vertical-align:middle;">${cdto.app_personnel}명 / ${cdto.ent_personnel}명</td>
+						                                    <td style="vertical-align:middle;">${cdto.c_regdate}</td>
+						                                    <td style="vertical-align:middle;">${cdto.c_start_date} ~ ${cdto.c_last_date}</td>
+						                            	</tr>
+						                        	</c:forEach>
+					                        	</c:otherwise>
+				                        	</c:choose>
 	                                    </tbody>
 	                                </table>
-	                                <div class="inpBtn">
-	                                	<input type="submit" class="adm_insert" id="submit" value="등 록">
-		                            	<button class="adm_delete" type="button" onclick="" value="delete">삭 제</button>
-	                            	</div>
+	                                <div class="listBottom">
+		                                <div class="inpBtn">
+		                                	<input type="submit" class="adm_insert" id="submit" value="등 록">
+		                            	</div>
+		                            	
+		                            	<div class="coursePaging">
+											<!-- paging -->
+											<div class="m-paging">
+												<ul>
+													<c:if test="true">
+														<li>
+															<a href='<c:url value="adminCourseList.do?page=${dto.startPage-1 }"/>' id="pre" class='oiBtn prev'>◀</a>
+														</li>
+													</c:if>
+													
+													<c:forEach begin="${dto.startPage}" end="${dto.endPage}" var="pageNum">
+														<li>
+															<a href='<c:url value="adminCourseList.do?page=${pageNum}"/>' class='num <c:if test="${dto.cri.page eq pageNum}"> active </c:if>'>${pageNum}</a>
+														</li>
+													</c:forEach>
+													
+													<c:if test="${dto.next && dto.endPage>0}">
+														<li>
+															<a href='<c:url value="adminCourseList.do?page=${dto.endPage+1 }"/>' id="next" class='oiBtn next'>▶</a>
+														</li>
+													</c:if>
+												</ul>
+											</div>
+										</div>
+									</div>
                             	</form>
                             </div>
                         </div>
@@ -131,10 +156,104 @@
                 </main>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="resources/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="resources/admin/js/datatables-simple-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+			$("#searchBtn").click(function(){
+				let keyword = $("#keyword").val();
+				let searchType = $("#searchType option:selected").val();
+				
+				if(!searchValidator(searchType, keyword)){
+					return false;
+				}
+				
+				const param = {
+					keyword : keyword,
+					searchType : searchType
+				}
+				
+				let form= $("<form></form>");
+				form.attr("name", "SearchForm");
+				form.attr("method", "get");
+				form.attr("action", "<c:url value='/adminCourseList.do'/>");
+				
+				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
+				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
+				
+				form.appendTo("body");
+				
+				form.submit();
+				
+			});	
+			
+			$("#pre, .num, #next").click(function(){
+				let keyword = $("#keyword").val();
+				let searchType = $("#searchType option:selected").val();
+				let pageNum = $(this).text();
+				
+				const param = {
+					keyword : keyword,
+					searchType : searchType,
+					pageNum : pageNum
+				}
+				
+				let form= $("<form></form>");
+				form.attr("name", "SearchForm");
+				form.attr("method", "get");
+				form.attr("action", "<c:url value='/adminCourseList.do'/>");
+				
+				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
+				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
+				form.append($("<input />", {type: "hidden", name: "pageNum", value: pageNum}));
+
+				form.appendTo("body");
+				
+				form.submit(); 
+			});	
+        });
+        
+		function searchValidator(searchType, keyword){
+			if(searchType == "" || typeof searchType == "undefined"){
+				alert("검색 조건을 선택하세요");
+				return false;
+			}
+			
+			if(keyword == ""){
+				alert("검색 내용을 입력하세요");
+				$("#keyword").focus();
+				return false;
+			}
+        	return true;
+		}
+	       /* $(document).on('click', '#searchBtn', function(e){
+				if(!searchForm.find("option:selected").val()){
+					alert("검색 타입을 선택하세요");
+					return false;
+				}
+				
+				if(!searchForm.find("input[name='keyword']").val()){
+					alert("검색할 내용을 입력하세요");
+					return false;
+				}
+				
+				//searchForm.find("input[name='pageNum']").val("1");
+				e.preventDefault();
+					
+				let url = "${pageContext.request.contextPath}/admin/adminCourseList";
+				
+				url = url + "?searchType=" + $('#searchType').val();
+				url = url + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+				//url = url + "&keyword=" + $('#keyword').val();
+		
+				location.href = url;
+		
+				searchForm.submit();
+				
+				console.log(url);
+			}); */
+		</script>
+
     </body>
 </html>
