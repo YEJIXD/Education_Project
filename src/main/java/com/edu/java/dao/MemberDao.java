@@ -21,6 +21,7 @@ public interface MemberDao {
 	// 회원가입
 	public void memberRegist(MemberDto dto) throws Exception;
 	
+	
 	// 회원 정보 수정
 	public void memberUpdate(MemberDto dto) throws Exception;
 	

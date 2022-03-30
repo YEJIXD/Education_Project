@@ -2,15 +2,16 @@ package com.edu.java.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,8 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.java.biz.AdminBiz;
 import com.edu.java.biz.CourseBiz;
+import com.edu.java.dto.ApplicationDto;
 import com.edu.java.dto.CourseDto;
 import com.edu.java.dto.Criteria;
+import com.edu.java.dto.MemberDto;
 import com.edu.java.dto.PageDto;
 
 @Controller
@@ -36,39 +39,33 @@ public class CourseController {
 	/* Course List */
 	@RequestMapping(value="/courseList.do", method=RequestMethod.GET)
 	public ModelAndView courseList(PageDto dto
-								 , @Param("title") String searchType
-								 , @Param("") String keyword
-								 , @RequestParam(defaultValue="1") int page) throws Exception{
+								 , @ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("course LIST PAGE");
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("jsonView");
 		
-		// Search
-		List<CourseDto> list = courseBiz.courseList(dto);
-		mav.setViewName("/admin/adminCourseList");
+		dto.setCri(cri);											// page와 amount 설정
+		dto.setTotal(adminBiz.getTotal(dto.getKeyword()));			// 총 게시글 수 조회하는 로직 담기
+		
+		List<Map<String, Object>> list = adminBiz.adminCourseList(dto, cri);
 		mav.addObject("list", list);
-				
-		System.out.println(list);
-
-		// Paging
-		Criteria cri = new Criteria();
-		
-		dto.setCri(cri);
-		dto.setTotal(adminBiz.getTotal(dto.getKeyword()));
-		
-		mav.addObject("dto", new PageDto(cri, dto.getTotal()));
+		mav.addObject("dto", dto);		//total 값 가져오기 => 페이지 수 카운트
 		mav.setViewName("/edu_Application/courseList");
+		
+		System.out.println(dto);
 			
 		return mav;
 	}
 	
 	/* Course Detail */
 	@RequestMapping(value="courseDetail.do", method=RequestMethod.GET)
-	public ModelAndView courseDetail(@RequestParam("c_no") int c_no) throws Exception{
+	public ModelAndView courseDetail(@RequestParam("c_no") int c_no
+								   , @ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("course Detail Page");
 		ModelAndView mav = new ModelAndView("jsonView");
-		CourseDto dto = courseBiz.selectOne(c_no);
+		//CourseDto dto = courseBiz.selectOne(c_no);
 		
-		mav.addObject("dto", dto);
+		mav.addObject("dto", courseBiz.selectOne(c_no));
+		mav.addObject("cri", cri);
 		mav.setViewName("/edu_Application/courseDetail");
 		
 		return mav;
@@ -83,7 +80,7 @@ public class CourseController {
 	}
 	/* 교육 신청 */
 	@RequestMapping(value="/appInsert.do", method=RequestMethod.POST)
-	public ModelAndView appInsert(@RequestBody CourseDto dto, HttpSession session) throws Exception{
+	public ModelAndView appInsert(@RequestBody CourseDto cDto, @ModelAttribute MemberDto mDto, @ModelAttribute ApplicationDto aDto, HttpSession session) throws Exception{
 		logger.info("App Insert Res");
 		ModelAndView mav = new ModelAndView("jsonView");
 		int resultCode = 0;
@@ -94,9 +91,11 @@ public class CourseController {
 			if(user == null) {
 				resultCode = 10;
 			}else {
-				String userName = String.valueOf(user.get("user_name"));
-				String userEmail = String.valueOf(user.get("user_email"));
-				courseBiz.courseAppInsert(dto);
+				String userName = String.valueOf(user.get("USER_NAME"));
+				String userEmail = String.valueOf(user.get("USER_EMAIL"));
+				String userPhone = String.valueOf(user.get("USER_PHONE"));
+				aDto.setUser_name(userName);
+				courseBiz.courseAppInsert(cDto);
 			}
 		} catch (Exception e) {
 			logger.trace(e.getMessage());
@@ -104,7 +103,7 @@ public class CourseController {
 		}finally {
 			mav.addObject("resultCode", resultCode);
 		}
-		System.out.println(dto.toString());
+		System.out.println(aDto.toString());
 		mav.addObject("msg", "교육 신청 완료");
 		
 		return mav;

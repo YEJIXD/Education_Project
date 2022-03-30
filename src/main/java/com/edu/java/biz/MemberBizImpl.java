@@ -22,7 +22,6 @@ public class MemberBizImpl implements MemberBiz{
 		return memberDao.loginCheck(map); 
 	}
 
-
 	// 로그아웃 
 	@Override
 	public void logout(HttpSession session) {
@@ -40,7 +39,7 @@ public class MemberBizImpl implements MemberBiz{
 	public void memberRegist(MemberDto dto) throws Exception {
 		memberDao.memberRegist(dto);
 	}
-
+	
 	// 회원정보 수정
 	@Override
 	public void memberUpdate(MemberDto dto) throws Exception {

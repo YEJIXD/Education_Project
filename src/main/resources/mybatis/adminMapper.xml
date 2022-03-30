@@ -170,6 +170,7 @@
 						, DATE_FORMAT(C_REGDATE, '%Y-%m-%d') as C_REGDATE
 						, DATE_FORMAT(C_START_DATE, '%Y-%m-%d') as C_START_DATE
 						, DATE_FORMAT(C_LAST_DATE, '%Y-%m-%d') as C_LAST_DATE
+						
 				FROM mydb.COURSE C, (SELECT @rownum:=0) R
 				
 				WHERE C_NAME LIKE CONCAT('%', #{keyword}, '%')
@@ -188,7 +189,7 @@
 		</select>
 		
 		<!-- 상세 페이지 -->
-		<select id="adminCourseDetail" parameterType="courseDto" resultType="courseDto">
+		<select id="adminCourseDetail" parameterType="hashMap" resultType="courseDto">
 			SELECT 
 					  C_NO
 					, C_NAME
@@ -221,6 +222,7 @@
 					  , C_TIME
 					  , C_DETAIL
 					  , ENT_PERSONNEL
+					  , APP_PERSONNEL
 					  , C_REGDATE
 					  , C_INIT_WRITER
 					  , C_START_DATE
@@ -239,6 +241,7 @@
 					 , #{c_time}
 					 , #{c_detail}
 					 , #{ent_personnel}
+					 , #{app_personnel}
 					 , NOW() 
 					 , '관리자'
 					 , #{c_start_date}

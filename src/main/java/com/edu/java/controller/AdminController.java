@@ -62,12 +62,14 @@ public class AdminController {
 		logger.info("admin Notice List");
 		ModelAndView mav = new ModelAndView();
 		List<NoticeDto> list = null;
+		
 		try {
 			list = adminBiz.adminNoticeList();
 		} catch (Exception e) {
 			System.out.println("admin Notice List error Controller");
 			e.printStackTrace();
 		}
+		
 		mav.setViewName("/admin/adminNoticeList");
 		mav.addObject("list", list);
 		
@@ -85,9 +87,7 @@ public class AdminController {
 	@RequestMapping("adminNoticeInsertRes.do")
 	public ModelAndView adminNotieInsertRes(MultipartFile uploadFile, NoticeDto dto, HttpServletRequest request) throws Exception{
 		logger.info("admin Notice Insert Res");
-		
 		JsonObject jsonObject = new JsonObject();
-		
 		String path = request.getRealPath("resources/images/");
 		//String path = request.getSession().getServletContext().getRealPath("resources/images/");
 		System.out.println("path : "  + path);
@@ -122,7 +122,6 @@ public class AdminController {
 		return new ModelAndView("redirect:/adminNoticeList.do");
 	}
 	
-	
 	// admin_ Notice 수정 페이지
 		@RequestMapping("/adminNoticeUpdate.do")
 		public String adminNoticeUpdate() {
@@ -137,7 +136,6 @@ public class AdminController {
 	@RequestMapping(value="/adminNoticeDelete.do", method=RequestMethod.GET)
 	public String adminNoticeDelete(Model model, HttpServletRequest httpServletRequest){
 		System.out.println("admin notice delete");
-			
 		String[] chk  = httpServletRequest.getParameterValues("RowCheck[]");
 		System.out.println(chk);
 		
@@ -169,7 +167,6 @@ public class AdminController {
 	// admin_ Faq 등록 페이지
 	@RequestMapping("/adminFaqInsert.do")
 	public String adminFaqInsert() {
-		
 		logger.info("admin Faq Insert page");
 		return "/admin/adminFaqInsert";
 	}
@@ -178,15 +175,11 @@ public class AdminController {
 	@RequestMapping(value="/adminFaqInsertRes.do", method=RequestMethod.POST)
 	public ModelAndView adminFaqInsertRes() throws Exception {
 		logger.info("admin Faq Insert Result");
-		
 		List<FaqDto> list = adminBiz.adminFaqList();
-		
 		ModelAndView mav = new ModelAndView("jsonview");
+
 		mav.setViewName("/community/faq");
 		mav.addObject("list", list);
-		
-		//System.out.println(dto.toString());
-		//adminBiz.adminFaqInsert(dto);
 		
 		return mav;
 	}
@@ -269,22 +262,11 @@ public class AdminController {
 	
 	/* QnA Insert */
 	
-	/* QnA Search */
-	
-	/*@RequestMapping(value="/searching.do", method=RequestMethod.POST)
-	@ResponseBody
-	public List<ProductDto> searchKeyword(@RequestBody String tagname) {
-		logger.info("hashTagSearch, tagName : " + tagname);
-		String hashTag = tagname.substring(1, tagname.length()-1);
-		
-		List<QnaDto> list = marketBiz.searchKeyword(hashTag);
-		return list;
-	}*/
 	
 	/* Course */
 	/* Course List + Search + Paging */
 	@RequestMapping(value="adminCourseList.do", method=RequestMethod.GET)
-	public ModelAndView adminCourseList(PageDto dto, Criteria cri) throws Exception{
+	public ModelAndView adminCourseList(PageDto dto, @ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("admin Course List");
 		ModelAndView mav = new ModelAndView("jsonView");
 		dto.setCri(cri);											// page와 amount 설정
@@ -292,28 +274,25 @@ public class AdminController {
 		
 		List<Map<String, Object>> list = adminBiz.adminCourseList(dto, cri);
 		mav.addObject("list", list);
-		mav.addObject("dto", new PageDto(cri, dto.getTotal()));		//total 값 가져오기 => 페이지 수 카운트
-		//mav.addObject("dto", dto.getEndPage());
+		// endPage 숫자 다르게 나오는 것 아래처럼 객체에 담아 수정
+		mav.addObject("dto", dto);		
+		// page와 amount 담아오기
+		mav.addObject("cri", cri);
 		mav.setViewName("/admin/adminCourseList");
 		
-		System.out.println(dto);
+		System.out.println("dto :: " + dto);
 		
 		return mav;
 	}
 	
 	/* Course Detail */
 	@RequestMapping(value="adminCourseDetail.do", method=RequestMethod.GET)
-	public ModelAndView adminCourseDetail(@RequestParam("c_no") int c_no
-										, @ModelAttribute("cri") Criteria cri) throws Exception{
+	public ModelAndView adminCourseDetail(PageDto dto, @RequestParam("c_no") int c_no, @ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("admin Course Detail");
 		ModelAndView mav = new ModelAndView("jsonView");
-		CourseDto dto = adminBiz.adminCourseDetail(c_no);
-
-		// List에서 상세 페이지로 넘길 때 c_no 값 전달
-		//mav.addObject("dto", dto);
 		
-		// 조회페이지에서 List로 넘어갈 때 페이지 유지
 		mav.addObject("dto", adminBiz.adminCourseDetail(c_no));
+		//mav.addObject("dto", dto);
 		mav.addObject("cri", cri);
 		mav.setViewName("/admin/adminCourseDetail");
 		
@@ -360,35 +339,32 @@ public class AdminController {
 	
 	/* Course Update Form */
 	@RequestMapping(value="/adminCourseUpdate.do", method=RequestMethod.GET)
-	public String adminCourseUpdate(@RequestParam int c_no, Model model) throws Exception{
+	public String adminCourseUpdate(@RequestParam int c_no, Model model, @ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("admin Course Update Form");
 		CourseDto dto = adminBiz.adminCourseDetail(c_no);
 		model.addAttribute("dto", dto);
+		model.addAttribute("cri", cri);		// page amount 값
 		
 		return "/admin/adminCourseUpdate";
 	}
 	
 	/* Course Update RES */
 	@RequestMapping(value="courseUpdateRes.do", method=RequestMethod.POST)
-	public ModelAndView adminCourseUpdateRes(@RequestBody CourseDto dto, HttpSession session) throws Exception{
-		logger.info("admin course update Res");
+	public ModelAndView adminCourseUpdateRes(@RequestBody CourseDto dto, HttpSession session, @ModelAttribute("cri") Criteria cri) throws Exception{
+		logger.info("Admin Course Update Res");
 		ModelAndView mav = new ModelAndView("jsonView");
 		int resultCode = 0;
 		
-		/* 로그인 되어있는 상태에서만 수정할 수 있도록 작성 */
-			try {
+			try {																/* 로그인 되어있는 상태에서만 수정할 수 있도록 작성 */
 				HashMap<String, Object> User = (HashMap<String, Object>) session.getAttribute("USER");
 				if(User == null) {
 					resultCode = 10;
 				}else {
-					// String.valueOf 사용 -> User에서 USER_NAME 가져와서(get) UserName에 저장
-					String UserName = String.valueOf(User.get("USER_NAME"));
+					String UserName = String.valueOf(User.get("USER_NAME"));	// String.valueOf 사용 -> User에서 USER_NAME 가져와서(get) UserName에 저장
 					
-					// CourseDto의 c_init_writer에 UserName 저장
-					dto.setC_init_writer(UserName);
-					
-					// adminBiz(Service단)에서 adminCourseUpdate() 메서드 실행
-					adminBiz.adminCourseUpdate(dto);
+					dto.setC_init_writer(UserName);								// CourseDto의 c_init_writer에 UserName 저장
+					adminBiz.adminCourseUpdate(dto);							// adminBiz(Service단)에서 adminCourseUpdate() 메서드 실행
+					mav.addObject("cri", cri);									// cri 객체로 page와 amount값 가지고 다니기
 					
 				}
 			} catch (Exception e) {
@@ -396,7 +372,7 @@ public class AdminController {
 				e.printStackTrace();
 			}finally {
 				mav.addObject("resultCode", resultCode);
-				
+				mav.addObject("cri", cri);
 			}
 			System.out.println(dto.toString());
 			mav.addObject("msg", "교육 수정 완료");

@@ -83,7 +83,7 @@
 			</table>
 				
 			<div class="inpBtn">
-				<input type="button" class="subBtn" id="update" onclick="location.href='adminCourseUpdate.do?c_no=${dto.c_no}'" value="수 정">
+				<input type="button" class="subBtn" id="update" onclick="location.href='adminCourseUpdate.do?c_no=${dto.c_no}&page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}'" value="수 정">
 				<input type="button" class="subBtn" id="delete" value="삭 제">
 				<input type="button" class="antBtn" id="list" value="목 록">
 			</div>
@@ -103,35 +103,8 @@
 		
 		$(document).ready(function(){
 			$("#delete").on("click",function(){
-				// 1. c_no의 value를 담아줘야 하기 때문에 선언해주기
 				const c_no = $("#c_no").text();
-				
-				// ㄱ) if문으로 form 삭제
-				/*if($("#deleteForm").val() != undefined){
-					// form.remove(); => 이렇게 작성하면 form이 선언되어있지 않다는 에러 발생 (이유 : form은 아래에 let으로 선언했기 때문에)
-					// 그렇다면 아래에서 설정한 form의 id 값을 가져와서 remove해주기
-					$("#deleteForm").remove();
-				}
-				
-				let form = $("<form></form>");
-				// form 태그에 속성 추가 => ("속성", "이름")
-				form.attr("name", "deleteForm");
-				form.attr("method", "post");
-				form.attr("action", "<c:url value='/adminCourseDelete.do'/>");
-				
-				// input 태그 삽입 : type은 hidden / name은 c_no / value는 c_no(1.에서 작성한 value값 가져오는 것)
-				form.append($("<input />", {type:"hidden", name:"c_no", value:c_no}));
-				// body 안에 form을 삽입하겠다는 것
-				form.appendTo("body");
-				// 다 작성되었으면 submit으로 보내기
-				form.submit();
-				
-				// ㄱ) form을 보내면 계속 form이 쌓임 -> remove() 함수를 통해 form을 지워줘야 함 -> if문 사용해서 만약 form이 없으면 넣고, 있다면 지워주기 */
-				
-				// 1.에서 선언해준 c_no value 가져오기
-				const param = {
-					c_no : c_no
-				}
+				const param = { c_no : c_no }
 				
 				$.ajax({
 					url:"/adminCourseDelete.do",
@@ -142,7 +115,7 @@
 					success:function(result){
 							if(result.resultCode == 0){
 								alert(result.msg);
-								$(location).attr("href", "<c:url value='adminCourseList.do' />");
+								$(location).attr("href", "<c:url value='adminCourseList.do?page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}' />");
 							}else{
 								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
 							}
@@ -155,7 +128,6 @@
 			});
 			
 			$("#list").on("click",function(){
-				const c_no = $("#c_no").text();
 				let page = $("#page").text();
 				let amount = $("#amount").text();
 				let keyword = $("#keyword").text();
@@ -166,7 +138,6 @@
 						
 				location.href = listUrl;
 			});
-			
 		});
 	</script>
 </body>

@@ -19,13 +19,16 @@
 		<%@ include file="../common/header.jsp" %>
 	</div>
 	
+	<input type="hidden" id="keyword" name="keyword" value='<c:out value="keyword : ${pageDto.keyword}" />'>
+	<input type="hidden" id="page" name="page" value='<c:out value="page : ${cri.page}" />'>
+	<input type="hidden" id="amount" name="amount" value='<c:out value="amount : ${cri.amount}" />'>
+	
 	<div class="container">
 		<h3 class="formTitle" style="font-weight:normal;">교 육 상 세</h3><br><br>
 		<div class="content">
-		<form action="appForm.do" method="POST">
 			<table class="table insertTable">
 				<tr>
-					<th>번호</th>
+					<th>강의 번호</th>
 					<td id="c_no">${dto.c_no}</td>
 				</tr>
 				<tr>
@@ -74,10 +77,9 @@
 			</table>
 
 			<div class="inpBtn">
-				<input type="button" class="subBtn" id="appBtn" onclick="appChk();" value="신 청">
-				<input type="button" class="antBtn" onclick="location.href='courseList.do'" value="목 록">
+				<input type="button" class="subBtn" id="insert" onclick="appChk();" value="신 청">
+				<input type="button" class="antBtn" id="list" value="목 록">
 			</div>
-			</form>
 		</div>
 	</div>
 	
@@ -89,7 +91,7 @@
 	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$("#appBtn").click(function(){
+			$("#insert").click(function(){
 				let c_name = $("#c_name").val();
 				let c_category = $("#c_category").val();
 				let c_type = $('#c_type').val();
@@ -101,19 +103,21 @@
 				let app_last_date = $("#app_last_date").val();
 				let ent_personnel = $("#ent_personnel").val();
 				let c_detail = $("#c_detail").val();
+				let c_tuition = $("#c_tuition").val();
 				
 				const param = {
-					c_name : c_name,
-					c_time : c_time,
-					c_category : c_category,
-					c_type : c_type,
-					c_start_time : c_start_time,
-					c_start_date : c_start_date,
-					c_last_date : c_last_date,
-					app_start_date : app_start_date,
-					app_last_date : app_last_date,
-					ent_personnel : ent_personnel,
-					c_detail : c_detail
+					  c_name : c_name
+					, c_time : c_time
+					, c_category : c_category
+					, c_type : c_type
+					, c_start_time : c_start_time
+					, c_start_date : c_start_date
+					, c_last_date : c_last_date
+					, app_start_date : app_start_date
+					, app_last_date : app_last_date
+					, ent_personnel : ent_personnel
+					, c_detail : c_detail
+					, c_tuition : c_tuition
 				}
 	
 				$.ajax({
@@ -125,7 +129,7 @@
 					success:function(result){
 							if(result.resultCode == 0){
 								alert(result.msg);
-								$(location).attr("href", "<c:url value='courseList.do' />");
+								$(location).attr("href", "<c:url value='courseList.do?page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}' />");
 							}else{
 								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
 							}
@@ -136,8 +140,21 @@
 				});
 				function appChk(){
 					alert('선택하신 교육을 신청하시겠습니까?');
-					location.href="appForm.do?c_no=${dto.c_no}";
+					location.href="appForm.do?c_no=${dto.c_no}&page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}";
 				}
+			});
+			
+			$("#list").on("click",function(){
+				const c_no = $("#c_no").text();
+				let page = $("#page").text();
+				let amount = $("#amount").text();
+				let keyword = $("#keyword").text();
+				
+				let listUrl = "courseList.do?page=${cri.page}"
+							+ "&amount=${cri.amount}"
+							+ "&keyword=${pageDto.keyword}";
+						
+				location.href = listUrl;
 			});
 		});
 	</script>

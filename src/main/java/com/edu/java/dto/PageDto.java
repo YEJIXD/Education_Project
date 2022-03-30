@@ -65,34 +65,5 @@ public class PageDto{
 		//다음 버튼 생성 여부 = 끝 페이지 번호 * 한 페이지당 보여줄 게시글의 갯수 < 총 게시글의 수 ? true: false
 		next = endPage * cri.getAmount() >= total ? false : true; 
 	}
-	
-	public PageDto(Criteria cri, int total) {
-		this.cri = cri;
-		this.total = total;
-		
-		// endPage는 page(현재 페이지), displayPageNum, total 세 가지 값에 의존
-		this.endPage = (int)(Math.ceil(cri.getPage() / 10.0)) * 10;		// 49행에 작성한 코드랑 같은 코드
-		
-		this.startPage = this.endPage - 9;
-		
-		// 실제 끝 페이지
-		int realEnd = (int)(Math.ceil((total * 1.0)) / cri.getAmount());
-		
-		// 실제 끝 페이지(realEnd)가 끝 페이지(endPage)보다 작으면 endPage를 realEnd페이지 값으로 변경 
-		if(realEnd <= this.endPage) {
-			this.endPage = realEnd;
-		}
-		
-		// 시작 페이지가 1페이지보다 크면 prev가 true 
-		//(prev는 currentPage로 구한 startPage가 1인 경우 false, 나머지 경우는 모두 true)
-		this.prev = this.startPage > 1;
-		// prev = (startPage == 1) ? false : true
-		
-		// 끝 페이지가 실제 끝페이지(realEnd)보다 작으면 next가 true 
-		//(next는 currentPage로 구한 endPage가 total(모든 페이지 개수)인 경우 false, 나머지 경우는 모두 true)
-		this.next = this.endPage < realEnd;
-		//next = (endPage == total) ? false : true
-		// => 즉, prev와 next 값은 startPage, endPage, totalPages에 의존
-	}
 
 }
