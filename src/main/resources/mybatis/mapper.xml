@@ -8,9 +8,10 @@
 	<!-- 로그인 -->
 	<select id="loginCheck" resultType="Hashmap" parameterType="HashMap">
 		SELECT COUNT(user_no) as COUNT
-				,USER_ID
-				,USER_NAME
-				,USER_ROLE
+				, USER_NO
+				, USER_ID
+				, USER_NAME
+				, USER_ROLE
 		FROM mydb.member
 		WHERE USER_ID=#{user_id} AND USER_PW=#{user_pw}
 	</select>

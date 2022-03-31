@@ -26,60 +26,64 @@
 	<div class="container">
 		<h3 class="formTitle" style="font-weight:normal;">교 육 상 세</h3><br><br>
 		<div class="content">
-			<table class="table insertTable">
-				<tr>
-					<th>강의 번호</th>
-					<td id="c_no">${dto.c_no}</td>
-				</tr>
-				<tr>
-					<th>강 의 명</th>
-					<td id="c_name">${dto.c_name}</td>
-				</tr>
-				<tr>
-					<th>과정 분류</th>
-					<td id="c_category">${dto.c_category}</td>
-				</tr>
-				<tr>
-					<th>교육 형태</th>
-					<td id="c_type">${dto.c_type}</td>
-				</tr>
-				<tr>
-				<th>시작 시간</th>
-					<td id="c_start_time">${dto.c_start_time}</td>
-				</tr>
-				<tr>
-					<th>총 교육 시간</th>
-					<td id="c_time">${dto.c_time} 시간</td>
-				</tr>
-				<tr>
-					<th>교육 기간</th>
-					<td>${dto.c_start_date} ~ ${dto.c_last_date}</td>
-				</tr>
-				<tr>
-					<th>모집인원</th>
-					<td id="ent_personnel">${dto.ent_personnel}명</td>
-				</tr>
-				<tr>
-					<th>신청 기간</th>
-					<td>${dto.app_start_date} ~ ${dto.app_last_date}</td>
-				</tr>
-				<tr>
-					<th>등록일</th>
-					<td id="c_regdate">${dto.c_regdate}</td>
-				</tr>
-				<tr>
-					<th>상세 설명</th>
-				</tr>
-				<tr>
-					<th></th>
-					<td id="c_detail" style="padding-bottom:50px;">${dto.c_detail }</td>
-				</tr>
-			</table>
-
-			<div class="inpBtn">
-				<input type="button" class="subBtn" id="insert" onclick="appChk();" value="신 청">
-				<input type="button" class="antBtn" id="list" value="목 록">
-			</div>
+				<table class="table insertTable">
+					<tr>
+						<th>강의 번호</th>
+						<td id="c_no">${dto.c_no}</td>
+					</tr>
+					<tr>
+						<th>강 의 명</th>
+						<td id="c_name">${dto.c_name}</td>
+					</tr>
+					<tr>
+						<th>과정 분류</th>
+						<td id="c_category">${dto.c_category}</td>
+					</tr>
+					<tr>
+						<th>교육 형태</th>
+						<td id="c_type">${dto.c_type}</td>
+					</tr>
+					<tr>
+					<th>시작 시간</th>
+						<td id="c_start_time">${dto.c_start_time}</td>
+					</tr>
+					<tr>
+						<th>총 교육 시간</th>
+						<td id="c_time">${dto.c_time} 시간</td>
+					</tr>
+					<tr>
+						<th>교육 기간</th>
+						<td>${dto.c_start_date} ~ ${dto.c_last_date}</td>
+					</tr>
+					<tr>
+						<th>모집인원</th>
+						<td id="ent_personnel">${dto.ent_personnel}명</td>
+					</tr>
+					<tr>
+						<th>신청 기간</th>
+						<td>${dto.app_start_date} ~ ${dto.app_last_date}</td>
+					</tr>
+					<tr>
+						<th>등록일</th>
+						<td id="c_regdate">${dto.c_regdate}</td>
+					</tr>
+					<tr>
+						<th>수강료</th>
+						<td id="c_tuition"><fmt:formatNumber pattern="###,###,###" value="${dto.c_tuition}" /> 원</td>
+					</tr>
+					<tr>
+						<th>상세 설명</th>
+					</tr>
+					<tr>
+						<th></th>
+						<td id="c_detail" style="padding-bottom:50px;">${dto.c_detail }</td>
+					</tr>
+				</table>
+	
+				<div class="inpBtn">
+					<input type="button" class="subBtn" id="appBtn" value="신 청">
+					<input type="button" class="antBtn" id="list" value="목 록">
+				</div>
 		</div>
 	</div>
 	
@@ -91,33 +95,12 @@
 	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$("#insert").click(function(){
-				let c_name = $("#c_name").val();
-				let c_category = $("#c_category").val();
-				let c_type = $('#c_type').val();
-				let c_time = $("#c_time").val();
-				let c_start_time = $("#c_start_time").val();
-				let c_start_date = $("#c_start_date").val();
-				let c_last_date = $("#c_last_date").val();
-				let app_start_date = $("#app_start_date").val();
-				let app_last_date = $("#app_last_date").val();
-				let ent_personnel = $("#ent_personnel").val();
-				let c_detail = $("#c_detail").val();
-				let c_tuition = $("#c_tuition").val();
+			/*교육을 신청하는 회원 정보 & 신청하려는 교육 정보 필요 => 넘겨야 함*/
+			$("#appBtn").on("click", function(){
+				let c_no = $("#c_no").text();
 				
 				const param = {
-					  c_name : c_name
-					, c_time : c_time
-					, c_category : c_category
-					, c_type : c_type
-					, c_start_time : c_start_time
-					, c_start_date : c_start_date
-					, c_last_date : c_last_date
-					, app_start_date : app_start_date
-					, app_last_date : app_last_date
-					, ent_personnel : ent_personnel
-					, c_detail : c_detail
-					, c_tuition : c_tuition
+					  c_no : c_no	
 				}
 	
 				$.ajax({
@@ -129,7 +112,7 @@
 					success:function(result){
 							if(result.resultCode == 0){
 								alert(result.msg);
-								$(location).attr("href", "<c:url value='courseList.do?page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}' />");
+								$(location).attr("href", "<c:url value='courseList.do' />");
 							}else{
 								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
 							}
@@ -140,9 +123,10 @@
 				});
 				function appChk(){
 					alert('선택하신 교육을 신청하시겠습니까?');
-					location.href="appForm.do?c_no=${dto.c_no}&page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}";
+					location.href="courseList.do";
+					//location.href="appForm.do?c_no=${dto.c_no}&page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}";
 				}
-			});
+			}); 
 			
 			$("#list").on("click",function(){
 				const c_no = $("#c_no").text();

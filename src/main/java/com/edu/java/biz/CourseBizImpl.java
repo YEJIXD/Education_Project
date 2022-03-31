@@ -1,5 +1,6 @@
 package com.edu.java.biz;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,8 +27,8 @@ public class CourseBizImpl implements CourseBiz{
 	}
 
 	@Override
-	public int courseAppInsert(CourseDto dto) throws Exception {
-		return courseDao.courseAppInsert(dto);
+	public int courseAppInsert(HashMap<String, Object> params) throws Exception {
+		return courseDao.courseAppInsert(params);
 	}
 	
 	
