@@ -74,7 +74,7 @@
 										<option value="title" <c:if test="${condition eq 'title'}"> selected</c:if>>제 목</option>
 									</select> 
 									
-									<input type="text" name="keyword" id="keyword" value="${pageDto.keyword}" placeholder="검색어를 입력하세요"/> 
+									<input type="text" name="keyword" id="keyword" value="${dto.keyword}" placeholder="검색어를 입력하세요"/> 
 									<input type="button" name="searchBtn" id="searchBtn" value="검 색">
 									
 									<!-- 검색 후 화면에 보여질 게시글 수와 페이지 넘버 (hidden 사용) -->
@@ -82,11 +82,11 @@
 									<input type="hidden" name="amount" value="10">
 									
 									<!-- keyword를 저장할 수 있는 input 태그 작성 -->
-									<input type="hidden" name="keyword" value="${pageDto.keyword}">
+									<%-- <input type="hidden" name="keyword" value="${dto.keyword}"> --%>
 									
 							</div>
                             	<form name="adminCourseList" action="adminCourseInsert.do" method="GET">
-	                            	<input type="hidden" id="keyword" name="keyword" value='<c:out value="${pageDto.keyword}" />'>
+	                            	<input type="hidden" id="keyword" name="keyword" value='<c:out value="${dto.keyword}" />'>
 									<input type="hidden" id="page" name="page" value='<c:out value="${cri.page}" />'>
 									<input type="hidden" id="amount" name="amount" value='<c:out value="${cri.amount}" />'>
 									
@@ -132,19 +132,19 @@
 												<ul>
 													<c:if test="true">
 														<li>
-															<a href='<c:url value="adminCourseList.do?page=${dto.startPage-1 }"/>' id="pre" class='oiBtn prev'>◀</a>
+															<a href='<c:url value="adminCourseList.do?page=${dto.startPage-1 }&keyword=${dto.keyword}"/>' id="pre" class='oiBtn prev'>◀</a>
 														</li>
 													</c:if>
 													
 													<c:forEach begin="${dto.startPage}" end="${dto.endPage}" var="page">
 														<li>
-															<a href='<c:url value="adminCourseList.do?page=${page}"/>' class='num <c:if test="${dto.cri.page eq page}"> active </c:if>'>${page}</a>
+															<a href='<c:url value="adminCourseList.do?page=${page}&amount=${cri.amount}&keyword=${dto.keyword}"/>' class='num <c:if test="${dto.cri.page eq page}"> active </c:if>'>${page}</a>
 														</li>
 													</c:forEach>
 													
 													<c:if test="${dto.next && dto.endPage>0}">
 														<li>
-															<a href='<c:url value="adminCourseList.do?page=${dto.endPage+1 }"/>' id="next" class='oiBtn next'>▶</a>
+															<a href='<c:url value="adminCourseList.do?page=${dto.endPage+1 }&keyword=${dto.keyword}"/>' id="next" class='oiBtn next'>▶</a>
 														</li>
 													</c:if>
 												</ul>
@@ -163,7 +163,7 @@
 		<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
         <script type="text/javascript">
         $(document).ready(function(){
-			$("#pre, .num, #next, #searchBtn").click(function(){
+			$("#pre, .num, #next, #searchBtn").on("click", function(){
 				let keyword = $("#keyword").val();
 				let searchType = $("#searchType option:selected").val();
 				let page = $("#page").val();

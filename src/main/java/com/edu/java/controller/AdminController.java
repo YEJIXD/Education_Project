@@ -274,10 +274,13 @@ public class AdminController {
 		
 		List<Map<String, Object>> list = adminBiz.adminCourseList(dto, cri);
 		mav.addObject("list", list);
+		
 		// endPage 숫자 다르게 나오는 것 아래처럼 객체에 담아 수정
-		mav.addObject("dto", dto);		
+		mav.addObject("dto", dto);		// keyword 잘 담김
+		
 		// page와 amount 담아오기
 		mav.addObject("cri", cri);
+		
 		mav.setViewName("/admin/adminCourseList");
 		
 		System.out.println("dto :: " + dto);
@@ -292,7 +295,6 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("jsonView");
 		
 		mav.addObject("dto", adminBiz.adminCourseDetail(c_no));
-		//mav.addObject("dto", dto);
 		mav.addObject("cri", cri);
 		mav.setViewName("/admin/adminCourseDetail");
 		

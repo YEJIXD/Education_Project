@@ -21,9 +21,9 @@
 		<%@ include file="../common/header.jsp" %>
 	</div>
 	
-	<input type="text" id="keyword" name="keyword" value='<c:out value="keyword : ${pageDto.keyword}" />'>
-	<input type="text" id="page" name="page" value='<c:out value="page : ${cri.page}" />'>
-	<input type="text" id="amount" name="amount" value='<c:out value="amount : ${cri.amount}" />'>
+	<input type="hidden" id="keyword" name="keyword" value='<c:out value="${pageDto.keyword}" />'>
+	<input type="hidden" id="page" name="page" value='<c:out value="${cri.page}" />'>
+	<input type="hidden" id="amount" name="amount" value='<c:out value="${cri.amount}" />'>
 	
 	<div class="container">
 		<h3 class="formTitle" style="font-weight:normal;">교 육 상 세</h3><br><br>
@@ -71,7 +71,7 @@
 				</tr>
 				<tr>
 					<th>수강료</th>
-					<td id="c_tuition">${dto.c_tuition} 원</td>
+					<td id="c_tuition"><fmt:formatNumber pattern="###,###,###" value="${dto.c_tuition}" /> 원</td>
 				</tr>
 				<tr>
 					<th>상세 설명</th>
