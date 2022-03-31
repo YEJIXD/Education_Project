@@ -57,16 +57,68 @@
   		WHERE C_NO = #{c_no}
   	</select>
   	
+  	<!-- 교육 신청 전 count -->
+	<select id="courseAppCount" parameterType="Hashmap" resultType="Hashmap">
+		<![CDATA[
+			select COUNT(m.USER_NO) as COUNT
+			       , m.USER_NO 
+			       , m.USER_NAME
+			       , m.USER_ID
+			       , m.USER_ADDR
+			       , m.USER_EMAIL
+			       , m.USER_PHONE
+			       , c.C_NO 
+			       , c.C_NAME 
+			       , a.APP_NO 
+			       , DATE_FORMAT(APP_DATE, '%Y-%m-%d') as APP_DATE
+			       
+			FROM mydb.application a, mydb.course c , mydb.member m, (SELECT @rownum:=0) R
+			
+			WHERE a.USER_NO = m.USER_NO  
+				  AND c.C_NO = a.C_NO 
+				  AND C_NAME LIKE CONCAT('%', #{keyword}, '%')
+			
+			ORDER BY rnum DESC
+				
+				LIMIT ${cri.pageStart}, ${cri.amount}
+			]]>
+	</select>
+	
+	<select id="getAppTotal" parameterType="String" resultType="int">
+		SELECT COUNT(*) as APP_TOTAL_COUNT
+		FROM mydb.application
+		WHERE C_NO =#{c_no} 
+		  AND USER_NO = #{user_no}
+	</select>
+		
   	<!-- 교육 신청 -->
-  	<insert id="courseAppInsert" parameterType="hashmap">
+  	<insert id="courseAppInsert" parameterType="pageDto">
   		INSERT INTO mydb.APPLICATION
-  		(				 C_NO
+  			(			C_NO
 					  , USER_NO
 					  , APP_DATE
+					  , (SELECT   COUNT(m.USER_NO) as COUNT
+					       		, m.USER_NO 
+					       		, m.USER_NAME
+					       		, m.USER_ID
+					       		, m.USER_ADDR
+					       		, m.USER_EMAIL
+					       		, m.USER_PHONE
+					       		, c.C_NO 
+					       		, c.C_NAME 
+					       		, a.APP_NO 
+					       		, DATE_FORMAT(APP_DATE, '%Y-%m-%d') as APP_DATE
+					       
+						FROM mydb.application a, mydb.course c , mydb.member m, (SELECT @rownum:=0) R
+						
+						WHERE a.USER_NO = m.USER_NO  
+							  AND c.C_NO = a.C_NO 
+						
+						ORDER BY rnum DESC)
 			)
 			VALUES
 			(		   
-					  #{c_no}
+					   #{c_no}
 					 , #{user_no}
 					 , NOW()
 			)

@@ -17,11 +17,14 @@
 <body>
 	<div id="header">
 		<%@ include file="../common/header.jsp" %>
+		<input type="hidden" id="user_no" name="user_no" value='<c:out value="${user.USER_NO}" />'>
+		<input type="hidden" id="user_name" name="user_name" value='<c:out value="${user.USER_NAME}" />'>
+		<input type="hidden" id="user_id" name="user_id" value='<c:out value="${user.USER_ID}" />'>
 	</div>
 	
-	<input type="hidden" id="keyword" name="keyword" value='<c:out value="keyword : ${pageDto.keyword}" />'>
-	<input type="hidden" id="page" name="page" value='<c:out value="page : ${cri.page}" />'>
-	<input type="hidden" id="amount" name="amount" value='<c:out value="amount : ${cri.amount}" />'>
+	<input type="hidden" id="keyword" name="keyword" value='<c:out value="${pageDto.keyword}" />'>
+	<input type="hidden" id="page" name="page" value='<c:out value="${cri.page}" />'>
+	<input type="hidden" id="amount" name="amount" value='<c:out value="${cri.amount}" />'>
 	
 	<div class="container">
 		<h3 class="formTitle" style="font-weight:normal;">교 육 상 세</h3><br><br>
@@ -98,12 +101,20 @@
 			/*교육을 신청하는 회원 정보 & 신청하려는 교육 정보 필요 => 넘겨야 함*/
 			$("#appBtn").on("click", function(){
 				let c_no = $("#c_no").text();
+				let user_no = $("#user_no").text();
+				let user_name = $("#user_name").text();
+				let user_id = $("#user_id").text();
 				
-				const param = {
+				console.log(c_no);
+				console.log(user_no);
+				console.log(user_name);
+				console.log(user_id);
+				
+				/* const param = {
 					  c_no : c_no	
-				}
+				} */
 	
-				$.ajax({
+				/* $.ajax({
 					url:"/appInsert.do",
 					type:"post",
 					contentType: "application/json",
@@ -120,7 +131,7 @@
 					error : function(result) {
 						alert("서버 통신 에러");
 					}
-				});
+				}); */
 				function appChk(){
 					alert('선택하신 교육을 신청하시겠습니까?');
 					location.href="courseList.do";

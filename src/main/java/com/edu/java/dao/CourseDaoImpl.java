@@ -31,6 +31,7 @@ public class CourseDaoImpl implements CourseDao{
 		return courseList;
 	}
 	
+	// 교육 상세 페이지
 	@Override
 	public CourseDto selectOne(int c_no) {
 		CourseDto dto = null;
@@ -45,6 +46,7 @@ public class CourseDaoImpl implements CourseDao{
 		return dto;
 	}
 
+	 // 교육 신청
 	@Override
 	public int courseAppInsert(HashMap<String, Object> params) throws Exception {
 		int res = 0;
@@ -58,5 +60,23 @@ public class CourseDaoImpl implements CourseDao{
 		}
 		return res;
 	}
+	
+	// 중복 신청 방지 COUNT
+	@Override
+	public int getAppTotal(String param) {
+		int total = 0;
+		
+		try {
+			total = sqlSession.selectOne(NAMESPACE + "getAppTotal", param);
+		} catch (Exception e) {
+			System.out.println("[ error ] :: Get App Total");
+			e.printStackTrace();
+		}
+		return total;
+	}
+	/*@Override
+	public HashMap<String, Object> courseAppInsert(HashMap<String, Object> params) { 
+		return sqlSession.selectOne(NAMESPACE + "courseAppInsert", params); 
+	}*/
 	
 }

@@ -41,9 +41,12 @@
 			</div>
 			
 			<form name="courseList" method="GET">
-				<input type="hidden" id="keyword" name="keyword" value='<c:out value="keyword : ${pageDto.keyword}" />'>
-				<input type="hidden" id="page" name="page" value='<c:out value="page : ${cri.page}" />'>
-				<input type="hidden" id="amount" name="amount" value='<c:out value="amount : ${cri.amount}" />'>
+				<input type="hidden" id="keyword" name="keyword" value='<c:out value="${pageDto.keyword}" />'>
+				<input type="hidden" id="page" name="page" value='<c:out value="${cri.page}" />'>
+				<input type="hidden" id="amount" name="amount" value='<c:out value="${cri.amount}" />'>
+				<input type="hidden" id="user_no" name="user_no" value='<c:out value="${member.user_no}" />'>
+				<input type="hidden" id="user_name" name="user_name" value='<c:out value="${member.user_name}" />'>
+				<input type="hidden" id="user_email" name="user_email" value='<c:out value="${member.email}" />'>
 				
 				<table class="table table-hover">
 					<thead>
@@ -68,7 +71,7 @@
 								<c:forEach items="${list}" var="cdto">
 									<tr>
 								    	<td>${cdto.rnum}</td>
-								        <td style="vertical-align:middle;" id="courseTitle"><a href="courseDetail.do?c_no=${cdto.c_no}&page=${dto.cri.page}&amount=${dto.cri.amount}&keyword=${pageDto.keyword}" style="text-decoration:none; color:#9966FF; font-weight:bold;">${cdto.c_name}</a></td>
+								        <td style="vertical-align:middle;"><a href="javascript:;" class="courseDetail" id="${cdto.c_no}">${cdto.c_name}</a></td>
 								        <td style="vertical-align:middle;">${cdto.app_personnel}명 / ${cdto.ent_personnel}명</td>
 								        <td style="vertical-align:middle;">
 								        	<span class="divSpan" id="ing"> 접수중 </span>
@@ -116,81 +119,44 @@
 		<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
         <script type="text/javascript">
         $(document).ready(function(){
-			$("#searchBtn").click(function(){
+        	$("#pre, .num, #next, #searchBtn").on("click", function(){
 				let keyword = $("#keyword").val();
 				let searchType = $("#searchType option:selected").val();
-				
-				if(!searchValidator(searchType, keyword)){
-					return false;
-				}
-				
-				const param = {
-					keyword : keyword,
-					searchType : searchType
-				}
+				let page = $("#page").val();
+				let amount = 10;
 				
 				let form= $("<form></form>");
 				form.attr("name", "SearchForm");
 				form.attr("method", "get");
-				form.attr("action", "<c:url value='/courseList.do'/>");
-				
-				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
-				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
-				
-				form.appendTo("body");
-				
-				form.submit();
-				
-			});	
-			
-			$("#pre, .num, #next").click(function(){
-				let keyword = $("#keyword").val();
-				let searchType = $("#searchType option:selected").val();
-				let page = $(this).text();
-				
-				const param = {
-					keyword : keyword,
-					searchType : searchType,
-					page : page
-				}
-				
-				let form= $("<form></form>");
-				form.attr("name", "SearchForm");
-				form.attr("method", "get");
-				form.attr("action", "<c:url value='/courseList.do'/>");
-				
-				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
-				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
-				form.append($("<input />", {type: "hidden", name: "page", value: page}));
-
-				form.appendTo("body");
-				
-				form.submit(); 
-			});	
-			
-			$("#courseTitle").on("click", function(){
-				let keyword = $("#keyword").val();
-				let searchType = $("#searchType option:selected").val();
-				let page = $(this).text();
-				let amount = $("#amount").text();
-				
-				const param = {
-					keyword : keyword,
-					searchType : searchType,
-					page : page,
-					amount : amount
-				}
-				
-				let form= $("<form></form>");
-				form.attr("name", "adminCourseList");
-				form.attr("method", "get");
-				form.attr("action", "<c:url value='/courseList.do'/>");
+				form.attr("action", "<c:url value='/adminCourseList.do'/>");
 				
 				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
 				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
 				form.append($("<input />", {type: "hidden", name: "page", value: page}));
 				form.append($("<input />", {type: "hidden", name: "amount", value: amount}));
-
+				form.appendTo("body");
+				
+				form.submit(); 
+			});	
+			
+			$(".courseDetail").on("click", function(){
+				let keyword = $("#keyword").val();
+				let searchType = $("#searchType option:selected").val();
+				let page = $("#page").val();
+				//let amount = 10;
+				let amount = $("#amount").val();
+				let c_no = $(this).attr('id');
+				
+				let form= $("<form></form>");
+				form.attr("name", "courseDetail");
+				form.attr("method", "get");
+				form.attr("action", "<c:url value='/courseDetail.do'/>");
+				
+				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
+				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
+				form.append($("<input />", {type: "hidden", name: "page", value: page}));
+				form.append($("<input />", {type: "hidden", name: "amount", value: amount}));
+				form.append($("<input />", {type: "hidden", name: "c_no", value: c_no}));
 				form.appendTo("body");
 				
 				form.submit(); 
@@ -198,11 +164,6 @@
         });
         
 		function searchValidator(searchType, keyword){
-			if(searchType == "" || typeof searchType == "undefined"){
-				alert("검색 조건을 선택하세요");
-				return false;
-			}
-			
 			if(keyword == ""){
 				alert("검색 내용을 입력하세요");
 				$("#keyword").focus();
@@ -210,32 +171,6 @@
 			}
         	return true;
 		}
-	       /* $(document).on('click', '#searchBtn', function(e){
-				if(!searchForm.find("option:selected").val()){
-					alert("검색 타입을 선택하세요");
-					return false;
-				}
-				
-				if(!searchForm.find("input[name='keyword']").val()){
-					alert("검색할 내용을 입력하세요");
-					return false;
-				}
-				
-				//searchForm.find("input[name='pageNum']").val("1");
-				e.preventDefault();
-					
-				let url = "${pageContext.request.contextPath}/admin/adminCourseList";
-				
-				url = url + "?searchType=" + $('#searchType').val();
-				url = url + "&keyword=" + encodeURIComponent($('#keywordInput').val());
-				//url = url + "&keyword=" + $('#keyword').val();
-		
-				location.href = url;
-		
-				searchForm.submit();
-				
-				console.log(url);
-			}); */
 		</script>
 </body>
 </html>
