@@ -287,5 +287,66 @@
 			DELETE FROM mydb.COURSE WHERE C_NO = #{c_no}
 		</delete>
 		
+		
+		<!-- Application -->
+		<!-- 교육 신청 list -->
+		<select id="adminAppList" parameterType="pageDto" resultType="hashmap">
+			<![CDATA[
+				SELECT
+					  @rownum:=@rownum +1 as rnum
+					, c.C_NAME
+					, m.USER_NO
+					, m.USER_NAME
+					, DATE_FORMAT(APP_DATE, '%Y-%m-%d') as APP_DATE
+					, DATE_FORMAT(C_START_DATE, '%Y-%m-%d') as C_START_DATE
+					, DATE_FORMAT(C_LAST_DATE, '%Y-%m-%d') as C_LAST_DATE
+					
+				FROM mydb.APPLICATION a, mydb.COURSE c, mydb.MEMBER m, (SELECT @rownum:=0) R
+				
+				WHERE a.USER_NO = m.USER_NO  
+				  AND c.C_NO = a.C_NO 
+				  AND C_NAME LIKE CONCAT('%', #{keyword}, '%')
+				  
+				ORDER BY rnum DESC
+				
+				LIMIT ${cri.pageStart}, ${cri.amount}
+			]]>
+		</select>
+		
+		<!-- 게시글 총 갯수 -->
+		<select id="getAppTotal" parameterType="pageDto" resultType="int">
+			SELECT COUNT(app_no) as TOTAL_COUNT
+			
+			FROM mydb.APPLICATION a LEFT JOIN mydb.COURSE c
+			  ON a.C_NO = c.C_NO
+				
+			WHERE c.C_NAME LIKE CONCAT('%', #{keyword}, '%') 
+		</select>
+
+		<!-- 상세 페이지 -->
+		<select id="adminAppDetail" parameterType="hashMap" resultType="appDto">
+			SELECT 
+					  c.C_NO
+					, a.APP_NO
+					, c.C_NAME
+					, c.C_CATEGORY
+					, c.C_TYPE
+					, c.C_START_TIME
+					, c.C_TIME
+					, DATE_FORMAT(C_START_DATE, '%Y-%m-%d') as C_START_DATE
+					, DATE_FORMAT(C_LAST_DATE, '%Y-%m-%d') as C_LAST_DATE
+					, m.USER_NO
+					, m.USER_NAME
+					, m.USER_EMAIL
+					, m.USER_PHONE
+					, m.USER_ADDR
+					, DATE_FORMAT(APP_DATE, '%Y-%m-%d') as APP_DATE
+					, c.C_TUITION
+					
+			FROM mydb.APPLICATION a LEFT JOIN mydb.COURSE c ON a.C_NO = c.C_NO
+			   	 LEFT JOIN mydb.MEMBER m ON c.USER_NO = m.USER_NO  
+			
+			WHERE a.APP_NO = #{app_no}
+		</select>
 </mapper>
 	 

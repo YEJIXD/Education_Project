@@ -68,22 +68,18 @@
                             <div class="card-body">
                             
                             <!-- 게시물 검색 -->
-							<div id="searchKeyword" style="height: 60px; margin: 0px auto; text-align: center;">
+							<div id="searchKeyword">
 									<label for="condition"></label>
 									<select name="searchType" id="searchType">
 										<option value="title" <c:if test="${condition eq 'title'}"> selected</c:if>>제 목</option>
 									</select> 
 									
-									<input type="text" name="keyword" id="keyword" value="${dto.keyword}" placeholder="검색어를 입력하세요"/> 
+									<input type="text" name="keyword" id="keyword" value="${dto.keyword}" size="35" placeholder="검색할 제목을 입력하세요"/> 
 									<input type="button" name="searchBtn" id="searchBtn" value="검 색">
 									
 									<!-- 검색 후 화면에 보여질 게시글 수와 페이지 넘버 (hidden 사용) -->
 									<input type="hidden" name="page" value="1">
 									<input type="hidden" name="amount" value="10">
-									
-									<!-- keyword를 저장할 수 있는 input 태그 작성 -->
-									<%-- <input type="hidden" name="keyword" value="${dto.keyword}"> --%>
-									
 							</div>
                             	<form name="adminCourseList" action="adminCourseInsert.do" method="GET">
 	                            	<input type="hidden" id="keyword" name="keyword" value='<c:out value="${dto.keyword}" />'>
@@ -111,10 +107,10 @@
 													<c:forEach items="${list}" var="cdto">
 						                            	<tr>
 						                                	<td>${cdto.rnum }</td>
-						                                    <td style="vertical-align:middle;"><a href="javascript:;" class="courseDetail" id="${cdto.c_no}">${cdto.c_name}</a></td>
-						                                    <td style="vertical-align:middle;">${cdto.app_personnel}명 / ${cdto.ent_personnel}명</td>
-						                                    <td style="vertical-align:middle;">${cdto.c_regdate}</td>
-						                                    <td style="vertical-align:middle;">${cdto.c_start_date} ~ ${cdto.c_last_date}</td>
+						                                    <td><a href="javascript:;" class="courseDetail" id="${cdto.c_no}">${cdto.c_name}</a></td>
+						                                    <td>${cdto.app_personnel}명 / ${cdto.ent_personnel}명</td>
+						                                    <td>${cdto.c_regdate}</td>
+						                                    <td>${cdto.c_start_date} ~ ${cdto.c_last_date}</td>
 						                            	</tr>
 						                        	</c:forEach>
 					                        	</c:otherwise>
@@ -127,7 +123,6 @@
 		                            	</div>
 		                            	
 		                            	<div class="coursePaging">
-											<!-- paging -->
 											<div class="m-paging">
 												<ul>
 													<c:if test="true">
@@ -187,8 +182,8 @@
 				let keyword = $("#keyword").val();
 				let searchType = $("#searchType option:selected").val();
 				let page = $("#page").val();
-				let amount = 10;
-				const c_no = $(this).attr('id');
+				let amount = $("#amount").val();
+				let c_no = $(this).attr('id');
 
 				let form= $("<form></form>");
 				form.attr("name", "courseDetail");
@@ -213,6 +208,11 @@
 				return false;
 			}
         	return true;
+		}
+		
+		function logoutCheck(){
+			alert('로그아웃하시겠습니까?');
+			location.href="logout.do";
 		}
 		</script>
 

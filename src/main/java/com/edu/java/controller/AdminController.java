@@ -29,9 +29,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.java.CmmService;
 import com.edu.java.biz.AdminBiz;
+import com.edu.java.dto.ApplicationDto;
 import com.edu.java.dto.CourseDto;
 import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
+import com.edu.java.dto.MemberDto;
 import com.edu.java.dto.NoticeDto;
 import com.edu.java.dto.PageDto;
 import com.edu.java.dto.QnaDto;
@@ -283,7 +285,7 @@ public class AdminController {
 		
 		mav.setViewName("/admin/adminCourseList");
 		
-		System.out.println("dto :: " + dto);
+		System.out.println("PageDto :: " + dto);
 		
 		return mav;
 	}
@@ -319,6 +321,7 @@ public class AdminController {
 			
 		try {
 			//if(검사 ==1) { throw new Userexception 코드 200 이유 : 검사값이 맞지않아 }
+			@SuppressWarnings("unchecked")
 			HashMap<String, Object> user = (HashMap<String, Object>) session.getAttribute("USER");
 			if(user == null) {
 				resultCode = 10;
@@ -358,6 +361,7 @@ public class AdminController {
 		int resultCode = 0;
 		
 			try {																/* 로그인 되어있는 상태에서만 수정할 수 있도록 작성 */
+				@SuppressWarnings("unchecked")
 				HashMap<String, Object> User = (HashMap<String, Object>) session.getAttribute("USER");
 				if(User == null) {
 					resultCode = 10;
@@ -392,9 +396,9 @@ public class AdminController {
 		
 		// 2) json으로 보낼 때 사용하는 코드 => ModelAndView 사용 + @RequestBody
 		ModelAndView mav = new ModelAndView("jsonView");
-		System.out.println(param);
+		//System.out.println(param);
 		HashMap <String , Object> map = cmmService.jsonStringToHashMap(param);
-		System.out.println(map);
+		//System.out.println(map);
 		int resultCode = 0; 
 		
 		try {
@@ -441,4 +445,34 @@ public class AdminController {
 		return mav;
 	}
 	
+	/* 수강 내역 List + Search + Paging */
+	@RequestMapping(value="adminAppList.do", method=RequestMethod.GET)
+	public ModelAndView adminAppList(PageDto dto, @ModelAttribute("cri") Criteria cri) throws Exception{
+		logger.info("admin Application List Controller");
+		ModelAndView mav = new ModelAndView("jsonView");
+		dto.setCri(cri);										
+		dto.setTotal(adminBiz.getAppTotal(dto.getKeyword()));
+		
+		List<Map<String, Object>> list = adminBiz.adminAppList(dto, cri);
+		mav.addObject("list", list);
+		mav.addObject("dto", dto);
+		mav.addObject("cri", cri);
+		mav.setViewName("/admin/adminApplicationList");
+		
+		System.out.println("PageDto :: " + dto);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="adminAppDetail.do", method=RequestMethod.GET)
+	public ModelAndView adminAppDetail(PageDto dto, @RequestParam("app_no") int app_no, @ModelAttribute("cri") Criteria cri) throws Exception{
+		logger.info("admin App Detail");
+		ModelAndView mav = new ModelAndView("jsonView");
+		
+		mav.addObject("dto", adminBiz.adminAppDetail(app_no));
+		mav.addObject("cri", cri);
+		mav.setViewName("/admin/adminAppDetail");
+		
+		return mav;
+	}
 }

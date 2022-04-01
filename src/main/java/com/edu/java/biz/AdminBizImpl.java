@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.edu.java.dao.AdminDao;
 import com.edu.java.dao.CourseDao;
 import com.edu.java.dao.MemberDao;
+import com.edu.java.dto.ApplicationDto;
 import com.edu.java.dto.CourseDto;
 import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
@@ -200,6 +201,22 @@ public class AdminBizImpl implements AdminBiz{
 	@Override
 	public int adminMemberDelete(int user_no) {
 		return adminDao.adminMemberDelete(user_no);
+	}
+	
+	/* Application */
+	@Override
+	public List<Map<String, Object>> adminAppList(PageDto dto, Criteria cri) {
+		return adminDao.adminAppList(dto, cri);
+	}
+	
+	@Override
+	public int getAppTotal(String param) {
+		return adminDao.getAppTotal(param);
+	}
+	
+	@Override
+	public ApplicationDto adminAppDetail(int app_no) throws Exception{
+		return adminDao.adminAppDetail(app_no);
 	}
 	
 }

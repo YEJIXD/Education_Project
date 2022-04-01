@@ -119,7 +119,7 @@ public class MemberController {
 	public ModelAndView loginCheck(@RequestBody String param ,HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 
-		HashMap <String , Object> map = cmmservice.jsonStringToHashMap(param);
+		HashMap <String, Object> map = cmmservice.jsonStringToHashMap(param);
 		HashMap <String, Object> resultmap = memberBiz.loginCheck(map);
 		
 		if(!resultmap.isEmpty()) {
