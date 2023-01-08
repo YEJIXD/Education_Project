@@ -48,7 +48,7 @@ public class AdminController {
 	CmmService cmmService;
 	
 	/* 관리자 메인 */
-	@RequestMapping("/adminMain.do")
+	@RequestMapping("/adminMain")
 	public String adminMain(Model model) {
 		logger.info("admin Main");
 		//model.addAttribute("newUserCount", adminBiz.newAdminUserCount());
@@ -57,7 +57,7 @@ public class AdminController {
 	}
 	
 	/* 공지사항 list */
-	@RequestMapping(value="/adminNoticeList.do", method=RequestMethod.GET)
+	@RequestMapping(value="/adminNoticeList", method=RequestMethod.GET)
 	public ModelAndView adminNoticeList() {
 		logger.info("admin Notice List");
 		ModelAndView mav = new ModelAndView();
@@ -77,14 +77,14 @@ public class AdminController {
 	}
 	
 	// admin_ Notice 등록 페이지
-	@RequestMapping("/adminNoticeInsert.do")
+	@RequestMapping("/adminNoticeInsert")
 	public String adminNoticeInsert() {
 		logger.info("admin Notice Insert page");
 		return "/admin/adminNoticeInsert";
 	}
 	
 	/* 공지사항 Insert */
-	@RequestMapping("adminNoticeInsertRes.do")
+	@RequestMapping("adminNoticeInsertRes")
 	public ModelAndView adminNotieInsertRes(MultipartFile uploadFile, NoticeDto dto, HttpServletRequest request) throws Exception{
 		logger.info("admin Notice Insert Res");
 		JsonObject jsonObject = new JsonObject();
@@ -119,11 +119,11 @@ public class AdminController {
 		int res = adminBiz.adminNoticeInsert(dto);
 		System.out.println(dto);
 		
-		return new ModelAndView("redirect:/adminNoticeList.do");
+		return new ModelAndView("redirect:/adminNoticeList");
 	}
 	
 	// admin_ Notice 수정 페이지
-		@RequestMapping("/adminNoticeUpdate.do")
+		@RequestMapping("/adminNoticeUpdate")
 		public String adminNoticeUpdate() {
 			logger.info("admin Notice Update page");
 			return "/admin/adminNoticeUpdate";
@@ -133,7 +133,7 @@ public class AdminController {
 		
 		
 	/* 공지사항 Delete */
-	@RequestMapping(value="/adminNoticeDelete.do", method=RequestMethod.GET)
+	@RequestMapping(value="/adminNoticeDelete", method=RequestMethod.GET)
 	public String adminNoticeDelete(Model model, HttpServletRequest httpServletRequest){
 		System.out.println("admin notice delete");
 		String[] chk  = httpServletRequest.getParameterValues("RowCheck[]");
@@ -147,12 +147,12 @@ public class AdminController {
 			adminBiz.adminNoticeDelete(Integer.parseInt(chk[i]));
 		}
 			
-		return "redirect:/adminNoticeList.do";
+		return "redirect:/adminNoticeList";
 	}
 	
 		
 	// admin_ Faq List
-	@RequestMapping(value="/adminFaqList.do", method=RequestMethod.GET)
+	@RequestMapping(value="/adminFaqList", method=RequestMethod.GET)
 	public ModelAndView adminFaqList() throws Exception {
 		logger.info("admin Faq LIST PAGE");
 			
@@ -165,14 +165,14 @@ public class AdminController {
 	}
 	
 	// admin_ Faq 등록 페이지
-	@RequestMapping("/adminFaqInsert.do")
+	@RequestMapping("/adminFaqInsert")
 	public String adminFaqInsert() {
 		logger.info("admin Faq Insert page");
 		return "/admin/adminFaqInsert";
 	}
 		
 	// admin_ Faq Insert Res
-	@RequestMapping(value="/adminFaqInsertRes.do", method=RequestMethod.POST)
+	@RequestMapping(value="/adminFaqInsertRes", method=RequestMethod.POST)
 	public ModelAndView adminFaqInsertRes() throws Exception {
 		logger.info("admin Faq Insert Result");
 		List<FaqDto> list = adminBiz.adminFaqList();
@@ -185,21 +185,21 @@ public class AdminController {
 	}
 			
 	// admin_ Faq 수정 페이지
-	@RequestMapping("/adminFaqUpdate.do")
+	@RequestMapping("/adminFaqUpdate")
 	public String adminFaqUpdate() {
 		logger.info("admin Faq Update page");
 		return "/admin/adminFaqUpdate";
 	}
 			
 	// admin_ Faq Update
-	@RequestMapping("/adminFaqUpdateRes.do")
+	@RequestMapping("/adminFaqUpdateRes")
 	public String adminFaqUpdateRes() {
 		logger.info("Faq Update Result");
 		return "";
 	}
 	
 	/* admin_Faq Delete */
-	@RequestMapping(value="/adminFaqDelete.do", method=RequestMethod.GET)
+	@RequestMapping(value="/adminFaqDelete", method=RequestMethod.GET)
 	public String adminFaqDelete(Model model, HttpServletRequest httpServletRequest){
 		System.out.println("admin Faq delete");
 			
@@ -214,11 +214,11 @@ public class AdminController {
 			adminBiz.adminFaqDelete(Integer.parseInt(chk[i]));
 		}
 			
-		return "redirect:/adminFaqList.do";
+		return "redirect:/adminFaqList";
 	}
 	
 	/* FAQ category select*/
-	@RequestMapping("/subMenu.do")
+	@RequestMapping("/subMenu")
 	public String subMenu(Model model, String faq_category) {
 		logger.info("subMenu");
 		
@@ -247,7 +247,7 @@ public class AdminController {
 	}
 	
 	/* QnA List */
-	@RequestMapping(value="adminQnaList.do", method=RequestMethod.GET)
+	@RequestMapping(value="adminQnaList", method=RequestMethod.GET)
 	public ModelAndView adminQnaList(Model model) {
 		logger.info("admin qna list");
 		
@@ -265,7 +265,7 @@ public class AdminController {
 	
 	/* Course */
 	/* Course List + Search + Paging */
-	@RequestMapping(value="adminCourseList.do", method=RequestMethod.GET)
+	@RequestMapping(value="adminCourseList", method=RequestMethod.GET)
 	public ModelAndView adminCourseList(PageDto dto, @ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("admin Course List");
 		ModelAndView mav = new ModelAndView("jsonView");
@@ -286,7 +286,7 @@ public class AdminController {
 	}
 	
 	/* Course Detail */
-	@RequestMapping(value="adminCourseDetail.do", method=RequestMethod.GET)
+	@RequestMapping(value="adminCourseDetail", method=RequestMethod.GET)
 	public ModelAndView adminCourseDetail(PageDto dto, @RequestParam("c_no") int c_no, @ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("admin Course Detail");
 		ModelAndView mav = new ModelAndView("jsonView");
@@ -300,7 +300,7 @@ public class AdminController {
 	}
 	
 	/* Course Insert Form */
-	@RequestMapping("/adminCourseInsert.do")
+	@RequestMapping("/adminCourseInsert")
 	public String adminCourseInsert() throws Exception{
 		logger.info("admin Course Insert Form");
 		
@@ -309,7 +309,7 @@ public class AdminController {
 	
 	
 	/* Course INSERT RES */
-	@RequestMapping(value="/courseInsertRes.do", method=RequestMethod.POST)
+	@RequestMapping(value="/courseInsertRes", method=RequestMethod.POST)
 	public ModelAndView adminCourseInsertRes(@RequestBody CourseDto dto, HttpSession session) throws Exception {
 		logger.info("admin course insert Res");
 		ModelAndView mav = new ModelAndView("jsonView");
@@ -338,7 +338,7 @@ public class AdminController {
 	}
 	
 	/* Course Update Form */
-	@RequestMapping(value="/adminCourseUpdate.do", method=RequestMethod.GET)
+	@RequestMapping(value="/adminCourseUpdate", method=RequestMethod.GET)
 	public String adminCourseUpdate(@RequestParam int c_no, Model model, @ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("admin Course Update Form");
 		CourseDto dto = adminBiz.adminCourseDetail(c_no);
@@ -349,7 +349,7 @@ public class AdminController {
 	}
 	
 	/* Course Update RES */
-	@RequestMapping(value="courseUpdateRes.do", method=RequestMethod.POST)
+	@RequestMapping(value="courseUpdateRes", method=RequestMethod.POST)
 	public ModelAndView adminCourseUpdateRes(@RequestBody CourseDto dto, HttpSession session, @ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("Admin Course Update Res");
 		ModelAndView mav = new ModelAndView("jsonView");
@@ -381,7 +381,7 @@ public class AdminController {
 	}
 	
 	/* Course Delete */
-	@RequestMapping(value="/adminCourseDelete.do", method=RequestMethod.POST)
+	@RequestMapping(value="/adminCourseDelete", method=RequestMethod.POST)
 	public ModelAndView adminCourseDelete(@RequestBody String param) throws Exception{
 		logger.info("admin Course Delete");
 		
@@ -412,7 +412,7 @@ public class AdminController {
 	
 	
 	/* 강사진 목록 */
-	@RequestMapping(value="adminTeacherList.do", method=RequestMethod.GET)
+	@RequestMapping(value="adminTeacherList", method=RequestMethod.GET)
 	public ModelAndView adminTeacherList(Model model) {
 		logger.info("admin Teacher List");
 		ModelAndView mav = new ModelAndView();
@@ -428,7 +428,7 @@ public class AdminController {
 	/* 강사 Update */
 	
 	/* 회원 리스트 */
-	@RequestMapping(value="adminMemberList.do")
+	@RequestMapping(value="adminMemberList")
 	public ModelAndView adminMemberList(Model model) {
 		logger.info("admin Member List");
 		ModelAndView mav = new ModelAndView();

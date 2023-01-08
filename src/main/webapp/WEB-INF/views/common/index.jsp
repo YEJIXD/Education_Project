@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div id="header">
-		<%@ include file="WEB-INF/views/common/header.jsp" %>
+		<%@ include file="header.jsp" %>
 	</div>
 	
 	<table>
@@ -19,7 +19,7 @@
 	</table>
 	
 	<div id="footer">
-		<%@ include file="WEB-INF/views/common/footer.jsp" %>
+		<%@ include file="footer.jsp" %>
 	</div>	
 	
 </body>

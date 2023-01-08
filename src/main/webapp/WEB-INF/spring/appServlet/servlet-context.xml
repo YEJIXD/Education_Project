@@ -23,7 +23,6 @@
 		<beans:property name="maxUploadSize" value="10000000"></beans:property>
 	</beans:bean>
 	
-	
 	<beans:bean id="loginInterceptor" class="com.edu.java.common.interceptor.LoginInterceptor" />
 	
 	<interceptors>
@@ -33,9 +32,7 @@
 			<mapping path="/edu_Application/courseInsert"/>
 			<mapping path="/edu_Application/courseUpdate"/>
 			<mapping path="/edu_Application/coursegoApp"/>
-			
 			<mapping path="/myRoom/**"/>
-			
 			<mapping path="/community/QnaList"/>
 			
 			<exclude-mapping path="/login/**" />
@@ -43,7 +40,7 @@
 		</interceptor>
 	</interceptors>
 		
-	<context:component-scan base-package="com.edu.java" />
+	<context:component-scan base-package="com.edu.*" />
 	
 	<tx:annotation-driven/>
 	

@@ -40,14 +40,14 @@ public class MemberController {
 	private CmmService cmmservice;
 	
 	// 회원가입
-	@RequestMapping("/registForm.do")
+	@RequestMapping("/registForm")
 	public String registForm() throws Exception {
 		logger.info("regist Form page");
 		return "/login/registForm";
 	}
 	
 	// 회원가입 완료
-	@RequestMapping(value="/registRes.do", method=RequestMethod.POST)
+	@RequestMapping(value="/registRes", method=RequestMethod.POST)
 	public ModelAndView registMember(MemberDto dto) throws Exception{
 		logger.info("regist Result");
 		ModelAndView mav = new ModelAndView("jsonView");
@@ -58,7 +58,7 @@ public class MemberController {
 	
 	// id 중복 체크
 	@ResponseBody
-	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
+	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
 	public int idCheck(String user_id) throws Exception{
 		logger.info("user_ID : " + user_id);
 		
@@ -68,7 +68,7 @@ public class MemberController {
 	
 	// 이메일 인증
 	@ResponseBody
-	@RequestMapping(value="/emailCheck.do", method=RequestMethod.GET)
+	@RequestMapping(value="/emailCheck", method=RequestMethod.GET)
 	public String mailCheckGET(String user_email) throws Exception{
 		// 뷰에서 넘어온 데이터 확인
 		logger.info("이메일 데이터 전송 확인");
@@ -106,7 +106,7 @@ public class MemberController {
 	
 	
 	// 로그인 페이지
-	@RequestMapping("/loginForm.do")
+	@RequestMapping("/loginForm")
 	public String login() {
 		logger.info("login Form");
 		return "login/loginForm";
@@ -115,7 +115,7 @@ public class MemberController {
 	
 	// 로그인
 	@ResponseBody
-	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
+	@RequestMapping(value="/loginCheck", method=RequestMethod.POST)
 	public ModelAndView loginCheck(@RequestBody String param ,HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 
@@ -132,7 +132,7 @@ public class MemberController {
 	
 	
 	//로그아웃
-	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public ModelAndView logout(HttpSession session) throws Exception {	
 		memberBiz.logout(session);
 		ModelAndView mav = new ModelAndView();
@@ -144,7 +144,7 @@ public class MemberController {
 	}
 
 	// login 필요한 페이지
-	@RequestMapping("/needLogin.do")
+	@RequestMapping("/needLogin")
 	public String needLoginPage(HttpSession session) {
 		if(session.getAttribute("loginCheck") != null) {
 			return "needLogin";
@@ -154,7 +154,7 @@ public class MemberController {
 	}
 	
 	//회원정보 수정
-	@RequestMapping(value="/memberUpdate.do", method=RequestMethod.POST)
+	@RequestMapping(value="/memberUpdate", method=RequestMethod.POST)
 	public String memberUpdate(MemberDto dto, HttpSession session) throws Exception{
 		memberBiz.memberUpdate(dto);
 		session.invalidate();
@@ -163,7 +163,7 @@ public class MemberController {
 	}
 		  
 	//회원 비활성화
-	@RequestMapping(value="/memberDelete.do", method=RequestMethod.GET)
+	@RequestMapping(value="/memberDelete", method=RequestMethod.GET)
 	public String memberDelete(MemberDto dto, HttpSession session) throws Exception{
 		memberBiz.memberDelete(dto);
 		session.invalidate();

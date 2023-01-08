@@ -37,7 +37,7 @@ public class CourseController {
 	AdminBiz adminBiz;
 	
 	/* Course List */
-	@RequestMapping(value="/courseList.do", method=RequestMethod.GET)
+	@RequestMapping(value="/courseList", method=RequestMethod.GET)
 	public ModelAndView courseList(PageDto dto
 								 , @ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("course LIST PAGE");
@@ -57,7 +57,7 @@ public class CourseController {
 	}
 	
 	/* Course Detail */
-	@RequestMapping(value="courseDetail.do", method=RequestMethod.GET)
+	@RequestMapping(value="courseDetail", method=RequestMethod.GET)
 	public ModelAndView courseDetail(@RequestParam("c_no") int c_no
 								   , @ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("course Detail Page");
@@ -72,14 +72,14 @@ public class CourseController {
 	}
 	
 	/* 교육 신청 확인 FORM */
-	@RequestMapping(value="/appForm.do", method=RequestMethod.GET)
+	@RequestMapping(value="/appForm", method=RequestMethod.GET)
 	public String appForm() {
 		logger.info("APP FORM PAGE");
 		
 		return "/edu_Application/appForm";
 	}
 	/* 교육 신청 */
-	@RequestMapping(value="/appInsert.do", method=RequestMethod.POST)
+	@RequestMapping(value="/appInsert", method=RequestMethod.POST)
 	public ModelAndView appInsert(@RequestBody CourseDto cDto, @ModelAttribute MemberDto mDto, @ModelAttribute ApplicationDto aDto, HttpSession session) throws Exception{
 		logger.info("App Insert Res");
 		ModelAndView mav = new ModelAndView("jsonView");
@@ -110,7 +110,7 @@ public class CourseController {
 	}
 	
 	/*
-	 * @RequestMapping("/courseUpdateRes.do") public String
+	 * @RequestMapping("/courseUpdateRes") public String
 	 * courseUpdateRes(CourseDto dto) throws Exception{
 	 * logger.info("course Update Res"); courseBiz.courseUpdateRes(dto);
 	 * 
