@@ -30,7 +30,7 @@ $(function(){
 	
 	 $.ajax({
             type : "POST",            		// HTTP method type(GET, POST) 형식이다.
-            url : "/loginCheck.do",      	// 컨트롤러에서 대기중인 URL 주소이다.
+            url : "/loginCheck",      	// 컨트롤러에서 대기중인 URL 주소이다.
             contentType: 'application/json; charset=utf-8',
             data : JSON.stringify(params),            
             success : function(data){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
@@ -116,7 +116,7 @@ function loginValidator(user_id, user_pw){
 	                </table>
 	                <div class="regist_btn">
 	                	<input type="button" class="subBtn" id="submit" value="로그인">
-	                	<input type="button" class="antBtn" value="취 소" onclick="goBack();">
+	                	<input type="button" class="antBtn" value="회원가입" onclick="goBack();">
 	            	</div>
 	            <!-- </form> -->
           </div>
