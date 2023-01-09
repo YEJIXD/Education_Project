@@ -8,8 +8,6 @@ public interface MemberDao {
 	String NAMESPACE = "member.";
 
 	// 로그인 체크
-	//public MemberDto loginCheck(MemberDto dto) throws Exception;
-	//public boolean isLogin(String user_id, String user_pw);
 	public HashMap<String, Object> loginCheck(HashMap<String, Object> map);
 	
 	// 로그아웃
@@ -20,7 +18,6 @@ public interface MemberDao {
 	
 	// 회원가입
 	public void memberRegist(MemberDto dto) throws Exception;
-	
 	
 	// 회원 정보 수정
 	public void memberUpdate(MemberDto dto) throws Exception;

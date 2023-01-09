@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="myRoom">
+	<!-- 내 강의실 -->
+	<select id="myAppTotal" parameterType="pageDto" resultType="int">
+		SELECT COUNT(app_no) as TOTAL_COUNT
+			
+		FROM mydb.APPLICATION a LEFT JOIN mydb.COURSE c
+		  ON a.C_NO = c.C_NO
+			
+		WHERE c.C_NAME LIKE CONCAT('%', #{keyword}, '%') 
+		  AND a.USER_NO = #{user_no}
+	</select>
+</mapper>

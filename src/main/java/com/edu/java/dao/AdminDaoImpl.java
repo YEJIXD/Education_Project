@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.edu.java.dto.ApplicationDto;
 import com.edu.java.dto.CourseDto;
 import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
@@ -317,18 +318,6 @@ public class AdminDaoImpl implements AdminDao{
 		 }
 		 return total; 
 	}
-	 
-//	 @Override
-//	 @SuppressWarnings("unchecked")
-//	 public List<Map<String, Object>> selectBoardList(Criteria cri) {
-//		    return (List<Map<String,Object>>)selectList(NAMESPACE + "adminCourseList", cri);
-//		}
-//
-//
-//	private List<Map<String, Object>> selectList(String string, Criteria cri) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 	@Override
 	public CourseDto adminCourseDetail(int c_no) throws Exception {
@@ -468,5 +457,44 @@ public class AdminDaoImpl implements AdminDao{
 		return res;
 	}
 	
+	/* Application */
+	@Override
+	public List<Map<String, Object>> adminAppList(PageDto dto, Criteria cri) {
+		List<Map<String, Object>> adminAppList = new ArrayList<Map<String, Object>>();
+		System.out.println(cri);
+		try {
+			adminAppList = sqlSession.selectList(NAMESPACE + "adminAppList", dto);
+		} catch (Exception e) {
+			System.out.println("[error] : admin App list");
+			e.printStackTrace();
+		}
+		return adminAppList;
+	}
+	
+	 @Override 
+	 public int getAppTotal(String param) { 
+		 int total = 0;
+	  
+		 try { 
+			 total = sqlSession.selectOne(NAMESPACE + "getAppTotal", param);
+		 } catch (Exception e) {
+			 System.out.println("[error] : Application Get Total"); 
+			 e.printStackTrace(); 
+		 }
+		 return total; 
+	}
+	 
+	 @Override
+	 public ApplicationDto adminAppDetail(int app_no) throws Exception{
+		 ApplicationDto dto = null;
+			
+			try {
+				dto = sqlSession.selectOne(NAMESPACE + "adminAppDetail", app_no);
+			} catch (Exception e) {
+				System.out.println("[error] : admin Application Detail error");
+				e.printStackTrace();
+			}
+			return dto;
+	 }
 	
 }

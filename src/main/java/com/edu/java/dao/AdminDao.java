@@ -3,6 +3,7 @@ package com.edu.java.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.edu.java.dto.ApplicationDto;
 import com.edu.java.dto.CourseDto;
 import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
@@ -71,5 +72,10 @@ public interface AdminDao {
 	/* Member */
 	public List<MemberDto> adminMemberList();
 	public int adminMemberDelete(int user_no);
+	
+	/* Application */
+	public List<Map<String, Object>> adminAppList(PageDto dto, Criteria cri);
+	public int getAppTotal(String param);
+	public ApplicationDto adminAppDetail(int app_no) throws Exception;
 	
 }

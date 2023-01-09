@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.edu.java.CmmService;
 import com.edu.java.biz.AdminBiz;
 import com.edu.java.biz.CourseBiz;
 import com.edu.java.dto.ApplicationDto;
@@ -29,48 +30,51 @@ import com.edu.java.dto.PageDto;
 @Controller
 public class CourseController {
 	private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
-	
+
 	@Inject
 	CourseBiz courseBiz;
-	
+
 	@Autowired
 	AdminBiz adminBiz;
 	
+	@Autowired
+	CmmService cmmService;
+
 	/* Course List */
 	@RequestMapping(value="/courseList", method=RequestMethod.GET)
 	public ModelAndView courseList(PageDto dto
 								 , @ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("course LIST PAGE");
 		ModelAndView mav = new ModelAndView("jsonView");
-		
-		dto.setCri(cri);											// page와 amount 설정
-		dto.setTotal(adminBiz.getTotal(dto.getKeyword()));			// 총 게시글 수 조회하는 로직 담기
-		
+		dto.setCri(cri); 									// page와 amount 설정
+		dto.setTotal(adminBiz.getTotal(dto.getKeyword())); 	// 총 게시글 수 조회하는 로직 담기
+
 		List<Map<String, Object>> list = adminBiz.adminCourseList(dto, cri);
 		mav.addObject("list", list);
-		mav.addObject("dto", dto);		//total 값 가져오기 => 페이지 수 카운트
+		mav.addObject("dto", dto); // total 값 가져오기 => 페이지 수 카운트
+		mav.addObject("cri", cri);
 		mav.setViewName("/edu_Application/courseList");
-		
-		System.out.println(dto);
-			
+
+		System.out.println("PageDto :: " + dto);
+
 		return mav;
 	}
-	
+
 	/* Course Detail */
+
 	@RequestMapping(value="courseDetail", method=RequestMethod.GET)
 	public ModelAndView courseDetail(@RequestParam("c_no") int c_no
 								   , @ModelAttribute("cri") Criteria cri) throws Exception{
 		logger.info("course Detail Page");
 		ModelAndView mav = new ModelAndView("jsonView");
-		//CourseDto dto = courseBiz.selectOne(c_no);
-		
+
 		mav.addObject("dto", courseBiz.selectOne(c_no));
 		mav.addObject("cri", cri);
 		mav.setViewName("/edu_Application/courseDetail");
-		
+
 		return mav;
 	}
-	
+
 	/* 교육 신청 확인 FORM */
 	@RequestMapping(value="/appForm", method=RequestMethod.GET)
 	public String appForm() {
@@ -79,42 +83,32 @@ public class CourseController {
 		return "/edu_Application/appForm";
 	}
 	/* 교육 신청 */
-	@RequestMapping(value="/appInsert", method=RequestMethod.POST)
+	/*@RequestMapping(value="/appInsert", method=RequestMethod.POST)
 	public ModelAndView appInsert(@RequestBody CourseDto cDto, @ModelAttribute MemberDto mDto, @ModelAttribute ApplicationDto aDto, HttpSession session) throws Exception{
 		logger.info("App Insert Res");
 		ModelAndView mav = new ModelAndView("jsonView");
 		int resultCode = 0;
-		
+
 		try {
+			HashMap<String, Object> paramMap = cmmService.jsonStringToHashMap(param);
+			@SuppressWarnings("unchecked")
 			HashMap<String, Object> user = (HashMap<String, Object>) session.getAttribute("USER");
-			
-			if(user == null) {
+
+			if (user == null) {
 				resultCode = 10;
-			}else {
-				String userName = String.valueOf(user.get("USER_NAME"));
-				String userEmail = String.valueOf(user.get("USER_EMAIL"));
-				String userPhone = String.valueOf(user.get("USER_PHONE"));
-				aDto.setUser_name(userName);
-				courseBiz.courseAppInsert(cDto);
+			} else {
+				String user_no = user.get("USER_NO").toString();
+				paramMap.put("user_no", user_no);
+				courseBiz.courseAppInsert(paramMap);
 			}
 		} catch (Exception e) {
 			logger.trace(e.getMessage());
 			e.printStackTrace();
-		}finally {
+		} finally {
 			mav.addObject("resultCode", resultCode);
 		}
-		System.out.println(aDto.toString());
-		mav.addObject("msg", "교육 신청 완료");
-		
+		mav.addObject("msg", "교육 신청이 완료되었습니다.");
+
 		return mav;
-	}
-	
-	/*
-	 * @RequestMapping("/courseUpdateRes") public String
-	 * courseUpdateRes(CourseDto dto) throws Exception{
-	 * logger.info("course Update Res"); courseBiz.courseUpdateRes(dto);
-	 * 
-	 * return "/edu_Application/courseDetail"; }
-	 */
-	 
+	}*/
 }
