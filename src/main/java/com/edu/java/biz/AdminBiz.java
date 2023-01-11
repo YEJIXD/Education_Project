@@ -14,66 +14,49 @@ import com.edu.java.dto.QnaDto;
 import com.edu.java.dto.TeacherDto;
 
 public interface AdminBiz {
-	/* 관리자 메인*/
-	// 회원 수
-		public int adminUserCount();
-		public int newAdminUserCount();
 	
-	// 게시글 수
+	public int userCount();
+	public int newUserCount();
+	public int cancleCount();
+	public int newCancleCount();
+	public int ReviewCount();
+	public int newReviewCount();
 	
-	// 수강 취소 수
-		public int adminCancleCount();
-		public int newAdminCancleCount();
+	public List<NoticeDto> noticeList();
+	public NoticeDto noticeDetail(int noti_no);
+	public int inputNotice(NoticeDto dto);
+	public int modifyNotice(NoticeDto dto);
+	public int deleteNotice(int noti_no);
 	
-	// 후기 수
-		public int adminReviewCount();
-		public int newAdminReviewCount();
+	public List<QnaDto> qnaList();
+	public QnaDto qnaDetail(int q_no);
+	public int deleteQna(int q_no);
 	
-		
-	/* 공지사항 리스트 */
-	public List<NoticeDto> adminNoticeList() throws Exception;
-	public NoticeDto noticeSelectOne(int noti_no);
-	public int adminNoticeInsert(NoticeDto dto);
-	public int adminNoticeUpdate(NoticeDto dto);
-	public int adminNoticeDelete(int noti_no);
-	
-	/* QnA */
-	public List<QnaDto> adminQnaList();
-	public QnaDto qnaSelectOne(int q_no);
-	public int adminQnaDelete(int q_no);
-	
-	
-	/* FAQ */
-	public List<FaqDto> adminFaqList();
-	public FaqDto faqSelectOne(int faq_no);
-	public int adminFaqInsert(FaqDto dto);
-	public int adminFaqUpdate(FaqDto dto);
-	public int adminFaqDelete(int faq_no);
+	public List<FaqDto> faqList();
+	public FaqDto faqDetail(int faq_no);
+	public int inputFaq(FaqDto dto);
+	public int modifyFaq(FaqDto dto);
+	public int deleteFaq(int faq_no);
 	public List<FaqDto> hashTagSearch(String faq_category);
 	
-	/* Course */
-	public List<Map<String, Object>> adminCourseList(PageDto dto, Criteria cri) ;
-	public int getTotal(String param);
+	public List<Map<String, Object>> courseList(PageDto dto, Criteria cri) ;
+	public int getTotalCount(String param);
 	//List<Map<String, Object>> selectBoardList(Criteria cri);
-	public CourseDto adminCourseDetail(int c_no) throws Exception;
-	public int adminCourseInsert(CourseDto dto) throws Exception;
-	public int adminCourseUpdate(CourseDto dto) throws Exception;
-	public void adminCourseDelete(int c_no);
-	public int adminCourseCount(String c_count) throws Exception;
+	public CourseDto courseDetail(int c_no) throws Exception;
+	public int inputCourse(CourseDto dto) throws Exception;
+	public int modifyCourse(CourseDto dto) throws Exception;
+	public void deleteCourse(int c_no);
+	//public int courseCount(String c_count) throws Exception;
 	
-	/* Teacher */
-	public List<TeacherDto> adminTeacherList();
-	public int adminTeacherInsert(TeacherDto dto);
-	public int adminTeacherUpdate(TeacherDto dto);
-	public int adminTeacherDelete(int t_no);
+	public List<TeacherDto> teacherList();
+	public int inputTeacher(TeacherDto dto);
+	public int modifyTeacher(TeacherDto dto);
+	public int deleteTeacher(int t_no);
 	
-	/* Member */
-	public List<MemberDto> adminMemberList();
-	public int adminMemberDelete(int user_no);
+	public List<MemberDto> memberList();
+	public int deleteMember(int user_no);
 	
-	/* Application */
-	public List<Map<String, Object>> adminAppList(PageDto dto, Criteria cri);
+	public List<Map<String, Object>> appList(PageDto dto, Criteria cri);
 	public int getAppTotal(String param);
-	public ApplicationDto adminAppDetail(int app_no) throws Exception;
-	
+	public ApplicationDto appDetail(int app_no) throws Exception;
 }

@@ -20,29 +20,29 @@ import com.edu.java.dto.TeacherDto;
 
 @Repository
 public class AdminDaoImpl implements AdminDao{
+	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	/* 관리자 메인 */
 	@Override
-	public int adminUserCount() {
+	public int userCount() {
 		int count = 0;
 		
 		try {
-			count = sqlSession.selectOne(NAMESPACE + "adminUserCount");
+			count = sqlSession.selectOne(NAMESPACE + "userCount");
 		} catch (Exception e) {
-			System.out.println("[error] : admin User Count");
+			System.out.println("[error] : User Count");
 			e.printStackTrace();
 		}
 		return count;
 	}
 
 	@Override
-	public int newAdminUserCount() {
+	public int newUserCount() {
 		int count = 0;
 		
 		try {
-			count = sqlSession.selectOne(NAMESPACE + "newAdminUserCount");
+			count = sqlSession.selectOne(NAMESPACE + "newUserCount");
 		} catch (Exception e) {
 			System.out.println("[error] : all user count");
 			e.printStackTrace();
@@ -51,24 +51,24 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public int adminCancleCount() {
+	public int cancleCount() {
 		int count = 0;
 		
 		try {
-			count = sqlSession.selectOne(NAMESPACE + "adminCancleCount");
+			count = sqlSession.selectOne(NAMESPACE + "cancleCount");
 		} catch (Exception e) {
-			System.out.println("[error] : admin cancle Count");
+			System.out.println("[error] : cancle Count");
 			e.printStackTrace();
 		}
 		return count;
 	}
 
 	@Override
-	public int newAdminCancleCount() {
+	public int newCancleCount() {
 		int count = 0;
 		
 		try {
-			count = sqlSession.selectOne(NAMESPACE + "newAdminCancleCount");
+			count = sqlSession.selectOne(NAMESPACE + "newCancleCount");
 		} catch (Exception e) {
 			System.out.println("[error] : all Cancle Count");
 			e.printStackTrace();
@@ -77,24 +77,24 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public int adminReviewCount() {
+	public int ReviewCount() {
 		int count = 0;
 		
 		try {
-			count = sqlSession.selectOne(NAMESPACE + "adminReviewCount");
+			count = sqlSession.selectOne(NAMESPACE + "ReviewCount");
 		} catch (Exception e) {
-			System.out.println("[error] : admin Review Count");
+			System.out.println("[error] : Review Count");
 			e.printStackTrace();
 		}
 		return count;
 	}
 
 	@Override
-	public int newAdminReviewCount() {
+	public int newReviewCount() {
 		int count = 0;
 		
 		try {
-			count = sqlSession.selectOne(NAMESPACE + "newAdminReviewCount");
+			count = sqlSession.selectOne(NAMESPACE + "newReviewCount");
 		} catch (Exception e) {
 			System.out.println("[error] : all Review Count");
 			e.printStackTrace();
@@ -102,66 +102,64 @@ public class AdminDaoImpl implements AdminDao{
 		return count;
 	}
 	
-	
-	/* 공 지 사 항 */
 	@Override
-	public List<NoticeDto> adminNoticeList() {
+	public List<NoticeDto> noticeList() {
 		List<NoticeDto> adminNoticeList = new ArrayList<NoticeDto>();
 		
 		try {
-			adminNoticeList = sqlSession.selectList(NAMESPACE + "adminNoticeList");
+			adminNoticeList = sqlSession.selectList(NAMESPACE + "noticeList");
 		} catch (Exception e) {
-			System.out.println("[error] : admin notice list");
+			System.out.println("[error] : notice list");
 			e.printStackTrace();
 		}
 		return adminNoticeList;
 	}
 
 	@Override
-	public NoticeDto noticeSelectOne(int noti_no) {
+	public NoticeDto noticeDetail(int noti_no) {
 		NoticeDto dto = null;
 		
 		try {
 			dto = sqlSession.selectOne(NAMESPACE+"noticeDetail", noti_no);
 		} catch (Exception e) {
-			System.out.println("[error] : admin Notice Detail error");
+			System.out.println("[error] : Notice Detail");
 			e.printStackTrace();
 		}
 		return dto;
 	}
 
 	@Override
-	public int adminNoticeInsert(NoticeDto dto) {
+	public int inputNotice(NoticeDto dto) {
 		int res = 0;
 		
 		try {
-			res = sqlSession.insert(NAMESPACE + "adminNoticeInsert", dto);
+			res = sqlSession.insert(NAMESPACE + "inputNotice", dto);
 		} catch (Exception e) {
-			System.out.println("[error] : notice insert");
+			System.out.println("[error] : input Notice");
 			e.printStackTrace();
 		}
 		return res;
 	}
 
 	@Override
-	public int adminNoticeUpdate(NoticeDto dto) {
+	public int modifyNotice(NoticeDto dto) {
 		int res = 0;
 		
 		try {
-			res = sqlSession.update(NAMESPACE + "adminNoticeUpdate", dto);
+			res = sqlSession.update(NAMESPACE + "modifyNotice", dto);
 		} catch (Exception e) {
-			System.out.println("[error] : admin Notice Update");
+			System.out.println("[error] : modify Notice");
 			e.printStackTrace();
 		}
 		return res;
 	}
 
 	@Override
-	public int adminNoticeDelete(int noti_no) {
+	public int deleteNotice(int noti_no) {
 		int res = 0;
 		
 		try {
-			res = sqlSession.delete(NAMESPACE+"adminNoticeDelete", noti_no);
+			res = sqlSession.delete(NAMESPACE+"deleteNotice", noti_no);
 		} catch (Exception e) {
 			System.out.println("[error] : admin notice delete");
 			e.printStackTrace();
@@ -169,27 +167,25 @@ public class AdminDaoImpl implements AdminDao{
 		return res;
 	}
 	
-
-	/* Q n A */
 	@Override
-	public List<QnaDto> adminQnaList() {
-		List<QnaDto> adminQnaList = new ArrayList<QnaDto>();
+	public List<QnaDto> qnaList() {
+		List<QnaDto> qnaList = new ArrayList<QnaDto>();
 		
 		try {
-			adminQnaList = sqlSession.selectList(NAMESPACE + "adminQnaList");
+			qnaList = sqlSession.selectList(NAMESPACE + "qnaList");
 		} catch (Exception e) {
 			System.out.println("[error] : admin Qna list");
 			e.printStackTrace();
 		}
-		return adminQnaList;
+		return qnaList;
 	}
 	
 	@Override 
-	public QnaDto qnaSelectOne(int q_no) {
+	public QnaDto qnaDetail(int q_no) {
 		QnaDto dto = null;
 		
 		try {
-			dto = sqlSession.selectOne(NAMESPACE + "qnaSelectOne", q_no);
+			dto = sqlSession.selectOne(NAMESPACE + "qnaDetail", q_no);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Qna Select One error");
 			e.printStackTrace();
@@ -198,11 +194,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public int adminQnaDelete(int q_no) {
+	public int deleteQna(int q_no) {
 		int res = 0;
 		
 		try {
-			res = sqlSession.delete(NAMESPACE+"adminQnaDelete", q_no);
+			res = sqlSession.delete(NAMESPACE+"deleteQna", q_no);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Qna Delete error");
 			e.printStackTrace();
@@ -210,27 +206,25 @@ public class AdminDaoImpl implements AdminDao{
 		return res;
 	}
 
-	
-	/* F A Q */
 	@Override
-	public List<FaqDto> adminFaqList() {
-		List<FaqDto> adminFaqList = new ArrayList<FaqDto>();
+	public List<FaqDto> faqList() {
+		List<FaqDto> faqList = new ArrayList<FaqDto>();
 		
 		try {
-			adminFaqList = sqlSession.selectList(NAMESPACE + "adminFaqList");
+			faqList = sqlSession.selectList(NAMESPACE + "faqList");
 		} catch (Exception e) {
 			System.out.println("[error] : admin faq list");
 			e.printStackTrace();
 		}
-		return adminFaqList;
+		return faqList;
 	}
 	
 	@Override
-	public FaqDto faqSelectOne(int faq_no) {
+	public FaqDto faqDetail(int faq_no) {
 		FaqDto dto = null;
 		
 		try {
-			dto = sqlSession.selectOne(NAMESPACE + "faqSelectOne", faq_no);
+			dto = sqlSession.selectOne(NAMESPACE + "faqDetail", faq_no);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Faq Select One error");
 			e.printStackTrace();
@@ -239,11 +233,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public int adminFaqInsert(FaqDto dto) {
+	public int inputFaq(FaqDto dto) {
 		int res = 0;
 		
 		try {
-			res = sqlSession.insert(NAMESPACE + "adminFaqInsert", dto);
+			res = sqlSession.insert(NAMESPACE + "inputFaq", dto);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Faq Insert error");
 			e.printStackTrace();
@@ -252,11 +246,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public int adminFaqUpdate(FaqDto dto) {
+	public int modifyFaq(FaqDto dto) {
 		int res = 0;
 		
 		try {
-			res = sqlSession.update(NAMESPACE + "adminFaqUpdate", dto);
+			res = sqlSession.update(NAMESPACE + "modifyFaq", dto);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Faq Update error");
 			e.printStackTrace();
@@ -265,11 +259,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public int adminFaqDelete(int faq_no) {
+	public int deleteFaq(int faq_no) {
 		int res = 0;
 		
 		try {
-			res = sqlSession.delete(NAMESPACE+"adminFaqDelete", faq_no);
+			res = sqlSession.delete(NAMESPACE+"deleteFaq", faq_no);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Faq Delete error");
 			e.printStackTrace();
@@ -291,27 +285,25 @@ public class AdminDaoImpl implements AdminDao{
 	}
 	
 	
-	/* Course */
 	@Override
-	public List<Map<String, Object>> adminCourseList(PageDto dto, Criteria cri) {
-		List<Map<String, Object>> adminCourseList = new ArrayList<Map<String, Object>>();
+	public List<Map<String, Object>> courseList(PageDto dto, Criteria cri) {
+		List<Map<String, Object>> courseList = new ArrayList<Map<String, Object>>();
 		System.out.println(cri);
 		try {
-			adminCourseList = sqlSession.selectList(NAMESPACE + "adminCourseList", dto);
+			courseList = sqlSession.selectList(NAMESPACE + "courseList", dto);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Course list");
 			e.printStackTrace();
 		}
-		return adminCourseList;
+		return courseList;
 	}
 	
-	//게시판 총 갯수
 	 @Override 
-	 public int getTotal(String param) { 
+	 public int getTotalCount(String param) { 
 		 int total = 0;
 	  
 		 try { 
-			 total = sqlSession.selectOne(NAMESPACE + "getTotal", param);
+			 total = sqlSession.selectOne(NAMESPACE + "getTotalCount", param);
 		 } catch (Exception e) {
 			 System.out.println("[error] : Course Get Total"); 
 			 e.printStackTrace(); 
@@ -320,11 +312,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public CourseDto adminCourseDetail(int c_no) throws Exception {
+	public CourseDto courseDetail(int c_no) throws Exception {
 		CourseDto dto = null;
 		
 		try {
-			dto = sqlSession.selectOne(NAMESPACE + "adminCourseDetail", c_no);
+			dto = sqlSession.selectOne(NAMESPACE + "courseDetail", c_no);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Course Detail error");
 			e.printStackTrace();
@@ -334,11 +326,11 @@ public class AdminDaoImpl implements AdminDao{
 		
 		
 	@Override
-	public int adminCourseInsert(CourseDto dto) throws Exception{
+	public int inputCourse(CourseDto dto) throws Exception{
 		int res = 0;
 		
 		try {
-			res = sqlSession.insert(NAMESPACE + "adminCourseInsert", dto);
+			res = sqlSession.insert(NAMESPACE + "inputCourse", dto);
 			System.out.println("dto : " + dto);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Course Insert error");
@@ -348,11 +340,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public int adminCourseUpdate(CourseDto dto) throws Exception{
+	public int modifyCourse(CourseDto dto) throws Exception{
 		int res = 0;
 		
 		try {
-			res = sqlSession.update(NAMESPACE + "adminCourseUpdate", dto);
+			res = sqlSession.update(NAMESPACE + "modifyCourse", dto);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Course Update error");
 			e.printStackTrace();
@@ -361,16 +353,16 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public void adminCourseDelete(int c_no) {
+	public void deleteCourse(int c_no) {
 		try {
-			sqlSession.delete(NAMESPACE+"adminCourseDelete", c_no);
+			sqlSession.delete(NAMESPACE+"deleteCourse", c_no);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Course Delete error");
 			e.printStackTrace();
 		}
 	}
 	
-	@Override
+	/*@Override
 	public int adminCourseCount(String c_count) throws Exception{
 		int res = 0;
 		
@@ -381,33 +373,32 @@ public class AdminDaoImpl implements AdminDao{
 			e.printStackTrace();
 		}
 		return res;
-	}
+	}*/
 	
-	/* Teacher */
 	@Override
-	public List<TeacherDto> adminTeacherList() {
-		List<TeacherDto> adminTeacherList = new ArrayList<TeacherDto>();
+	public List<TeacherDto> teacherList() {
+		List<TeacherDto> teacherList = new ArrayList<TeacherDto>();
 		
 		try {
-			adminTeacherList = sqlSession.selectList(NAMESPACE + "adminTeacherList");
+			teacherList = sqlSession.selectList(NAMESPACE + "teacherList");
 		} catch (Exception e) {
 			System.out.println("[error] : admin Teacher list");
 			e.printStackTrace();
 		}
-		return adminTeacherList;
+		return teacherList;
 	}
 
 	@Override
-	public int adminTeacherInsert(TeacherDto dto) {
+	public int inputTeacher(TeacherDto dto) {
 		return 0;
 	}
 
 	@Override
-	public int adminTeacherUpdate(TeacherDto dto) {
+	public int modifyTeacher(TeacherDto dto) {
 		int res = 0;
 		
 		try {
-			res = sqlSession.insert(NAMESPACE + "adminTeacherUpdate", dto);
+			res = sqlSession.insert(NAMESPACE + "modifyTeacher", dto);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Teacher Update error");
 			e.printStackTrace();
@@ -416,11 +407,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public int adminTeacherDelete(int t_no) {
+	public int deleteTeacher(int t_no) {
 		int res = 0;
 		
 		try {
-			res = sqlSession.delete(NAMESPACE+"adminTeacherDelete", t_no);
+			res = sqlSession.delete(NAMESPACE+"deleteTeacher", t_no);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Teacher Delete error");
 			e.printStackTrace();
@@ -428,27 +419,25 @@ public class AdminDaoImpl implements AdminDao{
 		return res;
 	}
 	
-	
-	/* Member */
 	@Override
-	public List<MemberDto> adminMemberList() {
-		List<MemberDto> adminMemberList = new ArrayList<MemberDto>();
+	public List<MemberDto> memberList() {
+		List<MemberDto> memberList = new ArrayList<MemberDto>();
 		
 		try {
-			adminMemberList = sqlSession.selectList(NAMESPACE + "adminMemberList");
+			memberList = sqlSession.selectList(NAMESPACE + "memberList");
 		} catch (Exception e) {
 			System.out.println("[error] : admin Member list");
 			e.printStackTrace();
 		}
-		return adminMemberList;
+		return memberList;
 	}
 
 	@Override
-	public int adminMemberDelete(int user_no) {
+	public int deleteMember(int user_no) {
 		int res = 0;
 		
 		try {
-			res = sqlSession.delete(NAMESPACE+"adminMemberDelete", user_no);
+			res = sqlSession.delete(NAMESPACE+"deleteMember", user_no);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Member Delete error");
 			e.printStackTrace();
@@ -457,18 +446,17 @@ public class AdminDaoImpl implements AdminDao{
 		return res;
 	}
 	
-	/* Application */
 	@Override
-	public List<Map<String, Object>> adminAppList(PageDto dto, Criteria cri) {
-		List<Map<String, Object>> adminAppList = new ArrayList<Map<String, Object>>();
+	public List<Map<String, Object>> appList(PageDto dto, Criteria cri) {
+		List<Map<String, Object>> appList = new ArrayList<Map<String, Object>>();
 		System.out.println(cri);
 		try {
-			adminAppList = sqlSession.selectList(NAMESPACE + "adminAppList", dto);
+			appList = sqlSession.selectList(NAMESPACE + "appList", dto);
 		} catch (Exception e) {
 			System.out.println("[error] : admin App list");
 			e.printStackTrace();
 		}
-		return adminAppList;
+		return appList;
 	}
 	
 	 @Override 
@@ -485,11 +473,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 	 
 	 @Override
-	 public ApplicationDto adminAppDetail(int app_no) throws Exception{
+	 public ApplicationDto appDetail(int app_no) throws Exception{
 		 ApplicationDto dto = null;
 			
 			try {
-				dto = sqlSession.selectOne(NAMESPACE + "adminAppDetail", app_no);
+				dto = sqlSession.selectOne(NAMESPACE + "appDetail", app_no);
 			} catch (Exception e) {
 				System.out.println("[error] : admin Application Detail error");
 				e.printStackTrace();

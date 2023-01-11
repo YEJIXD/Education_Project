@@ -47,9 +47,9 @@ public class CourseController {
 		logger.info("course LIST PAGE");
 		ModelAndView mav = new ModelAndView("jsonView");
 		dto.setCri(cri); 									// page와 amount 설정
-		dto.setTotal(adminBiz.getTotal(dto.getKeyword())); 	// 총 게시글 수 조회하는 로직 담기
+		dto.setTotal(adminBiz.getTotalCount(dto.getKeyword())); 	// 총 게시글 수 조회하는 로직 담기
 
-		List<Map<String, Object>> list = adminBiz.adminCourseList(dto, cri);
+		List<Map<String, Object>> list = adminBiz.courseList(dto, cri);
 		mav.addObject("list", list);
 		mav.addObject("dto", dto); // total 값 가져오기 => 페이지 수 카운트
 		mav.addObject("cri", cri);

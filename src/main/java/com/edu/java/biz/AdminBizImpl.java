@@ -30,103 +30,103 @@ public class AdminBizImpl implements AdminBiz{
 	
 	/* 관리자 메인*/
 	@Override
-	public int adminUserCount() {
-		return adminDao.adminUserCount();
+	public int userCount() {
+		return adminDao.userCount();
 	}
 
 	@Override
-	public int newAdminUserCount() {
-		return adminDao.newAdminUserCount();
+	public int newUserCount() {
+		return adminDao.newUserCount();
 	}
 
 	@Override
-	public int adminCancleCount() {
-		return adminDao.adminCancleCount();
+	public int cancleCount() {
+		return adminDao.cancleCount();
 	}
 
 	@Override
-	public int newAdminCancleCount() {
-		return adminDao.newAdminCancleCount();
+	public int newCancleCount() {
+		return adminDao.newCancleCount();
 	}
 
 	@Override
-	public int adminReviewCount() {
-		return adminDao.adminReviewCount();
+	public int ReviewCount() {
+		return adminDao.ReviewCount();
 	}
 
 	@Override
-	public int newAdminReviewCount() {
-		return adminDao.newAdminReviewCount();
+	public int newReviewCount() {
+		return adminDao.newReviewCount();
 	}
 
 	/* 공지사항 */
 	@Override
-	public List<NoticeDto> adminNoticeList() throws Exception{
-		return adminDao.adminNoticeList();
+	public List<NoticeDto> noticeList(){
+		return adminDao.noticeList();
 	}
 
 	@Override
-	public NoticeDto noticeSelectOne(int noti_no) {
-		return adminDao.noticeSelectOne(noti_no);
+	public NoticeDto noticeDetail(int noti_no) {
+		return adminDao.noticeDetail(noti_no);
 	}
 
 	@Override
-	public int adminNoticeInsert(NoticeDto dto) {
-		return adminDao.adminNoticeInsert(dto);
+	public int inputNotice(NoticeDto dto) {
+		return adminDao.inputNotice(dto);
 	}
 
 	@Override
-	public int adminNoticeUpdate(NoticeDto dto) {
-		return adminDao.adminNoticeUpdate(dto);
+	public int modifyNotice(NoticeDto dto) {
+		return adminDao.modifyNotice(dto);
 	}
 
 	@Override
-	public int adminNoticeDelete(int noti_no) {
-		return adminDao.adminNoticeDelete(noti_no);
+	public int deleteNotice(int noti_no) {
+		return adminDao.deleteNotice(noti_no);
 	}
 	
 
 	/* Q n A */
 	@Override
-	public List<QnaDto> adminQnaList() {
-		return adminDao.adminQnaList();
+	public List<QnaDto> qnaList() {
+		return adminDao.qnaList();
 	}
 	
 	@Override
-	public QnaDto qnaSelectOne(int q_no) {
-		return adminDao.qnaSelectOne(q_no);
+	public QnaDto qnaDetail(int q_no) {
+		return adminDao.qnaDetail(q_no);
 	}
 
 	@Override
-	public int adminQnaDelete(int q_no) {
-		return adminDao.adminQnaDelete(q_no);
+	public int deleteQna(int q_no) {
+		return adminDao.deleteQna(q_no);
 	}
 	
 	
 	/* F A Q */
 	@Override
-	public List<FaqDto> adminFaqList() {
-		return adminDao.adminFaqList();
+	public List<FaqDto> faqList() {
+		return adminDao.faqList();
 	}
 	
 	@Override
-	public FaqDto faqSelectOne(int faq_no) {
-		return adminDao.faqSelectOne(faq_no);
+	public FaqDto faqDetail(int faq_no) {
+		return adminDao.faqDetail(faq_no);
 	}
 
 	@Override
-	public int adminFaqInsert(FaqDto dto) {
-		return adminDao.adminFaqInsert(dto);
+	public int inputFaq(FaqDto dto) {
+		return adminDao.inputFaq(dto);
 	}
 
 	@Override
-	public int adminFaqUpdate(FaqDto dto) {
-		return adminDao.adminFaqUpdate(dto);
+	public int modifyFaq(FaqDto dto) {
+		return adminDao.modifyFaq(dto);
 	}
 
 	@Override
-	public int adminFaqDelete(int faq_no) {
-		return adminDao.adminFaqDelete(faq_no);
+	public int deleteFaq(int faq_no) {
+		return adminDao.deleteFaq(faq_no);
 	}
 	
 	@Override
@@ -137,76 +137,74 @@ public class AdminBizImpl implements AdminBiz{
 	
 	/* Course */
 	@Override
-	public List<Map<String, Object>> adminCourseList(PageDto dto, Criteria cri) {
-		return adminDao.adminCourseList(dto, cri);
+	public List<Map<String, Object>> courseList(PageDto dto, Criteria cri) {
+		return adminDao.courseList(dto, cri);
 	}
 	
 	// 게시물 총 갯수
-	public int getTotal(String param) { 
-		return adminDao.getTotal(param);
+	public int getTotalCount(String param) { 
+		return adminDao.getTotalCount(param);
 	}
 
 	@Override
-	public CourseDto adminCourseDetail(int c_no) throws Exception{
-		return adminDao.adminCourseDetail(c_no);
+	public CourseDto courseDetail(int c_no) throws Exception{
+		return adminDao.courseDetail(c_no);
 	}
 
 	@Override
-	public int adminCourseInsert(CourseDto dto) throws Exception{
-		return adminDao.adminCourseInsert(dto);
+	public int inputCourse(CourseDto dto) throws Exception{
+		return adminDao.inputCourse(dto);
 	}
 
 	@Override
-	public int adminCourseUpdate(CourseDto dto) throws Exception {
-		return adminDao.adminCourseUpdate(dto);
+	public int modifyCourse(CourseDto dto) throws Exception {
+		return adminDao.modifyCourse(dto);
 	}
 
 	@Override
-	public void adminCourseDelete(int c_no) {
-		adminDao.adminCourseDelete(c_no);
+	public void deleteCourse(int c_no) {
+		adminDao.deleteCourse(c_no);
 	}
 	
-	@Override
+	/*@Override
 	public int adminCourseCount(String c_count) throws Exception{
 		return adminDao.adminCourseCount(c_count);
-	}
+	}*/
 
-	/* Teacher */
 	@Override
-	public List<TeacherDto> adminTeacherList(){
-		return adminDao.adminTeacherList();
+	public List<TeacherDto> teacherList(){
+		return adminDao.teacherList();
 	}
 	
 	@Override
-	public int adminTeacherInsert(TeacherDto dto) {
-		return adminDao.adminTeacherInsert(dto);
+	public int inputTeacher(TeacherDto dto) {
+		return adminDao.inputTeacher(dto);
 	}
 	
 	@Override
-	public int adminTeacherUpdate(TeacherDto dto) {
-		return adminDao.adminTeacherUpdate(dto);
+	public int modifyTeacher(TeacherDto dto) {
+		return adminDao.modifyTeacher(dto);
 	}
 	
 	@Override
-	public int adminTeacherDelete(int t_no) {
-		return adminDao.adminTeacherDelete(t_no);
-	}
-	
-	/* Member */
-	@Override
-	public List<MemberDto> adminMemberList(){
-		return adminDao.adminMemberList();
+	public int deleteTeacher(int t_no) {
+		return adminDao.deleteTeacher(t_no);
 	}
 	
 	@Override
-	public int adminMemberDelete(int user_no) {
-		return adminDao.adminMemberDelete(user_no);
+	public List<MemberDto> memberList(){
+		return adminDao.memberList();
+	}
+	
+	@Override
+	public int deleteMember(int user_no) {
+		return adminDao.deleteMember(user_no);
 	}
 	
 	/* Application */
 	@Override
-	public List<Map<String, Object>> adminAppList(PageDto dto, Criteria cri) {
-		return adminDao.adminAppList(dto, cri);
+	public List<Map<String, Object>> appList(PageDto dto, Criteria cri) {
+		return adminDao.appList(dto, cri);
 	}
 	
 	@Override
@@ -215,8 +213,8 @@ public class AdminBizImpl implements AdminBiz{
 	}
 	
 	@Override
-	public ApplicationDto adminAppDetail(int app_no) throws Exception{
-		return adminDao.adminAppDetail(app_no);
+	public ApplicationDto appDetail(int app_no) throws Exception{
+		return adminDao.appDetail(app_no);
 	}
 	
 }
