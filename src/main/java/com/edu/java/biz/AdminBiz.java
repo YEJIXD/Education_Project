@@ -22,17 +22,17 @@ public interface AdminBiz {
 	public int ReviewCount();
 	public int newReviewCount();
 	
-	public List<NoticeDto> noticeList();
-	public NoticeDto noticeDetail(int noti_no);
+	public List<NoticeDto> getNotice();
+	public NoticeDto selectNotice(int noti_no);
 	public int inputNotice(NoticeDto dto);
 	public int modifyNotice(NoticeDto dto);
 	public int deleteNotice(int noti_no);
 	
-	public List<QnaDto> qnaList();
-	public QnaDto qnaDetail(int q_no);
+	public List<QnaDto> getQna();
+	/*public QnaDto selectQna(int q_no);
 	public int deleteQna(int q_no);
 	
-	public List<FaqDto> faqList();
+	public List<FaqDto> getFaq();
 	public FaqDto faqDetail(int faq_no);
 	public int inputFaq(FaqDto dto);
 	public int modifyFaq(FaqDto dto);
@@ -58,5 +58,5 @@ public interface AdminBiz {
 	
 	public List<Map<String, Object>> appList(PageDto dto, Criteria cri);
 	public int getAppTotal(String param);
-	public ApplicationDto appDetail(int app_no) throws Exception;
+	public ApplicationDto appDetail(int app_no) throws Exception;*/
 }

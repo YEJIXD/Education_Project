@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="admin">
-	<resultMap type="noticeDto" id="noticeMap">
+	<!-- <resultMap type="noticeDto" id="noticeMap">
 		<result property="noti_no" column="NOTI_NO" />
 		<result property="noti_title" column="NOTI_TITLE" />
 		<result property="noti_content" column="NOTI_CONTENT" />
@@ -10,9 +10,9 @@
 		<result property="noti_upd_date" column="NOTI_UPD_DATE" />
 		<result property="noti_count" column="NOTI_COUNT" />
 		<result property="noti_img" column="NOTI_IMG" />
-	</resultMap>
+	</resultMap> -->
 
-	<select id="noticeList" parameterType="list" resultMap="noticeMap">
+	<select id="getNotice" parameterType="list" resultMap="noticeMap">
 		SELECT
 			  NOTI_NO
 			, NOTI_TITLE
@@ -22,7 +22,7 @@
 		ORDER BY NOTI_NO DESC
 	</select>
 
-	<select id="noticeDetail" resultType="noticeDto" parameterType="int">
+	<select id="selectNotice" resultType="noticeDto" parameterType="int">
 		SELECT *
 		FROM NOTICE
 		WHERE NOTI_NO = #{noti_no}
@@ -59,6 +59,53 @@
 		FROM NOTICE
 		WHERE NOTI_NO = #{noti_no}
 	</delete>
+	
+	<select id="getQna" parameterType="list" resultType="QnaDto">
+		SELECT
+			  Q_NO
+			, Q_TITLE
+			, Q_DATE
+			, Q_STATUS
+			, Q_COUNT
+		FROM mydb.QNA
+		ORDER BY Q_NO DESC
+	</select>
+	
+	<select id="selectQna" parameterType="Integer" resultType="hashmap">
+		SELECT
+			Q_TITLE
+		  , Q_CONTENT
+		FROM mydb.QNA
+		WHERE Q_NO = #{q_no}
+	</select>
+
+	<insert id="inputQnaReply" parameterType="qnaDto">
+		INSERT INTO mydb.QNA (
+			Q_RE_NO
+			, Q_RE_TITLE
+			, Q_RE_CONTENT
+			, Q_RE_DATE
+		) VALUES(
+			(SELECT IFNULL(MAX(Q.Q_NO),0) + 1 FROM QNA Q)
+			, #{q_re_title}
+			, #{q_re_content}
+			, NOW())
+	</insert>
+
+	<update id="modifyQnaReply" parameterType="qnaDto">
+		UPDATE QNA
+		SET
+			  Q_RE_TITLE = #{q_re_title}
+			, Q_RE_CONTENT = #{q_re_content}
+			, Q_RE_UPD_DATE = #{q_re_upd_date}
+		WHERE Q_RE_NO = #{q_re_no}
+	</update>
+
+	<delete id="deleteQnaReply" parameterType="int">
+		DELETE
+		FROM QNA
+		WHERE Q_RE_NO = #{q_re_no}
+	</delete>
 
 	<resultMap type="faqDto" id="faqMap">
 		<result property="faq_no" column="FAQ_NO" />
@@ -71,7 +118,7 @@
 		<result property="faq_count" column="FAQ_COUNT" />
 	</resultMap>
 
-	<select id="faqList" parameterType="list" resultMap="faqMap">
+	<select id="getFaq" parameterType="list" resultMap="faqMap">
 		SELECT
 			  FAQ_NO
 			, FAQ_CATEGORY
@@ -135,45 +182,6 @@
 			FROM FAQ
 		WHERE FAQ_CATEGORY = #{faq_category}
 	</select>
-
-	<select id="qnaList" parameterType="list" resultType="QnaDto">
-		SELECT
-			  Q_NO
-			, Q_TITLE
-			, Q_DATE
-			, Q_STATUS
-			, Q_COUNT
-		FROM mydb.QNA
-		ORDER BY Q_NO DESC
-	</select>
-
-	<insert id="inputQnaReply" parameterType="qnaDto">
-		INSERT INTO mydb.QNA (
-			Q_RE_NO
-			, Q_RE_TITLE
-			, Q_RE_CONTENT
-			, Q_RE_DATE
-		) VALUES(
-			(SELECT IFNULL(MAX(Q.Q_NO),0) + 1 FROM QNA Q)
-			, #{q_re_title}
-			, #{q_re_content}
-			, NOW())
-	</insert>
-
-	<update id="modifyQnaReply" parameterType="qnaDto">
-		UPDATE QNA
-		SET
-			  Q_RE_TITLE = #{q_re_title}
-			, Q_RE_CONTENT = #{q_re_content}
-			, Q_RE_UPD_DATE = #{q_re_upd_date}
-		WHERE Q_RE_NO = #{q_re_no}
-	</update>
-
-	<delete id="deleteQnaReply" parameterType="int">
-		DELETE
-		FROM QNA
-		WHERE Q_RE_NO = #{q_re_no}
-	</delete>
 
 	<select id="courseList" parameterType="pageDto" resultType="courseDto">
 		<![CDATA[

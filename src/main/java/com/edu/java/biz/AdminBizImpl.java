@@ -59,15 +59,14 @@ public class AdminBizImpl implements AdminBiz{
 		return adminDao.newReviewCount();
 	}
 
-	/* 공지사항 */
 	@Override
-	public List<NoticeDto> noticeList(){
-		return adminDao.noticeList();
+	public List<NoticeDto> getNotice(){
+		return adminDao.getNotice();
 	}
 
 	@Override
-	public NoticeDto noticeDetail(int noti_no) {
-		return adminDao.noticeDetail(noti_no);
+	public NoticeDto selectNotice(int noti_no) {
+		return adminDao.selectNotice(noti_no);
 	}
 
 	@Override
@@ -85,14 +84,12 @@ public class AdminBizImpl implements AdminBiz{
 		return adminDao.deleteNotice(noti_no);
 	}
 	
-
-	/* Q n A */
 	@Override
-	public List<QnaDto> qnaList() {
-		return adminDao.qnaList();
+	public List<QnaDto> getQna() {
+		return adminDao.getQna();
 	}
 	
-	@Override
+	/*@Override
 	public QnaDto qnaDetail(int q_no) {
 		return adminDao.qnaDetail(q_no);
 	}
@@ -102,11 +99,9 @@ public class AdminBizImpl implements AdminBiz{
 		return adminDao.deleteQna(q_no);
 	}
 	
-	
-	/* F A Q */
 	@Override
-	public List<FaqDto> faqList() {
-		return adminDao.faqList();
+	public List<FaqDto> getFaq() {
+		return adminDao.getFaq();
 	}
 	
 	@Override
@@ -134,14 +129,11 @@ public class AdminBizImpl implements AdminBiz{
 		return adminDao.hashTagSearch(faq_category);
 	}
 
-	
-	/* Course */
 	@Override
 	public List<Map<String, Object>> courseList(PageDto dto, Criteria cri) {
 		return adminDao.courseList(dto, cri);
 	}
 	
-	// 게시물 총 갯수
 	public int getTotalCount(String param) { 
 		return adminDao.getTotalCount(param);
 	}
@@ -166,10 +158,10 @@ public class AdminBizImpl implements AdminBiz{
 		adminDao.deleteCourse(c_no);
 	}
 	
-	/*@Override
+	@Override
 	public int adminCourseCount(String c_count) throws Exception{
 		return adminDao.adminCourseCount(c_count);
-	}*/
+	}
 
 	@Override
 	public List<TeacherDto> teacherList(){
@@ -201,7 +193,6 @@ public class AdminBizImpl implements AdminBiz{
 		return adminDao.deleteMember(user_no);
 	}
 	
-	/* Application */
 	@Override
 	public List<Map<String, Object>> appList(PageDto dto, Criteria cri) {
 		return adminDao.appList(dto, cri);
@@ -215,6 +206,5 @@ public class AdminBizImpl implements AdminBiz{
 	@Override
 	public ApplicationDto appDetail(int app_no) throws Exception{
 		return adminDao.appDetail(app_no);
-	}
-	
+	}*/
 }

@@ -1,19 +1,10 @@
 package com.edu.java.controller;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,12 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.java.CmmService;
 import com.edu.java.biz.AdminBiz;
-import com.edu.java.dto.CourseDto;
 import com.edu.java.dto.Criteria;
-import com.edu.java.dto.FaqDto;
-import com.edu.java.dto.NoticeDto;
 import com.edu.java.dto.PageDto;
-import com.edu.java.dto.QnaDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class AdminController {
 
-	@Inject
+	@Autowired
 	AdminBiz adminBiz;
 
 	@Autowired
@@ -43,26 +30,26 @@ public class AdminController {
 	@RequestMapping(value = "/adminMain", method = RequestMethod.GET)
 	public ModelAndView adminMain(@RequestParam HashMap<String, Object> paramMap) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main");
+		mav.setViewName("/admin/main");
 
 		return mav;
 	}
 
-	@RequestMapping(value = "/noticeList", method = RequestMethod.GET)
-	public ModelAndView adminNoticeList() {
+	@RequestMapping(value = "/adminNotice", method = RequestMethod.GET)
+	public ModelAndView adminNotice() {
 		ModelAndView mav = new ModelAndView();
 
 		try {
-			mav.setViewName("/admin/noticeList");
-			mav.addObject("list", adminBiz.noticeList());
+			mav.addObject("list", adminBiz.getNotice());
+			mav.setViewName("/admin/notice");
 		} catch (Exception e) {
-			log.debug("[ ERROR ] : notice List");
+			log.debug("[ ERROR ] : admin notice");
 			e.printStackTrace();
 		}
 		return mav;
 	}
 
-	@RequestMapping(value = "/inputNotice", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/inputNotice", method = RequestMethod.GET)
 	public ModelAndView adminNoticeInsert() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("inputNotice");
@@ -101,12 +88,22 @@ public class AdminController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/faqList", method = RequestMethod.GET)
-	public ModelAndView faqList() throws Exception {
+	@RequestMapping(value = "/admin/qna", method = RequestMethod.GET)
+	public ModelAndView adminQna(Model model) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("list", adminBiz.getQna());
+		mav.setViewName("/admin/qna");
+
+		return mav;
+	}
+	
+	@RequestMapping(value = "/admin/faq", method = RequestMethod.GET)
+	public ModelAndView adminFaq() throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 		
-		mav.setViewName("/admin/faqList");
-		mav.addObject("list", adminBiz.faqList());
+		mav.setViewName("/admin/faq");
+		mav.addObject("list", adminBiz.getFaq());
 
 		return mav;
 	}
@@ -176,38 +173,23 @@ public class AdminController {
 		return "";
 	}
 
-	@RequestMapping(value = "qnaList", method = RequestMethod.GET)
-	public ModelAndView qnaList(Model model) {
-		ModelAndView mav = new ModelAndView();
-		List<QnaDto> list = adminBiz.qnaList();
-
-		mav.setViewName("/admin/adminQnaList");
-		mav.addObject("list", list);
-
-		return mav;
-	}
-
-	@RequestMapping(value = "courseList", method = RequestMethod.GET)
-	public ModelAndView courseList(PageDto dto, @ModelAttribute("cri") Criteria cri) throws Exception {
+	@RequestMapping(value = "/admin/course", method = RequestMethod.GET)
+	public ModelAndView adminCourse(PageDto dto, @ModelAttribute("cri") Criteria cri) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
-		dto.setCri(cri); // page와 amount 설정
-		dto.setTotal(adminBiz.getTotalCount(dto.getKeyword())); // 총 게시글 수 조회하는 로직 담기
+		
+		dto.setCri(cri);
+		dto.setTotal(adminBiz.getTotalCount(dto.getKeyword()));
 
-		List<Map<String, Object>> list = adminBiz.courseList(dto, cri);
-		mav.addObject("list", list);
-		// endPage 숫자 다르게 나오는 것 아래처럼 객체에 담아 수정
-		mav.addObject("dto", dto); // keyword 잘 담김
-		// page와 amount 담아오기
+		mav.addObject("list", adminBiz.courseList(dto, cri));
+		mav.addObject("dto", dto);
 		mav.addObject("cri", cri);
-		mav.setViewName("/admin/courseList");
+		mav.setViewName("/admin/course");
 
 		return mav;
 	}
 
-	@RequestMapping(value = "courseDetail", method = RequestMethod.GET)
-	public ModelAndView courseDetail(PageDto dto, @RequestParam("c_no") int c_no,
-			@ModelAttribute("cri") Criteria cri) throws Exception {
-		log.info("[ course Detail ]");
+	@RequestMapping(value = "adminCourseDetail", method = RequestMethod.GET)
+	public ModelAndView adminCourseDetail(PageDto dto, @RequestParam("c_no") int c_no, @ModelAttribute("cri") Criteria cri) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 
 		mav.addObject("dto", adminBiz.courseDetail(c_no));
@@ -217,7 +199,7 @@ public class AdminController {
 		return mav;
 	}
 
-	@RequestMapping("/inputCourse")
+	@RequestMapping(value="/inputCourse", method=RequestMethod.GET)
 	public String inputCourse() throws Exception {
 		return "/admin/adminCourseInsert";
 	}
@@ -229,7 +211,6 @@ public class AdminController {
 
 		try {
 			// if(검사 ==1) { throw new Userexception 코드 200 이유 : 검사값이 맞지않아 }
-			@SuppressWarnings("unchecked")
 			HashMap<String, Object> user = (HashMap<String, Object>) session.getAttribute("USER");
 			if (user == null) {
 				resultCode = 10;
@@ -250,13 +231,14 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/modifyCourse", method = RequestMethod.GET)
-	public String modifyCourse(@RequestParam int c_no, Model model, @ModelAttribute("cri") Criteria cri) throws Exception {
-		//CourseDto dto = adminBiz.courseDetail(c_no);
+	public ModelAndView modifyCourse(@RequestParam int c_no, @ModelAttribute("cri") Criteria cri) throws Exception {
+		ModelAndView mav = new ModelAndView();
 		
-		model.addAttribute("dto", adminBiz.courseDetail(c_no));
-		model.addAttribute("cri", cri); // page amount 값
+		mav.addObject("dto", adminBiz.courseDetail(c_no));
+		mav.addObject("cri", cri); // page amount 값
+		mav.setViewName("/admin/modifyCourse");
 
-		return "/admin/modifyCourse";
+		return mav;
 	}
 
 	@RequestMapping(value = "modifyCourseRes", method = RequestMethod.POST)
@@ -264,7 +246,7 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("jsonView");
 		int resultCode = 0;
 
-		try { /* 로그인 되어있는 상태에서만 수정할 수 있도록 작성 */
+		try { // 로그인 되어있는 상태에서만 수정할 수 있도록 작성 
 			HashMap<String, Object> User = (HashMap<String, Object>) session.getAttribute("USER");
 			if (User == null) {
 				resultCode = 10;
@@ -295,51 +277,49 @@ public class AdminController {
 		// 2) json으로 보낼 때 사용하는 코드 => ModelAndView 사용 + @RequestBody
 		ModelAndView mav = new ModelAndView("jsonView");
 		HashMap<String, Object> map = cmmService.jsonStringToHashMap(param);
-		int resultCode = 0;
 
 		try {
 			adminBiz.deleteCourse(Integer.valueOf(String.valueOf(map.get("c_no"))));
 			mav.addObject("msg", "삭제 성공");
 		} catch (Exception e) {
-			resultCode = 1;
+			log.debug("[ delete Course Error ]");
 			e.printStackTrace();
 		} finally {
-			mav.addObject("resultCode", resultCode);
+			mav.addObject("mav", mav);
 		}
 		return mav;
 	}
 
-	@RequestMapping(value = "teacherList", method = RequestMethod.GET)
-	public ModelAndView teacherList(Model model) {
+	@RequestMapping(value = "/admin/teacher", method = RequestMethod.GET)
+	public ModelAndView adminTeacher(Model model) {
 		ModelAndView mav = new ModelAndView();
 
-		mav.setViewName("/admin/adminTeacherList");
-		mav.addObject("msg", "teacherList");
+		mav.setViewName("/admin/teacher");
+		mav.addObject("msg", "teacher");
 
 		return mav;
 	}
 
-	@RequestMapping(value = "memberList")
-	public ModelAndView memberList(Model model) {
+	@RequestMapping(value = "/admin/member")
+	public ModelAndView adminMember(Model model) {
 		ModelAndView mav = new ModelAndView();
 
-		mav.setViewName("/admin/adminMemberList");
-		mav.addObject("msg", "memberList");
+		mav.setViewName("/admin/member");
+		mav.addObject("msg", "adminMember");
 
 		return mav;
 	}
 
-	@RequestMapping(value = "appList", method = RequestMethod.GET)
-	public ModelAndView appList(PageDto dto, @ModelAttribute("cri") Criteria cri) throws Exception {
+	@RequestMapping(value = "/admin/application", method = RequestMethod.GET)
+	public ModelAndView adminApplication(PageDto dto, @ModelAttribute("cri") Criteria cri) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 		dto.setCri(cri);
 		dto.setTotal(adminBiz.getAppTotal(dto.getKeyword()));
 
-		List<Map<String, Object>> list = adminBiz.appList(dto, cri);
-		mav.addObject("list", list);
+		mav.addObject("list", adminBiz.appList(dto, cri));
 		mav.addObject("dto", dto);
 		mav.addObject("cri", cri);
-		mav.setViewName("/admin/appList");
+		mav.setViewName("/admin/application");
 
 		return mav;
 	}
@@ -353,5 +333,5 @@ public class AdminController {
 		mav.setViewName("/admin/appDetail");
 
 		return mav;
-	}
+	}*/
 }

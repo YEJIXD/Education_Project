@@ -103,11 +103,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 	
 	@Override
-	public List<NoticeDto> noticeList() {
+	public List<NoticeDto> getNotice() {
 		List<NoticeDto> adminNoticeList = new ArrayList<NoticeDto>();
 		
 		try {
-			adminNoticeList = sqlSession.selectList(NAMESPACE + "noticeList");
+			adminNoticeList = sqlSession.selectList(NAMESPACE + "getNotice");
 		} catch (Exception e) {
 			System.out.println("[error] : notice list");
 			e.printStackTrace();
@@ -116,11 +116,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public NoticeDto noticeDetail(int noti_no) {
+	public NoticeDto selectNotice(int noti_no) {
 		NoticeDto dto = null;
 		
 		try {
-			dto = sqlSession.selectOne(NAMESPACE+"noticeDetail", noti_no);
+			dto = sqlSession.selectOne(NAMESPACE+"selectNotice", noti_no);
 		} catch (Exception e) {
 			System.out.println("[error] : Notice Detail");
 			e.printStackTrace();
@@ -168,11 +168,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 	
 	@Override
-	public List<QnaDto> qnaList() {
+	public List<QnaDto> getQna() {
 		List<QnaDto> qnaList = new ArrayList<QnaDto>();
 		
 		try {
-			qnaList = sqlSession.selectList(NAMESPACE + "qnaList");
+			qnaList = sqlSession.selectList(NAMESPACE + "getQna");
 		} catch (Exception e) {
 			System.out.println("[error] : admin Qna list");
 			e.printStackTrace();
@@ -181,11 +181,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 	
 	@Override 
-	public QnaDto qnaDetail(int q_no) {
+	public QnaDto selectQna(int q_no) {
 		QnaDto dto = null;
 		
 		try {
-			dto = sqlSession.selectOne(NAMESPACE + "qnaDetail", q_no);
+			dto = sqlSession.selectOne(NAMESPACE + "selectQna", q_no);
 		} catch (Exception e) {
 			System.out.println("[error] : admin Qna Select One error");
 			e.printStackTrace();
@@ -193,7 +193,7 @@ public class AdminDaoImpl implements AdminDao{
 		return dto;
 	}
 
-	@Override
+	/*@Override
 	public int deleteQna(int q_no) {
 		int res = 0;
 		
@@ -362,7 +362,7 @@ public class AdminDaoImpl implements AdminDao{
 		}
 	}
 	
-	/*@Override
+	@Override
 	public int adminCourseCount(String c_count) throws Exception{
 		int res = 0;
 		
@@ -373,7 +373,7 @@ public class AdminDaoImpl implements AdminDao{
 			e.printStackTrace();
 		}
 		return res;
-	}*/
+	}
 	
 	@Override
 	public List<TeacherDto> teacherList() {
@@ -483,6 +483,6 @@ public class AdminDaoImpl implements AdminDao{
 				e.printStackTrace();
 			}
 			return dto;
-	 }
+	 }*/
 	
 }
