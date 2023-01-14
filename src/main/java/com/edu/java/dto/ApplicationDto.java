@@ -18,8 +18,8 @@ public class ApplicationDto {
 	private CourseDto cDto;
 	private MemberDto mDto;
 	
-	private int app_no;					// 수강 신청 번호
-	private Date app_date;				// 교육 신청일
+	private int app_no;	
+	private Date app_date;	
 	
 	public ApplicationDto() {
 		super();
