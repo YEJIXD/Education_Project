@@ -13,7 +13,7 @@
 	<meta name="author" content="" />
 	<title>Admin_Notice</title>
 	<link href="https://cdn.jsdelivr.net/npm/simple-latestdatatables@/dist/style.css" rel="stylesheet" />
-	<link href="resources/css/admin/admin_styles.css" rel="stylesheet" />
+	<link href="resources/css/admin/styles.css" rel="stylesheet" />
 	<link rel="stylesheet" href="/resources/css/bootstrap/bootstrap.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 	
@@ -48,7 +48,7 @@
 		 
 		 function logoutCheck(){
 		 	alert('로그아웃하시겠습니까?');
-		 	location.href="logout.do";
+		 	location.href="logout";
 		 }
 	</script>
 </head>
@@ -64,8 +64,8 @@
 	        	<li class="nav-item dropdown">
 	            	<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;"><i class="fas fa-user fa-fw" style="color:black;"></i></a>
 	                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-	                	<li><a class="dropdown-item" href="logout.do" onclick="logoutCheck()">LogOut</a></li>
-	                	<li><a class="dropdown-item" href="main.do">Main</a></li>
+	                	<li><a class="dropdown-item" href="logout" onclick="logoutCheck()">LogOut</a></li>
+	                	<li><a class="dropdown-item" href="main">Main</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -81,15 +81,14 @@
                             <br>
                             <a href="#" style="text-decoration:none; color: black; text-align: center;">${member.user_name} 님<br>반갑습니다 : )</a>
                         </div>
-                        
-						<a class="nav-link home" href="adminMain.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-home" aria-hidden="true"></i></div><span>HOME</span></a>
-                        <a class="nav-link notice" href="adminNoticeList.do" style="color: #9966FF;"><div class="sb-nav-link-icon"><i class="fa fa-flag" aria-hidden="true"></i></div><span>Notice</span></a>
-                        <a class="nav-link qna" href="adminQnaList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Q n A</span></a>
-                        <a class="nav-link faq" href="adminFaqList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-bars" aria-hidden="true"></i></div><span>F A Q</span></a>
-                        <a class="nav-link course" href="adminCourseList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-book" aria-hidden="true"></i></div><span>Course</span></a>
-                        <a class="nav-link teacher" href="adminTeacherList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div><span>Teacher</span></a>
-                        <a class="nav-link member" href="adminMemberList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Member</span></a>
-                        <a class="nav-link application" href="adminAppList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-shoe-prints" aria-hidden="true"></i></div><span>Application</span></a>
+                        <a class="nav-link home" href="/adminMain" style="color: black;"><i class="fa fa-home" aria-hidden="true"></i><span>HOME</span></a>
+                        <a class="nav-link notice" href="/adminNotice" style="color: #9966FF;"><div class="sb-nav-link-icon"><i class="fa fa-flag" aria-hidden="true"></i></div><span>Notice</span></a>
+                        <a class="nav-link qna" href="/adminQna" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Q n A</span></a>
+                        <a class="nav-link faq" href="/adminFaq" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-bars" aria-hidden="true"></i></div><span>F A Q</span></a>
+                        <a class="nav-link course" href="/adminCourse" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-book" aria-hidden="true"></i></div><span>Course</span></a>
+                        <a class="nav-link teacher" href="/adminTeacher" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div><span>Teacher</span></a>
+                        <a class="nav-link member" href="/adminMember" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Member</span></a>
+                        <a class="nav-link application" href="/adminApplication" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-shoe-prints" aria-hidden="true"></i></div><span>Application</span></a>
 					</div>
 				</div>
 			</nav>
@@ -104,7 +103,7 @@
                     <div class="card mb-4">
                     	<div class="card-header"><i class="fas fa-table me-1"></i>목 록</div>
                         <div class="card-body">
-                        	<form action="adminNoticeInsert.do" method="GET">
+                        	<form action="adminNoticeInsert" method="GET">
                                 <table id="datatablesSimple" class="table table-hover">
                                 	<thead>
 	                                    <tr>
@@ -121,7 +120,7 @@
 				                            <tr>
 				                            	<td class="chkBtn" style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${dto.noti_no}"></td>
 				                                <td class="no" style="vertical-align:middle;">${dto.noti_no}</td>
-				                                <td class="title" style="vertical-align:middle;"><a href="noticeDetail.do?noti_no=${dto.noti_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.noti_title}</a></td>
+				                                <td class="title" style="vertical-align:middle;"><a href="noticeDetail?noti_no=${dto.noti_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.noti_title}</a></td>
 				                                <td class="date" style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.noti_date}"/></td>
 				                                <td class="date" style="vertical-align:middle;">${dto.noti_count }</td>
 				                            </tr>
