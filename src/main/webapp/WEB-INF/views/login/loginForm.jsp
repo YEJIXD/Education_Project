@@ -43,10 +43,10 @@ $(function(){
 				/* role이 'A'면 관리자, 'U'면 일반 이용자 */
 				if(role == 'A'){
 					alert('관리자님 안녕하세요.');
-					location.href = "adminMain.do";
+					location.href = "adminMain";
 				}else{
 					alert('로그인 성공!');	
-					location.href = "main.do";
+					location.href = "main";
 				}
 			}else{
             	alert('아이디나 비밀번호가 일치하지 않습니다.');
@@ -94,7 +94,7 @@ function loginValidator(user_id, user_pw){
             </div>
             
             <div class="regist_form">
-	            <!-- <form action="loginCheck.do" method="POST"> -->
+	            <!-- <form action="loginCheck" method="POST"> -->
 	                <table style="width:550px">
 	                    <tr>
 	                        <td width="150px" /> <td width="300px" />

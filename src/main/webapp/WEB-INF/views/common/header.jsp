@@ -22,7 +22,7 @@
 	<!-- 상단 이벤트 게시 -->
 	<div class="container-fluid header" style="position: fixed; top: 0; right: 0; left: 0; z-index: 1;">
 		<div class="row top-banner" align="center" style="background-color:#B0E0E6; height: 32px">
-			<a href="/main.do" class="banner-text"> CUBe Academy에 오신 걸 환영합니다 : )</a>
+			<a href="/main" class="banner-text"> CUBe Academy에 오신 걸 환영합니다 : )</a>
 		</div>
 		
 		<!-- Navibar Logo -->
@@ -30,7 +30,7 @@
 			<div class="col-sm-1"></div>
 			<div class="col-sm-8">
 				<div class="img-div">
-					<a href="main.do"> <img id="logo" src="resources/images/cube.png" style="z-index: 1;"></a>
+					<a href="main"> <img id="logo" src="resources/images/cube.png" style="z-index: 1;"></a>
 				</div>
 			</div>
 			<div class="col-sm-3"></div>
@@ -41,30 +41,31 @@
 			<div class="col-sm-1"></div>
 			<div class="col-sm-8 nav-list">
 				<ul class="header-ul">
-					<li class="nav-menu"><a class="header-a" href="greeting.do">교육 소개</a>
+					<li class="nav-menu"><a class="header-a">교육 소개</a>
 						<ul class="sub-menu">
-							<li><a class="header-a" href="greeting.do">인사말</a></li>
-							<li><a class="header-a" href="teacher.do">강사진</a></li>
-							<li><a class="header-a" href="wayToCenter.do">오시는 길</a></li>
+							<li><a class="header-a" href="greeting">인사말</a></li>
+							<li><a class="header-a" href="teacher">강사진</a></li>
+							<li><a class="header-a" href="wayToCenter">오시는 길</a></li>
 						</ul>
 					</li>
 						
-					<li class="nav-menu"><a class="header-a" href="goal.do">교육 목표</a></li>
+					<li class="nav-menu"><a class="header-a" href="goal">교육 목표</a></li>
 					
-					<li class="nav-menu"><a class="header-a" href="goApp.do">교육 신청</a>
+					<li class="nav-menu"><a class="header-a">교육 신청</a>
 						<ul class="sub-menu">
-							<li><a class="header-a" href="courseList.do">교육 목록</a></li>
+							<li><a class="header-a" href="goApp">신청 방법</a></li>
+							<li><a class="header-a" href="courseList">교육 목록</a></li>
 						</ul>
 					</li>
 					
-					<li class="nav-menu"><a class="header-a" href="noticeList.do">Community</a>
+					<li class="nav-menu"><a class="header-a">Community</a>
 						<ul class="sub-menu">
-							<li><a class="header-a" href="noticeList.do">공지사항</a></li>
-							<li><a class="header-a" href="faqList.do">F A Q</a></li>
-							<li><a class="header-a" href="qnaList.do">Q N A</a></li>
+							<li><a class="header-a" href="noticeList">공지사항</a></li>
+							<li><a class="header-a" href="faqList">F A Q</a></li>
+							<li><a class="header-a" href="qnaList">Q N A</a></li>
 						</ul>
 					</li>
-					<li class="nav-menu"><a class="header-a" href="myRoomMain.do" onclick="service();">My Class</a></li>
+					<li class="nav-menu"><a class="header-a" href="myRoomMain" onclick="service();">My Class</a></li>
 				</ul>
 			</div>
 			
@@ -80,13 +81,13 @@
 						<c:otherwise>
 							<span id="user-name">${USER.USER_NAME}님 반가워요😃</span>&nbsp;&nbsp;&nbsp;
 							<span style="color: gray" id="logout-btn" onclick="return logoutCheck();">로그아웃</span>&nbsp;|&nbsp;
-							<span style="color: gray" id="logout-btn" onclick="location.href='adminMain.do'">admin</span>
+							<span style="color: gray" id="logout-btn" onclick="location.href='/admin/main'">admin</span>
 						</c:otherwise>
 						</c:choose>
 					</c:when>
 					<c:otherwise> 
-						<span id="login" class="nav-menu" style="color: gray;" onclick="location.href='loginForm.do'">로 그 인</span> &nbsp;|&nbsp;
-						<span id="regist" class="nav-menu" style="color: gray;" onclick="location.href='registForm.do'">회원가입</span>
+						<span id="login" class="nav-menu" style="color: gray;" onclick="location.href='loginForm'">로 그 인</span> &nbsp;|&nbsp;
+						<span id="regist" class="nav-menu" style="color: gray;" onclick="location.href='registForm'">회원가입</span>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -96,7 +97,7 @@
 	<script type="text/javascript">
 		function logoutCheck(){
 			alert('로그아웃하시겠습니까?');
-			location.href="logout.do";
+			location.href="logout";
 		}
 	</script>
 </body>
