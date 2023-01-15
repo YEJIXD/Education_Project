@@ -1,59 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<meta name="description" content="" />
-	<meta name="author" content="" />
-	<title>Admin_Notice</title>
-	<link href="https://cdn.jsdelivr.net/npm/simple-latestdatatables@/dist/style.css" rel="stylesheet" />
-	<link href="resources/css/admin/styles.css" rel="stylesheet" />
-	<link rel="stylesheet" href="/resources/css/bootstrap/bootstrap.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Admin_Notice</title>
+<link href="https://cdn.jsdelivr.net/npm/simple-latestdatatables@/dist/style.css" rel="stylesheet" />
+<link href="resources/css/admin/styles.css" rel="stylesheet" />
+<link rel="stylesheet" href="/resources/css/bootstrap/bootstrap.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+	$(function(){
+		const chkObj = document.getElementByName("RowCheck[]");
+		const rowCnt = chkObj.length;
+		
+		$("input[name='allCheck']").click(function(){
+	   		let chk_listArr = $("input[name='RowCheck[]']");
+	   		for(let i = 0 ; i<chk_listArr.length; i++){
+	   			chk_listArr[i].checked = this.checked;
+	   		}
+	   	});
+	   	$("input[name='RowCheck[]']").click(function(){
+	   		if($("input[name='RowCheck[]']:checked").length == rowCnt){
+	   			$("input[name='allCheck']")[0].checked = true;
+	   		}else{
+	   			$("input[name='allCheck']")[0].checked = false;
+	   		}
+	   	});
+	   });
 	
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script type="text/javascript">
-		$(function(){
-			const chkObj = document.getElementByName("RowCheck[]");
-			const rowCnt = chkObj.length;
-			
-			$("input[name='allCheck']").click(function(){
-	    		var chk_listArr = $("input[name='RowCheck[]']");
-	    		for(var i = 0 ; i<chk_listArr.length; i++){
-	    			chk_listArr[i].checked = this.checked;
-	    		}
-	    	});
-	    	$("input[name='RowCheck[]']").click(function(){
-	    		if($("input[name='RowCheck[]']:checked").length == rowCnt){
-	    			$("input[name='allCheck']")[0].checked = true;
-	    		}else{
-	    			$("input[name='allCheck']")[0].checked = false;
-	    		}
-	    	});
-	    });
+	 function delete_frm(){
+		 if(confirm('정말 삭제하시겠습니까?')==true){
+			 return true;
+		 }else{
+			 return false;
+		 }
+	 }
 	 
-		 function delete_frm(){
-			 if(confirm('정말 삭제하시겠습니까?')==true){
-				 return true;
-			 }else{
-				 return false;
-			 }
-		 }
-		 
-		 function logoutCheck(){
-		 	alert('로그아웃하시겠습니까?');
-		 	location.href="logout";
-		 }
-	</script>
+	 function logoutCheck(){
+	 	alert('로그아웃하시겠습니까?');
+	 	location.href="logout";
+	 }
+</script>
 </head>
 <style type="text/css">
 	table{ border-bottom:none; }
+	#chkBtn, #no, #title, #date {vertical-align:middle;}
 </style>
 
 <body class="sb-nav-fixed">
@@ -111,18 +111,16 @@
 	                                        <th class="no">NO</th>
 	                                        <th class="title">제 목</th>
 	                                        <th class="date">작성일</th>
-	                                        <th class="date">조회수</th>
 										</tr>
                                     </thead>
                                     
                                     <tbody>
 	                                    <c:forEach items="${list}" var="dto">
 				                            <tr>
-				                            	<td class="chkBtn" style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${dto.noti_no}"></td>
-				                                <td class="no" style="vertical-align:middle;">${dto.noti_no}</td>
-				                                <td class="title" style="vertical-align:middle;"><a href="noticeDetail?noti_no=${dto.noti_no}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.noti_title}</a></td>
-				                                <td class="date" style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.noti_date}"/></td>
-				                                <td class="date" style="vertical-align:middle;">${dto.noti_count }</td>
+				                            	<td class="chkBtn" ><input type="checkbox" name="RowCheck[]" value="${dto.seq}"></td>
+				                                <td class="no">${dto.seq}</td>
+				                                <td class="title"><a href="noticeDetail?seq=${dto.seq}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.title}</a></td>
+				                                <td class="date"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.input_date}"/></td>
 				                            </tr>
 			                        	</c:forEach>
                                     </tbody>
@@ -138,10 +136,7 @@
 			</main>
 		</div>
 	</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="resources/admin/js/scripts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"></script>
-<script src="resources/admin/js/datatables-simple-demo.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="resources/admin/js/scripts.js"></script>
 </body>
 </html>

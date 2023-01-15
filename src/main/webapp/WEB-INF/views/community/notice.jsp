@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
@@ -12,18 +11,14 @@
 <title>Notice</title>
 <style type="text/css">
 	.subBtn{ float:right; }
-	
 	table{ width:60%; }
 </style>
 </head>
 <body>
-	<div id="header">
-		<%@ include file="../common/header.jsp" %>
-	</div>
-		
+	<div id="header"><%@ include file="../common/header.jsp" %></div>
 	<div class="container">
 		<h3>공 지 사 항</h3><br><br>
-		<form action="adminNoticeInsert.do" method="GET">
+		<form action="inputNotice" method="GET">
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -37,25 +32,17 @@
 				<tbody>
 					<c:forEach items="${list }" var="dto">
 						<tr>
-							<td>${dto.noti_no }</td>
-							<td><a href="noticeDetail.do">${dto.noti_title }</a></td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.noti_date}"/></td>
-							<td>${dto.noti_count }</td>
+							<td>${dto.seq }</td>
+							<td><a href="noticeDetail">${dto.noti_title }</a></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.input_date}"/></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
-	        
-			<div class="pagination">
-	
-			</div>
+			<div class="pagination"></div>
 		</form>
 	</div>
-		
-	<div id="footer">
-		<%@ include file="../common/footer.jsp" %>
-	</div>
-	
+	<div id="footer"><%@ include file="../common/footer.jsp" %></div>
 	<script src="/resources/js/bootstrap/jquery-3.1.1.js"></script>
 	<script src="/resources/js/bootstrap/bootstrap.js"></script>
 </body>

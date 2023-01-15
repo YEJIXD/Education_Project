@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,14 +14,11 @@
 </style>
 </head>
 <body>
-	<div id="header">
-		<%@ include file="../common/header.jsp" %>
-	</div>
-	
+	<div id="header"><%@ include file="../common/header.jsp" %></div>
 	<div class="container">
-		<h3>교육 상세</h3><br><br>
+		<h3>공 지 사 항</h3><br><br>
 		<div class="content">
-			<form action="appForm.do" method="GET">
+			<form action="appForm" method="GET">
 				<table class="table">
 					<tr>
 						<th>번호</th>
@@ -54,17 +52,12 @@
 						</td>
 					</tr>
 				</table>
-				
 				<div class="inpBtn">
-					<input type="button" class="antBtn" onclick="location.href='notice.do'" value="목 록">
+					<input type="button" class="antBtn" onclick="location.href='notice'" value="목 록">
 				</div>
-				
 			</form>
 		</div>
 	</div>
-	
-	<div id="footer">
-		<%@ include file="../common/footer.jsp" %>
-	</div>
+	<div id="footer"><%@ include file="../common/footer.jsp" %></div>
 </body>
 </html>
