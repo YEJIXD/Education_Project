@@ -21,16 +21,16 @@ public interface AdminDao {
 	
 	public int userCount();
 	public int newUserCount();
-	public int cancleCount();
-	public int newCancleCount();
+	public int cancelCount();
+	public int newCancelCount();
 	public int ReviewCount();
 	public int newReviewCount();
 	
 	public List<NoticeDto> getNotice();
-	public NoticeDto selectNotice(int noti_no);
+	public NoticeDto selectNotice(int seq);
 	public int inputNotice(NoticeDto dto);
 	public int modifyNotice(NoticeDto dto);
-	public int deleteNotice(int noti_no);
+	public int deleteNotice(int seq);
 	
 	public List<QnaDto> getQna();
 	public QnaDto selectQna(int q_no);
