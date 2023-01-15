@@ -51,24 +51,24 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public int cancleCount() {
+	public int cancelCount() {
 		int count = 0;
 		
 		try {
-			count = sqlSession.selectOne(NAMESPACE + "cancleCount");
+			count = sqlSession.selectOne(NAMESPACE + "cancelCount");
 		} catch (Exception e) {
-			System.out.println("[error] : cancle Count");
+			System.out.println("[error] : cancelCount Count");
 			e.printStackTrace();
 		}
 		return count;
 	}
 
 	@Override
-	public int newCancleCount() {
+	public int newCancelCount() {
 		int count = 0;
 		
 		try {
-			count = sqlSession.selectOne(NAMESPACE + "newCancleCount");
+			count = sqlSession.selectOne(NAMESPACE + "newCancelCount");
 		} catch (Exception e) {
 			System.out.println("[error] : all Cancle Count");
 			e.printStackTrace();
@@ -116,11 +116,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public NoticeDto selectNotice(int noti_no) {
+	public NoticeDto selectNotice(int seq) {
 		NoticeDto dto = null;
 		
 		try {
-			dto = sqlSession.selectOne(NAMESPACE+"selectNotice", noti_no);
+			dto = sqlSession.selectOne(NAMESPACE+"selectNotice", seq);
 		} catch (Exception e) {
 			System.out.println("[error] : Notice Detail");
 			e.printStackTrace();
@@ -155,11 +155,11 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public int deleteNotice(int noti_no) {
+	public int deleteNotice(int seq) {
 		int res = 0;
 		
 		try {
-			res = sqlSession.delete(NAMESPACE+"deleteNotice", noti_no);
+			res = sqlSession.delete(NAMESPACE+"deleteNotice", seq);
 		} catch (Exception e) {
 			System.out.println("[error] : admin notice delete");
 			e.printStackTrace();
