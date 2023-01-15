@@ -9,19 +9,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.edu.java.biz.CommunityBiz;
-import com.edu.java.biz.MemberBiz;
+import com.edu.java.service.CommunityService;
+import com.edu.java.service.MemberService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @SessionAttributes("member")
 @Controller
 public class CommonController {
 	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
 	
 	@Autowired
-	MemberBiz memberBiz;
+	MemberService memberService;
 	
 	@Autowired
-	CommunityBiz communityBiz;
+	CommunityService communityService;
 	
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String main() {
@@ -80,7 +83,7 @@ public class CommonController {
 	public ModelAndView noticeList() throws Exception{
 		ModelAndView mav = new ModelAndView("jsonView");
 		mav.setViewName("/community/noticeList");
-		mav.addObject("list", communityBiz.noticeList());
+		mav.addObject("list", communityService.noticeList());
 			
 		return mav;
 	}
@@ -97,7 +100,7 @@ public class CommonController {
 	public ModelAndView faqList() throws Exception{
 		ModelAndView mav = new ModelAndView("jsonView");
 		
-		mav.addObject("list", communityBiz.faqList());
+		mav.addObject("list", communityService.faqList());
 		mav.setViewName("/community/faqList");
 			
 		return mav;
@@ -107,7 +110,7 @@ public class CommonController {
 	public ModelAndView qnaList() throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 		
-		mav.addObject("list", communityBiz.qnaList());
+		mav.addObject("list", communityService.qnaList());
 		mav.setViewName("/community/qnaList");
 			
 		return mav;

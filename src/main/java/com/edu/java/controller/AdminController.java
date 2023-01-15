@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.java.CmmService;
-import com.edu.java.biz.AdminBiz;
+import com.edu.java.service.AdminService;
 import com.edu.java.dto.Criteria;
 import com.edu.java.dto.PageDto;
 
@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminController {
 
 	@Autowired
-	AdminBiz adminBiz;
+	AdminService adminService;
 
 	@Autowired
 	CmmService cmmService;
@@ -40,7 +40,7 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView();
 
 		try {
-			mav.addObject("list", adminBiz.getNotice());
+			mav.addObject("list", adminService.getNotice());
 			mav.setViewName("/admin/notice");
 		} catch (Exception e) {
 			log.debug("[ ERROR ] : admin notice");
@@ -49,18 +49,18 @@ public class AdminController {
 		return mav;
 	}
 
-	/*@RequestMapping(value = "/inputNotice", method = RequestMethod.GET)
-	public ModelAndView adminNoticeInsert() {
+	@RequestMapping(value = "/inputNotice", method = RequestMethod.GET)
+	public ModelAndView inputNotice() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("inputNotice");
 		
 		return mav;
 	}
-
+	/*
 	@RequestMapping(value="inputNoticeRes", method=RequestMethod.POST)
 	public ModelAndView inputNoticeRes(NoticeDto dto, HttpServletRequest request) throws Exception{
 		ModelAndView mav = new ModelAndView("jsonview");
-		mav.addObject("noticeList", adminBiz.inputNotice(dto));
+		mav.addObject("noticeList", adminService.inputNotice(dto));
 		
 		return mav;
 	}
@@ -81,7 +81,7 @@ public class AdminController {
 		int chk_length = chk.length;
 
 		for (int i = 0; i < chk_length; i++) {
-			adminBiz.deleteNotice(Integer.parseInt(chk[i]));
+			adminService.deleteNotice(Integer.parseInt(chk[i]));
 		}
 		mav.setViewName("noticeList");
 
@@ -92,7 +92,7 @@ public class AdminController {
 	public ModelAndView adminQna(Model model) {
 		ModelAndView mav = new ModelAndView();
 
-		mav.addObject("list", adminBiz.getQna());
+		mav.addObject("list", adminService.getQna());
 		mav.setViewName("/admin/qna");
 
 		return mav;
@@ -103,7 +103,7 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("jsonView");
 		
 		mav.setViewName("/admin/faq");
-		mav.addObject("list", adminBiz.getFaq());
+		mav.addObject("list", adminService.getFaq());
 
 		return mav;
 	}
@@ -121,7 +121,7 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("jsonview");
 
 		mav.setViewName("/community/faq");
-		mav.addObject("list", adminBiz.faqList());
+		mav.addObject("list", adminService.faqList());
 
 		return mav;
 	}
@@ -145,7 +145,7 @@ public class AdminController {
 		int chk_length = chk.length;
 
 		for (int i = 0; i < chk_length; i++) {
-			adminBiz.deleteFaq(Integer.parseInt(chk[i]));
+			adminService.deleteFaq(Integer.parseInt(chk[i]));
 		}
 
 		return "redirect:/faqList";
@@ -178,9 +178,9 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("jsonView");
 		
 		dto.setCri(cri);
-		dto.setTotal(adminBiz.getTotalCount(dto.getKeyword()));
+		dto.setTotal(adminService.getTotalCount(dto.getKeyword()));
 
-		mav.addObject("list", adminBiz.courseList(dto, cri));
+		mav.addObject("list", adminService.courseList(dto, cri));
 		mav.addObject("dto", dto);
 		mav.addObject("cri", cri);
 		mav.setViewName("/admin/course");
@@ -192,7 +192,7 @@ public class AdminController {
 	public ModelAndView adminCourseDetail(PageDto dto, @RequestParam("c_no") int c_no, @ModelAttribute("cri") Criteria cri) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 
-		mav.addObject("dto", adminBiz.courseDetail(c_no));
+		mav.addObject("dto", adminService.courseDetail(c_no));
 		mav.addObject("cri", cri);
 		mav.setViewName("/admin/courseDetail");
 
@@ -217,7 +217,7 @@ public class AdminController {
 			} else {
 				String UserName = String.valueOf(user.get("USER_NAME"));
 				dto.setC_init_writer(UserName);
-				adminBiz.inputCourse(dto);
+				adminService.inputCourse(dto);
 			}
 		} catch (Exception e) {
 			log.debug(e.getMessage());
@@ -234,7 +234,7 @@ public class AdminController {
 	public ModelAndView modifyCourse(@RequestParam int c_no, @ModelAttribute("cri") Criteria cri) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("dto", adminBiz.courseDetail(c_no));
+		mav.addObject("dto", adminService.courseDetail(c_no));
 		mav.addObject("cri", cri); // page amount 값
 		mav.setViewName("/admin/modifyCourse");
 
@@ -254,7 +254,7 @@ public class AdminController {
 				String UserName = String.valueOf(User.get("USER_NAME")); // String.valueOf 사용 -> User에서 USER_NAME
 																			// 가져와서(get) UserName에 저장
 				dto.setC_init_writer(UserName); // CourseDto의 c_init_writer에 UserName 저장
-				adminBiz.modifyCourse(dto); // adminBiz(Service단)에서 adminCourseUpdate() 메서드 실행
+				adminService.modifyCourse(dto); // adminService(Service단)에서 adminCourseUpdate() 메서드 실행
 				mav.addObject("cri", cri); // cri 객체로 page와 amount값 가지고 다니기
 			}
 		} catch (Exception e) {
@@ -272,14 +272,14 @@ public class AdminController {
 	@RequestMapping(value = "/deleteCourse", method = RequestMethod.POST)
 	public ModelAndView deleteCourse(@RequestBody String param) throws Exception {
 		// 1) form 보낼 때 사용하는 코드 => String 사용 + @RequestParam
-		// adminBiz.adminCourseDelete(c_no);
+		// adminService.adminCourseDelete(c_no);
 
 		// 2) json으로 보낼 때 사용하는 코드 => ModelAndView 사용 + @RequestBody
 		ModelAndView mav = new ModelAndView("jsonView");
 		HashMap<String, Object> map = cmmService.jsonStringToHashMap(param);
 
 		try {
-			adminBiz.deleteCourse(Integer.valueOf(String.valueOf(map.get("c_no"))));
+			adminService.deleteCourse(Integer.valueOf(String.valueOf(map.get("c_no"))));
 			mav.addObject("msg", "삭제 성공");
 		} catch (Exception e) {
 			log.debug("[ delete Course Error ]");
@@ -314,9 +314,9 @@ public class AdminController {
 	public ModelAndView adminApplication(PageDto dto, @ModelAttribute("cri") Criteria cri) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 		dto.setCri(cri);
-		dto.setTotal(adminBiz.getAppTotal(dto.getKeyword()));
+		dto.setTotal(adminService.getAppTotal(dto.getKeyword()));
 
-		mav.addObject("list", adminBiz.appList(dto, cri));
+		mav.addObject("list", adminService.appList(dto, cri));
 		mav.addObject("dto", dto);
 		mav.addObject("cri", cri);
 		mav.setViewName("/admin/application");
@@ -328,7 +328,7 @@ public class AdminController {
 	public ModelAndView appDetail(PageDto dto, @RequestParam("app_no") int app_no, @ModelAttribute("cri") Criteria cri) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 
-		mav.addObject("dto", adminBiz.appDetail(app_no));
+		mav.addObject("dto", adminService.appDetail(app_no));
 		mav.addObject("cri", cri);
 		mav.setViewName("/admin/appDetail");
 

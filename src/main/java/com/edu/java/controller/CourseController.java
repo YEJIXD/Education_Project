@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.java.CmmService;
-import com.edu.java.biz.AdminBiz;
-import com.edu.java.biz.CourseBiz;
+import com.edu.java.service.AdminService;
+import com.edu.java.service.CourseService;
 import com.edu.java.dto.Criteria;
 import com.edu.java.dto.PageDto;
 
@@ -26,10 +26,10 @@ public class CourseController {
 	private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
 
 	@Inject
-	CourseBiz courseBiz;
+	CourseService courseService;
 
 	@Autowired
-	AdminBiz adminBiz;
+	AdminService adminService;
 	
 	@Autowired
 	CmmService cmmService;
