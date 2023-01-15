@@ -2,62 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="admin">
-	<!-- <resultMap type="noticeDto" id="noticeMap">
-		<result property="noti_no" column="NOTI_NO" />
-		<result property="noti_title" column="NOTI_TITLE" />
-		<result property="noti_content" column="NOTI_CONTENT" />
-		<result property="noti_date" column="NOTI_DATE" />
-		<result property="noti_upd_date" column="NOTI_UPD_DATE" />
-		<result property="noti_count" column="NOTI_COUNT" />
-		<result property="noti_img" column="NOTI_IMG" />
-	</resultMap> -->
-
-	<select id="getNotice" parameterType="list" resultMap="noticeMap">
+	<select id="getNotice" parameterType="list" resultType="noticeDto">
 		SELECT
-			  NOTI_NO
-			, NOTI_TITLE
-			, NOTI_DATE
-			, NOTI_COUNT
-		FROM mydb.NOTICE
-		ORDER BY NOTI_NO DESC
+			  seq
+			, title
+			, input_date
+		FROM notice
+		ORDER BY input_date desc
 	</select>
 
-	<select id="selectNotice" resultType="noticeDto" parameterType="int">
+	<select id="selectNotice" parameterType="int" resultType="noticeDto">
 		SELECT *
 		FROM NOTICE
-		WHERE NOTI_NO = #{noti_no}
+		WHERE seq = #{seq}
 	</select>
 
 	<insert id="inputNotice" parameterType="noticeDto">
-		INSERT INTO mydb.NOTICE (
-			  NOTI_NO
-			, USER_NO
-			, NOTI_TITLE
-			, NOTI_CONTENT
-			, NOTI_DATE
-			, NOTI_IMG
+		INSERT INTO notice (
+			  seq
+			, user_no
+			, title
+			, content
+			, input_date
 		) VALUES(
-			  (SELECT IFNULL(MAX(N.NOTI_NO),0) + 1 FROM mydb.NOTICE N)
-			, #{noti_title}
-			, #{noti_content}
-			, #{noti_date}
-			, #{noti_img})
+			  (SELECT IFNULL(MAX(n.seq),0) + 1 FROM notice n)
+			, #{title}
+			, #{content}
+			, #{input_date}
 	</insert>
 
 	<update id="modifyNotice" parameterType="noticeDto">
-		UPDATE NOTICE
+		UPDATE notice
 		SET
-			  NOTI_TITLE = #{noti_title}
-			, NOTI_CONTENT = #{noti_content}
-			, NOTI_UPD_DATE = #{noti_upd_date}
-			, NOTI_IMG = #{noti_img}
-		WHERE NOTI_NO = #{noti_no}
+			  title = #{title}
+			, content = #{content}
+			, upd_date = #{upd_date}
+		WHERE seq = #{seq}
 	</update>
 
 	<delete id="deleteNotice" parameterType="int">
 		DELETE
-		FROM NOTICE
-		WHERE NOTI_NO = #{noti_no}
+		FROM notice
+		WHERE seq = #{seq}
 	</delete>
 	
 	<select id="getQna" parameterType="list" resultType="QnaDto">

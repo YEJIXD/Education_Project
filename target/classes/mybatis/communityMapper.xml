@@ -3,19 +3,19 @@
   
   <mapper namespace="community">
   	<!-- 공 지 사 항 -->
-  	<resultMap type="noticeDto" id="noticeMap">
+<!--   	<resultMap type="noticeDto" id="noticeMap">
 			<result property="noti_no" column="NOTI_NO" />
 			<result property="noti_title" column="NOTI_TITLE"/>
 			<result property="noti_content" column="NOTI_CONTENT"/>
 			<result property="noti_date" column="NOTI_DATE"/>
 			<result property="noti_upd_date" column="NOTI_UPD_DATE"/>
 			<result property="noti_count" column="NOTI_COUNT"/>
-	</resultMap>
+	</resultMap> -->
 	
-  	<select id="noticeList" parameterType="list" resultMap="noticeMap">
-  		SELECT NOTI_NO, NOTI_TITLE, NOTI_DATE, NOTI_COUNT
-  		FROM mydb.NOTICE
-  		ORDER BY NOTI_NO DESC
+  	<select id="noticeList" parameterType="list" resultType="noticeDto">
+  		SELECT seq, title, input_date
+  		FROM notice
+  		ORDER BY seq DESC
   	</select>
   	
   	
