@@ -24,7 +24,7 @@
 				<table class="table insertTable">
 					<tr>
 						<th>제 목</th>
-						<td><input type="text" class="insertTitle" id="noti_title" placeholder="제목을 입력하세요" size="80" required></td>
+						<td><input type="text" class="insertTitle" id="title" placeholder="제목을 입력하세요" size="80" required></td>
 					</tr>
 					<tr>
 						<th>내 용</th>
