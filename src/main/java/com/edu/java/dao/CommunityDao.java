@@ -1,5 +1,6 @@
 package com.edu.java.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.edu.java.dto.FaqDto;
@@ -9,14 +10,10 @@ import com.edu.java.dto.QnaDto;
 public interface CommunityDao {
 	String NAMESPACE = "community.";
 	
-/* 공 지 사 항 */
-	public List<NoticeDto> noticeList();
-	//public NoticeDto noticeSelectOne(int noti_no);
+	public List<NoticeDto> notice();
 	
-/* Q N A */
-	public List<QnaDto> qnaList();
+	public List<QnaDto> qna();
 	
-/* F A Q */
-	public List<FaqDto> faqList();
+	public List<FaqDto> faq();
 	
 }

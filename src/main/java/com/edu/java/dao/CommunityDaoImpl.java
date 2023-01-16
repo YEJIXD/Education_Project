@@ -16,47 +16,43 @@ public class CommunityDaoImpl implements CommunityDao{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-/* 공 지 사 항 */
 	@Override
-	public List<NoticeDto> noticeList(){
-		List<NoticeDto> noticeList = new ArrayList<NoticeDto>();
+	public List<NoticeDto> notice(){
+		List<NoticeDto> notice = new ArrayList<>();
 		
 		try {
-			noticeList = sqlSession.selectList(NAMESPACE + "noticeList");
+			notice = sqlSession.selectList(NAMESPACE + "notice");
 		} catch (Exception e) {
 			System.out.println("[error] : notice list");
 			e.printStackTrace();
 		}
-		return noticeList;
+		return notice;
 		
 	}
 	
-	
-/* Q N A */
 	@Override
-	public List<QnaDto> qnaList(){
-		List<QnaDto> qnaList = new ArrayList<QnaDto>();
+	public List<QnaDto> qna(){
+		List<QnaDto> qna = new ArrayList<>();
 		
 		try {
-			qnaList = sqlSession.selectList(NAMESPACE + "qnaList");
+			qna = sqlSession.selectList(NAMESPACE + "qna");
 		} catch (Exception e) {
 			System.out.println("[error] : qna list");
 			e.printStackTrace();
 		}
-		return qnaList;
+		return qna;
 	}
 	
-/* F A Q */
 	@Override
-	public List<FaqDto> faqList(){
-		List<FaqDto> faqList = new ArrayList<FaqDto>();
+	public List<FaqDto> faq(){
+		List<FaqDto> faq = new ArrayList<>();
 		
 		try {
-			faqList = sqlSession.selectList(NAMESPACE + "faqList");
+			faq = sqlSession.selectList(NAMESPACE + "faq");
 		} catch (Exception e) {
 			System.out.println("[error] : faq list");
 			e.printStackTrace();
 		}
-		return faqList;
+		return faq;
 	}
 }
