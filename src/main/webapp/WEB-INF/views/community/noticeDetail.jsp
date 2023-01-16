@@ -12,6 +12,14 @@
 
 	td{ width:500px; }
 </style>
+<script src="https://code.jquery.com/jquery-3.4.1.js">
+	$(document).ready(function(){
+		$('#noticeList').on('click', function(){
+			location.href="/community/notice"
+		});
+	});
+
+</script>
 </head>
 <body>
 	<div id="header"><%@ include file="../common/header.jsp" %></div>
@@ -53,7 +61,8 @@
 					</tr>
 				</table>
 				<div class="inpBtn">
-					<input type="button" class="antBtn" onclick="location.href='notice'" value="목 록">
+					<input type="button" class="antBtn" onclick="location.href='/community/notice'" value="목 록">
+					<!-- <input type="button" class="antBtn" id="noticeList" value="목 록"> -->
 				</div>
 			</form>
 		</div>
