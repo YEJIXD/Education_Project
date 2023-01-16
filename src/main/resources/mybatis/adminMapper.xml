@@ -93,18 +93,7 @@
 		WHERE Q_RE_NO = #{q_re_no}
 	</delete>
 
-	<resultMap type="faqDto" id="faqMap">
-		<result property="faq_no" column="FAQ_NO" />
-		<result property="user_no" column="USER_NO" />
-		<result property="faq_title" column="FAQ_TITLE" />
-		<result property="faq_content" column="FAQ_CONTENT" />
-		<result property="faq_date" column="FAQ_DATE" />
-		<result property="faq_upd_date" column="FAQ_UPD_DATE" />
-		<result property="faq_category" column="FAQ_CATEGORY" />
-		<result property="faq_count" column="FAQ_COUNT" />
-	</resultMap>
-
-	<select id="getFaq" parameterType="list" resultMap="faqMap">
+	<select id="faq" parameterType="list" resultType="faqDto">
 		SELECT
 			  FAQ_NO
 			, FAQ_CATEGORY
@@ -158,8 +147,7 @@
 		WHERE FAQ_NO = #{faq_no}
 	</delete>
 
-	<select id="hashTagSearch" parameterType="string"
-		resultType="faqDto">
+	<select id="hashTagSearch" parameterType="string" resultType="faqDto">
 		SELECT
 			FAQ_NO
 			, FAQ_CATEGORY
