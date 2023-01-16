@@ -79,11 +79,12 @@ public class CommonController {
 		return "/edu_Application/appForm";
 	}
 	
-	@RequestMapping("/noticeList")
-	public ModelAndView noticeList() throws Exception{
-		ModelAndView mav = new ModelAndView("jsonView");
-		mav.setViewName("/community/noticeList");
-		mav.addObject("list", communityService.noticeList());
+	@RequestMapping(value="/community/notice", method=RequestMethod.GET)
+	public ModelAndView noticeList() {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("/community/notice");
+		mav.addObject("list", communityService.notice());
 			
 		return mav;
 	}
@@ -96,22 +97,22 @@ public class CommonController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/faqList", method=RequestMethod.GET)
-	public ModelAndView faqList() throws Exception{
-		ModelAndView mav = new ModelAndView("jsonView");
+	@RequestMapping(value="/community/faq", method=RequestMethod.GET)
+	public ModelAndView faqList() {
+		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("list", communityService.faqList());
-		mav.setViewName("/community/faqList");
+		mav.addObject("list", communityService.faq());
+		mav.setViewName("/community/faq");
 			
 		return mav;
 	}
 	
-	@RequestMapping("/qnaList")
-	public ModelAndView qnaList() throws Exception {
-		ModelAndView mav = new ModelAndView("jsonView");
+	@RequestMapping(value="/community/qna", method=RequestMethod.GET)
+	public ModelAndView qnaList() {
+		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("list", communityService.qnaList());
-		mav.setViewName("/community/qnaList");
+		mav.addObject("list", communityService.qna());
+		mav.setViewName("/community/qna");
 			
 		return mav;
 	}
