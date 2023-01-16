@@ -60,9 +60,9 @@
 					
 					<li class="nav-menu"><a class="header-a">Community</a>
 						<ul class="sub-menu">
-							<li><a class="header-a" href="noticeList">공지사항</a></li>
-							<li><a class="header-a" href="faqList">F A Q</a></li>
-							<li><a class="header-a" href="qnaList">Q N A</a></li>
+							<li><a class="header-a" href="/community/notice">공지사항</a></li>
+							<li><a class="header-a" href="faq">F A Q</a></li>
+							<li><a class="header-a" href="qna">Q N A</a></li>
 						</ul>
 					</li>
 					<li class="nav-menu"><a class="header-a" href="myRoomMain" onclick="service();">My Class</a></li>
