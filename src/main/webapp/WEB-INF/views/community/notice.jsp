@@ -33,7 +33,7 @@
 					<c:forEach items="${list }" var="dto">
 						<tr>
 							<td>${dto.seq }</td>
-							<td><a href="noticeDetail">${dto.noti_title }</a></td>
+							<td><a href="noticeDetail">${dto.title }</a></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.input_date}"/></td>
 						</tr>
 					</c:forEach>
