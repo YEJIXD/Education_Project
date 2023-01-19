@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 
@@ -12,9 +11,65 @@
 <title>course List</title>
 <style type="text/css">
 	.subBtn{ float:right; }
-	
 	table{ width:60%; }
 </style>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#pre, .num, #next, #searchBtn").on("click", function(){
+		let keyword = $("#keyword").val();
+		let searchType = $("#searchType option:selected").val();
+		let page = $("#page").val();
+		let amount = 10;
+		
+		let form= $("<form></form>");
+		form.attr("name", "SearchForm");
+		form.attr("method", "get");
+		form.attr("action", "<c:url value='/adminCourseList.do'/>");
+		
+		form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
+		form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
+		form.append($("<input />", {type: "hidden", name: "page", value: page}));
+		form.append($("<input />", {type: "hidden", name: "amount", value: amount}));
+		form.appendTo("body");
+		
+		form.submit(); 
+	});	
+
+	$(".courseDetail").on("click", function(){
+		let keyword = $("#keyword").val();
+		let searchType = $("#searchType option:selected").val();
+		let page = $("#page").val();
+		//let amount = 10;
+		let amount = $("#amount").val();
+		let c_no = $(this).attr('id');
+		
+		let form= $("<form></form>");
+		form.attr("name", "courseDetail");
+		form.attr("method", "get");
+		form.attr("action", "<c:url value='/courseDetail.do'/>");
+		
+		form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
+		form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
+		form.append($("<input />", {type: "hidden", name: "page", value: page}));
+		form.append($("<input />", {type: "hidden", name: "amount", value: amount}));
+		form.append($("<input />", {type: "hidden", name: "c_no", value: c_no}));
+		form.appendTo("body");
+		
+		form.submit(); 
+	});
+});
+      
+function searchValidator(searchType, keyword){
+	if(keyword == ""){
+		alert("검색 내용을 입력하세요");
+		$("#keyword").focus();
+		return false;
+	}
+      	return true;
+}
+</script>
 </head>
 <body>
 	<div id="header">
@@ -23,23 +78,16 @@
 		
 	<div class="container">
 		<h3>교육 강의 목록</h3><br><br>
-			<!-- 게시물 검색 -->
 			<div id="searchKeyword" style="height: 60px; margin: 0px auto; text-align: center;">
 				<select name="searchType" id="searchType">
 					<option value="title" <c:if test="${condition eq 'title'}"> selected</c:if>>제 목</option>
 				</select> 
-
 				<input type="text" name="keyword" id="keyword" value="${keyword}" placeholder="검색어를 입력하세요"/> 
 				<input type="button" name="searchBtn" id="searchBtn" value="검 색">
-									
-				<!-- 검색 후 화면에 보여질 게시글 수와 페이지 넘버 (hidden 사용) -->
 				<input type="hidden" name="page" value="${cri.page}">
 				<input type="hidden" name="amount" value="${cri.amount}">
-									
-				<!-- keyword를 저장할 수 있는 input 태그 작성 -->
 				<input type="hidden" name="keyword" value="${dto.keyword }">
 			</div>
-			
 			<form name="courseList" method="GET">
 				<input type="hidden" id="keyword" name="keyword" value='<c:out value="${pageDto.keyword}" />'>
 				<input type="hidden" id="page" name="page" value='<c:out value="${cri.page}" />'>
@@ -47,7 +95,6 @@
 				<input type="hidden" id="user_no" name="user_no" value='<c:out value="${member.user_no}" />'>
 				<input type="hidden" id="user_name" name="user_name" value='<c:out value="${member.user_name}" />'>
 				<input type="hidden" id="user_email" name="user_email" value='<c:out value="${member.email}" />'>
-				
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -86,91 +133,30 @@
 					</tbody>
 				</table>
 			</form>
-						
-			<!-- paging -->
-				<div class="m-paging">
-					<ul>
-						<c:if test="true">
-							<li>
-								<a href='<c:url value="courseList.do?page=${dto.startPage-1 }&keyword=${dto.keyword}"/>' id="pre" class='oiBtn prev'>◀</a>
-							</li>
-						</c:if>
-													
-						<c:forEach begin="${dto.startPage}" end="${dto.endPage}" var="page">
-							<li>
-								<a href='<c:url value="courseList.do?page=${page}&amount=${cri.amount}&keyword=${dto.keyword}"/>' class='num <c:if test="${dto.cri.page eq page}"> active </c:if>'>${page}</a>
-							</li>
-						</c:forEach>
-													
-						<c:if test="${dto.next && dto.endPage>0}">
-							<li>
-								<a href='<c:url value="courseList.do?page=${dto.endPage+1 }&keyword=${dto.keyword}"/>' id="next" class='oiBtn next'>▶</a>
-							</li>
-						</c:if>
-					</ul>
-				</div>
+			<div class="m-paging">
+				<ul>
+					<c:if test="true">
+						<li>
+							<a href='<c:url value="courseList.do?page=${dto.startPage-1 }&keyword=${dto.keyword}"/>' id="pre" class='oiBtn prev'>◀</a>
+						</li>
+					</c:if>
+												
+					<c:forEach begin="${dto.startPage}" end="${dto.endPage}" var="page">
+						<li>
+							<a href='<c:url value="courseList.do?page=${page}&amount=${cri.amount}&keyword=${dto.keyword}"/>' class='num <c:if test="${dto.cri.page eq page}"> active </c:if>'>${page}</a>
+						</li>
+					</c:forEach>
+												
+					<c:if test="${dto.next && dto.endPage>0}">
+						<li>
+							<a href='<c:url value="courseList.do?page=${dto.endPage+1 }&keyword=${dto.keyword}"/>' id="next" class='oiBtn next'>▶</a>
+						</li>
+					</c:if>
+				</ul>
 			</div>
-		
+	</div>
 	<div id="footer">
 		<%@ include file="../common/footer.jsp" %>
 	</div>
-	
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-        <script type="text/javascript">
-        $(document).ready(function(){
-        	$("#pre, .num, #next, #searchBtn").on("click", function(){
-				let keyword = $("#keyword").val();
-				let searchType = $("#searchType option:selected").val();
-				let page = $("#page").val();
-				let amount = 10;
-				
-				let form= $("<form></form>");
-				form.attr("name", "SearchForm");
-				form.attr("method", "get");
-				form.attr("action", "<c:url value='/adminCourseList.do'/>");
-				
-				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
-				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
-				form.append($("<input />", {type: "hidden", name: "page", value: page}));
-				form.append($("<input />", {type: "hidden", name: "amount", value: amount}));
-				form.appendTo("body");
-				
-				form.submit(); 
-			});	
-			
-			$(".courseDetail").on("click", function(){
-				let keyword = $("#keyword").val();
-				let searchType = $("#searchType option:selected").val();
-				let page = $("#page").val();
-				//let amount = 10;
-				let amount = $("#amount").val();
-				let c_no = $(this).attr('id');
-				
-				let form= $("<form></form>");
-				form.attr("name", "courseDetail");
-				form.attr("method", "get");
-				form.attr("action", "<c:url value='/courseDetail.do'/>");
-				
-				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
-				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
-				form.append($("<input />", {type: "hidden", name: "page", value: page}));
-				form.append($("<input />", {type: "hidden", name: "amount", value: amount}));
-				form.append($("<input />", {type: "hidden", name: "c_no", value: c_no}));
-				form.appendTo("body");
-				
-				form.submit(); 
-			});
-        });
-        
-		function searchValidator(searchType, keyword){
-			if(keyword == ""){
-				alert("검색 내용을 입력하세요");
-				$("#keyword").focus();
-				return false;
-			}
-        	return true;
-		}
-		</script>
 </body>
 </html>

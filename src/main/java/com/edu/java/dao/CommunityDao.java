@@ -1,6 +1,5 @@
 package com.edu.java.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.edu.java.dto.FaqDto;

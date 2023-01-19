@@ -25,7 +25,6 @@
 						<th class="no">NO</th>
 						<th class="title">제 목</th>
 						<th class="date">작성일</th>
-						<th class="count">조회수</th>
 					</tr>
 				</thead>		
 				<tr></tr>

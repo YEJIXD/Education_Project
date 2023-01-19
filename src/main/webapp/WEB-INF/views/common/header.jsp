@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -10,22 +9,21 @@
 <link href="resources/css/common/header.css" rel="stylesheet">
 <link href="resources/css/common/footer.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="resources/css/login/login.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=IBM+Plex+Sans+KR:wght@200&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+<script type="text/javascript">
+	function logoutCheck(){
+		alert('로그아웃하시겠습니까?');
+		location.href="logout";
+	}
+</script>
 </head>
 <body style="margin-top: 155px; min-width:1400px;">
-	<!-- 상단 이벤트 게시 -->
 	<div class="container-fluid header" style="position: fixed; top: 0; right: 0; left: 0; z-index: 1;">
 		<div class="row top-banner" align="center" style="background-color:#B0E0E6; height: 32px">
 			<a href="/main" class="banner-text"> CUBe Academy에 오신 걸 환영합니다 : )</a>
 		</div>
 		
-		<!-- Navibar Logo -->
 		<div class="row top-header">
 			<div class="col-sm-1"></div>
 			<div class="col-sm-8">
@@ -36,7 +34,6 @@
 			<div class="col-sm-3"></div>
 		</div>
 		
-		<!-- Navibar Menu -->
 		<div class="row bottom-header">
 			<div class="col-sm-1"></div>
 			<div class="col-sm-8 nav-list">
@@ -69,7 +66,6 @@
 				</ul>
 			</div>
 			
-			<!-- Login area -->
 			<div class="col-sm-3" align="right" style="padding: 20px 6% 0 0;">
 				<c:choose>
 					<c:when test="${USER.USER_NAME != null}">
@@ -93,12 +89,5 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script type="text/javascript">
-		function logoutCheck(){
-			alert('로그아웃하시겠습니까?');
-			location.href="logout";
-		}
-	</script>
 </body>
 </html>

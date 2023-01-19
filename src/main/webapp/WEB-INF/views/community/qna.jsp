@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
@@ -11,23 +10,21 @@
 <link rel="stylesheet" href="/resources/css/bootstrap/bootstrap.css">
 <title>Q n A</title>
 <style type="text/css">
-	.subBtn{ 
-		float:right;
-	}
-	
+	.subBtn{ float:right; }
 	table{ width:60%; }
 </style>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script type="text/javascript"></script>
 </head>
 <body>
 	<div id="header">
 		<%@ include file="../common/header.jsp" %>
 	</div>
-		
 	<div class="container">
 		<h3>Q N A</h3><br><br>
 		<form action="qnaInsert.do" method="GET">
 			<table class="table table-hover">
-			
 				<thead>
 					<tr>
 						<th class="no">NO</th>
@@ -59,7 +56,6 @@
 			</div>
 		</form>
 	</div>
-		
 	<div id="footer">
 		<%@ include file="../common/footer.jsp" %>
 	</div>
