@@ -72,10 +72,7 @@ function searchValidator(searchType, keyword){
 </script>
 </head>
 <body>
-	<div id="header">
-		<%@ include file="../common/header.jsp" %>
-	</div>
-		
+	<div id="header"><%@ include file="../common/header.jsp" %></div>
 	<div class="container">
 		<h3>교육 강의 목록</h3><br><br>
 			<div id="searchKeyword" style="height: 60px; margin: 0px auto; text-align: center;">
@@ -155,8 +152,7 @@ function searchValidator(searchType, keyword){
 				</ul>
 			</div>
 	</div>
-	<div id="footer">
-		<%@ include file="../common/footer.jsp" %>
+	<div id="footer"><%@ include file="../common/footer.jsp" %>
 	</div>
 </body>
 </html>

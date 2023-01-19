@@ -23,7 +23,7 @@
 	</div>
 	<div class="container">
 		<h3>Q N A</h3><br><br>
-		<form action="qnaInsert.do" method="GET">
+		<form action="inputQna" method="GET">
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -31,7 +31,6 @@
 						<th class="title">제 목</th>
 						<th class="status">답변 여부</th>
 						<th class="date">작성일</th>
-						<th class="count">조회수</th>
 					</tr>
 				</thead>		
 				<tr></tr>
@@ -42,7 +41,6 @@
 							<td><a href="qnaDetail.do">${dto.q_title }</a></td>
 							<td style="color:red;">${dto.q_status }</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.q_date}"/></td>
-							<td>${q_count }</td>
 						</tr>
 					</c:forEach>
 				</tbody>
