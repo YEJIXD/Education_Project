@@ -30,23 +30,19 @@
 				<table class="table">
 					<tr>
 						<th>번호</th>
-						<td>1</td>
+						<td>${dto.no}</td>
 					</tr>
 					<tr>
 						<th>제 목</th>
-						<td>공지합니다.</td>
+						<td>${dto.title}</td>
 					</tr>
 					<tr>
 						<th>등록일</th>
-						<td>2022.02.20</td>
+						<td>${dto.input_date }</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td>관리자</td>
-					</tr>
-					<tr>
-						<th>조회수</th>
-						<td>3</td>
+						<td>${dto.writer}</td>
 					</tr>
 					<tr>
 						<th>내 용</th>
@@ -54,9 +50,7 @@
 					<tr>
 						<th></th>
 						<td style="padding-bottom:50px;">
-							홈페이지를 이용하시면서 불편하신 점은 커뮤니티 게시판을 통해<br>
-							QNA로 질문을 남겨주시면<br>
-							불편함을 해소하실 수 있도록 답변을 남겨 돕겠습니다 : )<br>
+							${dto.content }
 						</td>
 					</tr>
 				</table>
