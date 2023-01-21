@@ -7,10 +7,10 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.edu.java.dto.MemberDto;
+import com.edu.java.dto.UserDto;
 
 @Repository
-public class UserDaoImpl implements MemberDao{
+public class UserDaoImpl implements UserDao{
 	@Inject
 	SqlSession sqlSession;
 	

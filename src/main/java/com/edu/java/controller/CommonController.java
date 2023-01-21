@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.java.service.CommunityService;
-import com.edu.java.service.MemberService;
+import com.edu.java.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +21,7 @@ public class CommonController {
 	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
 	
 	@Autowired
-	MemberService memberService;
+	UserService userService;
 	
 	@Autowired
 	CommunityService communityService;

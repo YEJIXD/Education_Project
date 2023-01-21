@@ -7,17 +7,17 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.edu.java.dao.MemberDao;
-import com.edu.java.dto.MemberDto;
+import com.edu.java.dao.UserDao;
+import com.edu.java.dto.UserDto;
 
 @Service
 public class UserService {
 	
 	@Autowired
-	MemberDao memberDao;
+	UserDao userDao;
 	
 	public HashMap<String, Object> loginCheck(HashMap<String, Object> map) throws Exception {
-		return memberDao.loginCheck(map);
+		return userDao.loginCheck(map);
 	}
 	
 	public void logout(HttpSession session) {
@@ -25,18 +25,17 @@ public class UserService {
 	}
 	
 	public int idCheck(String user_id) throws Exception {
-		return memberDao.idCheck(user_id);
+		return userDao.idCheck(user_id);
 	}
 	
-	public void memberRegist(UserDto dto) throws Exception {
-		memberDao.memberRegist(dto);
-	}
-	
-	public void memberUpdate(UserDto dto) throws Exception {
-		memberDao.memberUpdate(dto);
-	}
-	
-	public void memberDelete(UserDto dto) throws Exception {
-		memberDao.memberDelete(dto);
-	}
+	/*
+	 * public void memberRegist(UserDto dto) throws Exception {
+	 * userDao.memberRegist(dto); }
+	 * 
+	 * public void memberUpdate(UserDto dto) throws Exception {
+	 * userDao.memberUpdate(dto); }
+	 * 
+	 * public void memberDelete(UserDto dto) throws Exception {
+	 * userDao.memberDelete(dto); }
+	 */
 }

@@ -3,10 +3,8 @@ package com.edu.java.controller;
 import java.util.HashMap;
 import java.util.Random;
 
-import javax.inject.Inject;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,15 +20,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.java.CmmService;
-import com.edu.java.service.MemberService;
-import com.edu.java.dto.MemberDto;
+import com.edu.java.dto.UserDto;
+import com.edu.java.service.UserService;
 
 @Controller
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	@Autowired
-	MemberService memberService;
+	UserService userService;
 	
 	@Autowired
 	private JavaMailSender mailSender;
@@ -46,11 +43,11 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/registRes", method=RequestMethod.POST)
-	public ModelAndView registMember(MemberDto dto) throws Exception{
+	public ModelAndView registMember(UserDto dto) throws Exception{
 		logger.info("regist Result");
 		ModelAndView mav = new ModelAndView("jsonView");
 		
-		memberService.memberRegist(dto);
+		//userService.memberRegist(dto); memberRegist 이름 변경해야함
 		return new ModelAndView("../../index");
 	}
 	
@@ -59,7 +56,7 @@ public class MemberController {
 	public int idCheck(String user_id) throws Exception{
 		logger.info("user_ID : " + user_id);
 		
-		int result = memberService.idCheck(user_id);
+		int result = userService.idCheck(user_id);
 		return result;
 	}
 	
@@ -105,7 +102,7 @@ public class MemberController {
 	public ModelAndView loginCheck(@RequestBody String param ,HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 		HashMap <String, Object> map = cmmservice.jsonStringToHashMap(param);
-		HashMap <String, Object> resultmap = memberService.loginCheck(map);
+		HashMap <String, Object> resultmap = userService.loginCheck(map);
 		
 		if(!resultmap.isEmpty()) {
 			session.setAttribute("USER", resultmap);
@@ -117,7 +114,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public ModelAndView logout(HttpSession session) throws Exception {	
-		memberService.logout(session);
+		userService.logout(session);
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("../../index");
@@ -136,16 +133,16 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/memberUpdate", method=RequestMethod.POST)
-	public String memberUpdate(MemberDto dto, HttpSession session) throws Exception{
-		memberService.memberUpdate(dto);
+	public String memberUpdate(UserDto dto, HttpSession session) throws Exception{
+		//userService.memberUpdate(dto);
 		session.invalidate();
 			
 		return "../../index"; 
 	}
 		  
 	@RequestMapping(value="/memberDelete", method=RequestMethod.GET)
-	public String memberDelete(MemberDto dto, HttpSession session) throws Exception{
-		memberService.memberDelete(dto);
+	public String memberDelete(UserDto dto, HttpSession session) throws Exception{
+		//userService.memberDelete(dto);
 		session.invalidate();
 			
 		return "../../index";
