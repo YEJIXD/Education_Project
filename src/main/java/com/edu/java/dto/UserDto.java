@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @Component
-public class MemberDto {
+public class UserDto {
 	private int user_no;	
 	private String user_id;		
 	private String user_pw;		
