@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ReplyDto {
 	
-	private MemberDto mDto;
+	private UserDto uDto;
 	
 	private int seq;		
 	private String content;

@@ -2,9 +2,6 @@ package com.edu.java.dto;
 
 import java.util.Date;
 
-import org.springframework.stereotype.Component;
-
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,7 +13,7 @@ public class ApplicationDto {
 	private int rnum;
 	
 	private CourseDto cDto;
-	private MemberDto mDto;
+	private UserDto uDto;
 	
 	private int seq;
 	private Date input_date;
@@ -28,10 +25,10 @@ public class ApplicationDto {
 		super();
 	}
 	
-	public ApplicationDto(CourseDto cDto, MemberDto mDto, int seq, Date input_date, String type, String tuition, String status) {
+	public ApplicationDto(CourseDto cDto, UserDto uDto, int seq, Date input_date, String type, String tuition, String status) {
 		super();
 		this.cDto = cDto;
-		this.mDto = mDto;
+		this.uDto = uDto;
 		this.seq = seq;
 		this.input_date = input_date;
 		this.type = type;
