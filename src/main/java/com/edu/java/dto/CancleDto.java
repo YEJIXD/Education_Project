@@ -5,13 +5,16 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
 @Component
 public class CancleDto {
-	private int cancle_no;			// 수강 신청 취소 번호
-	private String cancle_title;	// 수강 신청 취소_제목
-	private String cancle_content;	// 수강 신청 취소_사유
-	private Date cancle_regdate;	// 수강 신청 취소_등록일
-	private Date cancle_upd_date;	// 수강 신청 취소_수정일
+	private int seq;			
+	private String title;	
+	private String content;	
+	private Date input_date;	
+	private Date upd_date;
 }

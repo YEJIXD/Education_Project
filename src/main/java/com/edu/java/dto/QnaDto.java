@@ -4,16 +4,18 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
 @Component
 public class QnaDto {
-	private int q_no;			
-	private String q_title;		
-	private String q_content;	
+	private int seq;			
+	private String title;		
+	private String content;	
 	private Date input_date;	
 	private Date upd_date;	
-	private String q_status;
-	private String q_public;
+	private String status;
+	private String public_scope;
 }
