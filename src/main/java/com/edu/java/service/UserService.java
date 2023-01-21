@@ -11,7 +11,7 @@ import com.edu.java.dao.MemberDao;
 import com.edu.java.dto.MemberDto;
 
 @Service
-public class MemberService {
+public class UserService {
 	
 	@Autowired
 	MemberDao memberDao;
@@ -28,15 +28,15 @@ public class MemberService {
 		return memberDao.idCheck(user_id);
 	}
 	
-	public void memberRegist(MemberDto dto) throws Exception {
+	public void memberRegist(UserDto dto) throws Exception {
 		memberDao.memberRegist(dto);
 	}
 	
-	public void memberUpdate(MemberDto dto) throws Exception {
+	public void memberUpdate(UserDto dto) throws Exception {
 		memberDao.memberUpdate(dto);
 	}
 	
-	public void memberDelete(MemberDto dto) throws Exception {
+	public void memberDelete(UserDto dto) throws Exception {
 		memberDao.memberDelete(dto);
 	}
 }

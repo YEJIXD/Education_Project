@@ -9,7 +9,7 @@ import com.edu.java.dto.ApplicationDto;
 import com.edu.java.dto.CourseDto;
 import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
-import com.edu.java.dto.MemberDto;
+import com.edu.java.dto.UserDto;
 import com.edu.java.dto.NoticeDto;
 import com.edu.java.dto.PageDto;
 import com.edu.java.dto.QnaDto;

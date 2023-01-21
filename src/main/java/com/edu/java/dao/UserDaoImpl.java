@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.edu.java.dto.MemberDto;
 
 @Repository
-public class MemberDaoImpl implements MemberDao{
+public class UserDaoImpl implements MemberDao{
 	@Inject
 	SqlSession sqlSession;
 	
@@ -22,7 +22,7 @@ public class MemberDaoImpl implements MemberDao{
 	
 	// 로그아웃
 	@Override
-	public void logout(MemberDto dto) throws Exception {
+	public void logout(UserDto dto) throws Exception {
 		// TODO Auto-generated method stub
 	}
 	
@@ -34,19 +34,19 @@ public class MemberDaoImpl implements MemberDao{
 
 	// 회원가입
 	@Override
-	public void memberRegist(MemberDto dto) throws Exception {
+	public void memberRegist(UserDto dto) throws Exception {
 		sqlSession.insert(NAMESPACE + "memberRegist", dto);
 	}
 	
 	//회원정보 수정
 	@Override
-	public void memberUpdate(MemberDto dto) throws Exception {
+	public void memberUpdate(UserDto dto) throws Exception {
 		sqlSession.update(NAMESPACE + "memberUpdate", dto);
 	}
 
 	//회원 비활성화
 	@Override
-	public void memberDelete(MemberDto dto) throws Exception {
+	public void memberDelete(UserDto dto) throws Exception {
 		sqlSession.update(NAMESPACE + "memberDelete", dto);
 	}
 
