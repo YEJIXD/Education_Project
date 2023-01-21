@@ -18,18 +18,24 @@ public class ApplicationDto {
 	private CourseDto cDto;
 	private MemberDto mDto;
 	
-	private int app_no;	
-	private Date app_date;	
+	private int seq;
+	private Date input_date;
+	private String type;
+	private String tuition;
+	private String status;
 	
 	public ApplicationDto() {
 		super();
 	}
 	
-	public ApplicationDto(CourseDto cDto, MemberDto mDto, int app_no, Date app_date) {
+	public ApplicationDto(CourseDto cDto, MemberDto mDto, int seq, Date input_date, String type, String tuition, String status) {
 		super();
 		this.cDto = cDto;
 		this.mDto = mDto;
-		this.app_no = app_no;
-		this.app_date = app_date;
+		this.seq = seq;
+		this.input_date = input_date;
+		this.type = type;
+		this.tuition = tuition;
+		this.status = status;
 	}
 }
