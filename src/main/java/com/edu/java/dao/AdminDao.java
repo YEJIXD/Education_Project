@@ -9,11 +9,11 @@ import com.edu.java.dto.ApplicationDto;
 import com.edu.java.dto.CourseDto;
 import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
-import com.edu.java.dto.UserDto;
 import com.edu.java.dto.NoticeDto;
 import com.edu.java.dto.PageDto;
 import com.edu.java.dto.QnaDto;
 import com.edu.java.dto.TeacherDto;
+import com.edu.java.dto.UserDto;
 
 @Mapper
 public interface AdminDao {
@@ -23,7 +23,7 @@ public interface AdminDao {
 	public int newUserCount();
 	public int cancelCount();
 	public int newCancelCount();
-	public int ReviewCount();
+	public int reviewCount();
 	public int newReviewCount();
 	
 	public List<NoticeDto> getNotice();
@@ -34,7 +34,7 @@ public interface AdminDao {
 	
 	public List<QnaDto> getQna();
 	public QnaDto selectQna(int q_no);
-	/*public int deleteQna(int q_no);
+	public int deleteQna(int q_no);
 	
 	public List<FaqDto> faqList();
 	public FaqDto faqDetail(int faq_no);
@@ -57,10 +57,10 @@ public interface AdminDao {
 	public int modifyTeacher(TeacherDto dto);
 	public int deleteTeacher(int t_no);
 	
-	public List<MemberDto> memberList();
+	public List<UserDto> memberList();
 	public int deleteMember(int user_no);
 	
 	public List<Map<String, Object>> appList(PageDto dto, Criteria cri);
 	public int getAppTotal(String param);
-	public ApplicationDto appDetail(int app_no) throws Exception;*/
+	public ApplicationDto appDetail(int app_no) throws Exception;
 }
