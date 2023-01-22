@@ -3,67 +3,67 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="member">
-	 
+<mapper namespace="user">
 	<select id="loginCheck" resultType="Hashmap" parameterType="HashMap">
-		SELECT COUNT(user_no) as COUNT
-				, USER_NO
-				, USER_ID
-				, USER_NAME
-				, USER_ROLE
-		FROM mydb.MEMBER
-		WHERE USER_ID=#{user_id} AND USER_PW=#{user_pw}
+		SELECT 
+			  COUNT(seq) as COUNT
+			, seq
+			, id
+			, name
+			, USER_ROLE
+		FROM user
+		WHERE id = #{id} AND pw = #{pw}
 	</select>
 	
-	<select id="idCheck" resultType="int" parameterType="memberDto">
+	<select id="idCheck" resultType="int" parameterType="userDto">
 		SELECT COUNT(*) 
-		FROM mydb.MEMBER
-		WHERE USER_ID=#{user_id}
+		FROM user
+		WHERE id = #{id}
 	</select>
 	
-	<insert id="memberRegist" parameterType="memberDto" keyProperty="user_no">
-			INSERT INTO mydb.MEMBER 
-			(		  USER_NO 
-					, USER_ID 
-					, USER_PW 
-					, USER_NAME 
-					, USER_EMAIL 
-					, USER_ADDR 
-					, USER_PHONE 
-					, USER_ROLE
-					, USER_ENABLE 
-					, USER_REGDATE 
+	<insert id="userRegist" parameterType="userDto" keyProperty="seq">
+			INSERT INTO user 
+			(		  
+			      seq
+				, id 
+				, pw 
+				, name 
+				, email 
+				, address 
+				, phone 
+				, role
+				, enable 
+				, reg_date 
 			)
 			VALUES (
-			  		  (SELECT IFNULL(MAX(M.USER_NO),0) + 1 FROM MEMBER M) 
-					, #{user_id}
-					, #{user_pw} 
-					, #{user_name} 
-					, #{user_email} 
-					, #{user_addr}  
-					, #{user_phone} 
-					, 'U'
-					, 'Y' 
-					, NOW() 
+		  		  (SELECT IFNULL(MAX(seq),0) + 1 FROM user) 
+				, #{id}
+				, #{pw} 
+				, #{name} 
+				, #{email} 
+				, #{address}  
+				, #{phone} 
+				, 'U'
+				, 'Y' 
+				, NOW() 
 			)
 	</insert>
 	
-	<update id="memberUpdate">
-		UPDATE mydb.MEMBER 
-		
-		SET   USER_PW = #{user_pw}
-			, USER_EMAIL = #{user_email}
-			, USER_ADDR = #{user_addr}
-			, USER_ENABLE = #{user_enable}
-			, USER_UPD_DATE = SYSDATE
+	<update id="userUpdate">
+		UPDATE user 
+		SET   pw = #{pw}
+			, email = #{email}
+			, address = #{address}
+			, enable = #{enable}
+			, upd_date = SYSDATE
 			
-		WHERE USER_NO = #{user_no}
+		WHERE seq = #{seq}
 	</update>
 	
-	<update id="memberDelete">
-		UPDATE mydb.MEMBER 
-		SET	USER_ENABLE = 'N'
-		WHERE USER_NO = #{user_no}
-	</update>
+	<!-- <update id="userDelete">
+		UPDATE user 
+		SET	enable = 'N'
+		WHERE seq = #{seq}
+	</update> -->
 	
 </mapper>

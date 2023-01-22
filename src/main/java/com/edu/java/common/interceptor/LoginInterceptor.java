@@ -79,11 +79,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		HttpSession httpSession = request.getSession();
 		ModelMap modelMap = modelAndView.getModelMap();
-		Object memberDto = modelMap.get("member");
+		Object userDto = modelMap.get("member");
 		
-		if(memberDto != null) {
+		if(userDto != null) {
 			logger.info("new login success");
-			httpSession.setAttribute("LOGIN", memberDto);
+			httpSession.setAttribute("LOGIN", userDto);
 			Object destination = httpSession.getAttribute("destination");
 			
 			response.sendRedirect(destination != null ? (String)destination : "/login/loginForm");
