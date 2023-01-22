@@ -21,7 +21,7 @@
 </head>
 <body>
 	<div id="header">
-		<%@ include file="../common/header.jsp" %>
+		<%@ include file="../../common/header.jsp" %>
 	</div>
 	<div id="title">
 		<h2>오시는 길</h2>
@@ -57,7 +57,7 @@
     </script>
 	
 	<div id="footer">
-		<%@ include file="../common/footer.jsp" %>
+		<%@ include file="../../common/footer.jsp" %>
 	</div>
 </body>
 </html>
