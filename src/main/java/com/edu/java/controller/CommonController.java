@@ -1,24 +1,16 @@
 package com.edu.java.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.java.service.CommunityService;
 import com.edu.java.service.UserService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
-@SessionAttributes("member")
 @Controller
 public class CommonController {
-	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
 	
 	@Autowired
 	UserService userService;
@@ -31,52 +23,44 @@ public class CommonController {
 		return "common/index";
 	}
 	
-	@RequestMapping("/greeting")
+	@RequestMapping(value="/greeting", method=RequestMethod.GET)
 	public String greeting() {
-		logger.info("greeting page");
-		return "/edu_Introduce/greeting";
+		return "/user/introduce/greeting";
 	}
 	
 	@RequestMapping("/teacher")
 	public String teacher() {
-		logger.info("teacher page");
-		return "/edu_Introduce/teacher";
+		return "/user/introduce/teacher";
 	}
 	
 	@RequestMapping("/wayToCenter")
 	public String wayToCenter() {
-		logger.info("wayToCenter page");
-		return "/edu_Introduce/wayToCenter";
+		return "/user/introduce/wayToCenter";
 	}
 	
 	@RequestMapping("/goal")
 	public String goal() {
-		logger.info("goal page");
-		return "/edu_Information/goal";
+		return "/user/information/goal";
 	}
 	
 	@RequestMapping("/goApp")
 	public String goApp() {
-		logger.info("goApp page");
-		return "/edu_Application/goApp";
+		return "/application/goApp";
 	}
 	
 	@RequestMapping("/courseList")
 	public String courseList() {
-		logger.info("course List page");
-		return "/edu_Application/courseList";
+		return "/application/courseList";
 	}
 	
 	@RequestMapping("/courseDetail")
 	public String courseDetail() {
-		logger.info("course Detail page");
-		return "/edu_Application/courseDetail";
+		return "/application/courseDetail";
 	}
 	
 	@RequestMapping("/appForm")
 	public String appForm() {
-		logger.info("app Form page");
-		return "/edu_Application/appForm";
+		return "/application/appForm";
 	}
 	
 	@RequestMapping(value="/community/notice", method=RequestMethod.GET)
@@ -89,7 +73,7 @@ public class CommonController {
 		return mav;
 	}
 	
-	@RequestMapping("/noticeDetail")
+	@RequestMapping(value = "/community/noticeDetail", method=RequestMethod.GET)
 	public ModelAndView noticeDetail() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/community/noticeDetail");
@@ -98,21 +82,32 @@ public class CommonController {
 	}
 	
 	@RequestMapping(value="/community/faq", method=RequestMethod.GET)
+	public ModelAndView faq() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/community/faq");
+		return mav;
+	}
+	
+	@RequestMapping(value="/community/faq", method=RequestMethod.POST)
 	public ModelAndView faqList() {
 		ModelAndView mav = new ModelAndView();
-		
 		mav.addObject("list", communityService.faq());
-		mav.setViewName("/community/faq");
 			
 		return mav;
 	}
 	
 	@RequestMapping(value="/community/qna", method=RequestMethod.GET)
+	public ModelAndView qna() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/community/qna");
+			
+		return mav;
+	}
+	
+	@RequestMapping(value="/community/qna", method=RequestMethod.POST)
 	public ModelAndView qnaList() {
 		ModelAndView mav = new ModelAndView();
-		
 		mav.addObject("list", communityService.qna());
-		mav.setViewName("/community/qna");
 			
 		return mav;
 	}
