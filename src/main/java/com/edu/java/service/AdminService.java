@@ -31,8 +31,8 @@ public class AdminService {
 		return adminDao.newCancelCount();
 	}
 	
-	public int ReviewCount() {
-		return adminDao.ReviewCount();
+	public int reviewCount() {
+		return adminDao.reviewCount();
 	}
 	
 	public int newReviewCount() {
