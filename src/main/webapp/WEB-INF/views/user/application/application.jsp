@@ -12,10 +12,7 @@
 	td{ width:500px; }
 </style>
 <body>
-	<div id="header">
-		<%@ include file="../common/header.jsp" %>
-	</div>
-	
+	<div id="header"><%@ include file="../../common/header.jsp" %></div>
 	<div class="container">
 	<h3>신청 정보 확인</h3><br><br>
 		<div class="content">
@@ -42,7 +39,6 @@
 						<td>${member.user_email}</td>
 					</tr>
 				</table>
-		
 				<div class="inpBtn">
 					<input type="submit" class="subBtn" value="완 료">
 					<input type="button" class="antBtn" onclick="location.href='courseList.do'" value="목 록">
@@ -50,11 +46,6 @@
 			</form>
 		</div>
 	</div>
-
-	<div id="footer">
-		<%@ include file="../common/footer.jsp" %>
-	</div>
-	
-	
+	<div id="footer"><%@ include file="../../common/footer.jsp" %></div>
 </body>
 </html>
