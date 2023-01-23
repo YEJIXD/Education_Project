@@ -10,10 +10,7 @@
 <title>teacher</title>
 </head>
 <body>
-	<div id="header">
-		<%@ include file="../../common/header.jsp" %>
-	</div>
-	
+	<div id="header"><%@ include file="../../common/header.jsp" %></div>
 	<div id="middle">
 	<h3>강사진 소개</h3><br><br>
 		<table id="content">
@@ -27,9 +24,6 @@
 			</c:forEach>
 		</table>
 	</div>
-	
-	<div id="footer">
-		<%@ include file="../../common/footer.jsp" %>
-	</div>	
+	<div id="footer"><%@ include file="../../common/footer.jsp" %></div>
 </body>
 </html>
