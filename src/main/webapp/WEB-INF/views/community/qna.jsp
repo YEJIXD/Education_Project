@@ -13,6 +13,7 @@
 	.subBtn{ float:right; }
 	table{ width:60%; }
 </style>
+<link href="${pageContext.request.contextPath}/resources/css/common/header.css" rel="stylesheet" type="text/css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script type="text/javascript"></script>
@@ -38,9 +39,9 @@
 					<c:forEach items="${list }" var="dto">
 						<tr>
 							<td>${dto.q_no }</td>
-							<td><a href="qnaDetail.do">${dto.q_title }</a></td>
-							<td style="color:red;">${dto.q_status }</td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.q_date}"/></td>
+							<td><a href="qnaDetail.do">${dto.title }</a></td>
+							<td style="color:red;">${dto.status }</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.input_date}"/></td>
 						</tr>
 					</c:forEach>
 				</tbody>

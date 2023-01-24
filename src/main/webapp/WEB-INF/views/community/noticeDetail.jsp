@@ -26,39 +26,37 @@
 	<div class="container">
 		<h3>공 지 사 항</h3><br><br>
 		<div class="content">
-			<form action="appForm" method="GET">
-				<table class="table">
-					<tr>
-						<th>번호</th>
-						<td>${dto.no}</td>
-					</tr>
-					<tr>
-						<th>제 목</th>
-						<td>${dto.title}</td>
-					</tr>
-					<tr>
-						<th>등록일</th>
-						<td>${dto.input_date }</td>
-					</tr>
-					<tr>
-						<th>작성자</th>
-						<td>${dto.writer}</td>
-					</tr>
-					<tr>
-						<th>내 용</th>
-					</tr>
-					<tr>
-						<th></th>
-						<td style="padding-bottom:50px;">
-							${dto.content }
-						</td>
-					</tr>
-				</table>
-				<div class="inpBtn">
-					<input type="button" class="antBtn" onclick="location.href='/community/notice'" value="목 록">
-					<!-- <input type="button" class="antBtn" id="noticeList" value="목 록"> -->
-				</div>
-			</form>
+			<table class="table">
+				<tr>
+					<th>번호</th>
+					<td>${dto.no}</td>
+				</tr>
+				<tr>
+					<th>제 목</th>
+					<td>${dto.title}</td>
+				</tr>
+				<tr>
+					<th>등록일</th>
+					<td>${dto.input_date }</td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td>${dto.writer}</td>
+				</tr>
+				<tr>
+					<th>내 용</th>
+				</tr>
+				<tr>
+					<th></th>
+					<td style="padding-bottom:50px;">
+						${dto.content }
+					</td>
+				</tr>
+			</table>
+			<div class="inpBtn">
+				<input type="button" class="antBtn" onclick="location.href='/community/notice'" value="목 록">
+				<!-- <input type="button" class="antBtn" id="noticeList" value="목 록"> -->
+			</div>
 		</div>
 	</div>
 	<div id="footer"><%@ include file="../common/footer.jsp" %></div>
