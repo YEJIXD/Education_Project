@@ -7,6 +7,16 @@
   		FROM notice
   		ORDER BY seq DESC
   	</select>
+  	
+  	<select id="selectNotice" parameterType="int" resultType="noticeDto">
+		SELECT 
+			  seq
+			, title
+			, content
+			, input_date
+		FROM NOTICE
+		WHERE seq = #{seq}
+	</select>
 	
   	<select id="faq" parameterType="list" resultType="faqDto">
   		SELECT FAQ_NO, FAQ_CATEGORY, FAQ_TITLE, FAQ_DATE, FAQ_COUNT 
