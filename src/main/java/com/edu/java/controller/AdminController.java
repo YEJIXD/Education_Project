@@ -173,7 +173,7 @@ public class AdminController {
 		return "";
 	}
 
-	@RequestMapping(value = "/admin/course", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/getCourse", method = RequestMethod.GET)
 	public ModelAndView adminCourse(PageDto dto, @ModelAttribute("cri") Criteria cri) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 		
@@ -183,25 +183,14 @@ public class AdminController {
 		mav.addObject("list", adminService.courseList(dto, cri));
 		mav.addObject("dto", dto);
 		mav.addObject("cri", cri);
-		mav.setViewName("/admin/course");
-
-		return mav;
-	}
-
-	@RequestMapping(value = "adminCourseDetail", method = RequestMethod.GET)
-	public ModelAndView adminCourseDetail(PageDto dto, @RequestParam("c_no") int c_no, @ModelAttribute("cri") Criteria cri) throws Exception {
-		ModelAndView mav = new ModelAndView("jsonView");
-
-		mav.addObject("dto", adminService.courseDetail(c_no));
-		mav.addObject("cri", cri);
-		mav.setViewName("/admin/courseDetail");
+		mav.setViewName("/admin/getCourse");
 
 		return mav;
 	}
 
 	@RequestMapping(value="/inputCourse", method=RequestMethod.GET)
 	public String inputCourse() throws Exception {
-		return "/admin/adminCourseInsert";
+		return "/admin/inputCourse";
 	}
 
 	@RequestMapping(value = "/inputCourseRes", method = RequestMethod.POST)
@@ -310,7 +299,7 @@ public class AdminController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/admin/application", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/getApplication", method = RequestMethod.GET)
 	public ModelAndView adminApplication(PageDto dto, @ModelAttribute("cri") Criteria cri) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 		dto.setCri(cri);
@@ -319,18 +308,18 @@ public class AdminController {
 		mav.addObject("list", adminService.appList(dto, cri));
 		mav.addObject("dto", dto);
 		mav.addObject("cri", cri);
-		mav.setViewName("/admin/application");
+		mav.setViewName("/admin/getApplication");
 
 		return mav;
 	}
 
-	@RequestMapping(value = "appDetail", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/getAppDetail", method = RequestMethod.GET)
 	public ModelAndView appDetail(PageDto dto, @RequestParam("app_no") int app_no, @ModelAttribute("cri") Criteria cri) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 
 		mav.addObject("dto", adminService.appDetail(app_no));
 		mav.addObject("cri", cri);
-		mav.setViewName("/admin/appDetail");
+		mav.setViewName("/admin/getAppDetail");
 
 		return mav;
 	}*/
