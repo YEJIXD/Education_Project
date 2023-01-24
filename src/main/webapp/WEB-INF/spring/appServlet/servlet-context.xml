@@ -18,7 +18,6 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<!-- multipartResolver + 최대 업로드 사이즈 지정 -->    
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="10000000"></beans:property>
 	</beans:bean>
@@ -27,13 +26,13 @@
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/edu_Application/courseList"/>
+			<mapping path="/application/getCourse"/>
 			<mapping path="/edu_Application/courseDetail"/>
-			<mapping path="/edu_Application/courseInsert"/>
-			<mapping path="/edu_Application/courseUpdate"/>
-			<mapping path="/edu_Application/coursegoApp"/>
+			<mapping path="/admin/getCourse"/>
+			<mapping path="/inputCourse"/>
+			<mapping path="/coursegoApp"/>
 			<mapping path="/myRoom/**"/>
-			<mapping path="/community/QnaList"/>
+			<mapping path="/community/qna"/>
 			
 			<exclude-mapping path="/login/**" />
 			<beans:bean class="com.edu.java.common.interceptor.LoginInterceptor" />
