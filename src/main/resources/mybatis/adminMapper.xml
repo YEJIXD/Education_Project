@@ -11,16 +11,6 @@
 		ORDER BY input_date desc
 	</select>
 
-	<select id="selectNotice" parameterType="int" resultType="noticeDto">
-		SELECT 
-			  seq
-			, title
-			, content
-			, input_date
-		FROM NOTICE
-		WHERE seq = #{seq}
-	</select>
-
 	<insert id="inputNotice" parameterType="noticeDto">
 		INSERT INTO notice (
 			  seq
