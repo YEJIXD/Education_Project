@@ -24,8 +24,8 @@ import com.edu.java.dto.UserDto;
 import com.edu.java.service.UserService;
 
 @Controller
-public class MemberController {
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+public class UserController {
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
 	UserService userService;
@@ -54,17 +54,12 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
 	public int idCheck(String user_id) throws Exception{
-		logger.info("user_ID : " + user_id);
-		
-		int result = userService.idCheck(user_id);
-		return result;
+		return userService.idCheck(user_id);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/emailCheck", method=RequestMethod.GET)
 	public String mailCheckGET(String user_email) throws Exception{
-		logger.info("입력된 주소: " + user_email);
-			
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111;
 		logger.info("인증번호: " + checkNum);
@@ -80,7 +75,6 @@ public class MemberController {
 	    try {
 	    	MimeMessage message = mailSender.createMimeMessage();
 		    MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-		    
 		    message.setFrom(new InternetAddress("CUBeAcademy@gmail.com", "CUBe"));
 		    helper.setTo(toMail);
 		    helper.setSubject(title);
