@@ -50,17 +50,12 @@ public class CommonController {
 	
 	@RequestMapping("/courseList")
 	public String courseList() {
-		return "/application/courseList";
+		return "/application/getCourse";
 	}
 	
 	@RequestMapping("/courseDetail")
 	public String courseDetail() {
 		return "/application/courseDetail";
-	}
-	
-	@RequestMapping("/appForm")
-	public String appForm() {
-		return "/application/appForm";
 	}
 	
 	@RequestMapping(value="/community/notice", method=RequestMethod.GET)
