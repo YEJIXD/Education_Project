@@ -47,7 +47,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 		HttpSession httpSession = request.getSession();
 		
 		if(httpSession.getAttribute("login") == null) {
-			logger.info("current user is not logged");
 			response.sendRedirect("/login/loginForm");
 			return false;
 		}
@@ -58,11 +57,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 		/*String prevURI = request.getHeader("referer").substring(28, request.getHeader("referer").length());//이전 command
 		String uri = request.getRequestURI().substring(6,request.getRequestURI().length());
 		
-		if (PERMITCOMMAND.contains(uri) || request.getSession().getAttribute("member") != null) {
+		if (PERMITCOMMAND.contains(uri) || request.getSession().getAttribute("user") != null) {
 			return true;
 		}
 		
-		if (request.getSession().getAttribute("member") == null) {
+		if (request.getSession().getAttribute("user") == null) {
 			String goURI = "";
 			if (APPPAGE.contains(uri)) {
 				goURI = prevURI;
@@ -79,7 +78,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		HttpSession httpSession = request.getSession();
 		ModelMap modelMap = modelAndView.getModelMap();
-		Object userDto = modelMap.get("member");
+		Object userDto = modelMap.get("user");
 		
 		if(userDto != null) {
 			logger.info("new login success");
