@@ -10,7 +10,7 @@
 			, seq
 			, id
 			, name
-			, USER_ROLE
+			, role
 		FROM user
 		WHERE id = #{id} AND pw = #{pw}
 	</select>
