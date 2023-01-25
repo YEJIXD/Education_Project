@@ -82,17 +82,16 @@
 
 	<delete id="deleteQnaReply" parameterType="int">
 		DELETE
-		FROM QNA
-		WHERE Q_RE_NO = #{q_re_no}
+		FROM reply
+		WHERE no = #{no}
 	</delete>
 
 	<select id="faq" parameterType="list" resultType="faqDto">
 		SELECT
-			  FAQ_NO
-			, FAQ_CATEGORY
-			, FAQ_TITLE
-			, FAQ_DATE
-			, FAQ_COUNT
+			  f_no
+			, f_category
+			, f_title
+			, input_date
 		FROM FAQ
 		ORDER BY FAQ_NO DESC
 	</select>
