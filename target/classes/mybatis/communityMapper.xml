@@ -3,7 +3,10 @@
   
   <mapper namespace="community">
   	<select id="notice" parameterType="list" resultType="noticeDto">
-  		SELECT seq, title, input_date
+  		SELECT 
+  			seq
+  		  , title
+  		  , input_date
   		FROM notice
   		ORDER BY seq DESC
   	</select>
@@ -14,34 +17,42 @@
 			, title
 			, content
 			, input_date
-		FROM NOTICE
+		FROM notice
 		WHERE seq = #{seq}
 	</select>
 	
   	<select id="faq" parameterType="list" resultType="faqDto">
-  		SELECT FAQ_NO, FAQ_CATEGORY, FAQ_TITLE, FAQ_DATE, FAQ_COUNT 
-		FROM mydb.FAQ
-		ORDER BY FAQ_NO DESC
+  		SELECT 
+			no
+		  , category
+		  , title
+		  , input_date
+		FROM faq
+		ORDER BY no DESC
   	</select>
   		
   	<select id="qna" parameterType="list" resultType="QnaDto">
-		SELECT Q_NO, Q_TITLE, Q_DATE, Q_STATUS, Q_COUNT
-		FROM mydb.QNA
-		ORDER BY Q_NO DESC
+		SELECT 
+			no
+		  , title
+		  , input_date
+		  , status
+		FROM qna
+		ORDER BY no DESC
 	</select>
 	
 	<insert id="qnaInsert" parameterType="qnaDto">
-		INSERT INTO mydb.QNA
-		(		Q_NO
-			  , Q_TITLE
-			  , Q_DATE
-			  , Q_STATUS
+		INSERT INTO qna(		
+			no
+		  , title
+		  , input_date
+		  , status
 		) VALUES (
-				 #{q_no}
-			   , #{title}
-			   , #{date}
-			   , #{status}
-			)
+			 #{no}
+		   , #{title}
+		   , #{input_date}
+		   , #{status}
+		)
 	</insert>
   	
   </mapper>
