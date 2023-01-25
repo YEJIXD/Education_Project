@@ -61,13 +61,11 @@
 							<a href='<c:url value="courseList.do?page=${dto.startPage-1 }&keyword=${dto.keyword}"/>' id="pre" class='oiBtn prev'>◀</a>
 						</li>
 					</c:if>
-												
 					<c:forEach begin="${dto.startPage}" end="${dto.endPage}" var="page">
 						<li>
 							<a href='<c:url value="courseList.do?page=${page}&amount=${cri.amount}&keyword=${dto.keyword}"/>' class='num <c:if test="${dto.cri.page eq page}"> active </c:if>'>${page}</a>
 						</li>
 					</c:forEach>
-												
 					<c:if test="${dto.next && dto.endPage>0}">
 						<li>
 							<a href='<c:url value="courseList.do?page=${dto.endPage+1 }&keyword=${dto.keyword}"/>' id="next" class='oiBtn next'>▶</a>
