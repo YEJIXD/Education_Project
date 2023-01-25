@@ -19,48 +19,48 @@ import com.edu.java.dto.UserDto;
 public interface AdminDao {
 	String NAMESPACE = "admin.";
 	
-	public int userCount();
-	public int newUserCount();
-	public int cancelCount();
-	public int newCancelCount();
-	public int reviewCount();
-	public int newReviewCount();
+	int userCount();
+	int newUserCount();
+	int cancelCount();
+	int newCancelCount();
+	int reviewCount();
+	int newReviewCount();
 	
-	public List<NoticeDto> getNotice();
-	public NoticeDto selectNotice(int seq);
-	public int inputNotice(NoticeDto dto);
-	public int modifyNotice(NoticeDto dto);
-	public int deleteNotice(int seq);
+	List<NoticeDto> getNotice();
+	NoticeDto selectNotice(int seq);
+	int inputNotice(NoticeDto dto);
+	int modifyNotice(NoticeDto dto);
+	int deleteNotice(int seq);
 	
-	public List<QnaDto> getQna();
-	public QnaDto selectQna(int q_no);
-	public int deleteQna(int q_no);
+	List<QnaDto> getQna();
+	QnaDto selectQna(int q_no);
+	int deleteQna(int q_no);
 	
-	public List<FaqDto> faqList();
-	public FaqDto faqDetail(int faq_no);
-	public int inputFaq(FaqDto dto);
-	public int modifyFaq(FaqDto dto);
-	public int deleteFaq(int faq_no);
-	public List<FaqDto> hashTagSearch(String faq_category);
+	List<FaqDto> faqList();
+	FaqDto faqDetail(int faq_no);
+	int inputFaq(FaqDto dto);
+	int modifyFaq(FaqDto dto);
+	int deleteFaq(int faq_no);
+	List<FaqDto> hashTagSearch(String faq_category);
 	
-	public List<Map<String, Object>> courseList(PageDto dto, Criteria cri) ;
-	public int getTotalCount(String param);
+	List<Map<String, Object>> courseList(PageDto dto, Criteria cri) ;
+	int getTotalCount(String param);
 	//List<Map<String, Object>> selectBoardList(Criteria cri);
-	public CourseDto courseDetail(int c_no) throws Exception;
-	public int inputCourse(CourseDto dto) throws Exception;
-	public int modifyCourse(CourseDto dto) throws Exception;
-	public void deleteCourse(int c_no);
+	CourseDto courseDetail(int c_no) throws Exception;
+	int inputCourse(CourseDto dto) throws Exception;
+	int modifyCourse(CourseDto dto) throws Exception;
+	void deleteCourse(int c_no);
 	//public int courseCount(String c_count) throws Exception;
 	
-	public List<TeacherDto> teacherList();
-	public int inputTeacher(TeacherDto dto);
-	public int modifyTeacher(TeacherDto dto);
-	public int deleteTeacher(int t_no);
+	List<TeacherDto> teacherList();
+	int inputTeacher(TeacherDto dto);
+	int modifyTeacher(TeacherDto dto);
+	int deleteTeacher(int t_no);
 	
-	public List<UserDto> memberList();
-	public int deleteMember(int user_no);
+	List<UserDto> memberList();
+	int deleteMember(int user_no);
 	
-	public List<Map<String, Object>> appList(PageDto dto, Criteria cri);
-	public int getAppTotal(String param);
-	public ApplicationDto appDetail(int app_no) throws Exception;
+	List<Map<String, Object>> appList(PageDto dto, Criteria cri);
+	int getAppTotal(String param);
+	ApplicationDto appDetail(int app_no) throws Exception;
 }

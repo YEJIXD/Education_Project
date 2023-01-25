@@ -9,10 +9,10 @@ import com.edu.java.dto.QnaDto;
 public interface CommunityDao {
 	String NAMESPACE = "community.";
 	
-	public List<NoticeDto> notice();
+	List<NoticeDto> notice();
 	
-	public List<QnaDto> qna();
+	List<QnaDto> qna();
 	
-	public List<FaqDto> faq();
+	List<FaqDto> faq();
 	
 }
