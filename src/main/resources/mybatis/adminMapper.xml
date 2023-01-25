@@ -141,12 +141,12 @@
 
 	<select id="hashTagSearch" parameterType="string" resultType="faqDto">
 		SELECT
-			FAQ_NO
-			, FAQ_CATEGORY
-			, FAQ_TITLE
-			, FAQ_DATE
-			FROM FAQ
-		WHERE FAQ_CATEGORY = #{faq_category}
+			  f_no
+			, f_category
+			, f_title
+			, input_date
+			FROM faq
+		WHERE f_category = #{f_category}
 	</select>
 
 	<select id="courseList" parameterType="pageDto" resultType="courseDto">
@@ -155,7 +155,7 @@
 				  @rownum:=@rownum +1 as rnum
 				, seq
 				, title
-				, APP_PERSONNEL
+				, app_personnel
 				, ent_personnel
 				, DATE_FORMAT(input_date, '%Y-%m-%d') as input_date
 				, DATE_FORMAT(start_date, '%Y-%m-%d') as start_date
