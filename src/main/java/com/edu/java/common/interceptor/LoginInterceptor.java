@@ -20,8 +20,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 	
 	
-	public final static List<String> PERMITCOMMAND = Arrays.asList("/courseList.do","/courseDetail.do","/appForm.do","/courseInsert.do","/courseUpdate.do");
-	public final static List<String> APPPAGE = Arrays.asList("/courseList.do","/courseDetail.do","/appForm.do","/courseInsert.do","/courseUpdate.do");
+	public final static List<String> PERMITCOMMAND = Arrays.asList("/courseList","/courseDetail","/appForm","/courseInsert","/courseUpdate");
+	public final static List<String> APPPAGE = Arrays.asList("/courseList","/courseDetail","/appForm","/courseInsert","/courseUpdate");
 	
 	// 페이지 요청 정보 저장 
 	private void saveDestination(HttpServletRequest request) { 
@@ -66,7 +66,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			if (APPPAGE.contains(uri)) {
 				goURI = prevURI;
 			} else {
-				goURI = "main.do";
+				goURI = "main";
 			}
 			jsResponse(goURI,"You need to Login first!", response);
 		}
