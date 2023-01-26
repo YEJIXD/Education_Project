@@ -124,7 +124,7 @@ public class CommonController {
 
 	@RequestMapping("/myRoomMain")
 	public String myRoomMain() {
-		return "/myRoom/myRoomMain";
+		return "/myRoom/main";
 	}
 	
 	@RequestMapping("/myStudy")
@@ -134,7 +134,7 @@ public class CommonController {
 	
 	@RequestMapping("/receiveCert")
 	public String receiveCert() {
-		return "/myRoom/receiveCertificate";
+		return "/myRoom/certificate";
 	}
 
 	@RequestMapping("/review")
@@ -142,14 +142,14 @@ public class CommonController {
 		return "/myRoom/review";
 	}
 	
-	@RequestMapping("/reviewInsert")
+	@RequestMapping("/inputReview")
 	public String reviewInsert() {
-		return "/myRoom/reviewInsert";
+		return "/myRoom/inputReview";
 	}
 	
-	@RequestMapping("/reviewUpdate")
+	@RequestMapping("/modifyReview")
 	public String reviewUpdate() {
-		return "/myRoom/reviewUpdate";
+		return "/myRoom/modifyReview";
 	}
 	
 	@RequestMapping("/pwConfirm")
@@ -157,9 +157,9 @@ public class CommonController {
 		return "/myRoom/pwConfirm";
 	}
 	
-	@RequestMapping("/userUpdate")
+	@RequestMapping("/modifyUser")
 	public String userUpdate() {
-		return "/myRoom/userUpdate";
+		return "/myRoom/modifyUser";
 	}
 
 }
