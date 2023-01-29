@@ -44,29 +44,6 @@ public class CommonController {
 		return "/user/information/goal";
 	}
 	
-	@RequestMapping(value="/application/goApp", method=RequestMethod.GET)
-	public String goApp() {
-		return "/user/application/goApp";
-	}
-	
-	@RequestMapping(value="/application/getCourse", method=RequestMethod.GET)
-	public ModelAndView getCourseGet() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/user/application/getCourse");
-		return mav;
-	}
-	
-	@RequestMapping(value="/application/getCourse", method=RequestMethod.POST)
-	public ModelAndView getCorsePost() {
-		ModelAndView mav = new ModelAndView("jsonView");
-		mav.addObject("list", AdminDaoImpl)
-	}
-	
-	@RequestMapping(value="/application/courseDetail", method=RequestMethod.GET)
-	public String courseDetail() {
-		return "/user/application/courseDetail";
-	}
-	
 	@RequestMapping(value="/community/notice", method=RequestMethod.GET)
 	public ModelAndView noticeList() {
 		ModelAndView mav = new ModelAndView();
