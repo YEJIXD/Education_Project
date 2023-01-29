@@ -16,7 +16,7 @@
 	<div class="container">
 	<h3>신청 정보 확인</h3><br><br>
 		<div class="content">
-			<form name="appForm" action="myStudy.do" method="GET">
+			<form name="appForm" action="myStudy" method="GET">
 				<table class="table">
 					<tr>
 						<th>과정 분류</th>
