@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="course">
-  	<select id="getCourse" parameterType="pageDto" resultType="courseDto">
+  	<select id="getCourseList" parameterType="pageDto" resultType="courseDto">
   		<![CDATA[
 	  		SELECT 
 				  @rownum:=@rownum +1 as rnum
-				, seq
-				, title
-				, app_personnel
+				, course_seq
+				, course_title
 				, ent_personnel
-				, DATE_FORMAT(input_date, '%Y-%m-%d') as input_date
+				, app_personnel
 				, DATE_FORMAT(start_date, '%Y-%m-%d') as start_date
 				, DATE_FORMAT(expire_date, '%Y-%m-%d') as expire_date
+				, DATE_FORMAT(input_date, '%Y-%m-%d') as input_date
 			FROM course
 			  , (SELECT @rownum:=0) R
-			WHERE title LIKE CONCAT('%', #{keyword} , '%')
+			WHERE course_title LIKE CONCAT('%', #{keyword} , '%')
 			ORDER BY rnum DESC
 			LIMIT ${cri.pageStart}, ${cri.amount}
 			]]>
@@ -24,55 +24,53 @@
 	<select id="getTotal" parameterType="String" resultType="int">
 		SELECT COUNT(*) as TOTAL_COUNT
 		FROM course
-		WHERE title LIKE CONCAT('%', #{value}, '%') 
+		WHERE course_title LIKE CONCAT('%', #{value}, '%') 
 	</select>
   	
   	<select id="getCourseDetail" parameterType="courseDto" resultType="courseDto">
   		SELECT 
-				seq
-			  , title
-			  , category
-			  , type
+				course_seq
+			  , course_title
+			  , course_category
+			  , course_type
 			  , class_hour
+			  , course_content
+			  , ent_personnel
+			  , app_personnel
 			  , DATE_FORMAT(start_date, '%Y-%m-%d') as start_date
 			  , DATE_FORMAT(expire_date, '%Y-%m-%d') as expire_date
-			  , ent_personnel
 			  , DATE_FORMAT(app_start_date, '%Y-%m-%d') as app_start_date
 			  , DATE_FORMAT(app_expire_date,  '%Y-%m-%d') as app_expire_date
 			  , DATE_FORMAT(input_date, '%Y-%m-%d') as input_date
-			  , detail
   		FROM course
-  		WHERE seq = #{seq}
+  		WHERE course_seq = #{course_seq}
   	</select>
   	
-	<select id="getCourseAppCount" parameterType="Hashmap" resultType="Hashmap">
+<!-- 	<select id="getAppCount" parameterType="Hashmap" resultType="Hashmap">
 		<![CDATA[
-			select COUNT(u.seq) as COUNT
-			       , u.seq 
-			       , u.USER_NAME
-			       , u.USER_ID
-			       , u.USER_ADDR
-			       , u.USER_EMAIL
-			       , u.USER_PHONE
-			       , c.seq 
-			       , c.title 
-			       , a.APP_NO 
-			       , DATE_FORMAT(APP_DATE, '%Y-%m-%d') as APP_DATE
+			select COUNT(u.user_no) as COUNT
+			       , u.user_name
+			       , u.user_id
+			       , u.user_address
+			       , u.user_email
+			       , u.user_phone
+			       , c.course_seq
+			       , c.course_title 
+			       , a.app_seq
+			       , DATE_FORMAT(a.input_date, '%Y-%m-%d') as input_date
 			FROM application a, course c , member m, (SELECT @rownum:=0) R
-			WHERE a.seq = u.seq  
-				  AND c.seq = a.seq 
-				  AND title LIKE CONCAT('%', #{keyword}, '%')
+			WHERE a.app_seq = u.user_no  
+				  AND c.course_seq = a.app_seq 
+				  AND c.course_title LIKE CONCAT('%', #{keyword}, '%')
 			ORDER BY rnum DESC
 			LIMIT ${cri.pageStart}, ${cri.amount}
 		]]>
 	</select>
 	
 	<select id="getAppTotal" parameterType="String" resultType="int">
-		SELECT COUNT(*) as APP_TOTAL_COUNT
+		SELECT COUNT(app_seq) as application_count
 		FROM application
-		WHERE seq =#{seq} 
-		  AND seq = #{seq}
-	</select>
+	</select> 
 		
   	<insert id="inputCourseApp" parameterType="pageDto">
   		INSERT INTO APPLICATION
@@ -98,6 +96,6 @@
 			   #{seq}
 			 , #{seq}
 			 , NOW())
-  	</insert>
+  	</insert>-->
   
   </mapper>
