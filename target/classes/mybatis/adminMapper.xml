@@ -4,8 +4,8 @@
 <mapper namespace="admin">
 	<select id="getNotice" parameterType="list" resultType="noticeDto">
 		SELECT
-			  seq
-			, title
+			  notice_seq
+			, notice_title
 			, input_date
 		FROM notice
 		ORDER BY input_date desc
@@ -13,13 +13,13 @@
 
 	<insert id="inputNotice" parameterType="noticeDto">
 		INSERT INTO notice (
-			  seq
+			  notice_seq
 			, user_no
-			, title
-			, content
+			, notice_title
+			, notice_content
 			, input_date
 		) VALUES(
-			  (SELECT IFNULL(MAX(n.seq),0) + 1 FROM notice n)
+			  (SELECT IFNULL(MAX(n.notice_seq),0) + 1 FROM notice n)
 			, #{title}
 			, #{content}
 			, #{input_date}
@@ -28,38 +28,38 @@
 	<update id="modifyNotice" parameterType="noticeDto">
 		UPDATE notice
 		SET
-			  title = #{title}
-			, content = #{content}
+			  notice_title = #{title}
+			, notice_content = #{content}
 			, upd_date = #{upd_date}
-		WHERE seq = #{seq}
+		WHERE notice_seq = #{notice_seq}
 	</update>
 
 	<delete id="deleteNotice" parameterType="int">
 		DELETE
 		FROM notice
-		WHERE seq = #{seq}
+		WHERE notice_seq = #{notice_seq}
 	</delete>
 	
 	<select id="getQna" parameterType="list" resultType="QnaDto">
 		SELECT
-			  seq
-			, title
+			  qna_seq
+			, qna_title
 			, input_date
-			, status
+			, qna_status
 		FROM qna
-		ORDER BY seq DESC
+		ORDER BY qna_seq DESC
 	</select>
 	
 	<select id="selectQna" parameterType="Integer" resultType="hashmap">
 		SELECT
-			title
-		  , content
+			qna_title
+		  , qna_content
 		FROM qna
-		WHERE seq = #{seq}
+		WHERE qna_seq = #{qna_seq}
 	</select>
 
-	<insert id="inputQnaReply" parameterType="qnaDto">
-		INSERT INTO QNA (
+<!-- 	<insert id="inputQnaReply" parameterType="qnaDto">
+		INSERT INTO qna (
 			Q_RE_NO
 			, Q_RE_TITLE
 			, Q_RE_CONTENT
@@ -84,69 +84,69 @@
 		DELETE
 		FROM reply
 		WHERE no = #{no}
-	</delete>
+	</delete> -->
 
-	<select id="faq" parameterType="list" resultType="faqDto">
+	<select id="getFaq" parameterType="list" resultType="faqDto">
 		SELECT
-			  f_no
-			, f_category
-			, f_title
+			  faq_seq
+			, faq_title
+			, faq_category
 			, input_date
-		FROM FAQ
-		ORDER BY FAQ_NO DESC
+		FROM faq
+		ORDER BY faq_seq DESC
 	</select>
 
-	<select id="faqDetail" parameterType="String" resultType="faqDto">
+	<select id="getFaqDetail" parameterType="String" resultType="faqDto">
 		SELECT
-			FAQ_NO
-			, FAQ_TITLE
-			, FAQ_CONTENT
-			, FAQ_DATE
-			, FAQ_CATEGORY
-			, FAQ_COUNT
-		FROM FAQ
-		WHERE FAQ_NO = #{faq_no}
+			  faq_seq
+			, faq_title
+			, faq_category
+			, faq_category
+			, input_date
+		FROM faq
+		WHERE faq_seq = #{faq_seq}
 	</select>
 
 	<insert id="inputFaq" parameterType="faqDto" keyProperty="faq_no">
-		INSERT INTO FAQ (
-			  FAQ_NO
-			, FAQ_TITLE
-			, FAQ_CONTENT
-			, FAQ_DATE
-			, FAQ_CATEGORY
+		INSERT INTO faq (
+			  faq_seq
+			, faq_title
+			, faq_category
+			, faq_content
+			, input_date
 		) VALUES(
-			(SELECT IFNULL(MAX(F.FAQ_NO),0) + 1 FROM FAQ F)
+			  (SELECT IFNULL(MAX(F.FAQ_NO),0) + 1 FROM FAQ F)
 			, #{faq_title}
+			, #{faq_category}
 			, #{faq_content}
 			, NOW()
-			, #{faq_category})
+		)
 	</insert>
 
 	<update id="modifyFaq" parameterType="faqDto">
 		UPDATE FAQ
 		SET 
- 			  FAQ_TITLE = #{faq_title}
-			, FAQ_CONTENT = #{faq_content}
-			, FAQ_UPD_DATE = NOW()
-			, FAQ_CATEGORY = #{faq_category}
-		WHERE FAQ_NO = #{faq_no}
+ 			  faq_title = #{faq_title}
+ 			, faq_category = #{faq_category}
+			, faq_content = #{faq_content}
+			, upd_date = NOW()
+		WHERE faq_seq = #{faq_seq}
 	</update>
 
 	<delete id="deleteFaq" parameterType="int">
 		DELETE
-		FROM FAQ
-		WHERE FAQ_NO = #{faq_no}
+		FROM faq
+		WHERE faq_seq = #{faq_seq}
 	</delete>
 
 	<select id="hashTagSearch" parameterType="string" resultType="faqDto">
 		SELECT
-			  f_no
-			, f_category
-			, f_title
+			  faq_seq
+			, faq_title
+			, faq_category
 			, input_date
 			FROM faq
-		WHERE f_category = #{f_category}
+		WHERE faq_category = #{faq_category}
 	</select>
 
 	<select id="courseList" parameterType="pageDto" resultType="courseDto">
@@ -167,143 +167,65 @@
 		]]>
 	</select>
 
-	<select id="getTotalCount" parameterType="String" resultType="int">
-		SELECT
-			COUNT(*) as TOTAL_COUNT
-		FROM course
-		WHERE title LIKE CONCAT('%', #{value}, '%')
-	</select>
-
-	<select id="courseDetail" parameterType="hashMap" resultType="courseDto">
-		SELECT
-			  seq
-			, title
-			, category
-			, type
-			, start_time
-			, class_hour
-			, DATE_FORMAT(start_date, '%Y-%m-%d') as start_date
-			, DATE_FORMAT(expire_date, '%Y-%m-%d') as expire_date
-			, ent_personnel
-			, DATE_FORMAT(start_date, '%Y-%m-%d') as start_date
-			, DATE_FORMAT(expire_date, '%Y-%m-%d') as expire_date
-			, DATE_FORMAT(input_date, '%Y-%m-%d') as input_date
-			, detail
-			, tuition
-		FROM course
-		WHERE seq = #{seq}
-	</select>
-
 	<insert id="inputCourse" parameterType="courseDto">
 		INSERT INTO course (
-			  seq
+			  course_seq
 			, user_no
-			, title
-			, category
-			, type
+			, course_title
+			, course_category
+			, course_type
 			, class_hour
-			, detail
+			, course_content
 			, ent_personnel
-			, APP_PERSONNEL
-			, input_date
-			, start_date
-			, expire_date
+			, app_personnel
 			, start_time
 			, start_date
 			, expire_date
+			, app_start_date
+			, app_expire_date
+			, input_date
 		) VALUES (
-			  (SELECT IFNULL(MAX(seq),0) + 1 FROM course)
+			  (SELECT IFNULL(MAX(course_seq),0) + 1 FROM course)
 			, #{user_no}
-			, #{title}
-			, #{category}
-			, #{type}
+			, #{course_title}
+			, #{course_category}
+			, #{course_type}
 			, #{class_hour}
-			, #{detail}
+			, #{course_content}
 			, #{ent_personnel}
 			, #{app_personnel}
-			, NOW()
-			, #{start_date}
-			, #{expire_date}
 			, #{start_time}
 			, #{start_date}
 			, #{expire_date}
+			, #{app_start_date}
+			, #{app_expire_date}
+			, NOW()
 		)
 	</insert>
 
 	<update id="modifyCourse" parameterType="courseDto">
 		UPDATE course
 		SET
-			  title = #{title}
-			, category = #{category}
-			, type = #{type}
+			  course_title = #{course_title}
+			, course_category = #{course_category}
+			, course_type = #{course_type}
 			, class_hour = #{class_hour}
-			, start_time = #{start_time}
+			, course_content = #{course_content}
 			, ent_personnel = #{ent_personnel}
+			, start_time = #{start_time}
 			, start_date = #{start_date}
 			, expire_date = #{expire_date}
-			, start_date = #{start_date}
-			, expire_date = #{expire_date}
-			, detail = #{detail}
+			, app_start_date = #{app_start_date}
+			, app_expire_date = #{app_expire_date}
 			, upd_date = NOW()
-			, tuition = #{tuition}
-		WHERE seq = #{seq}
+		WHERE course_seq = #{course_seq}
 	</update>
 
 	<delete id="deleteCourse" parameterType="int">
 		DELETE
 		FROM course
-		WHERE seq = #{seq}
+		WHERE course_seq = #{course_seq}
 	</delete>
 
-	<select id="appList" parameterType="pageDto" resultType="hashmap">
-	<![CDATA[
-		SELECT
-			  @rownum:=@rownum +1 as rnum
-			, c.title
-			, m.user_no
-			, m.user_name
-			, DATE_FORMAT(input_date, '%Y-%m-%d') as input_date
-			, DATE_FORMAT(start_date, '%Y-%m-%d') as start_date
-			, DATE_FORMAT(expire_date, '%Y-%m-%d') as expire_date
-		FROM APPLICATION a, course c, MEMBER m, (SELECT @rownum:=0) R
-		WHERE a.user_no = m.user_no  
-		  AND c.seq = a.seq 
-		  AND title LIKE CONCAT('%', #{keyword}, '%')
-		ORDER BY rnum DESC
-		LIMIT ${cri.pageStart}, ${cri.amount}
-	]]>
-	</select>
-
-	<select id="getAppTotal" parameterType="pageDto" resultType="int">
-		SELECT
-			COUNT(a.seq) as TOTAL_COUNT
-		FROM application a
-		  LEFT JOIN course c ON a.seq = c.seq
-		WHERE c.title LIKE CONCAT('%', #{keyword}, '%')
-	</select>
-
-	<select id="appDetail" parameterType="hashMap" resultType="appDto">
-		SELECT
-			c.seq
-			, a.seq
-			, c.title
-			, c.category
-			, c.type
-			, c.start_time
-			, c.class_hour
-			, DATE_FORMAT(start_date, '%Y-%m-%d') as start_date
-			, DATE_FORMAT(expire_date, '%Y-%m-%d') as expire_date
-			, m.user_no
-			, m.user_name
-			, m.email
-			, m.phone
-			, m.address
-			, DATE_FORMAT(a.input_date, '%Y-%m-%d') as input_date
-			, c.tuition
-		FROM application a
-		  LEFT JOIN course c ON a.seq = c.seq
-		  LEFT JOIN member m ON c.user_no = m.user_no
-		WHERE a.input_date = #{input_date}
-	</select>
 </mapper>
 	 
