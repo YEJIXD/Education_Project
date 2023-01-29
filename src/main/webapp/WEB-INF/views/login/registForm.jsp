@@ -140,7 +140,7 @@
 	
 	//null값 방지
 	$(document).ready(function(){
-		$(".cancle").on("click", function(){
+		$(".cancel").on("click", function(){
 			location.href="/main.do";
 		})
 		
@@ -292,7 +292,8 @@
                 </table>
                     <div class="regist_btn">
                         <input type="submit" class="subBtn" id="submit" value="가 입">
-                        <input type="button" class="antBtn" value="취 소" onclick="location.href='main.do'">
+                        <!-- <input type="button" class="antBtn" value="취 소" onclick="location.href='main.do'"> -->
+                        <input type="button" class="antBtn cancel" value="취 소">
                     </div>
             </form>
           </div>
