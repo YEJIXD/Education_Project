@@ -15,11 +15,29 @@ public class ApplicationController {
 	ApplicationService applicationService;
 	
 	@RequestMapping(value="/application/goApp", method=RequestMethod.GET)
-	public ModelAndView goApp() {
+	public String goApp() {
+		return "/user/application/goApp";
+	}
+	
+	@RequestMapping(value="/application/getCourse", method=RequestMethod.GET)
+	public ModelAndView getCourseGet() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/user/application/goApp");
+		mav.setViewName("/user/application/getCourse");
+		return mav;
+	}
+	
+	@RequestMapping(value="/application/getCourse", method=RequestMethod.POST)
+	public ModelAndView getCorsePost() {
+		ModelAndView mav = new ModelAndView("jsonView");
+		
+		// 코드 추가해야 함
 		
 		return mav;
+	}
+	
+	@RequestMapping(value="/application/courseDetail", method=RequestMethod.GET)
+	public String courseDetail() {
+		return "/user/application/courseDetail";
 	}
 	
 }
