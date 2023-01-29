@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>CUBe Academy</title>
-<link href="resources/css/common/header.css" rel="stylesheet">
-<link href="resources/css/common/footer.css" rel="stylesheet">
+<link href="../resources/css/common/header.css" rel="stylesheet">
+<link href="../resources/css/common/footer.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="resources/css/login/login.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -28,7 +28,7 @@
 			<div class="col-sm-1"></div>
 			<div class="col-sm-8">
 				<div class="img-div">
-					<a href="main"> <img id="logo" src="resources/images/cube.png" style="z-index: 1;"></a>
+					<a href="main"> <img id="logo" src="../resources/images/cube.png" style="z-index: 1;"></a>
 				</div>
 			</div>
 			<div class="col-sm-3"></div>
@@ -50,8 +50,8 @@
 					
 					<li class="nav-menu"><a class="header-a">교육 신청</a>
 						<ul class="sub-menu">
-							<li><a class="header-a" href="goApp">신청 방법</a></li>
-							<li><a class="header-a" href="courseList">교육 목록</a></li>
+							<li><a class="header-a" href="/application/goApp">신청 방법</a></li>
+							<li><a class="header-a" href="/application/courseList">교육 목록</a></li>
 						</ul>
 					</li>
 					

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CUBe Academy</title>
-<link rel="stylesheet" href="resources/css/common/footer.css">
+<link rel="stylesheet" href="../resources/css/common/footer.css">
 </head>
 <body>
 	<div class="footer">
