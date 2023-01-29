@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.edu.java.dao.AdminDaoImpl;
 import com.edu.java.service.CommunityService;
 import com.edu.java.service.UserService;
 
@@ -43,19 +44,27 @@ public class CommonController {
 		return "/user/information/goal";
 	}
 	
-	@RequestMapping("/goApp")
+	@RequestMapping(value="/application/goApp", method=RequestMethod.GET)
 	public String goApp() {
-		return "/application/goApp";
+		return "/user/application/goApp";
 	}
 	
-	@RequestMapping("/courseList")
-	public String courseList() {
-		return "/application/getCourse";
+	@RequestMapping(value="/application/getCourse", method=RequestMethod.GET)
+	public ModelAndView getCourseGet() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/user/application/getCourse");
+		return mav;
 	}
 	
-	@RequestMapping("/courseDetail")
+	@RequestMapping(value="/application/getCourse", method=RequestMethod.POST)
+	public ModelAndView getCorsePost() {
+		ModelAndView mav = new ModelAndView("jsonView");
+		mav.addObject("list", AdminDaoImpl)
+	}
+	
+	@RequestMapping(value="/application/courseDetail", method=RequestMethod.GET)
 	public String courseDetail() {
-		return "/application/courseDetail";
+		return "/user/application/courseDetail";
 	}
 	
 	@RequestMapping(value="/community/notice", method=RequestMethod.GET)
