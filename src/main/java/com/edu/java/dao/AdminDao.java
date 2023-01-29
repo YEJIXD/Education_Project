@@ -50,7 +50,7 @@ public interface AdminDao {
 	int inputCourse(CourseDto dto) throws Exception;
 	int modifyCourse(CourseDto dto) throws Exception;
 	void deleteCourse(int c_no);
-	//public int courseCount(String c_count) throws Exception;
+	//int courseCount(String c_count) throws Exception;
 	
 	List<TeacherDto> teacherList();
 	int inputTeacher(TeacherDto dto);
