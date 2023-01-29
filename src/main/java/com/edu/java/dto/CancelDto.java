@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @Component
-public class CancleDto {
+public class CancelDto {
 	private int seq;			
 	private String title;	
 	private String content;	
