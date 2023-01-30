@@ -80,7 +80,7 @@ public class CommonController {
 	@RequestMapping(value="/community/qna", method=RequestMethod.GET)
 	public ModelAndView qna() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/community/qna");
+		mav.setViewName("/user/community/qna");
 			
 		return mav;
 	}
