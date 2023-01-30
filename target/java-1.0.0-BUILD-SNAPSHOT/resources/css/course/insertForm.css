@@ -1,0 +1,177 @@
+@charset "UTF-8";
+#c_name, #c_division, #c_addr, #c_category, #c_type, #c_time, #c_period, #c_detail, #ent_personnel{
+	width: 840px;
+	height: 40px;
+	padding-left: 10px;
+	font-size: 16px;
+	margin-left: 10%;
+	margin-top:2%;
+}
+
+#uploadFile{
+	width: 840px;
+	height: 40px;
+	padding-left: 10px;
+	font-size: 16px;
+	margin-left: 10%;
+	margin-top:2%;
+	border:none;
+}
+
+#deleteBtn{
+	width: 10px;
+	padding-right: 80px;
+	font-size: 11pt;
+	text-align: center;
+	font-weight: normal;
+	margin-left: 50%;
+}
+
+.product-write__top h2{ display: inline;}
+	
+.product-write__top-txt h2{
+	margin-left: 20px;
+	font-size: 15px;
+}
+
+@font-face {
+	font-family: 'Nanum Gothic', serif; 
+	src: url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css') format('opentype');
+}
+
+@font-face {
+	font-family: 'MaruBuri';
+	font-weight: 400;
+    font-style: normal;
+	src: url('https://cdn.jsdelivr.net/gh/webfontworld/naver/MaruBuri-Regular.woff2') format('woff2');
+}
+		
+textarea{
+	width: 550px;
+	height: 100px;
+	padding-left: 10px;
+	font-size: 16px;
+	margin-left: 10%;
+	margin-top:2%;
+	resize: vertical;
+}
+
+form{
+	width:80%;
+	margin-left: inherit;
+}
+
+img{ margin-left:30%; }
+		
+		
+/*review Insert*/
+.review_insert_wrap{
+	padding: 10px 0 10px 0;
+	width:100%;
+	height:800px;
+}
+
+.container{
+	padding:3%;
+	height:60%;
+}
+
+.regist_wrap{
+	flex-direction: column;
+	width: 800px;
+	height: 200px;
+	margin : 0 10% 0 30%;
+}
+
+.regist_form{
+    display: flex;
+	position: absolute;
+	flex-direction: column;
+    width: 800px;
+    align-items: center;
+}
+
+.container a{
+	font-size: 22pt;
+    font-weight: bold;
+    margin: 5px 30px 0 320px;
+}
+
+table{
+    margin-top: 30px;
+    align-items: center;
+    border-collapse:separate;
+    border-spacing:0 40px;
+}
+
+.divSpan{
+    text-decoration: none;
+	font-size: 12px;
+    color: grey;
+}
+
+.login_regist_wrap{
+	width: 100%;
+	height: 850px;
+	justify-content: center;
+}
+     
+table tr th{
+	text-align: left;
+	width: 300px;
+	height: 80px;
+	font-size: 12pt;
+   	font-weight: bold;
+}
+
+td input[type="text"], input[type="password"] {
+	width: 230px; height: 30px;
+	font-size: 13px;
+	border: 1px solid #d1d1d1;
+	padding-left: 7px;
+}
+
+td input[type="button"]{
+	border: none;
+	border-radius: 2px;
+	background-color: #B0E0E6;
+	font-size: 13px;
+	color: rgb(95, 95, 95);
+}
+
+.regist_btn{
+    text-align: center;
+	margin: 50px 0 0 0;
+}
+
+.subBtn{
+	width:160px; 
+	height:40px;
+	line-height:40px;  
+	border:none;
+	border-radius:4%; 
+	margin:15px auto; 
+	background-color:#B0E0E6; 
+	text-align:center; 
+	cursor: pointer; 
+	font-weight:bold;
+}
+	
+.subBtn:hover{ background-color:#E9CFEC; }
+	
+.antBtn{
+	width:160px; 
+	height:40px; 
+	border:none;
+	border-radius:4%; 
+	margin:15px auto; 
+	background-color:#efefef; 
+	text-align:center; 
+	cursor: pointer; 
+	font-weight:bold;
+}
+
+.antBtn:hover{
+	background-color:gray;
+	color:#efefef;
+}

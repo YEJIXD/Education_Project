@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+	<select id="getNotice" parameterType="list" resultType="noticeDto">
+		SELECT
+			  notice_seq
+			, notice_title
+			, input_date
+		FROM notice
+		ORDER BY input_date desc
+	</select>
+
+	<insert id="inputNotice" parameterType="noticeDto">
+		INSERT INTO notice (
+			  notice_seq
+			, user_no
+			, notice_title
+			, notice_content
+			, input_date
+		) VALUES(
+			  (SELECT IFNULL(MAX(n.notice_seq),0) + 1 FROM notice n)
+			, #{title}
+			, #{content}
+			, #{input_date}
+	</insert>
+
+	<update id="modifyNotice" parameterType="noticeDto">
+		UPDATE notice
+		SET
+			  notice_title = #{title}
+			, notice_content = #{content}
+			, upd_date = #{upd_date}
+		WHERE notice_seq = #{notice_seq}
+	</update>
+
+	<delete id="deleteNotice" parameterType="int">
+		DELETE
+		FROM notice
+		WHERE notice_seq = #{notice_seq}
+	</delete>
+	
+	<select id="getQna" parameterType="list" resultType="QnaDto">
+		SELECT
+			  qna_seq
+			, qna_title
+			, input_date
+			, qna_status
+		FROM qna
+		ORDER BY qna_seq DESC
+	</select>
+	
+	<select id="selectQna" parameterType="Integer" resultType="hashmap">
+		SELECT
+			qna_title
+		  , qna_content
+		FROM qna
+		WHERE qna_seq = #{qna_seq}
+	</select>
+
+<!-- 	<insert id="inputQnaReply" parameterType="qnaDto">
+		INSERT INTO qna (
+			Q_RE_NO
+			, Q_RE_TITLE
+			, Q_RE_CONTENT
+			, Q_RE_DATE
+		) VALUES(
+			(SELECT IFNULL(MAX(Q.Q_NO),0) + 1 FROM QNA Q)
+			, #{q_re_title}
+			, #{q_re_content}
+			, NOW())
+	</insert>
+
+	<update id="modifyQnaReply" parameterType="qnaDto">
+		UPDATE QNA
+		SET
+			  Q_RE_TITLE = #{q_re_title}
+			, Q_RE_CONTENT = #{q_re_content}
+			, Q_RE_UPD_DATE = #{q_re_upd_date}
+		WHERE Q_RE_NO = #{q_re_no}
+	</update>
+
+	<delete id="deleteQnaReply" parameterType="int">
+		DELETE
+		FROM reply
+		WHERE no = #{no}
+	</delete> -->
+
+	<select id="getFaq" parameterType="list" resultType="faqDto">
+		SELECT
+			  faq_seq
+			, faq_title
+			, faq_category
+			, input_date
+		FROM faq
+		ORDER BY faq_seq DESC
+	</select>
+
+	<select id="getFaqDetail" parameterType="String" resultType="faqDto">
+		SELECT
+			  faq_seq
+			, faq_title
+			, faq_category
+			, faq_category
+			, input_date
+		FROM faq
+		WHERE faq_seq = #{faq_seq}
+	</select>
+
+	<insert id="inputFaq" parameterType="faqDto" keyProperty="faq_no">
+		INSERT INTO faq (
+			  faq_seq
+			, faq_title
+			, faq_category
+			, faq_content
+			, input_date
+		) VALUES(
+			  (SELECT IFNULL(MAX(F.FAQ_NO),0) + 1 FROM FAQ F)
+			, #{faq_title}
+			, #{faq_category}
+			, #{faq_content}
+			, NOW()
+		)
+	</insert>
+
+	<update id="modifyFaq" parameterType="faqDto">
+		UPDATE FAQ
+		SET 
+ 			  faq_title = #{faq_title}
+ 			, faq_category = #{faq_category}
+			, faq_content = #{faq_content}
+			, upd_date = NOW()
+		WHERE faq_seq = #{faq_seq}
+	</update>
+
+	<delete id="deleteFaq" parameterType="int">
+		DELETE
+		FROM faq
+		WHERE faq_seq = #{faq_seq}
+	</delete>
+
+	<select id="hashTagSearch" parameterType="string" resultType="faqDto">
+		SELECT
+			  faq_seq
+			, faq_title
+			, faq_category
+			, input_date
+			FROM faq
+		WHERE faq_category = #{faq_category}
+	</select>
+
+	<select id="courseList" parameterType="pageDto" resultType="courseDto">
+		<![CDATA[
+			SELECT 
+				  @rownum:=@rownum +1 as rnum
+				, seq
+				, title
+				, app_personnel
+				, ent_personnel
+				, DATE_FORMAT(input_date, '%Y-%m-%d') as input_date
+				, DATE_FORMAT(start_date, '%Y-%m-%d') as start_date
+				, DATE_FORMAT(expire_date, '%Y-%m-%d') as expire_date
+			FROM course C, (SELECT @rownum:=0) R
+			WHERE title LIKE CONCAT('%', #{keyword}, '%')
+			ORDER BY rnum desc
+			LIMIT ${cri.pageStart}, ${cri.amount}
+		]]>
+	</select>
+
+	<insert id="inputCourse" parameterType="courseDto">
+		INSERT INTO course (
+			  course_seq
+			, user_no
+			, course_title
+			, course_category
+			, course_type
+			, class_hour
+			, course_content
+			, ent_personnel
+			, app_personnel
+			, start_time
+			, start_date
+			, expire_date
+			, app_start_date
+			, app_expire_date
+			, input_date
+		) VALUES (
+			  (SELECT IFNULL(MAX(course_seq),0) + 1 FROM course)
+			, #{user_no}
+			, #{course_title}
+			, #{course_category}
+			, #{course_type}
+			, #{class_hour}
+			, #{course_content}
+			, #{ent_personnel}
+			, #{app_personnel}
+			, #{start_time}
+			, #{start_date}
+			, #{expire_date}
+			, #{app_start_date}
+			, #{app_expire_date}
+			, NOW()
+		)
+	</insert>
+
+	<update id="modifyCourse" parameterType="courseDto">
+		UPDATE course
+		SET
+			  course_title = #{course_title}
+			, course_category = #{course_category}
+			, course_type = #{course_type}
+			, class_hour = #{class_hour}
+			, course_content = #{course_content}
+			, ent_personnel = #{ent_personnel}
+			, start_time = #{start_time}
+			, start_date = #{start_date}
+			, expire_date = #{expire_date}
+			, app_start_date = #{app_start_date}
+			, app_expire_date = #{app_expire_date}
+			, upd_date = NOW()
+		WHERE course_seq = #{course_seq}
+	</update>
+
+	<delete id="deleteCourse" parameterType="int">
+		DELETE
+		FROM course
+		WHERE course_seq = #{course_seq}
+	</delete>
+
+</mapper>
+	 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.edu.java.dto.ApplicationDto" alias="applicationDto" />
+		<typeAlias type="com.edu.java.dto.CancelDto" alias="cancelDto" />
+		<typeAlias type="com.edu.java.dto.CourseDto" alias="courseDto" />
+		<typeAlias type="com.edu.java.dto.TeacherDto" alias="teacherDto" />
+		<typeAlias type="com.edu.java.dto.FaqDto" alias="faqDto" />
+		<typeAlias type="com.edu.java.dto.NoticeDto" alias="noticeDto" />
+		<typeAlias type="com.edu.java.dto.QnaDto" alias="qnaDto" />
+		<typeAlias type="com.edu.java.dto.ReviewDto" alias="reviewDto" />
+		<typeAlias type="com.edu.java.dto.UserDto" alias="userDto" />
+		<typeAlias type="com.edu.java.dto.PageDto" alias="pageDto" />
+		<typeAlias type="com.edu.java.dto.Criteria" alias="criteria" />
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="/mybatis/mapper.xml" />
+		<mapper resource="/mybatis/applicationMapper.xml"/>
+		<mapper resource="/mybatis/courseMapper.xml" />
+		<mapper resource="/mybatis/communityMapper.xml" />
+		<mapper resource="/mybatis/adminMapper.xml" />
+		<mapper resource="/mybatis/myRoomMapper.xml" />
+	</mappers>
+</configuration>

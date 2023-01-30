@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+
+	<!-- <Properties>
+		<Property name="layoutPattern">[ %d{yyyy-MM-dd HH:mm:ss} ] [%p] [ %F - %L ] [ %r ] [ %t ] %m%n</Property>
+	</Properties> -->
+	
+	<!-- Appenders -->
+	<Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %5p [%c] %m%n"/>
+        </Console>
+    </Appenders>
+    
+    <!-- <appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+		</layout>
+	</appender> -->
+
+    <!-- ALL < DEBUG < INFO < WARN < ERROR < FATAL < OFF -->
+	<Loggers>
+		<!-- Application Loggers -->
+		<logger name="com.edu.java" level="debug" additivity="false">
+			<AppenderRef ref="console" />
+		</logger>
+		
+		<!-- 3rdparty Loggers -->
+		<logger name="org.springframework.core" level="fatal" additivity="false">
+			<AppenderRef ref="console" />
+		</logger>
+		
+		<logger name="org.springframework.beans" level="fatal" additivity="false">
+			<AppenderRef ref="console" />
+		</logger>
+		
+		<logger name="org.springframework.context" level="fatal" additivity="false">
+			<AppenderRef ref="console" />
+		</logger>
+	
+		<logger name="org.springframework.web" level="fatal" additivity="false">
+			<AppenderRef ref="console" />
+		</logger>
+		
+		<!-- etc log -->
+	    <Logger name="org.springframework" level="fatal" additivity="false">
+	        <AppenderRef ref="console" />
+	    </Logger>
+		<Logger name="org.apache.http" level="fatal" additivity="false" >
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="org.mybatis" level="fatal" additivity="false" >
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="java.sql" level="fatal" additivity="false" >
+			<AppenderRef ref="console"/>
+		</Logger>
+		
+		<!-- sql log -->
+	     <Logger name="jdbc.sqlonly" level="debug" additivity="false"><!-- level="fatal" -->
+	         <AppenderRef ref="console"/>
+	     </Logger>
+		<Logger name="jdbc.connection" level="fatal" additivity="false" >
+				<AppenderRef ref="console" />
+			</Logger>
+		<Logger name="jdbc.sqltiming" level="fatal" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="jdbc.audit" level="fatal" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="jdbc.resultset" level="fatal" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="jdbc.resultsettable" level="fatal" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+			
+	
+		<!-- Root Logger -->
+		<Root level="warn" additivity="false">
+	        <AppenderRef ref="console"/>
+	    </Root>
+	</Loggers>
+</Configuration>

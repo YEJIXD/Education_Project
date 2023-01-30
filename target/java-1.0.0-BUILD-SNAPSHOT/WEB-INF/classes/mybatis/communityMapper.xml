@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="community">
+  	<select id="notice" parameterType="list" resultType="noticeDto">
+  		SELECT 
+  			seq
+  		  , title
+  		  , input_date
+  		FROM notice
+  		ORDER BY seq DESC
+  	</select>
+  	
+  	<select id="selectNotice" parameterType="int" resultType="noticeDto">
+		SELECT 
+			  seq
+			, title
+			, content
+			, input_date
+		FROM notice
+		WHERE seq = #{seq}
+	</select>
+	
+  	<select id="faq" parameterType="list" resultType="faqDto">
+  		SELECT 
+			no
+		  , category
+		  , title
+		  , input_date
+		FROM faq
+		ORDER BY no DESC
+  	</select>
+  		
+  	<select id="qna" parameterType="list" resultType="QnaDto">
+		SELECT 
+			no
+		  , title
+		  , input_date
+		  , status
+		FROM qna
+		ORDER BY no DESC
+	</select>
+	
+	<insert id="qnaInsert" parameterType="qnaDto">
+		INSERT INTO qna(		
+			no
+		  , title
+		  , input_date
+		  , status
+		) VALUES (
+			 #{no}
+		   , #{title}
+		   , #{input_date}
+		   , #{status}
+		)
+	</insert>
+  	
+  </mapper>
