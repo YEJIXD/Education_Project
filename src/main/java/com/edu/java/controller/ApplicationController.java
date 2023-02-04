@@ -19,14 +19,14 @@ public class ApplicationController {
 		return "/user/application/goApp";
 	}
 	
-	@RequestMapping(value="/application/getCourse", method=RequestMethod.GET)
-	public ModelAndView getCourseGet() {
+	@RequestMapping(value="/application/courseList", method=RequestMethod.GET)
+	public ModelAndView courseList() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/user/application/getCourse");
+		mav.setViewName("/user/application/courseList");
 		return mav;
 	}
 	
-	@RequestMapping(value="/application/getCourse", method=RequestMethod.POST)
+	@RequestMapping(value="/application/courseList", method=RequestMethod.POST)
 	public ModelAndView getCorsePost() {
 		ModelAndView mav = new ModelAndView("jsonView");
 		

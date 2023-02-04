@@ -14,7 +14,7 @@ public class ApplicationService {
 	@Autowired
 	ApplicationDao applicationDao;
 	
-	public List<ApplicationDto> getCourse(){
-		return applicationDao.getCourse();
+	public List<ApplicationDto> courseList(){
+		return applicationDao.courseList();
 	}
 }

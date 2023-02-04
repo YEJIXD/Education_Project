@@ -15,8 +15,8 @@ public class ApplicationDaoImpl implements ApplicationDao{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<ApplicationDto> getCourse(){
-		List<ApplicationDto> courseList = sqlSession.selectList(NAMESPACE + "getCourse");
+	public List<ApplicationDto> courseList(){
+		List<ApplicationDto> courseList = sqlSession.selectList(NAMESPACE + "courseList");
 		return courseList;
 	}
 }

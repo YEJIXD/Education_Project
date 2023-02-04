@@ -37,7 +37,7 @@ public class CourseController {
 	@Autowired
 	CourseDao courseDao;
 
-	@RequestMapping(value="/getCourse", method=RequestMethod.GET)
+	@RequestMapping(value="/courselist", method=RequestMethod.GET)
 	public ModelAndView courseList(PageDto dto, @ModelAttribute("cri") Criteria cri) throws Exception{
 		ModelAndView mav = new ModelAndView("jsonView");
 		dto.setCri(cri); 									// page와 amount 설정

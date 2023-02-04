@@ -10,5 +10,5 @@ import com.edu.java.dto.ApplicationDto;
 public interface ApplicationDao {
 	String NAMESPACE = "application.";
 	
-	List<ApplicationDto> getCourse();
+	List<ApplicationDto> courseList();
 }
