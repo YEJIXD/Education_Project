@@ -61,8 +61,8 @@ public class AdminDaoImpl implements AdminDao{
 	}
 	
 	@Override
-	public List<NoticeDto> getNotice() {
-		List<NoticeDto> adminNoticeList = sqlSession.selectList(NAMESPACE + "getNotice");
+	public List<NoticeDto> noticeList() {
+		List<NoticeDto> adminNoticeList = sqlSession.selectList(NAMESPACE + "noticeList");
 		return adminNoticeList;
 	}
 

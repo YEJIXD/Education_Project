@@ -26,7 +26,7 @@ public interface AdminDao {
 	int reviewCount();
 	int newReviewCount();
 	
-	List<NoticeDto> getNotice();
+	List<NoticeDto> noticeList();
 	NoticeDto selectNotice(int seq);
 	int inputNotice(NoticeDto dto);
 	int modifyNotice(NoticeDto dto);
