@@ -40,7 +40,7 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView();
 
 		try {
-			mav.addObject("list", adminService.getNotice());
+			mav.addObject("list", adminService.noticeList());
 			mav.setViewName("/admin/notice");
 		} catch (Exception e) {
 			log.debug("[ ERROR ] : admin notice");
@@ -173,7 +173,7 @@ public class AdminController {
 		return "";
 	}
 
-	@RequestMapping(value = "/admin/getCourse", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/courseList", method = RequestMethod.GET)
 	public ModelAndView adminCourse(PageDto dto, @ModelAttribute("cri") Criteria cri) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
 		
@@ -183,7 +183,7 @@ public class AdminController {
 		mav.addObject("list", adminService.courseList(dto, cri));
 		mav.addObject("dto", dto);
 		mav.addObject("cri", cri);
-		mav.setViewName("/admin/getCourse");
+		mav.setViewName("/admin/courseList");
 
 		return mav;
 	}

@@ -39,8 +39,8 @@ public class AdminService {
 		return adminDao.newReviewCount();
 	}
 	
-	public List<NoticeDto> getNotice(){
-		return adminDao.getNotice();
+	public List<NoticeDto> noticeList(){
+		return adminDao.noticeList();
 	}
 	
 	public NoticeDto selectNotice(int seq) {
