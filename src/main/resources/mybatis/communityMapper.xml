@@ -4,21 +4,21 @@
   <mapper namespace="community">
   	<select id="notice" parameterType="list" resultType="noticeDto">
   		SELECT 
-  			seq
-  		  , title
+  			notice_seq
+  		  , notice_title
   		  , input_date
   		FROM notice
-  		ORDER BY seq DESC
+  		ORDER BY notice_seq DESC
   	</select>
   	
   	<select id="selectNotice" parameterType="int" resultType="noticeDto">
-		SELECT 
-			  seq
-			, title
-			, content
+		SELECT
+			  notice_seq
+			, notice_title
+			, notice_content
 			, input_date
 		FROM notice
-		WHERE seq = #{seq}
+		WHERE notice_seq = #{notice_seq}
 	</select>
 	
   	<select id="faq" parameterType="list" resultType="faqDto">

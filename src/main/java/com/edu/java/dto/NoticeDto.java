@@ -14,10 +14,10 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 public class NoticeDto {
-	private int seq;			
+	private int notice_seq;
 	private int user_no;			
-	private String title;		
-	private String content;	
+	private String notice_title;
+	private String notice_content;
 	private Date input_date;			
 	private Date upd_date;		
 }

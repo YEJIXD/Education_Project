@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="resources/css/course/appCourse.css">
+<link rel="stylesheet" href="../resources/css/course/appCourse.css">
 <link rel="stylesheet" href="/resources/css/bootstrap/bootstrap.css">
 <title>Notice</title>
 <style type="text/css">
@@ -47,8 +47,8 @@
 				<tbody>
 					<c:forEach items="${list }" var="dto">
 						<tr>
-							<td>${dto.seq }</td>
-							<td><a href="/community/noticeDetail?blog_no=${dto.user_no}">${dto.title }</a></td>
+							<td>${dto.notice_seq }</td>
+							<td><a href="/community/noticeDetail?blog_no=${dto.user_no}">${dto.notice_title }</a></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.input_date}"/></td>
 						</tr>
 					</c:forEach>
@@ -58,7 +58,7 @@
 				<ul>
 					<c:if test="true">
 						<li>
-							<a href='<c:url value="courseList.do?page=${dto.startPage-1 }&keyword=${dto.keyword}"/>' id="pre" class='oiBtn prev'>◀</a>
+							<a href='<c:url value="/courseList?page=${dto.startPage-1 }&keyword=${dto.keyword}"/>' id="pre" class='oiBtn prev'>◀</a>
 						</li>
 					</c:if>
 					<c:forEach begin="${dto.startPage}" end="${dto.endPage}" var="page">
