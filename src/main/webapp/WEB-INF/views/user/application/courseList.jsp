@@ -89,9 +89,9 @@
 			<input type="hidden" id="keyword" name="keyword" value='<c:out value="${pageDto.keyword}" />'>
 			<input type="hidden" id="page" name="page" value='<c:out value="${cri.page}" />'>
 			<input type="hidden" id="amount" name="amount" value='<c:out value="${cri.amount}" />'>
-			<input type="hidden" id="user_no" name="user_no" value='<c:out value="${member.user_no}" />'>
-			<input type="hidden" id="user_name" name="user_name" value='<c:out value="${member.user_name}" />'>
-			<input type="hidden" id="user_email" name="user_email" value='<c:out value="${member.email}" />'>
+			<input type="hidden" id="user_no" name="user_no" value='<c:out value="${user.user_no}" />'>
+			<input type="hidden" id="user_name" name="user_name" value='<c:out value="${user.user_name}" />'>
+			<input type="hidden" id="user_email" name="user_email" value='<c:out value="${user.email}" />'>
 			<table class="table table-hover">
 				<thead>
 					<tr>
