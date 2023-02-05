@@ -2,56 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="community">
-  	<select id="notice" parameterType="list" resultType="noticeDto">
-  		SELECT 
-  			seq
-  		  , title
-  		  , input_date
-  		FROM notice
-  		ORDER BY seq DESC
+  	<select id="noticeList" parameterType="list" resultType="noticeDto">
+		SELECT
+			   n.notice_seq
+			 , n.notice_title
+			 , sc.name as category
+			 , n.input_date
+		FROM notice n
+		 left join selectcode sc on sc.code = n.notice_category
+		WHERE sc.kinds = 'category'
+		ORDER BY input_date desc
   	</select>
   	
-  	<select id="selectNotice" parameterType="int" resultType="noticeDto">
-		SELECT 
-			  seq
-			, title
-			, content
+  	<select id="noticeDetail" parameterType="int" resultType="noticeDto">
+		SELECT
+			  notice_seq
+			, notice_title
+			, notice_content
 			, input_date
 		FROM notice
-		WHERE seq = #{seq}
+		WHERE notice_seq = #{notice_seq}
 	</select>
 	
-  	<select id="faq" parameterType="list" resultType="faqDto">
-  		SELECT 
-			no
-		  , category
-		  , title
+  	<select id="faqList" parameterType="list" resultType="faqDto">
+  		SELECT
+			faq_seq
+		  , faq_title
+		  , faq_category
 		  , input_date
 		FROM faq
 		ORDER BY no DESC
   	</select>
   		
-  	<select id="qna" parameterType="list" resultType="QnaDto">
-		SELECT 
-			no
-		  , title
+  	<select id="qnaList" parameterType="list" resultType="QnaDto">
+		SELECT
+			qna_seq
+		  , qna_title
+		  , qna_status
 		  , input_date
-		  , status
 		FROM qna
 		ORDER BY no DESC
 	</select>
 	
-	<insert id="qnaInsert" parameterType="qnaDto">
-		INSERT INTO qna(		
-			no
-		  , title
+	<insert id="inputQna" parameterType="qnaDto">
+		INSERT INTO qna(
+			qna_seq
+		  , qna_title
+		  , qna_content
+		  , qna_status
+		  , public_scope
 		  , input_date
-		  , status
 		) VALUES (
-			 #{no}
-		   , #{title}
+			 #{qna_seq}
+		   , #{qna_title}
+		   , #{qna_content}
+		   , #{qna_status}
+		   , #{public_scope}
 		   , #{input_date}
-		   , #{status}
 		)
 	</insert>
   	

@@ -2,12 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="admin">
-	<select id="getNotice" parameterType="list" resultType="noticeDto">
+	<select id="noticeList" parameterType="list" resultType="noticeDto">
 		SELECT
-			  notice_seq
-			, notice_title
-			, input_date
-		FROM notice
+			  n.notice_seq
+			, n.notice_title
+			, sc.name as category
+			, n.input_date
+		FROM notice n
+		where sc.kinds = 'category'
 		ORDER BY input_date desc
 	</select>
 
