@@ -9,7 +9,7 @@
 <link href="../resources/css/common/header.css" rel="stylesheet">
 <link href="../resources/css/common/footer.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="resources/css/login/login.css">
+<link rel="stylesheet" href="../resources/css/login/login.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	function logoutCheck(){

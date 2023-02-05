@@ -117,9 +117,9 @@
                                     <tbody>
 	                                    <c:forEach items="${list}" var="dto">
 				                            <tr>
-				                            	<td class="chkBtn" ><input type="checkbox" name="RowCheck[]" value="${dto.seq}"></td>
-				                                <td class="no">${dto.seq}</td>
-				                                <td class="title"><a href="noticeDetail?seq=${dto.seq}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.title}</a></td>
+				                            	<td class="chkBtn" ><input type="checkbox" name="RowCheck[]" value="${dto.notice_seq}"></td>
+				                                <td class="no">${dto.notice_seq}</td>
+				                                <td class="title"><a href="noticeDetail?seq=${dto.seq}" style="text-decoration:none; color:rgb(90, 197, 108); font-weight:bold;">${dto.notice_title}</a></td>
 				                                <td class="date"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.input_date}"/></td>
 				                            </tr>
 			                        	</c:forEach>

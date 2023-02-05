@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CUBe Academy</title>
+<title>YEdong Academy</title>
 <link rel="stylesheet" href="../resources/css/common/footer.css">
 </head>
 <body>
@@ -27,9 +27,9 @@
             <div class="right-section">
                 <div class="right-info">
                     <h2>CUBe Academy</h2>
-                    &nbsp;&nbsp;<span>대표: 김교육</span><br>
+                    &nbsp;&nbsp;<span>대표: 김예동</span><br>
                     &nbsp;&nbsp;<span>주소: 서울시 영등포구 국제금융로 1  ||  사업자 등록번호: 101-19-122211</span><br>
-                    &nbsp;&nbsp;<span>이메일 : CUBeAcademy@gmail.com</span><br>
+                    &nbsp;&nbsp;<span>이메일 : YEdongAcademy@gmail.com</span><br>
                 </div>
             </div>
         </div>

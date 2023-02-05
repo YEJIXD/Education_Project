@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="resources/css/course/appCourse.css">
+<link rel="stylesheet" href="../../resources/css/course/appCourse.css">
 <title>NOTICE Detail</title>
 <style type="text/css">
 	th{ width:150px; }
@@ -17,8 +17,33 @@
 		$('#noticeList').on('click', function(){
 			location.href="/community/notice"
 		});
+
+		//table();
 	});
 
+	/*function getTable(){
+		$.ajax({
+			type : 'post',
+			url:"community/noticeDetail",
+			dataType : "JSON",
+			data : JSON.stringify({
+				""
+			})
+			success : function(data){
+				let obj = JSON.parse(data);
+				let array = ["tr"];
+				obj["notice list"].forEach(
+						member =>
+				)
+			}
+		})
+	}*/
+
+	/*function table(data){
+		console.log(data);
+
+		let trHtml = '';
+	}*/
 </script>
 </head>
 <body>
@@ -29,19 +54,15 @@
 			<table class="table">
 				<tr>
 					<th>번호</th>
-					<td>${dto.no}</td>
+					<td>${dto.notice_seq}</td>
 				</tr>
 				<tr>
 					<th>제 목</th>
-					<td>${dto.title}</td>
+					<td>${dto.notice_title}</td>
 				</tr>
 				<tr>
 					<th>등록일</th>
 					<td>${dto.input_date }</td>
-				</tr>
-				<tr>
-					<th>작성자</th>
-					<td>${dto.writer}</td>
 				</tr>
 				<tr>
 					<th>내 용</th>
@@ -49,7 +70,7 @@
 				<tr>
 					<th></th>
 					<td style="padding-bottom:50px;">
-						${dto.content }
+						${dto.notice_content }
 					</td>
 				</tr>
 			</table>
