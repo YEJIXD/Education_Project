@@ -16,15 +16,19 @@ public class CommunityService {
 	@Autowired
 	CommunityDao communityDao;
 	
-	public List<NoticeDto> notice(){
-		return communityDao.notice();
+	public List<NoticeDto> noticeList(){
+		return communityDao.noticeList();
+	}
+
+	public NoticeDto noticeDetail(int notice_seq) {
+		return communityDao.noticeDetail(notice_seq);
 	}
 	
 	public List<QnaDto> qna() {
-		return communityDao.qna();
+		return communityDao.qnaList();
 	}
 	
 	public List<FaqDto> faq() {
-		return communityDao.faq();
+		return communityDao.faqList();
 	}
 }
