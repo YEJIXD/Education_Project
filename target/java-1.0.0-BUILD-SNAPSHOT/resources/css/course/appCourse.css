@@ -149,7 +149,7 @@ p{
 
 #strong{ color:red; }
 
-#beforeTitle{
+.beforeTitle{
 	font-weight: bold;
 	font-size:14pt;
 }
