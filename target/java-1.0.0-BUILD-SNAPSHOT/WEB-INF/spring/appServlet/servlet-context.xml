@@ -26,9 +26,9 @@
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/application/getCourse"/>
+			<mapping path="/application/courseList"/>
 			<mapping path="/edu_Application/courseDetail"/>
-			<mapping path="/admin/getCourse"/>
+			<mapping path="/admin/courseList"/>
 			<mapping path="/inputCourse"/>
 			<mapping path="/coursegoApp"/>
 			<mapping path="/myRoom/**"/>
