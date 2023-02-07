@@ -25,8 +25,9 @@ public class CommunityController {
     }
 
     @RequestMapping(value = "/community/noticeDetail", method=RequestMethod.GET)
-    public ModelAndView noticeDetail() {
+    public ModelAndView noticeDetail(int notice_seq) {
         ModelAndView mav = new ModelAndView();
+        mav.addObject("list", communityService.noticeDetail(notice_seq));
         mav.setViewName("/community/noticeDetail");
 
         return mav;
