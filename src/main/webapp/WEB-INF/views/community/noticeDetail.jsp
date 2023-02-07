@@ -52,27 +52,31 @@
 		<h3>공 지 사 항</h3><br><br>
 		<div class="content">
 			<table class="table">
-				<tr>
-					<th>번호</th>
-					<td>${dto.notice_seq}</td>
-				</tr>
-				<tr>
-					<th>제 목</th>
-					<td>${dto.notice_title}</td>
-				</tr>
-				<tr>
-					<th>등록일</th>
-					<td>${dto.input_date }</td>
-				</tr>
-				<tr>
-					<th>내 용</th>
-				</tr>
-				<tr>
-					<th></th>
-					<td style="padding-bottom:50px;">
-						${dto.notice_content }
-					</td>
-				</tr>
+				<thead>
+					<tr>
+						<th>번 호</th>
+					</tr>
+					<tr>
+						<th>제 목</th>
+					</tr>
+					<tr>
+						<th>등록일</th>
+					</tr>
+					<tr>
+						<th>내 용</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${list }" var="dto">
+						<td>${dto.notice_seq}</td>
+						<td>${dto.notice_title}</td>
+						<td>${dto.input_date }</td>
+						<th></th>
+						<td style="padding-bottom:50px;">
+							${dto.notice_content }
+						</td>
+					</c:forEach>
+				</tbody>
 			</table>
 			<div class="inpBtn">
 				<input type="button" class="antBtn" onclick="location.href='/community/notice'" value="목 록">
