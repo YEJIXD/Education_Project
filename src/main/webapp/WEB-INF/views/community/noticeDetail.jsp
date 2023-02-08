@@ -17,9 +17,37 @@
 		$('#noticeList').on('click', function(){
 			location.href="/community/notice"
 		});
-
 		//table();
 	});
+
+	function getDetail(result, notice_seq, isAsync){
+		let param = {
+			"notice_seq" : notice_seq
+		};
+
+		$.ajax({
+			cache : false,
+			type: "POST",
+			async : (typeof (isAsync) == "undefined"),
+			url: "/community/noticeDetail",
+			dataType : "JSON",
+			contentType : "application/json; charset=utf-8",
+			data : JSON.stringify(notice_seq),
+			beforeSend : function(xmlHttpRequest) {
+				xmlHttpRequest.setRequestHeader("AJAX", "true");
+			},
+			success : function() {
+				eval(detailResponse(data))(result);
+			},
+			error : function() {
+				alert("POST 통신에 실패하였습니다.")
+			}
+		})
+	}
+
+	function detailResponse(data){
+		console.log(data)
+	}
 
 	/*function getTable(){
 		$.ajax({
