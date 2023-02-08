@@ -2,6 +2,7 @@ package com.edu.java.dto;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
@@ -12,6 +13,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class NoticeDto {
 	private int notice_seq;
 	private int user_no;			
