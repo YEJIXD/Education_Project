@@ -22,6 +22,5 @@
 		<mapper resource="/mybatis/courseMapper.xml" />
 		<mapper resource="/mybatis/communityMapper.xml" />
 		<mapper resource="/mybatis/adminMapper.xml" />
-		<mapper resource="/mybatis/myRoomMapper.xml" />
 	</mappers>
 </configuration>

@@ -2,232 +2,290 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="admin">
-	<select id="noticeList" parameterType="list" resultType="noticeDto">
-		SELECT
-			  n.notice_seq
-			, n.notice_title
-			, sc.name as category
-			, n.input_date
-		FROM notice n
-		where sc.kinds = 'category'
-		ORDER BY input_date desc
-	</select>
-
-	<insert id="inputNotice" parameterType="noticeDto">
-		INSERT INTO notice (
-			  notice_seq
-			, user_no
-			, notice_title
-			, notice_content
-			, input_date
-		) VALUES(
-			  (SELECT IFNULL(MAX(n.notice_seq),0) + 1 FROM notice n)
-			, #{title}
-			, #{content}
-			, #{input_date}
-	</insert>
-
-	<update id="modifyNotice" parameterType="noticeDto">
-		UPDATE notice
-		SET
-			  notice_title = #{title}
-			, notice_content = #{content}
-			, upd_date = #{upd_date}
-		WHERE notice_seq = #{notice_seq}
-	</update>
-
-	<delete id="deleteNotice" parameterType="int">
-		DELETE
-		FROM notice
-		WHERE notice_seq = #{notice_seq}
-	</delete>
+	<!-- admin Notice -->
+		<resultMap type="noticeDto" id="noticeMap">
+			<result property="noti_no" column="NOTI_NO" />
+			<result property="noti_title" column="NOTI_TITLE"/>
+			<result property="noti_content" column="NOTI_CONTENT"/>
+			<result property="noti_date" column="NOTI_DATE"/>
+			<result property="noti_upd_date" column="NOTI_UPD_DATE"/>
+			<result property="noti_count" column="NOTI_COUNT"/>
+			<result property="noti_img" column="NOTI_IMG"/>
+		</resultMap>
+		
+		<select id="adminNoticeList" parameterType="list" resultMap="noticeMap">
+			SELECT NOTI_NO, NOTI_TITLE, NOTI_DATE, NOTI_COUNT
+			FROM mydb.NOTICE
+			ORDER BY NOTI_NO DESC
+		</select>
+		
+		<select id="adminNoticeDetail" resultType="noticeDto" parameterType="int">
+			SELECT *
+			FROM NOTICE
+			WHERE NOTI_NO = #{noti_no}
+		</select>
+		
+		<insert id="adminNoticeInsert" parameterType="noticeDto">
+			INSERT INTO mydb.NOTICE 
+			(			NOTI_NO
+					  , USER_NO
+					  , NOTI_TITLE
+					  , NOTI_CONTENT
+					  , NOTI_DATE
+					  , NOTI_IMG
+			)
+			VALUES(
+						(SELECT IFNULL(MAX(N.NOTI_NO),0) + 1 FROM mydb.NOTICE N)
+					  , #{noti_title}
+					  , #{noti_content}
+					  , #{noti_date}
+					  , #{noti_img}
+			)
+		</insert>
+		
+		<update id="adminNoticeUpdate" parameterType="noticeDto">
+			UPDATE NOTICE
+			SET 	NOTI_TITLE = #{noti_title}
+				  , NOTI_CONTENT = #{noti_content}
+				  , NOTI_UPD_DATE = #{noti_upd_date}
+				   , NOTI_IMG = #{noti_img}
+		</update>
+		
+		<delete id="adminNoticeDelete" parameterType="int">
+			DELETE FROM NOTICE WHERE NOTI_NO = #{noti_no}
+		</delete>
+		
+		
+	<!-- admin FAQ -->
+		<resultMap type="faqDto" id="faqMap">
+			<result property="faq_no" column="FAQ_NO" />
+			<result property="user_no" column="USER_NO" />
+			<result property="faq_title" column="FAQ_TITLE" />
+			<result property="faq_content" column="FAQ_CONTENT" />
+			<result property="faq_date" column="FAQ_DATE" />
+			<result property="faq_upd_date" column="FAQ_UPD_DATE" />
+			<result property="faq_category" column="FAQ_CATEGORY" />
+			<result property="faq_count" column="FAQ_COUNT" />
+		</resultMap>
+		
+		<select id="adminFaqList" parameterType="list" resultMap="faqMap">
+			SELECT FAQ_NO, FAQ_CATEGORY, FAQ_TITLE, FAQ_DATE, FAQ_COUNT 
+			FROM mydb.FAQ
+			ORDER BY FAQ_NO DESC
+		</select>
+		
+		<select id="faqSelectOne" parameterType="String" resultType="faqDto">
+			SELECT FAQ_NO, FAQ_TITLE, FAQ_CONTENT, FAQ_DATE, FAQ_CATEGORY, FAQ_COUNT
+			FROM mydb.FAQ
+			WHERE FAQ_NO = #{faq_no}
+		</select>
+		
+		<insert id="adminFaqInsert" parameterType="faqDto" keyProperty="faq_no">
+			INSERT INTO mydb.FAQ 
+			(			FAQ_NO
+					  , FAQ_TITLE
+					  , FAQ_CONTENT
+					  , FAQ_DATE
+					  , FAQ_CATEGORY
+			)
+			VALUES(		   
+					   (SELECT IFNULL(MAX(F.FAQ_NO),0) + 1 FROM mydb.FAQ F)
+					 , #{faq_title}
+					 , #{faq_content}
+					 , NOW()
+					 , #{faq_category}
+			)
+		</insert>
+		
+		<update id="adminFaqUpdate" parameterType="faqDto">
+			UPDATE FAQ
+			
+			SET FAQ_TITLE = #{faq_title}
+			  , FAQ_CONTENT = #{faq_content}
+			  , FAQ_UPD_DATE = NOW() 
+			  , FAQ_CATEGORY = #{faq_category}
+			  
+			WHERE FAQ_NO = #{faq_no}
+		</update>
+		
+		<delete id="adminFaqDelete" parameterType="int">
+			DELETE FROM FAQ WHERE FAQ_NO = #{faq_no}
+		</delete>
+		
+		<select id="hashTagSearch" parameterType="string" resultType="faqDto">
+			SELECT FAQ_NO, FAQ_CATEGORY, FAQ_TITLE, FAQ_DATE
+			FROM FAQ
+			WHERE FAQ_CATEGORY = #{faq_category}
+		</select>
+			
 	
-	<select id="getQna" parameterType="list" resultType="QnaDto">
-		SELECT
-			  qna_seq
-			, qna_title
-			, input_date
-			, qna_status
-		FROM qna
-		ORDER BY qna_seq DESC
-	</select>
+	<!-- admin QnA -->
+	<!--  QnA List -->
+		<select id="adminQnaList" parameterType="list" resultType="QnaDto">
+			SELECT Q_NO, Q_TITLE, Q_DATE, Q_STATUS, Q_COUNT
+			FROM mydb.QNA
+			ORDER BY Q_NO DESC
+		</select>
 	
-	<select id="selectQna" parameterType="Integer" resultType="hashmap">
-		SELECT
-			qna_title
-		  , qna_content
-		FROM qna
-		WHERE qna_seq = #{qna_seq}
-	</select>
-
-<!-- 	<insert id="inputQnaReply" parameterType="qnaDto">
-		INSERT INTO qna (
-			Q_RE_NO
-			, Q_RE_TITLE
-			, Q_RE_CONTENT
-			, Q_RE_DATE
-		) VALUES(
-			(SELECT IFNULL(MAX(Q.Q_NO),0) + 1 FROM QNA Q)
-			, #{q_re_title}
-			, #{q_re_content}
-			, NOW())
-	</insert>
-
-	<update id="modifyQnaReply" parameterType="qnaDto">
-		UPDATE QNA
-		SET
-			  Q_RE_TITLE = #{q_re_title}
-			, Q_RE_CONTENT = #{q_re_content}
-			, Q_RE_UPD_DATE = #{q_re_upd_date}
-		WHERE Q_RE_NO = #{q_re_no}
-	</update>
-
-	<delete id="deleteQnaReply" parameterType="int">
-		DELETE
-		FROM reply
-		WHERE no = #{no}
-	</delete> -->
-
-	<select id="getFaq" parameterType="list" resultType="faqDto">
-		SELECT
-			  faq_seq
-			, faq_title
-			, faq_category
-			, input_date
-		FROM faq
-		ORDER BY faq_seq DESC
-	</select>
-
-	<select id="getFaqDetail" parameterType="String" resultType="faqDto">
-		SELECT
-			  faq_seq
-			, faq_title
-			, faq_category
-			, faq_category
-			, input_date
-		FROM faq
-		WHERE faq_seq = #{faq_seq}
-	</select>
-
-	<insert id="inputFaq" parameterType="faqDto" keyProperty="faq_no">
-		INSERT INTO faq (
-			  faq_seq
-			, faq_title
-			, faq_category
-			, faq_content
-			, input_date
-		) VALUES(
-			  (SELECT IFNULL(MAX(F.FAQ_NO),0) + 1 FROM FAQ F)
-			, #{faq_title}
-			, #{faq_category}
-			, #{faq_content}
-			, NOW()
-		)
-	</insert>
-
-	<update id="modifyFaq" parameterType="faqDto">
-		UPDATE FAQ
-		SET 
- 			  faq_title = #{faq_title}
- 			, faq_category = #{faq_category}
-			, faq_content = #{faq_content}
-			, upd_date = NOW()
-		WHERE faq_seq = #{faq_seq}
-	</update>
-
-	<delete id="deleteFaq" parameterType="int">
-		DELETE
-		FROM faq
-		WHERE faq_seq = #{faq_seq}
-	</delete>
-
-	<select id="hashTagSearch" parameterType="string" resultType="faqDto">
-		SELECT
-			  faq_seq
-			, faq_title
-			, faq_category
-			, input_date
-			FROM faq
-		WHERE faq_category = #{faq_category}
-	</select>
-
-	<select id="courseList" parameterType="pageDto" resultType="courseDto">
-		<![CDATA[
+	<!-- QnA 답변 -->
+		<insert id="adminQnaReplyInsert" parameterType="qnaDto">
+			INSERT INTO mydb.QNA 
+			(			Q_RE_NO
+					  , Q_RE_TITLE
+					  , Q_RE_CONTENT
+					  , Q_RE_DATE
+			)
+			VALUES(
+					   (SELECT IFNULL(MAX(Q.Q_NO),0) + 1 FROM QNA Q)
+					 , #{q_re_title}
+					 , #{q_re_content}
+					 , NOW() 
+			)
+		</insert>
+		
+		<update id="adminQnaReplyUpdate" parameterType="qnaDto">
+			UPDATE QNA
+			
+			SET 	Q_RE_TITLE = #{q_re_title}
+				  , Q_RE_CONTENT = #{q_re_content}
+				  , Q_RE_UPD_DATE = #{q_re_upd_date}
+				  
+			WHERE Q_RE_NO = #{q_re_no}
+		</update>
+		
+		<delete id="adminQnaReplyDelete" parameterType="int">
+			DELETE FROM QNA WHERE Q_RE_NO = #{q_re_no}
+		</delete>
+		
+	<!-- admin Course -->
+		<!-- 전체 리스트 -->
+		<select id="adminCourseList" parameterType="pageDto" resultType="courseDto">
+			<![CDATA[
+				SELECT 
+						  @rownum:=@rownum +1 as rnum
+						, C_NO
+						, C_NAME
+						, APP_PERSONNEL
+						, ENT_PERSONNEL
+						, DATE_FORMAT(C_REGDATE, '%Y-%m-%d') as C_REGDATE
+						, DATE_FORMAT(C_START_DATE, '%Y-%m-%d') as C_START_DATE
+						, DATE_FORMAT(C_LAST_DATE, '%Y-%m-%d') as C_LAST_DATE
+						
+				FROM mydb.COURSE C, (SELECT @rownum:=0) R
+				
+				WHERE C_NAME LIKE CONCAT('%', #{keyword}, '%')
+				
+				ORDER BY rnum desc
+				
+				LIMIT ${cri.pageStart}, ${cri.amount}
+			]]>
+		</select>
+		
+		<!-- 게시글 총 갯수 -->
+		<select id="getTotal" parameterType="String" resultType="int">
+			SELECT COUNT(*) as TOTAL_COUNT
+			FROM mydb.COURSE
+			WHERE C_NAME LIKE CONCAT('%', #{value}, '%') 
+		</select>
+		
+		<!-- 상세 페이지 -->
+		<select id="adminCourseDetail" parameterType="hashMap" resultType="courseDto">
 			SELECT 
-				  @rownum:=@rownum +1 as rnum
-				, seq
-				, title
-				, app_personnel
-				, ent_personnel
-				, DATE_FORMAT(input_date, '%Y-%m-%d') as input_date
-				, DATE_FORMAT(start_date, '%Y-%m-%d') as start_date
-				, DATE_FORMAT(expire_date, '%Y-%m-%d') as expire_date
-			FROM course C, (SELECT @rownum:=0) R
-			WHERE title LIKE CONCAT('%', #{keyword}, '%')
-			ORDER BY rnum desc
-			LIMIT ${cri.pageStart}, ${cri.amount}
-		]]>
-	</select>
-
-	<insert id="inputCourse" parameterType="courseDto">
-		INSERT INTO course (
-			  course_seq
-			, user_no
-			, course_title
-			, course_category
-			, course_type
-			, class_hour
-			, course_content
-			, ent_personnel
-			, app_personnel
-			, start_time
-			, start_date
-			, expire_date
-			, app_start_date
-			, app_expire_date
-			, input_date
-		) VALUES (
-			  (SELECT IFNULL(MAX(course_seq),0) + 1 FROM course)
-			, #{user_no}
-			, #{course_title}
-			, #{course_category}
-			, #{course_type}
-			, #{class_hour}
-			, #{course_content}
-			, #{ent_personnel}
-			, #{app_personnel}
-			, #{start_time}
-			, #{start_date}
-			, #{expire_date}
-			, #{app_start_date}
-			, #{app_expire_date}
-			, NOW()
-		)
-	</insert>
-
-	<update id="modifyCourse" parameterType="courseDto">
-		UPDATE course
-		SET
-			  course_title = #{course_title}
-			, course_category = #{course_category}
-			, course_type = #{course_type}
-			, class_hour = #{class_hour}
-			, course_content = #{course_content}
-			, ent_personnel = #{ent_personnel}
-			, start_time = #{start_time}
-			, start_date = #{start_date}
-			, expire_date = #{expire_date}
-			, app_start_date = #{app_start_date}
-			, app_expire_date = #{app_expire_date}
-			, upd_date = NOW()
-		WHERE course_seq = #{course_seq}
-	</update>
-
-	<delete id="deleteCourse" parameterType="int">
-		DELETE
-		FROM course
-		WHERE course_seq = #{course_seq}
-	</delete>
-
+					  C_NO
+					, C_NAME
+					, C_CATEGORY
+					, C_TYPE
+					, C_START_TIME
+					, C_TIME
+					, DATE_FORMAT(C_START_DATE, '%Y-%m-%d') as C_START_DATE
+					, DATE_FORMAT(C_LAST_DATE, '%Y-%m-%d') as C_LAST_DATE
+					, ENT_PERSONNEL
+					, DATE_FORMAT(APP_START_DATE, '%Y-%m-%d') as APP_START_DATE
+					, DATE_FORMAT(APP_LAST_DATE,  '%Y-%m-%d') as APP_LAST_DATE
+					, DATE_FORMAT(C_REGDATE, '%Y-%m-%d') as C_REGDATE
+					, C_DETAIL
+					, C_TUITION
+					
+			FROM mydb.COURSE
+			
+			WHERE C_NO = #{c_no}
+		</select>
+		
+		<!-- 교육 등록 -->
+		<insert id="adminCourseInsert" parameterType="courseDto">
+			INSERT INTO mydb.COURSE
+			(			C_NO
+					  , USER_NO
+					  , C_NAME
+					  , C_CATEGORY
+					  , C_TYPE
+					  , C_TIME
+					  , C_DETAIL
+					  , ENT_PERSONNEL
+					  , APP_PERSONNEL
+					  , C_REGDATE
+					  , C_INIT_WRITER
+					  , C_START_DATE
+					  , C_LAST_DATE
+					  , C_START_TIME 
+					  , APP_START_DATE
+					  , APP_LAST_DATE
+					  , C_TUITION
+			)
+			VALUES
+			(		   (SELECT IFNULL(MAX(C.C_NO),0) + 1 FROM mydb.COURSE C)
+					 , '2'
+					 , #{c_name}
+					 , #{c_category}
+					 , #{c_type}
+					 , #{c_time}
+					 , #{c_detail}
+					 , #{ent_personnel}
+					 , #{app_personnel}
+					 , NOW() 
+					 , '관리자'
+					 , #{c_start_date}
+					 , #{c_last_date}
+					 , #{c_start_time}
+					 , #{app_start_date}
+					 , #{app_last_date}
+					 , #{c_tuition}
+			)
+		</insert>
+		
+		<!-- 교육 수정 -->
+		<update id="adminCourseUpdate" parameterType="courseDto">
+			UPDATE mydb.COURSE
+			
+			SET 	C_NAME = #{c_name}
+				  , C_CATEGORY = #{c_category}
+				  , C_TYPE = #{c_type}
+				  , C_TIME = #{c_time}
+				  , C_START_TIME = #{c_start_time}
+				  , ENT_PERSONNEL = #{ent_personnel}
+				  , C_START_DATE = #{c_start_date}
+				  , C_LAST_DATE = #{c_last_date}
+				  , APP_START_DATE = #{app_start_date}
+				  , APP_LAST_DATE = #{app_last_date}
+				  , C_DETAIL = #{c_detail}
+				  , C_UPD_DATE = NOW()
+				  , C_UPD_WRITER = '관리자'
+				  , C_TUITION = #{c_tuition}
+				  
+			WHERE C_NO = #{c_no}
+		</update>
+		
+		<!-- 조회수 -->
+		<update id="adminCourseCount" parameterType="int">
+			UPDATE mydb.COURSE 
+			SET C_COUNT = C_COUNT + 1
+			WHERE C_NO = #{c_no}
+		</update>
+		
+		<!-- 교육 삭제 -->
+		<delete id="adminCourseDelete" parameterType="int">
+			DELETE FROM mydb.COURSE WHERE C_NO = #{c_no}
+		</delete>
+		
 </mapper>
 	 

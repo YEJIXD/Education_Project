@@ -1,9 +1,10 @@
-package com.edu.java.service;
+package com.edu.java.biz;
 
 import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Service;
 
 import com.edu.java.dao.CourseDao;
@@ -11,24 +12,24 @@ import com.edu.java.dto.CourseDto;
 import com.edu.java.dto.PageDto;
 
 @Service
-public class CourseService {
-	
-	@Autowired
+public class CourseBizImpl implements CourseBiz{
+	@Inject
 	CourseDao courseDao;
 	
-	public List<CourseDto> courseList(PageDto dto) {
+	@Override
+	public List<CourseDto> courseList(PageDto dto){
 		return courseDao.courseList(dto);
 	}
 	
+	@Override
 	public CourseDto selectOne(int c_no) {
 		return courseDao.selectOne(c_no);
 	}
-	
+
+	@Override
 	public int courseAppInsert(HashMap<String, Object> params) throws Exception {
 		return courseDao.courseAppInsert(params);
 	}
 	
-	public int getAppTotal(String param) {
-		return courseDao.getAppTotal(param);
-	}
+	
 }
