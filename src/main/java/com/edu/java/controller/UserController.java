@@ -3,8 +3,10 @@ package com.edu.java.controller;
 import java.util.HashMap;
 import java.util.Random;
 
+import javax.inject.Inject;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,15 +23,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.java.CmmService;
-import com.edu.java.dto.UserDto;
-import com.edu.java.service.UserService;
+import com.edu.java.biz.MemberBiz;
+import com.edu.java.dto.MemberDto;
 
 @Controller
-public class UserController {
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+public class MemberController {
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
-	@Autowired
-	UserService userService;
+	@Inject
+	MemberBiz memberBiz;
 	
 	@Autowired
 	private JavaMailSender mailSender;
@@ -36,34 +39,47 @@ public class UserController {
 	@Autowired
 	private CmmService cmmservice;
 	
-	@RequestMapping("/registForm")
+	// 회원가입
+	@RequestMapping("/registForm.do")
 	public String registForm() throws Exception {
 		logger.info("regist Form page");
 		return "/login/registForm";
 	}
 	
-	@RequestMapping(value="/registRes", method=RequestMethod.POST)
-	public ModelAndView registMember(UserDto dto) throws Exception{
+	// 회원가입 완료
+	@RequestMapping(value="/registRes.do", method=RequestMethod.POST)
+	public ModelAndView registMember(MemberDto dto) throws Exception{
 		logger.info("regist Result");
 		ModelAndView mav = new ModelAndView("jsonView");
 		
-		//userService.memberRegist(dto); memberRegist 이름 변경해야함
+		memberBiz.memberRegist(dto);
 		return new ModelAndView("../../index");
 	}
 	
+	// id 중복 체크
 	@ResponseBody
-	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
+	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
 	public int idCheck(String user_id) throws Exception{
-		return userService.idCheck(user_id);
+		logger.info("user_ID : " + user_id);
+		
+		int result = memberBiz.idCheck(user_id);
+		return result;
 	}
 	
+	// 이메일 인증
 	@ResponseBody
-	@RequestMapping(value="/emailCheck", method=RequestMethod.GET)
+	@RequestMapping(value="/emailCheck.do", method=RequestMethod.GET)
 	public String mailCheckGET(String user_email) throws Exception{
+		// 뷰에서 넘어온 데이터 확인
+		logger.info("이메일 데이터 전송 확인");
+		logger.info("입력된 주소: " + user_email);
+			
+		// 인증번호 난수 생성(범위: 111111~999999)
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111;
 		logger.info("인증번호: " + checkNum);
 				
+		//이메일 보내기
 	    String toMail = user_email;
 	    String title = "[CUBe Academy] 회원가입 이메일 인증번호입니다.";
 	    String content = "CUBe Academy에 방문해주셔서 감사합니다:)" +
@@ -75,6 +91,7 @@ public class UserController {
 	    try {
 	    	MimeMessage message = mailSender.createMimeMessage();
 		    MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+		    
 		    message.setFrom(new InternetAddress("CUBeAcademy@gmail.com", "CUBe"));
 		    helper.setTo(toMail);
 		    helper.setSubject(title);
@@ -83,20 +100,27 @@ public class UserController {
 	    }catch(Exception e) {
 	    	e.printStackTrace();
 	    }
-	    return Integer.toString(checkNum);
+	    String num = Integer.toString(checkNum);
+	    return num;
 	}
 	
-	@RequestMapping("/loginForm")
+	
+	// 로그인 페이지
+	@RequestMapping("/loginForm.do")
 	public String login() {
+		logger.info("login Form");
 		return "login/loginForm";
 	}
 	
+	
+	// 로그인
 	@ResponseBody
-	@RequestMapping(value="/loginCheck", method=RequestMethod.POST)
+	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
 	public ModelAndView loginCheck(@RequestBody String param ,HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
-		HashMap <String, Object> map = cmmservice.jsonStringToHashMap(param);
-		HashMap <String, Object> resultmap = userService.loginCheck(map);
+
+		HashMap <String , Object> map = cmmservice.jsonStringToHashMap(param);
+		HashMap <String, Object> resultmap = memberBiz.loginCheck(map);
 		
 		if(!resultmap.isEmpty()) {
 			session.setAttribute("USER", resultmap);
@@ -106,9 +130,11 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	
+	//로그아웃
+	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
 	public ModelAndView logout(HttpSession session) throws Exception {	
-		userService.logout(session);
+		memberBiz.logout(session);
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("../../index");
@@ -117,7 +143,8 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping("/needLogin")
+	// login 필요한 페이지
+	@RequestMapping("/needLogin.do")
 	public String needLoginPage(HttpSession session) {
 		if(session.getAttribute("loginCheck") != null) {
 			return "needLogin";
@@ -126,17 +153,19 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value="/memberUpdate", method=RequestMethod.POST)
-	public String memberUpdate(UserDto dto, HttpSession session) throws Exception{
-		//userService.memberUpdate(dto);
+	//회원정보 수정
+	@RequestMapping(value="/memberUpdate.do", method=RequestMethod.POST)
+	public String memberUpdate(MemberDto dto, HttpSession session) throws Exception{
+		memberBiz.memberUpdate(dto);
 		session.invalidate();
 			
 		return "../../index"; 
 	}
 		  
-	@RequestMapping(value="/memberDelete", method=RequestMethod.GET)
-	public String memberDelete(UserDto dto, HttpSession session) throws Exception{
-		//userService.memberDelete(dto);
+	//회원 비활성화
+	@RequestMapping(value="/memberDelete.do", method=RequestMethod.GET)
+	public String memberDelete(MemberDto dto, HttpSession session) throws Exception{
+		memberBiz.memberDelete(dto);
 		session.invalidate();
 			
 		return "../../index";

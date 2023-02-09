@@ -8,7 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PageDto{
-	private int user_no; 
 	// Search
 	private String searchType;			// 검색 타입
 	private String keyword = "";		// 키워드
@@ -26,7 +25,7 @@ public class PageDto{
 	}
 	
 	public PageDto(int startPage, int endPage, boolean prev, boolean next, String searchType, String keyword, int total,
-			Criteria cri, int displayPageNum, int user_no) {
+			Criteria cri, int displayPageNum) {
 		super();
 		this.startPage = startPage;
 		this.endPage = endPage;
@@ -37,7 +36,6 @@ public class PageDto{
 		this.total = total;
 		this.cri = cri;
 		this.displayPageNum = displayPageNum;
-		this.user_no = user_no;
 	}
 	
 	public void setTotal(int total) { 

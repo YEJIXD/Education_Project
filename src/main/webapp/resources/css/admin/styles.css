@@ -11839,11 +11839,6 @@ table{ width:100% }
 .m-paging ul li .oiBtn.prev { } 
 .m-paging ul li .oiBtn.next { }
 
-#searchKeyword{
-	height: 60px; 
-	margin: 0px auto; 
-	text-align: center;
-}
 a{
 	text-decoration: none;
 	font-weight: bold;

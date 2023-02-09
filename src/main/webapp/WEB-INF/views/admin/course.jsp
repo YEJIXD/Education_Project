@@ -16,20 +16,20 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Admin_Course_List</title>
-        <link href="resources/css/admin/styles.css" rel="stylesheet" />
+        <link href="resources/css/admin/admin_styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-info p-2 text-dark bg-opacity-25 justify-content-between">
-            <a class="navbar-brand ps-3" href="index.jsp"><img id="logoPng" src="../resources/images/cube.png"></a>
+            <a class="navbar-brand ps-3" href="index.jsp"><img id="logoPng" src="resources/images/cube.png"></a>
             
             <div>
 	            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;"><i class="fas fa-user fa-fw" style="color:black;"></i></a>
 	                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-	                        <li><a class="dropdown-item" href="logout" onclick="logoutCheck();">LogOut</a></li>
-	                        <li><a class="dropdown-item" href="main">Main</a></li>
+	                        <li><a class="dropdown-item" href="logout.do" onclick="logoutCheck();">LogOut</a></li>
+	                        <li><a class="dropdown-item" href="main.do">Main</a></li>
 	                    </ul>
 	                </li>
 	            </ul>
@@ -45,14 +45,14 @@
                                 <br>
                                 <a href="#" style="text-decoration:none; color: black; text-align: center;">관리자 님<br>반갑습니다 : )</a>
                             </div>
-                            <a class="nav-link home" href="adminMain" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-home" aria-hidden="true"></i></div><span>HOME</span></a>
-                            <a class="nav-link notice" href="adminNoticeList" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-flag" aria-hidden="true"></i></div><span>Notice</span></a>
-                            <a class="nav-link qna" href="adminQnaList" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Q n A</span></a>
-                            <a class="nav-link faq" href="adminFaqList" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-bars" aria-hidden="true"></i></div><span>F A Q</span></a>
-                            <a class="nav-link course" href="adminCourseList" style="color: #9966FF;"><div class="sb-nav-link-icon"><i class="fa fa-book" aria-hidden="true"></i></div><span>Course</span></a>
-                            <a class="nav-link teacher" href="adminTeacherList" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div><span>Teacher</span></a>
-                        	<a class="nav-link member" href="adminMemberList" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Member</span></a>
-                        	<a class="nav-link application" href="adminAppList" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-shoe-prints" aria-hidden="true"></i></div><span>Application</span></a>
+                            <a class="nav-link home" href="adminMain.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-home" aria-hidden="true"></i></div><span>HOME</span></a>
+                            <a class="nav-link notice" href="adminNoticeList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-flag" aria-hidden="true"></i></div><span>Notice</span></a>
+                            <a class="nav-link qna" href="adminQnaList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Q n A</span></a>
+                            <a class="nav-link faq" href="adminFaqList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-bars" aria-hidden="true"></i></div><span>F A Q</span></a>
+                            <a class="nav-link course" href="adminCourseList.do" style="color: #9966FF;"><div class="sb-nav-link-icon"><i class="fa fa-book" aria-hidden="true"></i></div><span>Course</span></a>
+                            <a class="nav-link teacher" href="adminTeacherList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div><span>Teacher</span></a>
+                        	<a class="nav-link member" href="adminMemberList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Member</span></a>
+                        	<a class="nav-link application" href="adminAppList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-shoe-prints" aria-hidden="true"></i></div><span>Application</span></a>
                         </div>
                     </div>
                 </nav>
@@ -68,20 +68,24 @@
                             <div class="card-body">
                             
                             <!-- 게시물 검색 -->
-							<div id="searchKeyword">
+							<div id="searchKeyword" style="height: 60px; margin: 0px auto; text-align: center;">
 									<label for="condition"></label>
 									<select name="searchType" id="searchType">
 										<option value="title" <c:if test="${condition eq 'title'}"> selected</c:if>>제 목</option>
 									</select> 
 									
-									<input type="text" name="keyword" id="keyword" value="${dto.keyword}" size="35" placeholder="검색할 제목을 입력하세요"/> 
+									<input type="text" name="keyword" id="keyword" value="${dto.keyword}" placeholder="검색어를 입력하세요"/> 
 									<input type="button" name="searchBtn" id="searchBtn" value="검 색">
 									
 									<!-- 검색 후 화면에 보여질 게시글 수와 페이지 넘버 (hidden 사용) -->
 									<input type="hidden" name="page" value="1">
 									<input type="hidden" name="amount" value="10">
+									
+									<!-- keyword를 저장할 수 있는 input 태그 작성 -->
+									<%-- <input type="hidden" name="keyword" value="${dto.keyword}"> --%>
+									
 							</div>
-                            	<form name="adminCourseList" action="adminCourseInsert" method="GET">
+                            	<form name="adminCourseList" action="adminCourseInsert.do" method="GET">
 	                            	<input type="hidden" id="keyword" name="keyword" value='<c:out value="${dto.keyword}" />'>
 									<input type="hidden" id="page" name="page" value='<c:out value="${cri.page}" />'>
 									<input type="hidden" id="amount" name="amount" value='<c:out value="${cri.amount}" />'>
@@ -107,10 +111,10 @@
 													<c:forEach items="${list}" var="cdto">
 						                            	<tr>
 						                                	<td>${cdto.rnum }</td>
-						                                    <td><a href="javascript:;" class="courseDetail" id="${cdto.c_no}">${cdto.c_name}</a></td>
-						                                    <td>${cdto.app_personnel}명 / ${cdto.ent_personnel}명</td>
-						                                    <td>${cdto.c_regdate}</td>
-						                                    <td>${cdto.c_start_date} ~ ${cdto.c_last_date}</td>
+						                                    <td style="vertical-align:middle;"><a href="javascript:;" class="courseDetail" id="${cdto.c_no}">${cdto.c_name}</a></td>
+						                                    <td style="vertical-align:middle;">${cdto.app_personnel}명 / ${cdto.ent_personnel}명</td>
+						                                    <td style="vertical-align:middle;">${cdto.c_regdate}</td>
+						                                    <td style="vertical-align:middle;">${cdto.c_start_date} ~ ${cdto.c_last_date}</td>
 						                            	</tr>
 						                        	</c:forEach>
 					                        	</c:otherwise>
@@ -123,23 +127,24 @@
 		                            	</div>
 		                            	
 		                            	<div class="coursePaging">
+											<!-- paging -->
 											<div class="m-paging">
 												<ul>
 													<c:if test="true">
 														<li>
-															<a href='<c:url value="adminCourseList?page=${dto.startPage-1 }&keyword=${dto.keyword}"/>' id="pre" class='oiBtn prev'>◀</a>
+															<a href='<c:url value="adminCourseList.do?page=${dto.startPage-1 }&keyword=${dto.keyword}"/>' id="pre" class='oiBtn prev'>◀</a>
 														</li>
 													</c:if>
 													
 													<c:forEach begin="${dto.startPage}" end="${dto.endPage}" var="page">
 														<li>
-															<a href='<c:url value="adminCourseList?page=${page}&amount=${cri.amount}&keyword=${dto.keyword}"/>' class='num <c:if test="${dto.cri.page eq page}"> active </c:if>'>${page}</a>
+															<a href='<c:url value="adminCourseList.do?page=${page}&amount=${cri.amount}&keyword=${dto.keyword}"/>' class='num <c:if test="${dto.cri.page eq page}"> active </c:if>'>${page}</a>
 														</li>
 													</c:forEach>
 													
 													<c:if test="${dto.next && dto.endPage>0}">
 														<li>
-															<a href='<c:url value="adminCourseList?page=${dto.endPage+1 }&keyword=${dto.keyword}"/>' id="next" class='oiBtn next'>▶</a>
+															<a href='<c:url value="adminCourseList.do?page=${dto.endPage+1 }&keyword=${dto.keyword}"/>' id="next" class='oiBtn next'>▶</a>
 														</li>
 													</c:if>
 												</ul>
@@ -167,7 +172,7 @@
 				let form= $("<form></form>");
 				form.attr("name", "SearchForm");
 				form.attr("method", "get");
-				form.attr("action", "<c:url value='/adminCourseList'/>");
+				form.attr("action", "<c:url value='/adminCourseList.do'/>");
 				
 				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
 				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
@@ -182,13 +187,13 @@
 				let keyword = $("#keyword").val();
 				let searchType = $("#searchType option:selected").val();
 				let page = $("#page").val();
-				let amount = $("#amount").val();
-				let c_no = $(this).attr('id');
+				let amount = 10;
+				const c_no = $(this).attr('id');
 
 				let form= $("<form></form>");
 				form.attr("name", "courseDetail");
 				form.attr("method", "get");
-				form.attr("action", "<c:url value='adminCourseDetail'/>");
+				form.attr("action", "<c:url value='adminCourseDetail.do'/>");
 				
 				form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
 				form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
@@ -208,11 +213,6 @@
 				return false;
 			}
         	return true;
-		}
-		
-		function logoutCheck(){
-			alert('로그아웃하시겠습니까?');
-			location.href="logout";
 		}
 		</script>
 

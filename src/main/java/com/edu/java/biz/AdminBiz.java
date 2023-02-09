@@ -1,4 +1,4 @@
-package com.edu.java.dao;
+package com.edu.java.biz;
 
 import java.util.List;
 import java.util.Map;
@@ -12,9 +12,7 @@ import com.edu.java.dto.PageDto;
 import com.edu.java.dto.QnaDto;
 import com.edu.java.dto.TeacherDto;
 
-public interface AdminDao {
-	String NAMESPACE = "admin.";
-	
+public interface AdminBiz {
 	/* 관리자 메인*/
 	// 회원 수
 		public int adminUserCount();
