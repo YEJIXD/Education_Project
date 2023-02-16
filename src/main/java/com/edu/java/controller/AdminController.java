@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.java.CmmService;
-import com.edu.java.biz.AdminBiz;
+import com.edu.java.mapper.AdminMapper;
 import com.edu.java.dto.CourseDto;
 import com.edu.java.dto.Criteria;
 import com.edu.java.dto.FaqDto;
@@ -42,7 +42,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
 	@Inject
-	AdminBiz adminBiz;
+	AdminMapper adminBiz;
 	
 	@Autowired
 	CmmService cmmService;
@@ -115,7 +115,7 @@ public class AdminController {
 			}
 		}
 		
-		dto.setImg_path("resources/images/"+fname);
+		//dto.setImg_path("resources/images/"+fname);
 		int res = adminBiz.adminNoticeInsert(dto);
 		System.out.println(dto);
 		
@@ -324,7 +324,7 @@ public class AdminController {
 				resultCode = 10;
 			}else {
 				String UserName = String.valueOf(user.get("USER_NAME"));
-				dto.setC_init_writer(UserName);
+				//dto.setC_init_writer(UserName);
 				adminBiz.adminCourseInsert(dto);
 			}
 		}catch (Exception e) {
@@ -364,7 +364,7 @@ public class AdminController {
 				}else {
 					String UserName = String.valueOf(User.get("USER_NAME"));	// String.valueOf 사용 -> User에서 USER_NAME 가져와서(get) UserName에 저장
 					
-					dto.setC_init_writer(UserName);								// CourseDto의 c_init_writer에 UserName 저장
+					//dto.setC_init_writer(UserName);								// CourseDto의 c_init_writer에 UserName 저장
 					adminBiz.adminCourseUpdate(dto);							// adminBiz(Service단)에서 adminCourseUpdate() 메서드 실행
 					mav.addObject("cri", cri);									// cri 객체로 page와 amount값 가지고 다니기
 					
