@@ -4,14 +4,15 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+import com.edu.java.dto.UserDto;
+import com.edu.java.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edu.java.dao.UserDao;
-import com.edu.java.dto.UserDto;
 
 @Service
-public class UserService {
+public class UserService implements UserMapper {
 	
 	@Autowired
 	UserDao userDao;
@@ -27,7 +28,22 @@ public class UserService {
 	public int idCheck(String user_id) throws Exception {
 		return userDao.idCheck(user_id);
 	}
-	
+
+	@Override
+	public void inputUser(UserDto dto) throws Exception {
+
+	}
+
+	@Override
+	public void modifyUser(UserDto dto) throws Exception {
+
+	}
+
+	@Override
+	public void deleteUser(UserDto dto) throws Exception {
+
+	}
+
 	/*
 	 * public void memberRegist(UserDto dto) throws Exception {
 	 * userDao.memberRegist(dto); }
