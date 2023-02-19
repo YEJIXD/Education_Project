@@ -6,16 +6,15 @@ import java.util.Random;
 import javax.inject.Inject;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.edu.java.dto.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,15 +22,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.java.CmmService;
-import com.edu.java.biz.MemberBiz;
-import com.edu.java.dto.MemberDto;
+import com.edu.java.mapper.UserMapper;
 
 @Controller
-public class MemberController {
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+public class UserController {
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Inject
-	MemberBiz memberBiz;
+	UserMapper memberBiz;
 	
 	@Autowired
 	private JavaMailSender mailSender;
@@ -39,36 +37,28 @@ public class MemberController {
 	@Autowired
 	private CmmService cmmservice;
 	
-	// 회원가입
-	@RequestMapping("/registForm.do")
-	public String registForm() throws Exception {
-		logger.info("regist Form page");
+	@RequestMapping("/registForm")
+	public String registForm() {
 		return "/login/registForm";
 	}
 	
-	// 회원가입 완료
-	@RequestMapping(value="/registRes.do", method=RequestMethod.POST)
-	public ModelAndView registMember(MemberDto dto) throws Exception{
+	@RequestMapping(value="/registRes", method=RequestMethod.POST)
+	public ModelAndView registMember(UserDto dto) throws Exception{
 		logger.info("regist Result");
 		ModelAndView mav = new ModelAndView("jsonView");
-		
-		memberBiz.memberRegist(dto);
+
+		memberBiz.inputUser(dto);
 		return new ModelAndView("../../index");
 	}
 	
-	// id 중복 체크
 	@ResponseBody
-	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
+	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
 	public int idCheck(String user_id) throws Exception{
-		logger.info("user_ID : " + user_id);
-		
-		int result = memberBiz.idCheck(user_id);
-		return result;
+		return memberBiz.idCheck(user_id);
 	}
 	
-	// 이메일 인증
 	@ResponseBody
-	@RequestMapping(value="/emailCheck.do", method=RequestMethod.GET)
+	@RequestMapping(value="/emailCheck", method=RequestMethod.GET)
 	public String mailCheckGET(String user_email) throws Exception{
 		// 뷰에서 넘어온 데이터 확인
 		logger.info("이메일 데이터 전송 확인");
@@ -104,39 +94,30 @@ public class MemberController {
 	    return num;
 	}
 	
-	
-	// 로그인 페이지
-	@RequestMapping("/loginForm.do")
+	@RequestMapping("/loginForm")
 	public String login() {
-		logger.info("login Form");
 		return "login/loginForm";
 	}
 	
-	
-	// 로그인
 	@ResponseBody
-	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
+	@RequestMapping(value="/loginCheck", method=RequestMethod.POST)
 	public ModelAndView loginCheck(@RequestBody String param ,HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView("jsonView");
-
-		HashMap <String , Object> map = cmmservice.jsonStringToHashMap(param);
-		HashMap <String, Object> resultmap = memberBiz.loginCheck(map);
+		HashMap <String, Object> resultMap = memberBiz.loginCheck(cmmservice.jsonStringToHashMap(param));
 		
-		if(!resultmap.isEmpty()) {
-			session.setAttribute("USER", resultmap);
+		if(!resultMap.isEmpty()) {
+			session.setAttribute("USER", resultMap);
 		}
-		mav.addObject("result", resultmap);
+		mav.addObject("result", resultMap);
 
 		return mav;
 	}
 	
-	
-	//로그아웃
-	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public ModelAndView logout(HttpSession session) throws Exception {	
-		memberBiz.logout(session);
 		ModelAndView mav = new ModelAndView();
-		
+		memberBiz.logout(session);
+
 		mav.setViewName("../../index");
 		mav.addObject("msg", "logout");
 		
@@ -153,19 +134,17 @@ public class MemberController {
 		}
 	}
 	
-	//회원정보 수정
-	@RequestMapping(value="/memberUpdate.do", method=RequestMethod.POST)
-	public String memberUpdate(MemberDto dto, HttpSession session) throws Exception{
-		memberBiz.memberUpdate(dto);
+	@RequestMapping(value="/modifyUser", method=RequestMethod.POST)
+	public String modifyUser(UserDto dto, HttpSession session) throws Exception{
+		memberBiz.modifyUser(dto);
 		session.invalidate();
 			
 		return "../../index"; 
 	}
 		  
-	//회원 비활성화
-	@RequestMapping(value="/memberDelete.do", method=RequestMethod.GET)
-	public String memberDelete(MemberDto dto, HttpSession session) throws Exception{
-		memberBiz.memberDelete(dto);
+	@RequestMapping(value="/deleteUser", method=RequestMethod.GET)
+	public String deleteUser(UserDto dto, HttpSession session) throws Exception{
+		memberBiz.deleteUser(dto);
 		session.invalidate();
 			
 		return "../../index";
