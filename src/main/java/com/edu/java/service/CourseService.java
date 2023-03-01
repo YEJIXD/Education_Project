@@ -1,10 +1,11 @@
-package com.edu.java.biz;
+package com.edu.java.service;
 
 import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import com.edu.java.mapper.CourseBiz;
 import org.springframework.stereotype.Service;
 
 import com.edu.java.dao.CourseDao;
@@ -12,7 +13,7 @@ import com.edu.java.dto.CourseDto;
 import com.edu.java.dto.PageDto;
 
 @Service
-public class CourseBizImpl implements CourseBiz{
+public class CourseService implements CourseBiz {
 	@Inject
 	CourseDao courseDao;
 	
