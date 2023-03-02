@@ -16,10 +16,10 @@ public interface AdminDao {
 	int newReviewCount();
 
 	List<NoticeDto> noticeList();
-	NoticeDto selectNotice(int noti_no);
+	NoticeDto selectNotice(int notice_seq);
 	void inputNotice(NoticeDto dto);
 	void modifyNotice(NoticeDto dto);
-	void deleteNotice(int noti_no);
+	void deleteNotice(int notice_seq);
 
 	List<QnaDto> qnaList();
 	QnaDto selectQna(int q_no);
