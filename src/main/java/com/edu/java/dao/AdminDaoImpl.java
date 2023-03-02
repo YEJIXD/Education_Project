@@ -1,8 +1,8 @@
 package com.edu.java.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.edu.java.dto.*;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,100 +18,43 @@ public class AdminDaoImpl implements AdminDao{
 
 	@Override
 	public int userCount() {
-		int count = 0;
-		
-		try {
-			count = sqlSession.selectOne(NAMESPACE + "adminUserCount");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return count;
+		return sqlSession.selectOne(NAMESPACE + "adminUserCount");
 	}
 
 	@Override
 	public int newUserCount() {
-		int count = 0;
-		
-		try {
-			count = sqlSession.selectOne(NAMESPACE + "newAdminUserCount");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return count;
+		return sqlSession.selectOne(NAMESPACE + "newAdminUserCount");
 	}
 
 	@Override
 	public int cancelCount() {
-		int count = 0;
-		
-		try {
-			count = sqlSession.selectOne(NAMESPACE + "adminCancleCount");
-		} catch (Exception e) {
-			System.out.println("[error] : admin cancle Count");
-			e.printStackTrace();
-		}
-		return count;
+		return sqlSession.selectOne(NAMESPACE + "adminCancleCount");
 	}
 
 	@Override
 	public int newCancelCount() {
-		int count = 0;
-		
-		try {
-			count = sqlSession.selectOne(NAMESPACE + "newAdminCancleCount");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return count;
+		return sqlSession.selectOne(NAMESPACE + "newAdminCancleCount");
 	}
 
 	@Override
 	public int reviewCount() {
-		int count = 0;
-		
-		try {
-			count = sqlSession.selectOne(NAMESPACE + "adminReviewCount");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return count;
+		return sqlSession.selectOne(NAMESPACE + "adminReviewCount");
 	}
 
 	@Override
 	public int newReviewCount() {
-		int count = 0;
-		
-		try {
-			count = sqlSession.selectOne(NAMESPACE + "newAdminReviewCount");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return count;
+		return sqlSession.selectOne(NAMESPACE + "newAdminReviewCount");
 	}
 	
 	
 	@Override
 	public List<NoticeDto> noticeList() {
-		List<NoticeDto> noticeList = new ArrayList<>();
-		
-		try {
-			noticeList = sqlSession.selectList(NAMESPACE + "noticeList");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return noticeList;
+		return sqlSession.selectList(NAMESPACE + "noticeList");
 	}
 
 	@Override
 	public NoticeDto selectNotice(int noti_no) {
-		NoticeDto dto = null;
-		
-		try {
-			dto = sqlSession.selectOne(NAMESPACE+"noticeDetail", noti_no);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return dto;
+		return sqlSession.selectOne(NAMESPACE+"noticeDetail", noti_no);
 	}
 
 	@Override
@@ -143,26 +86,12 @@ public class AdminDaoImpl implements AdminDao{
 	
 	@Override
 	public List<QnaDto> qnaList() {
-		List<QnaDto> qnaList = new ArrayList<>();
-		
-		try {
-			qnaList = sqlSession.selectList(NAMESPACE + "qnaList");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return qnaList;
+		return sqlSession.selectList(NAMESPACE + "qnaList");
 	}
 	
 	@Override 
 	public QnaDto selectQna(int q_no) {
-		QnaDto dto = null;
-		
-		try {
-			dto = sqlSession.selectOne(NAMESPACE + "selectQna", q_no);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return dto;
+		return sqlSession.selectOne(NAMESPACE + "selectQna", q_no);
 	}
 
 	@Override
@@ -176,26 +105,12 @@ public class AdminDaoImpl implements AdminDao{
 
 	@Override
 	public List<FaqDto> faqList() {
-		List<FaqDto> faqList = new ArrayList<>();
-		
-		try {
-			faqList = sqlSession.selectList(NAMESPACE + "faqList");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return faqList;
+		return sqlSession.selectList(NAMESPACE + "faqList");
 	}
 	
 	@Override
 	public FaqDto selectFaq(int faq_no) {
-		FaqDto dto = null;
-		
-		try {
-			dto = sqlSession.selectOne(NAMESPACE + "selectFaq", faq_no);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return dto;
+		return sqlSession.selectOne(NAMESPACE + "selectFaq", faq_no);
 	}
 
 	@Override
@@ -227,38 +142,17 @@ public class AdminDaoImpl implements AdminDao{
 	
 	@Override
 	public List<FaqDto> hashTagSearch(String faq_category){
-		List<FaqDto> list = null;
-		
-		try {
-			list = sqlSession.selectList(NAMESPACE+"hashTagSearch", faq_category);
-		} catch (Exception e) {
-			System.out.println("hashTagSearch Dao Impl error");
-			e.printStackTrace();
-		}
-		return list;
+		return sqlSession.selectList(NAMESPACE+"hashTagSearch", faq_category);
 	}
 	
 	@Override
-	public List<Map<String, Object>> courseList(PageDto dto, Criteria cri) {
-		List<Map<String, Object>> courseList = new ArrayList<>();
-		try {
-			courseList = sqlSession.selectList(NAMESPACE + "courseList", dto);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return courseList;
+	public List<HashMap<String, Object>> courseList(PageDto dto, Criteria cri) {
+		return sqlSession.selectList(NAMESPACE + "courseList", dto);
 	}
 	
 	 @Override
-	 public int getTotal(String param) { 
-		 int total = 0;
-	  
-		 try { 
-			 total = sqlSession.selectOne(NAMESPACE + "getTotal", param);
-		 } catch (Exception e) {
-			 e.printStackTrace();
-		 }
-		 return total; 
+	 public int getTotal(String param) {
+		 return sqlSession.selectOne(NAMESPACE + "getTotal", param);
 	}
 	 
 //	 @Override
