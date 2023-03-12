@@ -34,7 +34,7 @@
 				} */
 	
 				/* $.ajax({
-					url:"/appInsert.do",
+					url:"/appInsert",
 					type:"post",
 					contentType: "application/json",
 					data:JSON.stringify(param),
@@ -42,7 +42,7 @@
 					success:function(result){
 							if(result.resultCode == 0){
 								alert(result.msg);
-								$(location).attr("href", "<c:url value='courseList.do' />");
+								$(location).attr("href", "<c:url value='courseList' />");
 							}else{
 								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
 							}
@@ -53,8 +53,8 @@
 				}); */
 				function appChk(){
 					alert('선택하신 교육을 신청하시겠습니까?');
-					location.href="courseList.do";
-					//location.href="appForm.do?c_no=${dto.c_no}&page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}";
+					location.href="courseList";
+					//location.href="appForm?c_no=${dto.c_no}&page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}";
 				}
 			}); 
 			
@@ -64,7 +64,7 @@
 				let amount = $("#amount").text();
 				let keyword = $("#keyword").text();
 				
-				let listUrl = "courseList.do?page=${cri.page}"
+				let listUrl = "courseList?page=${cri.page}"
 							+ "&amount=${cri.amount}"
 							+ "&keyword=${pageDto.keyword}";
 						

@@ -20,7 +20,7 @@
 	<div class="container">
 		<h3>강사 등록</h3><br><br>
 		<div class="content">
-			<form action="adminNoticeInsertRes.do" method="POST" enctype="multipart/form-data">
+			<form action="adminNoticeInsertRes" method="POST" enctype="multipart/form-data">
 				<table class="table insertTable">
 					<tr>
 						<th>이 름</th>
@@ -64,7 +64,7 @@
 				
 				<div class="inpBtn">
 					<input type="submit" class="subBtn" id="btnInsert" value="등 록">
-					<input type="button" class="antBtn" onclick="location.href='adminNoticeList.do'" value="취 소">
+					<input type="button" class="antBtn" onclick="location.href='adminNoticeList'" value="취 소">
 				</div>
 				
 			</form>
@@ -99,7 +99,7 @@
 		let data = new FormData(document.getElementById("f"));
 	
 		$.ajax({
-			url:"/admin/adminNoticeInsert.do",
+			url:"/admin/adminNoticeInsert",
 			type:"post",
 			processData:false,
 			contentType:false,

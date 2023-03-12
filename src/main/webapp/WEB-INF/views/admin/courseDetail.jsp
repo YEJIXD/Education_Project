@@ -83,7 +83,7 @@
 			</table>
 				
 			<div class="inpBtn">
-				<input type="button" class="subBtn" id="update" onclick="location.href='adminCourseUpdate.do?c_no=${dto.c_no}&page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}'" value="수 정">
+				<input type="button" class="subBtn" id="update" onclick="location.href='adminCourseUpdate?c_no=${dto.c_no}&page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}'" value="수 정">
 				<input type="button" class="subBtn" id="delete" value="삭 제">
 				<input type="button" class="antBtn" id="list" value="목 록">
 			</div>
@@ -98,7 +98,7 @@
 	<script type="text/javascript">
 		function deleteChk(){
 			alert('선택하신 글을 삭제하시겠습니까?');
-			location.href="adminCourseList.do";
+			location.href="adminCourseList";
 		}
 		
 		$(document).ready(function(){
@@ -107,7 +107,7 @@
 				const param = { c_no : c_no }
 				
 				$.ajax({
-					url:"/adminCourseDelete.do",
+					url:"/adminCourseDelete",
 					type:"post",
 					contentType: "application/json",
 					data:JSON.stringify(param),
@@ -115,7 +115,7 @@
 					success:function(result){
 							if(result.resultCode == 0){
 								alert(result.msg);
-								$(location).attr("href", "<c:url value='adminCourseList.do?page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}' />");
+								$(location).attr("href", "<c:url value='adminCourseList?page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}' />");
 							}else{
 								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
 							}
@@ -132,7 +132,7 @@
 				let amount = $("#amount").text();
 				let keyword = $("#keyword").text();
 				
-				let listUrl = "adminCourseList.do?page=${cri.page}"
+				let listUrl = "adminCourseList?page=${cri.page}"
 							+ "&amount=${cri.amount}"
 							+ "&keyword=${pageDto.keyword}";
 						

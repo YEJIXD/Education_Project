@@ -26,7 +26,7 @@
 			let form= $("<form></form>");
 			form.attr("name", "SearchForm");
 			form.attr("method", "get");
-			form.attr("action", "<c:url value='/adminCourseList.do'/>");
+			form.attr("action", "<c:url value='/adminCourseList'/>");
 			
 			form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
 			form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));
@@ -48,7 +48,7 @@
 			let form= $("<form></form>");
 			form.attr("name", "courseDetail");
 			form.attr("method", "get");
-			form.attr("action", "<c:url value='/courseDetail.do'/>");
+			form.attr("action", "<c:url value='/courseDetail'/>");
 			
 			form.append($("<input />", {type: "hidden", name: "keyword", value: keyword}));
 			form.append($("<input />", {type: "hidden", name: "searchType", value: searchType}));

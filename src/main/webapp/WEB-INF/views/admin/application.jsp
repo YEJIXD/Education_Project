@@ -57,8 +57,8 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:black;"><i class="fas fa-user fa-fw" style="color:black;"></i></a>
 	                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-	                        <li><a class="dropdown-item" href="logout.do" onclick="logoutCheck();">LogOut</a></li>
-	                        <li><a class="dropdown-item" href="main.do">Main</a></li>
+	                        <li><a class="dropdown-item" href="logout" onclick="logoutCheck();">LogOut</a></li>
+	                        <li><a class="dropdown-item" href="main">Main</a></li>
 	                    </ul>
 	                </li>
 	            </ul>
@@ -74,14 +74,14 @@
                                 <br>
                                 <a href="#" style="text-decoration:none; color: black; text-align: center;">${member.user_name} 님<br>반갑습니다 : )</a>
                             </div>
-                            <a class="nav-link home" href="adminMain.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-home" aria-hidden="true"></i></div><span>HOME</span></a>
-                            <a class="nav-link notice" href="adminNoticeList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-flag" aria-hidden="true"></i></div><span>Notice</span></a>
-                            <a class="nav-link qna" href="adminQnaList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Q n A</span></a>
-                            <a class="nav-link faq" href="adminFaqList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-bars" aria-hidden="true"></i></div><span>F A Q</span></a>
-                            <a class="nav-link course" href="adminCourseList.do" style="color: #9966FF;"><div class="sb-nav-link-icon"><i class="fa fa-book" aria-hidden="true"></i></div><span>Course</span></a>
-                            <a class="nav-link teacher" href="adminTeacherList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div><span>Teacher</span></a>
-                        	<a class="nav-link member" href="adminMemberList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Member</span></a>
-                            <a class="nav-link application" href="adminAppList.do" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-shoe-prints" aria-hidden="true"></i></div><span>Application</span></a>
+                            <a class="nav-link home" href="adminMain" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-home" aria-hidden="true"></i></div><span>HOME</span></a>
+                            <a class="nav-link notice" href="adminNoticeList" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-flag" aria-hidden="true"></i></div><span>Notice</span></a>
+                            <a class="nav-link qna" href="adminQnaList" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Q n A</span></a>
+                            <a class="nav-link faq" href="adminFaqList" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-bars" aria-hidden="true"></i></div><span>F A Q</span></a>
+                            <a class="nav-link course" href="adminCourseList" style="color: #9966FF;"><div class="sb-nav-link-icon"><i class="fa fa-book" aria-hidden="true"></i></div><span>Course</span></a>
+                            <a class="nav-link teacher" href="adminTeacherList" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div><span>Teacher</span></a>
+                        	<a class="nav-link member" href="adminMemberList" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-user" aria-hidden="true"></i></div><span>Member</span></a>
+                            <a class="nav-link application" href="adminAppList" style="color: black;"><div class="sb-nav-link-icon"><i class="fa fa-shoe-prints" aria-hidden="true"></i></div><span>Application</span></a>
                         </div>
                     </div>
                 </nav>
@@ -95,7 +95,7 @@
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table me-1"></i>강좌 목록</div>
                             <div class="card-body">
-                            	<form action="courseInsert.do" method="GET">
+                            	<form action="courseInsert" method="GET">
 	                                <table id="datatablesSimple" class="table table-hover">
 	                                    <thead>
 	                                        <tr>
@@ -112,7 +112,7 @@
 				                            	<tr>
 				                                	<td style="vertical-align:middle;"><input type="checkbox" name="RowCheck[]" value="${dto.q_no}"></td>
 				                                    <td style="vertical-align:middle;">${dto.q_no}</td>
-				                                    <td style="vertical-align:middle;"><a href="event-detail.do?event_no=${dto.q_no}" style="text-decoration:none; color:#9966FF; font-weight:bold;">${dto.q_title}</a></td>
+				                                    <td style="vertical-align:middle;"><a href="event-detail?event_no=${dto.q_no}" style="text-decoration:none; color:#9966FF; font-weight:bold;">${dto.q_title}</a></td>
 				                                    <td style="vertical-align:middle;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.q_date}"/></td>
 				                                    <td style="vertical-align:middle;"></td>
 				                                    <td style="vertical-align:middle;"></td>
@@ -140,7 +140,7 @@
 		<script type="text/javascript">
 			function logoutCheck(){
 				alert('로그아웃하시겠습니까?');
-				location.href="logout.do";
+				location.href="logout";
 			}
 		</script>
     </body>

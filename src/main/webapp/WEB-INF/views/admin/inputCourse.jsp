@@ -118,7 +118,7 @@
 			
 			<div class="inpBtn">
 				<input type="button" class="subBtn" id="insert" value="등 록">
-				<input type="button" class="antBtn" onclick="location.href='adminCourseList.do'" value="취 소">
+				<input type="button" class="antBtn" onclick="location.href='adminCourseList'" value="취 소">
 			</div>
 		</div>
 	</div>
@@ -165,7 +165,7 @@
 				}
 
 				$.ajax({
-					url:"/courseInsertRes.do",
+					url:"/courseInsertRes",
 					type:"post",
 					contentType: "application/json",
 					data:JSON.stringify(param),
@@ -173,10 +173,10 @@
 					success:function(result){
 							if(result.resultCode == 0){
 								alert(result.msg);
-								$(location).attr("href", "<c:url value='adminCourseList.do' />");
+								$(location).attr("href", "<c:url value='adminCourseList' />");
 							}else{
 								alert("로그인 후 이용가능합니다 :::: ErrorCode : " + result.resultCode);
-								$(location).attr("href", "<c:url value='loginForm.do' />");
+								$(location).attr("href", "<c:url value='loginForm' />");
 							}
 					},
 					error : function(result) {

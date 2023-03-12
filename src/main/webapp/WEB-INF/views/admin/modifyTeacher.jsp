@@ -20,7 +20,7 @@
 	<div class="container">
 		<h3>강사 등록</h3><br><br>
 		<div class="content">
-			<form action="adminNoticeInsertRes.do" method="POST" enctype="multipart/form-data">
+			<form action="adminNoticeInsertRes" method="POST" enctype="multipart/form-data">
 				<table class="table insertTable">
 					<tr>
 						<th>이 름</th>

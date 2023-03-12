@@ -20,7 +20,7 @@
 	<div class="container">
 		<h3>F A Q 등록</h3><br><br>
 		<div class="content">
-			<form action="adminFaqInsertRes.do" method="POST">
+			<form action="adminFaqInsertRes" method="POST">
 				<table class="table insertTable">
 					<tr>
 						<th>제 목</th>
@@ -56,7 +56,7 @@
 				
 				<div class="inpBtn">
 					<input type="submit" class="subBtn" value="등 록">
-					<input type="button" class="antBtn" onclick="location.href='adminFaqList.do'" value="취 소">
+					<input type="button" class="antBtn" onclick="location.href='adminFaqList'" value="취 소">
 				</div>
 			</form>
 		</div>

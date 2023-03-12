@@ -41,7 +41,7 @@
 				</table>
 				<div class="inpBtn">
 					<input type="submit" class="subBtn" value="완 료">
-					<input type="button" class="antBtn" onclick="location.href='courseList.do'" value="목 록">
+					<input type="button" class="antBtn" onclick="location.href='courseList'" value="목 록">
 				</div>
 			</form>
 		</div>

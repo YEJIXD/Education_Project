@@ -22,9 +22,9 @@
 	<!-- 사이드 메뉴 -->
 	<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none; background-color:#B0E0E6;" id="mySidebar">
 	  <button class="w3-bar-item w3-button w3-large" onclick="w3_close()"><b>&times;</b></button>
-	  <a href="myStudy.do" class="w3-bar-item w3-button">수강 교육</a>
-	  <a href="review.do" class="w3-bar-item w3-button">수강 후기</a>
-	  <a href="pwConfirm.do" class="w3-bar-item w3-button">정보 수정</a>
+	  <a href="myStudy" class="w3-bar-item w3-button">수강 교육</a>
+	  <a href="review" class="w3-bar-item w3-button">수강 후기</a>
+	  <a href="pwConfirm" class="w3-bar-item w3-button">정보 수정</a>
 	</div>
 
 		<div id="main">

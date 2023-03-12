@@ -20,7 +20,7 @@
 	<div class="container">
 		<h3>Q n A 답변</h3><br><br>
 		<div class="content">
-			<form action="qnaInsert.do" method="POST" enctype="multipart/form-data">
+			<form action="qnaInsert" method="POST" enctype="multipart/form-data">
 				<table class="table insertTable">
 					<tr>
 						<th>제 목</th>
@@ -43,7 +43,7 @@
 				
 				<div class="inpBtn">
 					<input type="submit" class="subBtn" value="등 록">
-					<input type="button" class="antBtn" onclick="location.href='qnaList.do'" value="취 소">
+					<input type="button" class="antBtn" onclick="location.href='qnaList'" value="취 소">
 				</div>
 				
 			</form>

@@ -24,7 +24,7 @@
 		}
 		
 		$.ajax({
-			url:"idCheck.do",
+			url:"idCheck",
 			type:"POST",
 			dataType:"JSON",
 			data:{"user_id" : $("#user_id").val()},
@@ -95,7 +95,7 @@
 
 		 $.ajax({
 		 	type:"GET",
-		 	url:"emailCheck.do?user_email=" + user_email,
+		 	url:"emailCheck?user_email=" + user_email,
 		 	success:function(data){
 		 		if(user_email != ''){
 		 			$("#email_chk_blank").hide();
@@ -141,7 +141,7 @@
 	//null°ª ¹æÁö
 	$(document).ready(function(){
 		$(".cancel").on("click", function(){
-			location.href="/main.do";
+			location.href="/main";
 		})
 		
 		$("#submit").on("click", function(){
@@ -217,7 +217,7 @@
             </div>
             
             <div class="regist_form">
-            <form action="registRes.do" method="post">
+            <form action="registRes" method="post">
                 <table style="width:550px">
                     <tr>
                         <td width="150px" /> <td width="300px" />

@@ -182,7 +182,7 @@
 				}
 
 				$.ajax({
-					url:"/courseUpdateRes.do",
+					url:"/courseUpdateRes",
 					type:"post",
 					contentType: "application/json",
 					data:JSON.stringify(param),
@@ -190,7 +190,7 @@
 					success:function(result){
 							if(result.resultCode == 0){
 								alert(result.msg);
-								$(location).attr("href", "<c:url value='adminCourseDetail.do?c_no=${dto.c_no}&page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}' />");
+								$(location).attr("href", "<c:url value='adminCourseDetail?c_no=${dto.c_no}&page=${cri.page}&amount=${cri.amount}&keyword=${pageDto.keyword}' />");
 							}else{
 								alert("관리자에게 문의해 주세요 :::: ErrorCode : " + result.resultCode);
 							}
