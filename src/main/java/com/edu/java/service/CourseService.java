@@ -23,8 +23,8 @@ public class CourseService implements CourseBiz {
 	}
 	
 	@Override
-	public CourseDto selectOne(int c_no) {
-		return courseDao.selectOne(c_no);
+	public CourseDto selectOne(int course_no) {
+		return courseDao.selectOne(course_no);
 	}
 
 	@Override

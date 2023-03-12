@@ -125,7 +125,7 @@ public class UserController {
 	}
 
 	// login 필요한 페이지
-	@RequestMapping("/needLogin.do")
+	@RequestMapping("/needLogin")
 	public String needLoginPage(HttpSession session) {
 		if(session.getAttribute("loginCheck") != null) {
 			return "needLogin";

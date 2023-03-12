@@ -101,7 +101,7 @@ public class CourseController {
 	}
 
 	/*
-	 * @RequestMapping("/courseUpdateRes.do") public String
+	 * @RequestMapping("/courseUpdateRes") public String
 	 * courseUpdateRes(CourseDto dto) throws Exception{
 	 * logger.info("course Update Res"); courseBiz.courseUpdateRes(dto);
 	 * 
